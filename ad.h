@@ -66,7 +66,9 @@ namespace autodiff {
 
     index_t advance(int i = 1) {
       //std::cout << "advancing by " << i << " from " << head << std::endl;
-      return head += i;
+      auto old = head;
+      head += i;
+      return old;
     }
   };
 
