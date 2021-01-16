@@ -7,6 +7,7 @@
 // debug
 #include <dlfcn.h>
 #include <iostream>
+#include "type.h"
 
 namespace autodiff {
   template <typename T, typename Act> struct tape;
@@ -43,7 +44,28 @@ namespace autodiff {
         (*e)(d,i,a,b);
     }
 
+    void propagate_verbose(Act a) {
+      using namespace std;
+      index_t b = head;
+      T const * d = data.data()+data.size(); // .cend();
+      index_t const * i = indices.data() + indices.size(); // indices.cend();
+      Dl_info info;
+      for (auto e = entries.rbegin(); e != entries.rend(); ++e) {
+        bool ok = dladdr(reinterpret_cast<void *>(*e),&info) != 0;
+        assert(ok);
+        T const * od = d;
+        index_t const * oi = i;
+        index_t ob = b;
+        cout << demangle(info.dli_sname) << endl;
+        (*e)(d,i,a,b);
+        cout << (ob-b) << " activation" << (ob-b == 1 ? "" : "s") << " starting at " << b << endl;
+        if (d != od) { cout << "data: "; copy(d, od, ostream_iterator<T>(cout, " ")); cout << endl; }
+        if (i != oi) { cout << "indices: "; copy(i, oi, ostream_iterator<T>(cout, " ")); cout << endl; }
+      }
+    }
+
     index_t advance(int i = 1) {
+      //std::cout << "advancing by " << i << " from " << head << std::endl;
       return head += i;
     }
   };
@@ -66,12 +88,17 @@ namespace autodiff {
     // c++17 fold expression
     template <typename T, typename Act, T ... Ks>
     void static_linear(T const * & e, index_t const * & i, Act a, index_t & b) {
+      using namespace std;
+
       index_t lb = --b;
       constexpr index_t di = sizeof...(Ks);
+      //cout << "di " << di << endl;
       index_t const * j = i -= di;
       constexpr T ts[di] = { Ks ... };
-      for (const T & t : ts)
+
+      for (const T & t : ts) {
         a[*j++] += t * a[lb];
+      }
     }
 
     template <typename T, typename Act, int N>
@@ -98,21 +125,25 @@ namespace autodiff {
     T primal;
 
     template <typename ... Args>
-    void push_index(Args ... is) const {
+    void push_index(Args ... is) const noexcept {
+      assert(tape != nullptr);
       (tape->indices.emplace_back(is),...);
     }
 
     template <typename ... Args>
-    void push_entry(Args ... is) const {
+    void push_entry(Args ... is) const noexcept {
+      assert(tape != nullptr);
       (tape->entries.emplace_back(is),...);
     }
 
     template <typename ... Args>
-    void push_data(Args ... is) const {
+    void push_data(Args ... is) const noexcept {
+      assert(tape != nullptr);
       (tape->data.emplace_back(is),...);
     }
 
-    index_t advance(int i = 1) const {
+    index_t advance(int i = 1) const noexcept {
+      assert(tape != nullptr);
       return tape->advance(i);
     }
 
@@ -176,7 +207,7 @@ namespace autodiff {
       return ad(p, tape, advance());
     }
 
-    const ad & operator *= (const T & rhs) const noexcept {
+    ad & operator *= (const T & rhs) const noexcept {
       primal *= rhs;
       if (!is_const()) {
         push_index(index);
@@ -190,19 +221,22 @@ namespace autodiff {
     ad operator + (const T & rhs) const noexcept { return ad(primal + rhs, tape, index); }
     ad operator - (const T & rhs) const noexcept { return ad(primal - rhs, tape, index); }
 
-    const ad & operator += (const T & rhs) noexcept { primal += rhs; return *this; }
-    const ad & operator -= (const T & rhs) noexcept { primal -= rhs; return *this; }
+    ad & operator += (const T & rhs) noexcept { primal += rhs; return *this; }
+    ad & operator -= (const T & rhs) noexcept { primal -= rhs; return *this; }
 
     ad operator + (const ad & rhs) const noexcept {
       auto p = primal + rhs.primal;
       if (is_const()) return ad(p, rhs.tape, rhs.index);
       if (rhs.is_const()) return ad(p, tape, index);
+      // both sides non-constant
       push_index(index, rhs.index);
       push_entry(&detail::static_linear<T,Act,1,1>);
-      return ad(p, tape, advance());
+      index_t new_index = advance();
+      std::cout << index << ", " << rhs.index << " -> " << new_index << std::endl;
+      return ad(p, tape, new_index);
     }
 
-    const ad & operator -= (const ad & rhs) noexcept {
+    ad & operator -= (const ad & rhs) noexcept {
       primal -= rhs.primal;
       if (!rhs.is_const())  {
         if (is_const()) {
@@ -219,13 +253,13 @@ namespace autodiff {
       return *this;
     }
 
-    const ad & operator - (const ad & rhs) noexcept {
+    ad operator - (const ad & rhs) const noexcept {
       auto p = primal - rhs.primal;
       if (rhs.is_const()) return ad(p, tape, index);
       if (is_const()) {
         rhs.push_index(index);
         rhs.push_entry(&detail::static_linear<T,Act,-1>);
-        return ad(p, rhs.tape, rhs.tape.advance());
+        return ad(p, rhs.tape, rhs.advance());
       }
       // non-constant - non-constant
       assert(tape == rhs.tape);
@@ -264,19 +298,15 @@ namespace autodiff {
     copy(v.begin(), v.end(), ostream_iterator<T>(os, "\n"));
     return os;
   }
-
 }
 
-template<typename ... Args>
-std::ostream &operator <<(std::ostream &os, void (*n)(Args...)) {
-  return os << "WTFBBQ";
+template<typename T, typename Act>
+std::ostream &operator <<(std::ostream &os, void (*z)(T const * & e, autodiff::index_t const * & i, Act a, autodiff::index_t & b)) {
   Dl_info info;
-  if (dladdr(n, &info)) {
-    os << reinterpret_cast<intptr_t>(n) << " = " << info.dli_fname << ":" << info.dli_sname;
-    return os;
+  if (dladdr(reinterpret_cast<const void *>(&z), &info)) {
+    return os << info.dli_sname;
   } else {
-    os << reinterpret_cast<intptr_t>(n);
-    return os;
+    return os << "NO"; // reinterpret_cast<intptr_t>(z);
   }
 }
 
@@ -285,15 +315,11 @@ namespace autodiff {
   std::tuple<T,T> diff(F f, T a) {
     tape<T> t(1); // one entry
     ad<T> result = f(ad<T>(a,&t,0));
-
-    std::cout << "data: " << t.data.size() << std::endl << t.data << std::endl;
-    std::cout << "entries: " << t.entries.size() << std::endl << t.entries << std::endl;
-    std::cout << "indices: " << t.indices.size() << std::endl << t.indices << std::endl;
-    std::cout << "head: " << t.head << std::endl;
-
-    std::unique_ptr<T[]> activations (new T[t.head]);
-    activations[t.head-1] = 1;
-    t.propagate(activations.get());
+    int N = t.head;
+    std::unique_ptr<T[]> activations (new T[N]);
+    for (int i=0;i<N;++i) activations[i] = 0;
+    if (N != 0) activations[N-1] = 1;
+    t.propagate_verbose(activations.get());
     return { result.primal, activations[0] };
   }
 } // namespace autodiff
