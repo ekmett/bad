@@ -157,12 +157,11 @@ namespace bad {
       return static_cast<void *>(p);
     }
 
-    // details that needed record to be filled in
     template <typename T, typename Act>
     segment<T, Act>::~segment() noexcept {
       if (current != nullptr) {
         record<T, Act> * p = current;
-        // this builds up a stack frame for each segment. we could do better, but meh.
+        // this avoids building up a stack frame for each segment, but yeesh.
         while (p != nullptr) {
           record<T, Act> * np = p->next();
           link<T, Act> * link = p->as_link();
@@ -180,9 +179,7 @@ namespace bad {
           p = np;
         }
       }
-      if (memory != nullptr) {
-        std::free(memory); // was created with std::aligned_alloc
-      }
+      if (memory != nullptr) std::free(memory);
       current = nullptr;
       memory = nullptr;
     }

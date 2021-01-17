@@ -9,6 +9,6 @@ target_link_libraries(t ${CMAKE_DL_LIBS})
 message(STATUS DL: ${CMAKE_DL_LIBS})
 set_target_properties(t PROPERTIES ENABLE_EXPORTS 1)
 
-add_executable(b b.cc tape.h abi.cc abi.h)
+add_executable(b b.cc tape.h shape.h abi.cc abi.h)
 target_link_libraries(b ${CMAKE_DL_LIBS})
 set_target_properties(t PROPERTIES ENABLE_EXPORTS 1)

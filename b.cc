@@ -1,7 +1,9 @@
 #include "tape.h"
+#include "shape.h"
 #include <iostream>
 #include <array>
 #include <tuple>
+
 
 using namespace bad;
 using namespace std;
@@ -28,6 +30,10 @@ struct complx : detail::static_propagator<1, complx, int> {
 // i have one off by one error and its infuriating.
 int main (int argc, char ** argv) {
   dl open;
+
+  cout << stride<2>(10,4,100) << endl;
+  cout << product(1.0,2) << endl;
+
   tape<int> t;
   for (int i=0;i<20;++i) {
     t.push<simple>();
