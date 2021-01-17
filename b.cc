@@ -13,10 +13,11 @@ struct simple : detail::static_propagator<5, simple, int> {
 int main (int argc, char ** argv) {
   dl open;
   tape<int> t;
-  t.push<simple>();
-  t.push<simple>();
+  for (int i=0;i<1000;++i)
+    t.push<simple>();
   for (auto & p : t)
     cout << p << endl;
+  cout << t.activations << endl;
 
   //auto result = diff([](auto x) { auto y = x*x; auto z = y*y; auto w = z*z; return w*w; }, 2);
   //std::cout << "It lives: " << std::get<0>(result) << ", " << std::get<1>(result) << std::endl;
