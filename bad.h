@@ -19,17 +19,8 @@ namespace autodiff {
 
     template <typename T, typename Act = T*> struct record;
 
-    // a segment represents a slab of memory that is allocated from internally. the current pointer
-    // is constantly decreased to make room until we run out of space.
-    // the last record in each segment is either a link or a terminator
-    // and owns the next segment
-    //
-    // a tape is a holder for the current segment as well as a cumulative total of 'activation records'
-    // which tells us how much memory to allocate to propagate activation during the backwards sweep
-    // of our automatic differentiation pass.
-    //
-    // TODO: minimum alignment
-    // TODO: allow for cuda memory allocation
+    // TODO: alignment
+    // TODO: cuda memory allocation
     // TODO: __host__ __device__ markers
     template <typename T, typename Act = T*> struct segment {
       using record_t = record<T,Act>;
@@ -321,7 +312,7 @@ namespace autodiff {
   } // namespace detail
 
   using std::swap;
-  // using detail::swap;
+  using detail::swap;
 } // namespace autodiff
 
 /*
