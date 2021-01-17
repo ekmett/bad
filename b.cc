@@ -1,28 +1,19 @@
 #include "tape.h"
 #include "shape.h"
+#include "bad.h"
 #include <iostream>
 #include <array>
 #include <tuple>
-
 
 using namespace bad;
 using namespace std;
 
 struct simple : detail::static_propagator<5, simple, int> {
-  simple() noexcept {
-
-  }
-  ~simple() noexcept override{
-  }
   inline void prop(act_t, index_t &) const noexcept {}
-  std::array<int,100> padding;
+  std::array<int,5000> padding;
 };
 
 struct complx : detail::static_propagator<1, complx, int> {
-  complx() noexcept {
-  }
-  ~complx() noexcept override{
-  }
   inline void prop(act_t, index_t &) const noexcept {}
   std::array<int,1000> padding;
 };
@@ -31,13 +22,17 @@ struct complx : detail::static_propagator<1, complx, int> {
 int main (int argc, char ** argv) {
   dl open;
 
-  cout << stride<2>(10,4,100) << endl;
-  cout << product(1.0,2) << endl;
+  cout << stride<0,int,7,5,3> << endl; // = 15
+  cout << stride<1,int,7,5,3> << endl; // = 3
+  cout << stride<2,int,7,5,3> << endl; // = 1
+
+  cout << stride<0,int,10,4,100> << endl;
+  cout << prod<int,1,2> << endl;
+  cout << nth<4,int,0,10,20,30,40,50,60>() << endl;
 
   tape<int> t;
-  for (int i=0;i<20;++i) {
+  for (int i=0;i<15;++i) {
     t.push<simple>();
-    t.push<complx>();
   }
   for (auto & p : t)
     cout << p << endl;

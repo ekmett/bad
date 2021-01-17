@@ -1,36 +1,61 @@
 #pragma once
 
 namespace bad {
-  // stride<0>(7,5,3) = 1
-  // stride<1>(7,5,3) = 7
-  // stride<2>(7,5,3) = 35
-  // stride<3>(7,5,3) = 105
+  template <typename T, T ... xs>
+  constexpr auto index();
 
-  template <int N, typename T, typename ... Ts>
-  constexpr T stride(T x, Ts ... xs) {
-    static_assert(N <= 1 + sizeof...(xs), "index out of bounds");
-    T args[] = { x, xs ... };
-    T acc = 1;
-    for (int i=0;i<N;++i) {
-      acc *= args[i];
-    }
-    return acc;
-  }
-  template <int N>
-  constexpr auto stride() {
-    static_assert(N==0, "index out of bounds");
-    return 1;
+  template <typename T, T ... xs>
+  constexpr auto prod = (1*...*xs);
+
+  template <typename T, T ... xs>
+  constexpr auto total = (0+...+xs);
+
+  namespace detail {
+    template <int N, typename T, T ... xs>
+    struct stride_;
+
+    template <typename T>
+    struct stride_<0,T> {
+      static constexpr T value() { return 1; }
+    };
+
+    template <int N, typename T, T x, T ... xs>
+    struct stride_<N,T,x,xs...> {
+      static constexpr T value() {
+        if constexpr (N == 0) {
+          return prod<T,xs...>;
+        } else {
+          return stride_<N-1,T,xs...>::value();
+        }
+      }
+      // stride_<N-1,T,xs...>::value;
+    };
   }
 
-  template <typename ... Ts>
-  constexpr auto product(Ts ... xs) {
-    return (1*...*xs);
+  // stride<0,int,7,5,3>() = 15
+  // stride<1,int,7,5,3>() = 3
+  // stride<2,int,7,5,3>() = 1
+
+  template <int N, typename T, T ... xs>
+  constexpr T stride = detail::stride_<N,T,xs...>::value();
+
+  template <int N, typename T, T ... xs>
+  constexpr T nth() {
+    static_assert(0 < N && N < sizeof...(xs), "index out of bounds");
+    constexpr T args[] {xs ...};
+    return args[N];
   }
 
-  template <typename ... Ts>
-  constexpr auto sum(Ts ... xs) {
-    return (0+...+xs);
-  }
+  // template <int N, typename T, typename ... Ts>
+  // constexpr auto nth(T x, Ts ... xs) {
+  //   T args[] = { x, xs ... };
+  //   if constexpr (N == 0) {
+  //     return T;
+  //   } else {
+  //     return nth()
+  //   }
+  // }
+
 
 
 }
