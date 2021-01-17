@@ -11,7 +11,7 @@
 #include <cstddef>
 #include <iostream>
 #include "abi.h"
-namespace autodiff {
+namespace bad {
 
   using diff_t = std::int32_t;
   using index_t = std::uint32_t;
@@ -183,7 +183,8 @@ namespace autodiff {
         static_cast<std::byte*>(aligned_alloc(record_alignment, pad_to_alignment(n))),
         pad_to_alignment(n)
     ) {
-      new(*this) terminator<T,Act>();
+      [[maybe_unused]] auto p = new(*this) terminator<T,Act>();
+      assert(is_aligned(p,record_alignment));
     } // alignas and pad to alignment
 
     template <typename T, typename Act = T*>
@@ -208,9 +209,11 @@ namespace autodiff {
         pad_to_alignment(n)
     ) {
       if (next.memory != nullptr) {
-        new(*this) link(std::move(next));
+        [[maybe_unused]] auto p = new(*this) link(std::move(next));
+        assert(is_aligned(p,record_alignment));
       } else {
-        new(*this) terminator<T,Act>();
+        [[maybe_unused]] auto p = new(*this) terminator<T,Act>();
+        assert(is_aligned(p,record_alignment));
       }
     }
 
@@ -293,7 +296,7 @@ namespace autodiff {
     template <typename U, typename ... Args>
     U & push(Args ... args) noexcept {
       static_assert(std::is_base_of_v<record_t, U>, "tape record not derived from record<T>");
-      auto result = new (*this) U(std::forward<args>...);
+      auto result = new (*this) U(std::forward<Args>(args)...);
       activations += result->activation_records();
       return *result;
     }
@@ -317,8 +320,10 @@ namespace autodiff {
     void * record<T,Act>::operator new(size_t size, tape<T, Act> & tape) noexcept {
       auto result = record<T,Act>::operator new(size, tape.segment);
       if (result) return result;
-      tape.segment = segment<T, Act>(std::max(segment_t::minimum_size, static_cast<index_t>(pad_to_alignment(std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>))) + size)), std::move(tape.segment));
-      return record<T,Act>::operator new(size, tape.segment);
+      tape.segment = segment<T, Act>(std::max(segment_t::minimum_size, static_cast<index_t>(pad_to_alignment(std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>))) + pad_to_alignment(size))), std::move(tape.segment));
+      result = record<T,Act>::operator new(size, tape.segment);
+      assert(result != nullptr);
+      return result;
     }
 
     // a non-terminal entry designed for allocation in a slab
@@ -355,4 +360,4 @@ namespace autodiff {
 
   using std::swap;
   using detail::swap;
-} // namespace autodiff
+} // namespace bad

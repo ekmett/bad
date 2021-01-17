@@ -3,10 +3,24 @@
 #include <array>
 #include <tuple>
 
-using namespace autodiff;
+using namespace bad;
 using namespace std;
 
 struct simple : detail::static_propagator<5, simple, int> {
+  simple() {
+    //cout << "simple @ " << reinterpret_cast<intptr_t>(this) << endl;
+    assert(is_aligned(this,record_alignment));
+  }
+  inline void prop(act_t, index_t &) const noexcept {}
+  std::array<int,100> padding;
+};
+
+struct complx : detail::static_propagator<1, complx, int> {
+  complx() {
+    //cout << "complx @ " << reinterpret_cast<intptr_t>(this) << endl;
+    assert(is_aligned(this,record_alignment));
+
+  }
   inline void prop(act_t, index_t &) const noexcept {}
   std::array<int,1000> padding;
 };
@@ -15,8 +29,10 @@ struct simple : detail::static_propagator<5, simple, int> {
 int main (int argc, char ** argv) {
   dl open;
   tape<int> t;
-  for (int i=0;i<20;++i)
+  for (int i=0;i<20;++i) {
     t.push<simple>();
+    t.push<complx>();
+  }
   for (auto & p : t)
     cout << p << endl;
   cout << t.activations << endl;
