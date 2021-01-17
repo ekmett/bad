@@ -7,19 +7,19 @@ using namespace bad;
 using namespace std;
 
 struct simple : detail::static_propagator<5, simple, int> {
-  simple() {
-    //cout << "simple @ " << reinterpret_cast<intptr_t>(this) << endl;
-    assert(is_aligned(this,record_alignment));
+  simple() noexcept {
+
+  }
+  ~simple() noexcept override{
   }
   inline void prop(act_t, index_t &) const noexcept {}
   std::array<int,100> padding;
 };
 
 struct complx : detail::static_propagator<1, complx, int> {
-  complx() {
-    //cout << "complx @ " << reinterpret_cast<intptr_t>(this) << endl;
-    assert(is_aligned(this,record_alignment));
-
+  complx() noexcept {
+  }
+  ~complx() noexcept override{
   }
   inline void prop(act_t, index_t &) const noexcept {}
   std::array<int,1000> padding;

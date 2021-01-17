@@ -89,12 +89,15 @@ namespace bad {
       return (i + record_alignment - 1) & record_mask;
     }
 
+    template <typename T, typename Act = T*> struct link;
+
     // implement record
     template <typename T, typename Act>
     struct alignas(record_alignment) record {
       using tape_t = tape<T,Act>;
       using segment_t = segment<T, Act>;
       using act_t = Act;
+      using record_t = record<T, Act>;
 
       record() noexcept {}
       // disable copy construction
@@ -103,12 +106,14 @@ namespace bad {
 
       virtual record * next() noexcept = 0;
       virtual record const * next() const noexcept = 0;
-      virtual ~record() noexcept {}
+      virtual ~record() noexcept {
+      }
       virtual std::ostream & what(std::ostream & os) const noexcept = 0;
       // now we have to add a bunch of stuff for doing propagation
       virtual index_t activation_records() const noexcept { return 0; }
       // should return the same answer as next
       virtual record const * propagate(Act act, index_t & i) const noexcept = 0;
+      virtual link<T,Act> * as_link() noexcept { return nullptr; }
 
       // unlike usual, the result can be reached through the tape.
       [[maybe_unused]] void * operator new(size_t size, tape_t & tape) noexcept;
@@ -146,7 +151,7 @@ namespace bad {
       t = pad_to_alignment(t);
       if (p - segment.memory < t) return nullptr;
       p -= t;
-      segment.current = reinterpret_cast<record<T, Act>*>(p);
+      segment.current = reinterpret_cast<record_t*>(p);
       // requires c++20
       //return std::assume_aligned<record_alignment>(static_cast<void *>(p));
       return static_cast<void *>(p);
@@ -155,8 +160,29 @@ namespace bad {
     // details that needed record to be filled in
     template <typename T, typename Act>
     segment<T, Act>::~segment() noexcept {
-      if (current != nullptr) current->~record();
-      if (memory != nullptr) std::free(memory); // was created with std::aligned_alloc
+      if (current != nullptr) {
+        record<T, Act> * p = current;
+        // this builds up a stack frame for each segment. we could do better, but meh.
+        while (p != nullptr) {
+          record<T, Act> * np = p->next();
+          link<T, Act> * link = p->as_link();
+          if (link) {
+            // we're going to become it
+            segment<T, Act> temp = std::move(link->segment);
+            p->~record();
+            std::free(memory);
+            memory = nullptr;
+            current = nullptr;
+            swap(*this,temp);
+          } else {
+            p->~record();
+          }
+          p = np;
+        }
+      }
+      if (memory != nullptr) {
+        std::free(memory); // was created with std::aligned_alloc
+      }
       current = nullptr;
       memory = nullptr;
     }
@@ -170,10 +196,11 @@ namespace bad {
 
     template <typename T, typename Act = T*>
     struct terminator : record<T, Act> {
-      record<T,Act> * next() noexcept override { return nullptr; }
-      record<T,Act> const * next() const noexcept override { return nullptr; }
+      using record_t = record<T, Act>;
+      record_t * next() noexcept override { return nullptr; }
+      record_t const * next() const noexcept override { return nullptr; }
       std::ostream & what(std::ostream & os) const noexcept override { return os << "terminator"; }
-      record<T, Act> const * propagate([[maybe_unused]] Act act, [[maybe_unused]] index_t &) const noexcept override {
+      record_t const * propagate([[maybe_unused]] Act act, [[maybe_unused]] index_t &) const noexcept override {
         return nullptr;
       }
     };
@@ -187,19 +214,22 @@ namespace bad {
       assert(is_aligned(p,record_alignment));
     } // alignas and pad to alignment
 
-    template <typename T, typename Act = T*>
+    template <typename T, typename Act>
     struct link: record<T, Act> {
+      using record_t = record<T, Act>;
+      using segment_t = segment<T, Act>;
       link() = delete;
-      link(segment<T,Act> && segment) noexcept : segment(std::move(segment)) {}
-      ~link() noexcept override {}
-
-      record<T,Act> * next() noexcept override { return segment.current; }
-      record<T,Act> const * next() const noexcept override { return segment.current; }
+      link(segment_t && segment) noexcept : segment(std::move(segment)) {}
+      record_t * next() noexcept override { return segment.current; }
+      record_t const * next() const noexcept override { return segment.current; }
       std::ostream & what(std::ostream & os) const noexcept override { return os << "link"; }
-      record<T, Act> const * propagate([[maybe_unused]] Act act, [[maybe_unused]] index_t &) const noexcept override {
+      record_t const * propagate([[maybe_unused]] Act act, [[maybe_unused]] index_t &) const noexcept override {
         return segment.current;
       }
-      segment<T,Act> segment;
+
+      link<T, Act> * as_link() noexcept override { return this; }
+
+      segment_t segment;
     };
 
     template <typename T, typename Act>
@@ -282,7 +312,6 @@ namespace bad {
 
     tape() noexcept : segment(), activations() {}
     tape(tape && rhs) noexcept : segment(std::move(rhs.segment)), activations(std::move(rhs.activations)) {}
-
     tape(const tape &) = delete;
 
     [[maybe_unused]] tape & operator=(const tape &) = delete;
@@ -317,11 +346,11 @@ namespace bad {
 
   namespace detail {
     template <typename T, typename Act>
-    void * record<T,Act>::operator new(size_t size, tape<T, Act> & tape) noexcept {
-      auto result = record<T,Act>::operator new(size, tape.segment);
+    void * record<T,Act>::operator new(size_t size, tape_t & tape) noexcept {
+      auto result = record::operator new(size, tape.segment);
       if (result) return result;
-      tape.segment = segment<T, Act>(std::max(segment_t::minimum_size, static_cast<index_t>(pad_to_alignment(std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>))) + pad_to_alignment(size))), std::move(tape.segment));
-      result = record<T,Act>::operator new(size, tape.segment);
+      tape.segment = segment(std::max(segment_t::minimum_size, static_cast<index_t>(pad_to_alignment(std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>))) + pad_to_alignment(size))), std::move(tape.segment));
+      result = record::operator new(size, tape.segment);
       assert(result != nullptr);
       return result;
     }
