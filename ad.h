@@ -3,11 +3,8 @@
 #include <cstdint>
 #include <limits>
 #include <vector>
-
-// debug
-#include <dlfcn.h>
 #include <iostream>
-#include "type.h"
+#include "abi.h"
 
 namespace autodiff {
   template <typename T, typename Act> struct tape;
