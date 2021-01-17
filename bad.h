@@ -11,21 +11,29 @@
 #include "type.h"
 #include <cstddef>
 namespace autodiff {
+
+  using diff_t = std::int32_t;
+  using index_t = std::uint32_t;
+  static constexpr index_t no_index = static_cast<index_t>(-1);
+
   namespace detail {
+
     template <typename T>
     inline T * offset(T *ptr, std::ptrdiff_t delta) {
       return reinterpret_cast<T*>(reinterpret_cast<std::byte *>(ptr) + delta);
     }
 
-    template <typename T, typename Act = T*> struct record;
+    template <typename T, typename Act = T*>
+    struct record;
 
     // TODO: alignment
     // TODO: cuda memory allocation
     // TODO: __host__ __device__ markers
-    template <typename T, typename Act = T*> struct segment {
+    template <typename T, typename Act = T*>
+    struct segment {
       using record_t = record<T,Act>;
 
-      static constexpr size_t minimum_size = 65536;
+      static constexpr index_t minimum_size = 65536;
 
       record_t * current;
       std::byte * memory;
@@ -34,15 +42,15 @@ namespace autodiff {
       segment & operator=(segment const&) = delete;
 
     private:
-      segment(std::byte * memory, size_t size) noexcept
+      segment(std::byte * memory, index_t size) noexcept
       : current(reinterpret_cast<record<T>*>(memory + size))
       , memory(memory) {
       }
 
     public:
       segment() noexcept : current(nullptr), memory(nullptr) {};
-      segment(size_t n) noexcept;
-      segment(size_t n, segment && next) noexcept;
+      segment(index_t n) noexcept;
+      segment(index_t n, segment && next) noexcept;
       segment(record_t * current, std::byte * memory) : current(current), memory(memory) {}
       segment(segment && rhs) noexcept
       : current(std::move(rhs.current))
@@ -56,7 +64,6 @@ namespace autodiff {
       segment & operator=(segment && rhs) noexcept;
     };
 
-
     template <typename T, typename Act>
     void swap(segment<T, Act> & a, segment<T, Act> & b) {
       using std::swap;
@@ -66,7 +73,8 @@ namespace autodiff {
   } // detail
 
   // forward declaration of tape
-  template <typename T, typename Act = T*> struct tape;
+  template <typename T, typename Act = T*>
+  struct tape;
 
   namespace detail {
 
@@ -75,6 +83,7 @@ namespace autodiff {
     struct record {
       using tape_t = tape<T,Act>;
       using segment_t = segment<T, Act>;
+      using act_t = Act;
 
       record() noexcept {}
       // disable copy construction
@@ -85,6 +94,10 @@ namespace autodiff {
       virtual record const * next() const noexcept = 0;
       virtual ~record() noexcept {}
       virtual std::ostream & what(std::ostream & os) const noexcept = 0;
+      // now we have to add a bunch of stuff for doing propagation
+      virtual index_t activation_records() const noexcept { return 0; }
+      // should return the same answer as next
+      virtual record const * propagate(Act act, index_t & i) const noexcept = 0;
 
       // unlike usual, the result can be reached through the tape.
       [[maybe_unused]] void * operator new(size_t size, tape_t & tape) noexcept;
@@ -109,8 +122,6 @@ namespace autodiff {
       void operator delete[](void *, std::align_val_t) noexcept = delete;
       void operator delete[](void *, size_t, std::align_val_t) noexcept = delete;
 
-      // now we have to add a bunch of stuff for doing propagation
-      virtual size_t activation_records() const noexcept { return 0; }
     };
 
     template <typename T, typename Act>
@@ -149,9 +160,12 @@ namespace autodiff {
       record<T,Act> * next() noexcept override { return nullptr; }
       record<T,Act> const * next() const noexcept override { return nullptr; }
       std::ostream & what(std::ostream & os) const noexcept override { return os << "terminator"; }
+      record<T, Act> const * propagate([[maybe_unused]] Act act, [[maybe_unused]] index_t &) const noexcept override {
+        return nullptr;
+      }
     };
 
-    template <typename T, typename Act> segment<T, Act>::segment(size_t n) noexcept : segment(new std::byte[n], n) {
+    template <typename T, typename Act> segment<T, Act>::segment(index_t n) noexcept : segment(new std::byte[n], n) {
       new(*this) terminator<T,Act>();
     }
 
@@ -164,11 +178,14 @@ namespace autodiff {
       record<T,Act> * next() noexcept override { return segment.current; }
       record<T,Act> const * next() const noexcept override { return segment.current; }
       std::ostream & what(std::ostream & os) const noexcept override { return os << "link"; }
+      record<T, Act> const * propagate([[maybe_unused]] Act act, [[maybe_unused]] index_t &) const noexcept override {
+        return segment.current;
+      }
       segment<T,Act> segment;
     };
 
     template <typename T, typename Act>
-    segment<T, Act>::segment(size_t n, segment<T, Act> && next) noexcept : segment(n) {
+    segment<T, Act>::segment(index_t n, segment<T, Act> && next) noexcept : segment(n) {
       if (next.memory != nullptr) {
         new(*this) link(std::move(next));
       } else {
@@ -234,7 +251,7 @@ namespace autodiff {
   public:
 
     segment_t segment; // current segment
-    size_t activations;
+    index_t activations;
 
     using iterator = detail::intrusive_iterator<record_t>;
     using const_iterator = detail::intrusive_iterator<const record_t>;
@@ -279,7 +296,7 @@ namespace autodiff {
     void * record<T,Act>::operator new(size_t size, tape<T, Act> & tape) noexcept {
       auto result = record<T,Act>::operator new(size, tape.segment);
       if (result) return result;
-      tape.segment = segment<T, Act>(std::max(segment_t::minimum_size, std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>)) + size), std::move(tape.segment));
+      tape.segment = segment<T, Act>(std::max(segment_t::minimum_size, static_cast<index_t>(std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>)) + size)), std::move(tape.segment));
       return record<T,Act>::operator new(size, tape.segment);
     }
 
@@ -298,6 +315,11 @@ namespace autodiff {
       std::ostream & what(std::ostream & os) const noexcept override {
         return os << type(*static_cast<B const *>(this));
       }
+
+      const record<T,Act> * propagate(Act act, index_t & i) const noexcept override {
+        reinterpret_cast<B const *>(this)->prop(act, i);
+        return next(); // this shares the virtual function call dispatch, because here it isn't virtual.
+      }
     };
 
     // a non-terminal entry designed for allocation in a slab, that produce a fixed number of activation records
@@ -305,7 +327,7 @@ namespace autodiff {
     struct static_propagator : propagator<B,T,Act> {
       static_propagator() : propagator<B,T,Act>() {}
       static constexpr size_t acts = Acts;
-      constexpr size_t activation_records() const noexcept override {
+      constexpr index_t activation_records() const noexcept override {
         return acts;
       }
     };

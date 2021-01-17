@@ -1,19 +1,21 @@
 #include "bad.h"
 #include <iostream>
+#include <array>
 #include <tuple>
 
 using namespace autodiff;
 using namespace std;
 
 struct simple : detail::static_propagator<5, simple, int> {
-
+  void prop(act_t, index_t &) const noexcept {}
+  std::array<int,10000> padding;
 };
 
 // i have one off by one error and its infuriating.
 int main (int argc, char ** argv) {
   dl open;
   tape<int> t;
-  for (int i=0;i<1000;++i)
+  for (int i=0;i<10;++i)
     t.push<simple>();
   for (auto & p : t)
     cout << p << endl;
