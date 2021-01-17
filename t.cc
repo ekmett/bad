@@ -2,14 +2,7 @@
 #include <iostream>
 #include <tuple>
 
-#include <dlfcn.h>
 using namespace autodiff;
-
-struct dl {
-  dl(const char * filename = nullptr) : handle(dlopen(filename,0)) {}
-  ~dl() { dlclose(handle); }
-  void * handle;
-};
 
 // i have one off by one error and its infuriating.
 int main (int argc, char ** argv) {

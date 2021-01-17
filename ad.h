@@ -51,7 +51,7 @@ namespace autodiff {
       index_t const * i = indices.data() + indices.size(); // indices.cend();
       Dl_info info;
       for (auto e = entries.rbegin(); e != entries.rend(); ++e) {
-        bool ok = dladdr(reinterpret_cast<void *>(*e),&info) != 0;
+        bool ok = dladdr(static_cast<void *>(*e),&info) != 0;
         assert(ok);
         T const * od = d;
         index_t const * oi = i;
@@ -305,10 +305,10 @@ namespace autodiff {
 template<typename T, typename Act>
 std::ostream &operator <<(std::ostream &os, void (*z)(T const * & e, autodiff::index_t const * & i, Act a, autodiff::index_t & b)) {
   Dl_info info;
-  if (dladdr(reinterpret_cast<const void *>(&z), &info)) {
+  if (dladdr(static_cast<const void *>(&z), &info)) {
     return os << info.dli_sname;
   } else {
-    return os << "NO"; // reinterpret_cast<intptr_t>(z);
+    return os << reinterpret_cast<intptr_t>(z);
   }
 }
 

@@ -10,11 +10,15 @@
 #include <iostream>
 #include "type.h"
 #include <cstddef>
-
 namespace autodiff {
   namespace detail {
+    template <typename T>
+    inline T * offset(T *ptr, std::ptrdiff_t delta) {
+      return reinterpret_cast<T*>(reinterpret_cast<std::byte *>(ptr) + delta);
+    }
+
     template <typename T, typename Act = T*> struct record;
-  
+
     // a segment represents a slab of memory that is allocated from internally. the current pointer
     // is constantly decreased to make room until we run out of space.
     // the last record in each segment is either a link or a terminator
@@ -28,24 +32,24 @@ namespace autodiff {
     // TODO: allow for cuda memory allocation
     // TODO: __host__ __device__ markers
     template <typename T, typename Act = T*> struct segment {
-      typename record_t = record<T,Act>;
+      using record_t = record<T,Act>;
 
-      constexpr size_t minimum_size = 65536;
-  
+      static constexpr size_t minimum_size = 65536;
+
       record_t * current;
       std::byte * memory;
-  
-      segment() = delete;
+
       segment(const segment &) = delete;
       segment & operator=(segment const&) = delete;
-  
+
     private:
       segment(std::byte * memory, size_t size) noexcept
-      : current(reinterpret_cast<record<T>>(memory + size))
+      : current(reinterpret_cast<record<T>*>(memory + size))
       , memory(memory) {
       }
-  
+
     public:
+      segment() noexcept : current(nullptr), memory(nullptr) {};
       segment(size_t n) noexcept;
       segment(size_t n, segment && next) noexcept;
       segment(record_t * current, std::byte * memory) : current(current), memory(memory) {}
@@ -81,19 +85,25 @@ namespace autodiff {
       using tape_t = tape<T,Act>;
       using segment_t = segment<T, Act>;
 
+      record() noexcept {}
       // disable copy construction
       record(const record &) = delete;
       record & operator=(const record &) = delete;
 
-      virtual record * next() const noexcept = 0;
-      virtual ~record() {}
+      virtual record * next() noexcept = 0;
+      virtual record const * next() const noexcept = 0;
+      virtual ~record() noexcept {}
+      virtual std::ostream & what(std::ostream & os) const noexcept = 0;
 
       // unlike usual, the result can be reached through the tape.
       [[maybe_unused]] void * operator new(size_t size, tape_t & tape) noexcept;
 
+      // used internally. returns null if the segment is out of room.
+      [[maybe_unused]] void * operator new(size_t size, segment_t & segment) noexcept;
+
       // we don't use the argument
       void operator delete([[maybe_unused]] void * data) noexcept {}
-  
+
       // disable other new/delete forms:
       void * operator new  (size_t) = delete;
       void * operator new  (size_t, void *) noexcept = delete;
@@ -112,111 +122,139 @@ namespace autodiff {
       virtual size_t activation_records() const noexcept { return 0; }
     };
 
-    // details that needed record to be filled in
     template <typename T, typename Act>
-    segment<T, Act>::~segment() { 
-      if (current) current->~record();
-      if (memory) delete[] memory;
-    }
-  
-    template <typename T, typename Act>
-    segment<T, Act> & segment<T, Act>::operator=(segment<T, Act> && rhs) noexcept {
-      if (current) current->~record();
-      if (memory) delete[] memory;
-      current = rhs.current;
-      memory = rhs.memory;
-      return *this;
+    std::ostream & operator << (std::ostream & os, const record<T, Act> & d) {
+      return d.what(os);
     }
 
     template <typename T, typename Act>
+    void * record<T,Act>::operator new(size_t t, segment_t & segment) noexcept {
+      if (segment.memory == nullptr) return nullptr;
+      std::byte * p = reinterpret_cast<std::byte *>(segment.current);
+      if (p - segment.memory < t) return nullptr;
+      p -= t;
+      segment.current = reinterpret_cast<record<T, Act>*>(p);
+      return static_cast<void *>(p);
+    }
+
+    // details that needed record to be filled in
+    template <typename T, typename Act>
+    segment<T, Act>::~segment() noexcept {
+      if (current != nullptr) current->~record();
+      if (memory != nullptr) delete[] memory;
+      current = nullptr;
+      memory = nullptr;
+    }
+
+    template <typename T, typename Act>
+    segment<T, Act> & segment<T, Act>::operator=(segment<T, Act> && rhs) noexcept {
+      using std::swap;
+      swap(*this,rhs);
+      return *this;
+    }
+
+    template <typename T, typename Act = T*>
     struct terminator : record<T, Act> {
-      terminator() : record() {}
-      record * next() const noexcept { return nullptr; }
+      record<T,Act> * next() noexcept override { return nullptr; }
+      record<T,Act> const * next() const noexcept override { return nullptr; }
+      std::ostream & what(std::ostream & os) const noexcept override { return os << "terminator"; }
     };
 
     template <typename T, typename Act> segment<T, Act>::segment(size_t n) noexcept : segment(new std::byte[n], n) {
-      new(*this) terminator();
+      new(*this) terminator<T,Act>();
     }
 
-    template <typename T, typename Act>
+    template <typename T, typename Act = T*>
     struct link: record<T, Act> {
       link() = delete;
-      link(segment_t && segment) noexcept : segment(std::move(segment)) {}
+      link(segment<T,Act> && segment) noexcept : segment(std::move(segment)) {}
       ~link() noexcept override {}
 
-      record * next() const noexcept { return segment.current; }
-
-      segment_t segment;
+      record<T,Act> * next() noexcept override { return segment.current; }
+      record<T,Act> const * next() const noexcept override { return segment.current; }
+      std::ostream & what(std::ostream & os) const noexcept override { return os << "link"; }
+      segment<T,Act> segment;
     };
 
-    template <typename T> segment<T>::segment(size_t n, segment<T> && next) noexcept : segment(n) {
-      new(*this) link(std::move(next));
+    template <typename T, typename Act>
+    segment<T, Act>::segment(size_t n, segment<T, Act> && next) noexcept : segment(n) {
+      if (next.memory != nullptr) {
+        new(*this) link(std::move(next));
+      } else {
+        new(*this) terminator<T,Act>();
+      }
+    }
+
+    template <typename A>
+    struct intrusive_iterator : std::iterator<std::forward_iterator_tag, A> {
+      using pointer = A*;
+      using reference = A&;
+      using const_pointer = std::add_const_t<pointer>;
+      using const_reference = std::add_const_t<reference>;
+
+      pointer p;
+
+      intrusive_iterator() : p() {}
+      intrusive_iterator(pointer p) noexcept : p(p) {}
+      intrusive_iterator(const intrusive_iterator & rhs) noexcept : p(rhs.p) {}
+      intrusive_iterator(intrusive_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
+
+      ~intrusive_iterator() noexcept {}
+
+      constexpr bool operator == (const intrusive_iterator & rhs) const noexcept { return p == rhs.p; }
+      constexpr bool operator != (const intrusive_iterator & rhs) const noexcept { return p != rhs.p; }
+
+      constexpr reference operator *() const { return *p; }
+      constexpr pointer operator -> () { return p; }
+      intrusive_iterator & operator ++ () noexcept {
+        assert(p != nullptr);
+        p = p->next();
+        return *this;
+      }
+
+      intrusive_iterator operator ++ (int) noexcept {
+        assert(p != nullptr);
+        auto q = p;
+        p = p->next();
+        return q;
+      }
+
+      constexpr pointer ptr() noexcept { return p; }
+      constexpr const_pointer const_ptr() const noexcept { return p; }
+      constexpr operator bool() const noexcept { return p != nullptr; }
+
+      // template <typename = std::enable_if_v<!std::is_const_v(A)> >
+      constexpr operator intrusive_iterator<const A> () const noexcept { return p; }
+    };
+
+    template <typename A>
+    void swap (intrusive_iterator<A> & a, intrusive_iterator<A> & b) {
+      using std::swap;
+      swap(a.p,b.p);
     }
   } // detail
-  
-  template <typename A>
-  struct intrusive_iterator : std::iterator<std::forward_iterator_tag, A> {
-    pointer p;
-
-    constexpr intrusive_iterator(pointer p = nullptr) noexcept = default; // : p(p) {}
-    constexpr intrusive_iterator(const intrusive_iterator & rhs) noexcept = default; // : p(rhs.p) {}
-    constexpr intrusive_iterator(intrusive_iterator &&  rhs) noexcept = default; // : p(std::move(rhs.p)) {}
-
-    ~intrusive_iterator() noexcept {}
-
-    constexpr bool operator == (const record_iterator & rhs) const noexcept { return p == rhs.p; }
-    constexpr bool operator != (const record_iterator & rhs) const noexcept { return p != rhs.p; }
-
-    constexpr reference operator *() const { return *p; }
-    constexpr pointer operator -> () { return p; }
-    intrusive_operator & operator ++ () noexcept {
-      assert(p != nullptr);
-      p = p->next();
-      return *this;
-    }
-
-    intrusive_operator operator ++ (int) noexcept {
-      assert(p != nullptr);
-      auto q = p;
-      p = p->next();
-      return q;
-    }
-
-    constexpr pointer ptr() noexcept { return p; }
-    constexpr const_pointer const_ptr() const noexcept { return p; }
-    constexpr operator bool() const noexcept { return p != nullptr; }
-
-    // template <typename = std::enable_if_v<!std::is_const_v(A)> >
-    constexpr operator intrusive_iterator<const A> () const noexcept { return p; }
-  };
-
-  template <typename A>
-  void swap (intrusive_iterator<A> & a, intrusive_iterator<A> & b) {
-    using std::swap;
-    swap(a.p,b.p);
-  }
 
   // the workhorse
   template <typename T, typename Act>
   struct tape {
   protected:
-    using segment_t = segment<T,Act>;
-    using record_t = record<T, Act>;
+    using segment_t = detail::segment<T,Act>;
+    using record_t = detail::record<T, Act>;
   public:
 
     segment_t segment; // current segment
     size_t activations;
- 
-    using iterator = intrusive_iterator<record<T>>;
-    using const_iterator = intrusive_iterator<const record<T>>;
+
+    using iterator = detail::intrusive_iterator<record_t>;
+    using const_iterator = detail::intrusive_iterator<const record_t>;
 
     tape() noexcept : segment(), activations() {}
     tape(tape && rhs) noexcept : segment(std::move(rhs.segment)), activations(std::move(rhs.activations)) {}
 
     tape(const tape &) = delete;
 
-    tape & operator=(const tape &) = delete;
-    tape & operator=(tape && rhs) noexcept {
+    [[maybe_unused]] tape & operator=(const tape &) = delete;
+    [[maybe_unused]] tape & operator=(tape && rhs) noexcept {
       segment = std::move(rhs.segment);
       activations = rhs.activations;
       return *this;
@@ -225,17 +263,17 @@ namespace autodiff {
     // put more stuff in here
     template <typename U, typename ... Args>
     U & push(Args ... args) noexcept {
-      static_assert(std::is_base_of_v<record<T>, U>, "tape record not derived from record<T>");
-      auto result = new (*this) U(std::forward<args>...)
+      static_assert(std::is_base_of_v<record_t, U>, "tape record not derived from record<T>");
+      auto result = new (*this) U(std::forward<args>...);
       activations += result->activation_records();
       return *result;
     }
 
     iterator begin() { return segment.current; }
-    constexpr iterator end() { return nullptr; }
+    constexpr iterator end() { return iterator(); }
 
     const_iterator cbegin() const { return segment.current; }
-    constexpr const_iterator cend() { return nullptr; }
+    constexpr const_iterator cend() { return const_iterator(); }
   };
 
   template <typename T, typename Act>
@@ -246,41 +284,45 @@ namespace autodiff {
   }
 
   namespace detail {
-    template <typename T, typename Act> 
-    void * operator record<T, Act>::new(size_t size, tape<T, Act> & tape) noexcept {
-      std::byte * candidate = reinterpret_cast<std::byte*>(tape.segment.current) - size;
-      if (candidate >= tape.segment.memory) {
-        tape.segment.candidate = reinterpret_cast<record<T, Act>*>(candidate);
-        return reinterpret_cast<void *>(candidate);
-      }
-      tape.segment = segment(std::max(segment::minimum_size, sizeof(link<T, Act>) + size), tape.segment);
-      reinterpret_cast<std::byte*>(tape.segment.current)
-        return reinterpret_cast<void *>(candidate);
-      }
+    template <typename T, typename Act>
+    void * record<T,Act>::operator new(size_t size, tape<T, Act> & tape) noexcept {
+      auto result = record<T,Act>::operator new(size, tape.segment);
+      if (result) return result;
+      tape.segment = segment<T, Act>(std::max(segment_t::minimum_size, std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>)) + size), std::move(tape.segment));
+      return record<T,Act>::operator new(size, tape.segment);
     }
 
     // a non-terminal entry designed for allocation in a slab
-    template <typename T, typename Act, typename B>
-    struct propagator : record<T> {
-      virtual record<T, Act> * next() const noexcept override {
-        return reinterpret_cast<record<T, Act>*>(reinterpret_cast<std::byte*>(this) + sizeof(B));
+    template <typename B, typename T, typename Act = T &>
+    struct propagator : record<T,Act> {
+      propagator() : record<T,Act>() {
+
+      }
+      record<T, Act> const * next() const noexcept override {
+        return reinterpret_cast<record<T, Act> const *>(reinterpret_cast<std::byte const*>(this) + sizeof(B));
+      }
+      record<T, Act> * next() noexcept override {
+        return reinterpret_cast<record<T, Act> *>(reinterpret_cast<std::byte*>(this) + sizeof(B));
+      }
+      std::ostream & what(std::ostream & os) const noexcept override {
+        return os << type(*static_cast<B const *>(this));
       }
     };
 
     // a non-terminal entry designed for allocation in a slab, that produce a fixed number of activation records
-    template <typename T, typename Act, typename B, size_t Acts>
-    struct static_propagator : propagator<T,Act,B> {
-      constexpr size_t acts = Acts;
+    template <size_t Acts, typename B, typename T, typename Act = T*>
+    struct static_propagator : propagator<B,T,Act> {
+      static_propagator() : propagator<B,T,Act>() {}
+      static constexpr size_t acts = Acts;
       constexpr size_t activation_records() const noexcept override {
         return acts;
-      } 
+      }
     };
   } // namespace detail
 
   using std::swap;
-  using detail::swap;
+  // using detail::swap;
 } // namespace autodiff
-
 
 /*
 
@@ -381,15 +423,15 @@ namespace autodiff {
     int index(Args ... args) {
       static_assert(sizeof...(args) == sizeof...(sizes));
       // smallest dimension to largest dimension, this is the reverse of my usual convention
-      
+
       constexpr index_t dims[] = { sizes ... };
       // zip the dims backwards through the argument list
-      
-      
+
+
 
     }
 
-    
+
     std::array<
 
   };
@@ -402,15 +444,15 @@ namespace autodiff {
        return static_cast<B const &>(*this).primal();
      }
 
-     template <typename Tape, typename Act> 
+     template <typename Tape, typename Act>
      void propagate(const Tape & tape, Act act, index_t & index) const {
        static_cast<B const &>(*this).propagate(tape, act, index);
      }
 
-     static constexpr std::size_t size() { return sizeof(B); } 
+     static constexpr std::size_t size() { return sizeof(B); }
   };
 
-  template <typename T, typename L, typename R> 
+  template <typename T, typename L, typename R>
   struct expr_sum : expr<T, expr_sum<T,L,R>>{
     L const & lhs;
     R const & rhs;

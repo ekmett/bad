@@ -4,14 +4,17 @@ src := $(wildcard *.cc) $(wildcard *.h)
 cmake := $(wildcard cmake/*)
 open ?= open
 
-run: build/t
-	@build/t
+run: build/b
+	@build/b
 
 build: CMakeLists.txt $(src) $(cmake)
 	@cmake -Bbuild -GNinja
 
 build/t: build
 	@ninja -C build t
+
+build/b: build
+	@ninja -C build b
 
 clean:
 	@rm -rf build
