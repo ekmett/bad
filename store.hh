@@ -349,7 +349,7 @@ namespace bad {
       template <typename B>
       store_ & operator -= (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
-          at(i) += rhs[i];
+          at(i) -= rhs[i];
         return *this;
       }
 

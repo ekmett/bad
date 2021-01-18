@@ -6,7 +6,7 @@
 
 using namespace bad;
 
-TEST_CASE( "diff", "[ad]" ) {
+TEST_CASE( "diff works", "[ad]" ) {
   dl open;
   auto [x,y] = diff([](auto x) { auto y = x*x; auto z = y*y; auto w = z*z; return w*w; }, 2);
   REQUIRE(x == 65536);

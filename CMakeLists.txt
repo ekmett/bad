@@ -16,6 +16,11 @@ add_executable(t_store t_store.cc store.hh shape.hh catch.hh abi.cc abi.hh)
 target_link_libraries(t_store ${CMAKE_DL_LIBS})
 set_target_properties(t_store PROPERTIES ENABLE_EXPORTS 1)
 
+add_executable(t_einsum t_einsum.cc store.hh shape.hh catch.hh abi.cc abi.hh)
+target_compile_options(t_einsum PUBLIC -Wno-gnu-string-literal-operator-template) # not adopted. meh
+target_link_libraries(t_einsum ${CMAKE_DL_LIBS})
+set_target_properties(t_einsum PROPERTIES ENABLE_EXPORTS 1)
+
 # manual tests
 add_executable(x_tape x_tape.cc tape.hh shape.hh abi.cc abi.hh)
 target_link_libraries(x_tape ${CMAKE_DL_LIBS})
