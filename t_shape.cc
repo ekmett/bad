@@ -23,3 +23,10 @@ TEST_CASE("prod works","[seq]") {
 TEST_CASE("nth works","[seq]") {
   REQUIRE(nth<4,int,0,10,20,30,40,50,60> == 40);
 }
+
+TEST_CASE("seq_nth works","[seq]") {
+   REQUIRE(seq_nth<4,seq<0,11,21,31,41,51>> == 41);
+}
+TEST_CASE("seq_length works","[seq]") {
+   REQUIRE(seq_length<seq<3,2,1>> == 3);
+}

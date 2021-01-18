@@ -27,7 +27,9 @@ TEST_CASE( "wat", "[store]" ) {
 
   store<int,seq<4,5>> t(2);
   cout << t << endl;
-  store<int,seq<4,5>> r = s - t;
+
+  // column major
+  store<int,seq<4,5>,seq<1,4>> r = s - t;
   cout << r << endl;
 
 

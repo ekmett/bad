@@ -147,4 +147,37 @@ namespace bad {
     S,
     typename std::make_index_sequence<seq_length<S>>
   >::type;
+
+  namespace detail {
+    template <std::size_t N, typename S> struct seq_nth_;
+    template <std::size_t N, typename T, T ... xs> struct seq_nth_<N,std::integer_sequence<T,xs...>> {
+      static constexpr auto value = nth<N,T,xs...>;
+    };
+  }
+  template <std::size_t N, typename T>
+  constexpr auto seq_nth = detail::seq_nth_<N,T>::value;
+
+  template <typename S>
+  constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
+
+  namespace detail {
+    template <typename S, typename Is> struct seq_init_;
+    template <typename S, typename T, T... is>
+    struct seq_init_<S,std::integer_sequence<T,is...>> {
+      using type = std::integer_sequence<seq_element_type<S>,seq_nth<is,S>...>;
+    };
+  }
+
+  // enable_if seq_length<S> > 1 ?
+  template <typename S>
+  using seq_init = typename detail::seq_init_<
+    S,
+    typename std::make_index_sequence<seq_length<S>-1>
+  >::type;
+
+  template <std::size_t N, typename S>
+  using seq_drop_last = typename detail::seq_init_<
+    S,
+    typename std::make_index_sequence<seq_length<S>-std::max(N, seq_length<S>)>
+  >::type;
 }
