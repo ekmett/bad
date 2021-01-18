@@ -1,19 +1,9 @@
 #pragma once
 #include <utility>
-#include "tape.h"
-#include "shape.h"
+#include "tape.hh"
+#include "shape.hh"
 
 namespace bad {
-  template <index_t ... is> using seq = std::integer_sequence<index_t, is...>;
-
-
-  template <typename T, typename ... Ds> struct expr {
-
-
-  };
-
-
-
 
   // writeable view, acts like a pointer.
   template <typename T, typename Stride, typename Dim> struct lens{};

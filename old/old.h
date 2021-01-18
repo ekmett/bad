@@ -1,12 +1,53 @@
-#pragma once
-#include <tuple>
-#include <cstdint>
-#include <limits>
-#include <vector>
-#include <iostream>
-#include "abi.hh"
 
-namespace bad {
+ // rstride<0,int,7,5,3>() = 1
+  // rstride<1,int,7,5,3>() = 7
+  // rstride<2,int,7,5,3>() = 35
+  // rstride<3,int,7,5,3>() = 105
+
+  template <int N, typename T, T ... xs> constexpr T rstride() {
+    static_assert(N <= sizeof...(xs), "index out of bounds");
+    constexpr T args[] { xs ... };
+    T acc = 1;
+    for (int i=0;i<N;++i)
+      acc *= args[i];
+    return acc;
+  }
+
+
+// namespace bad {
+//   namespace detail {
+//     template <int N, typename T>
+//     constexpr T stride_(T acc) {
+//       static_assert(N==0,"index out of bounds");
+//       return acc;
+//     }
+//     template <int N, typename T, typename ... Shape>
+//     constexpr T stride_(T acc, T i, Shape ... shape) {
+//       if constexpr (N==0) {
+//         return acc;
+//       } else {
+//         return stride_<N-1>(acc*i, shape...);
+//       }
+//     }
+//   }
+
+//   template <int N, typename X, typename ... Xs>
+//   constexpr X stride(X x, Xs ... xs) {
+//     return detail::stride_<N,X,Xs...>(1, x, xs...);
+//   }
+
+//   template <int N, typename X>
+//   constexpr X stride() {
+//     return 1;
+//   }
+// }
+
+
+/*
+
+// END OF REBUILD
+
+namespace autodiff {
   template <typename T, typename Act> struct tape;
   using index_t = std::uint_fast32_t;
 
@@ -69,32 +110,15 @@ namespace bad {
     }
   };
 
-/*
-  index_t index(auto...indices) {
-    index_t idx = 0, i = 0;
-    (..., (idx += indices * strides[i++]));
-    return idx;
-  }
-*/
-
-  // example using this for simple scalar operations
   namespace detail {
-
-    template <typename F, typename ... Args> void foreach(F f, Args ... args) {
-      (f(args), ...);
-    }
-
-    // c++17 fold expression
     template <typename T, typename Act, T ... Ks>
     void static_linear(T const * & e, index_t const * & i, Act a, index_t & b) {
       using namespace std;
 
       index_t lb = --b;
       constexpr index_t di = sizeof...(Ks);
-      //cout << "di " << di << endl;
       index_t const * j = i -= di;
       constexpr T ts[di] = { Ks ... };
-
       for (const T & t : ts) {
         a[*j++] += t * a[lb];
       }
@@ -110,15 +134,62 @@ namespace bad {
     }
   };
 
+  template <typename T, index_t ... sizes>
+  struct tensor : expr<T, tensor<T, sizes...>>  {
+    constexpr size = (sizes * ...);
+
+    template <typename ... Args>
+    int index(Args ... args) {
+      static_assert(sizeof...(args) == sizeof...(sizes));
+      // smallest dimension to largest dimension, this is the reverse of my usual convention
+
+      constexpr index_t dims[] = { sizes ... };
+      // zip the dims backwards through the argument list
+
+    }
+
+
+    std::array<
+
+  };
+
   constexpr index_t no_index = std::numeric_limits<index_t>::max();
 
+  template <typename T, typename B>
+  struct expr {
+     T primal() const {
+       return static_cast<B const &>(*this).primal();
+     }
+
+     template <typename Tape, typename Act>
+     void propagate(const Tape & tape, Act act, index_t & index) const {
+       static_cast<B const &>(*this).propagate(tape, act, index);
+     }
+
+     static constexpr std::size_t size() { return sizeof(B); }
+  };
+
+  template <typename T, typename L, typename R>
+  struct expr_sum : expr<T, expr_sum<T,L,R>>{
+    L const & lhs;
+    R const & rhs;
+    T primal() const {
+      return lhs.primal() + rhs.primal();
+    }
+    template <typename Tape, typename Act>
+    void propagate(const Tape & tape, Act act, index_t & index) const {
+      lhs.propagate(tape, act, index_t);
+      rhs.propagate(tape, act, index_t);
+    }
+  }
+
   // ad<T> -- uses the tape and scalar operations
-  template <typename T, typename Act = T*> // , typename TapeRef = tape<T,Act> &>
+  template <typename T, typename Act = T*>
   struct ad {
 
     using tape_t = tape<T, Act>;
 
-    mutable tape_t * tape; // TapeRef tape;
+    mutable tape_t * tape;
     index_t index;
 
     T primal;
@@ -300,16 +371,16 @@ namespace bad {
 }
 
 template<typename T, typename Act>
-std::ostream &operator <<(std::ostream &os, void (*z)(T const * & e, bad::index_t const * & i, Act a, bad::index_t & b)) {
+std::ostream &operator <<(std::ostream &os, void (*z)(T const * & e, autodiff::index_t const * & i, Act a, autodiff::index_t & b)) {
   Dl_info info;
-  if (dladdr(static_cast<const void *>(&z), &info)) {
+  if (dladdr(reinterpret_cast<const void *>(&z), &info)) {
     return os << info.dli_sname;
   } else {
-    return os << reinterpret_cast<intptr_t>(z);
+    return os << "NO"; // reinterpret_cast<intptr_t>(z);
   }
 }
 
-namespace bad {
+namespace autodiff {
   template <typename T, typename F>
   std::tuple<T,T> diff(F f, T a) {
     tape<T> t(1); // one entry
@@ -318,7 +389,9 @@ namespace bad {
     std::unique_ptr<T[]> activations (new T[N]);
     for (int i=0;i<N;++i) activations[i] = 0;
     if (N != 0) activations[N-1] = 1;
-    t.propagate(activations.get());
+    t.propagate_verbose(activations.get());
     return { result.primal, activations[0] };
   }
 } // namespace autodiff
+
+*/

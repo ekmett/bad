@@ -5,13 +5,11 @@
 #include <vector>
 #include <type_traits>
 #include <cstdlib>
-
-// debug
 #include <dlfcn.h>
 #include <cstddef>
 #include <iostream>
-#include "abi.h"
-#include "index.h"
+#include "abi.hh"
+#include "shape.hh"
 
 namespace bad {
   static constexpr index_t record_alignment = 16;

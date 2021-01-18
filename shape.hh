@@ -42,13 +42,18 @@ namespace bad {
   template <std::size_t N, typename T, T ... xs>
   constexpr T stride = detail::stride_<N,T,xs...>::value();
 
-  // return the nth item in a parameter pack.
-  template <std::size_t N, typename T, T ... xs>
-  constexpr T nth() {
-    static_assert(0 < N && N < sizeof...(xs), "index out of bounds");
-    constexpr T args[] {xs ...};
-    return args[N];
+  namespace detail {
+    // return the nth item in a parameter pack.
+    template <std::size_t N, typename T, T ... xs>
+    constexpr T nth_() {
+      static_assert(0 < N && N < sizeof...(xs), "index out of bounds");
+      constexpr T args[] {xs ...};
+      return args[N];
+    }
   }
+
+  template <std::size_t N, typename T, T ... xs>
+  constexpr T nth = detail::nth_<N,T,xs...>();
 
   namespace detail {
     template <typename T>

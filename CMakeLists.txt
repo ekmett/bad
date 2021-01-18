@@ -12,7 +12,12 @@ add_executable(t_shape t_shape.cc shape.hh catch.hh)
 target_link_libraries(t_shape ${CMAKE_DL_LIBS})
 set_target_properties(t_shape PROPERTIES ENABLE_EXPORTS 1)
 
-# add_executable(b b.cc bad.h tape.h shape.h abi.cc abi.h)
-# target_link_libraries(b ${CMAKE_DL_LIBS})
-# set_target_properties(b PROPERTIES ENABLE_EXPORTS 1)
+add_executable(t_store t_store.cc store.hh shape.hh catch.hh)
+target_link_libraries(t_store ${CMAKE_DL_LIBS})
+set_target_properties(t_store PROPERTIES ENABLE_EXPORTS 1)
+
+# manual tests
+add_executable(x_tape x_tape.cc tape.hh shape.hh abi.cc abi.hh)
+target_link_libraries(x_tape ${CMAKE_DL_LIBS})
+set_target_properties(x_tape PROPERTIES ENABLE_EXPORTS 1)
 

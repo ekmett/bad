@@ -1,26 +1,26 @@
 #pragma once
-
-#include "shape.h"
+#include "shape.hh"
 
 namespace bad {
   namespace detail {
     template <typename T, typename Dim, typename Stride = row_major<Dim>>
-    struct store_{};
+    struct store_;
 
     template <typename T, typename Dim, typename Stride = row_major<Dim>>
     struct store_t{};
 
-    template <typename T>
-    struct store_t<T,seq<>,seq<>> {
+    template <typename T, typename Td, typename Ts>
+    struct store_t<T,std::integer_sequence<Td>,std::integer_sequence<Ts>> {
       using type = T;
     };
 
-    template <typename T, typename Dim, typename Stride> {
-    struct store_t<T,Dim,Stride> {
-      using type = store_<T,Dim,Stride>;
+    template <typename T, typename Dim, typename Ts, Ts ... Ss>
+    struct store_t<T,Dim,std::integer_sequence<Ts,Ss...>> {
+      using type = store_<T,Dim,std::integer_sequence<Ts,Ss...>>;
     };
-  }
-
+  } // namespace detail
+}
+namespace bad {
   template <typename T, typename Dim, typename Stride>
   using store = typename detail::store_t<T,Dim,Stride>::type;
 
@@ -28,10 +28,21 @@ namespace bad {
     template <typename T, typename Dim, typename Stride = row_major<Dim>>
     struct const_cursor
     : std::iterator<
-        random_access_iterator_tag,
+        std::random_access_iterator_tag,
         store<T,seq_tail<Dim>,seq_tail<Stride>> const,
-        typename std::make_signed<seq_element_type<Dim>>
+        typename std::make_signed<seq_element_type<Dim>>::type
       > {
+      using super = std::iterator<
+        std::random_access_iterator_tag,
+        store<T,seq_tail<Dim>,seq_tail<Stride>> const,
+        typename std::make_signed<seq_element_type<Dim>>::type
+      >;
+      using difference_type = typename super::difference_type;
+      using pointer = typename super::pointer;
+      using reference = typename super::reference;
+      using value_type = typename super::value_type;
+      using iterator_category = typename super::iterator_category;
+
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
@@ -76,10 +87,21 @@ namespace bad {
     template <typename T, typename Dim, typename Stride = row_major<Dim>>
     struct cursor
     : std::iterator<
-        random_access_iterator_tag,
+        std::random_access_iterator_tag,
         store<T,seq_tail<Dim>,seq_tail<Stride>>,
         typename std::make_signed<seq_element_type<Dim>>::type
       > {
+      using super = std::iterator<
+        std::random_access_iterator_tag,
+        store<T,seq_tail<Dim>,seq_tail<Stride>>,
+        typename std::make_signed<seq_element_type<Dim>>::type
+      >;
+      using difference_type = typename super::difference_type;
+      using pointer = typename super::pointer;
+      using reference = typename super::reference;
+      using value_type = typename super::value_type;
+      using iterator_category = typename super::iterator_category;
+
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
@@ -152,7 +174,6 @@ namespace bad {
     template <typename B, typename Dim>
     struct store_expr {
       static constexpr auto D = seq_head<Dim>;
-      using difference_type = typename std::make_signed<seq_element_type<Dim>>::type;
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
       auto operator [](index_type i) const noexcept {
         return static_cast<B const &>(*this)[i];
@@ -161,32 +182,32 @@ namespace bad {
 
     template <typename L, typename R, typename Dim>
     struct store_add_expr : store_expr<store_add_expr<L,R,Dim>,Dim> {
+      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
+
       L const & l;
       R const & r;
+
       auto operator [](index_type i) const noexcept {
         return l[i] + r[i];
       }
     };
 
     template <typename L, typename R, typename Dim>
-    auto operator+(
-      store_expr<L,Dim> const &u,
-      store_expr<R,Dim> const &v
-    ) {
-      return store_add_expr<L,R,Dim>(
-        *static_cast<L const *>(&l),
-        *static_cast<R const *>(&r)
-      );
+    auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) {
+      return store_add_expr<L,R,Dim>(*static_cast<L const *>(&l), *static_cast<R const *>(&r));
     }
 
     // a lens is a pointer into a matrix, not a matrix
     template <typename T, typename Dim, typename Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
+      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
       using iterator               = cursor<T,Dim,Stride>;
       using const_iterator         = const_cursor<T,Dim,Stride>;
       using reverse_iterator       = std::reverse_iterator<iterator>;
       using const_reverse_iterator = std::reverse_iterator<const_iterator>;
       using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
+
+      static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
       store_() : data() {}
@@ -197,7 +218,7 @@ namespace bad {
 
       template <typename B>
       store_(store_expr<B,Dim> const & rhs) {
-        for (int i=0;i<D;++i)
+        for (decltype(D) i=0;i<D;++i)
           at(i) = rhs[i];
       }
 
@@ -233,28 +254,28 @@ namespace bad {
       }
 
       template <typename B>
-      store & operator = (store_expr<B,Dim> const & rhs) {
+      store_ & operator = (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) = rhs[i];
         return *this;
       }
 
       template <typename B>
-      store & operator += (store_expr<B,Dim> const & rhs) {
+      store_ & operator += (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) += rhs[i];
         return *this;
       }
 
       template <typename B>
-      store & operator -= (store_expr<B,Dim> const & rhs) {
+      store_ & operator -= (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) += rhs[i];
         return *this;
       }
 
       template <typename B>
-      store & operator *= (store_expr<B,Dim> const & rhs) {
+      store_ & operator *= (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) *= rhs[i];
         return *this;
