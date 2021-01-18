@@ -232,6 +232,23 @@ namespace bad {
       return store_sub_expr<L,R,Dim>(l,r);
     }
 
+    template <typename L, typename R, typename U, U D, U ... Ds>
+    constexpr bool operator==(store_expr<L,std::integer_sequence<U,D,Ds...>> const &l, store_expr<R,std::integer_sequence<U,D,Ds...>> const & r) noexcept {
+      for (U i=0;i<D;++i) {
+        if (l[i] != r[i]) return false;
+      }
+      return true;
+    }
+
+    template <typename L, typename R, typename U, U D, U ... Ds>
+    constexpr bool operator!=(store_expr<L,std::integer_sequence<U,D,Ds...>> const &l, store_expr<R,std::integer_sequence<U,D,Ds...>> const & r) noexcept {
+      for (U i=0;i<D;++i) {
+        if (l[i] != r[i]) return true;
+      }
+      return false;
+    }
+
+
     // a lens is a pointer into a matrix, not a matrix
     template <typename T, typename Dim, typename Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
@@ -245,13 +262,13 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      store_() : data() {}
+      constexpr store_() : data() {}
 
-      store_(const T & value) : data() {
+      constexpr store_(const T & value) : data() {
         std::fill(begin(),end(),value);
       }
 
-      store_(std::initializer_list<T> list) : data() {
+      constexpr store_(std::initializer_list<T> list) : data() {
         assert(list.size() <= D);
         std::copy(list.begin(),list.end(),begin());
       }
@@ -267,7 +284,7 @@ namespace bad {
       // store_(const store_ & rhs) : data(rhs.data) {}
 
       template <typename B>
-      store_(store_expr<B,Dim> const & rhs) {
+      constexpr store_(store_expr<B,Dim> const & rhs) {
         for (index_type i=0;i<D;++i)
           at(i) = rhs[i];
       }
