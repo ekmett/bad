@@ -13,6 +13,8 @@ TEST_CASE( "wat", "[store]" ) {
   s[1][1] = 2; // set individual elements
   s[2] = 3; // set an entire row
   s[3] = {1,2,3}; // set part of a row, element by element
+
+
   REQUIRE(sizeof(s) == 4*5*sizeof(int));
   REQUIRE(s[1][1] == 2);
   REQUIRE(s[3][4] == 10);
@@ -22,6 +24,11 @@ TEST_CASE( "wat", "[store]" ) {
   REQUIRE(reinterpret_cast<byte*>(&s[1][1]) - reinterpret_cast<byte*>(&s[1]) == sizeof(int));
   REQUIRE(type(s[1][1]) == "int");
   cout << s << endl;
+
+  store<int,seq<4,5>> t(2);
+  cout << t << endl;
+  store<int,seq<4,5>> r = s - t;
+  cout << r << endl;
 
 
 //  s[1][2] = 3;

@@ -201,6 +201,8 @@ namespace bad {
       L const & l;
       R const & r;
 
+      store_add_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r)
+      : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
       auto operator [](index_type i) const noexcept {
         return l[i] + r[i];
       }
@@ -208,7 +210,26 @@ namespace bad {
 
     template <typename L, typename R, typename Dim>
     auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) {
-      return store_add_expr<L,R,Dim>(*static_cast<L const *>(&l), *static_cast<R const *>(&r));
+      return store_add_expr<L,R,Dim>(l,r);
+    }
+
+    template <typename L, typename R, typename Dim>
+    struct store_sub_expr : store_expr<store_sub_expr<L,R,Dim>,Dim> {
+      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
+
+      L const & l;
+      R const & r;
+
+      store_sub_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r)
+      : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      auto operator [](index_type i) const noexcept {
+        return l[i] - r[i];
+      }
+    };
+
+    template <typename L, typename R, typename Dim>
+    auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) {
+      return store_sub_expr<L,R,Dim>(l,r);
     }
 
     // a lens is a pointer into a matrix, not a matrix
