@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include "shape.hh"
 
 namespace bad {
@@ -21,7 +22,7 @@ namespace bad {
   } // namespace detail
 }
 namespace bad {
-  template <typename T, typename Dim, typename Stride>
+  template <typename T, typename Dim, typename Stride = row_major<Dim>>
   using store = typename detail::store_t<T,Dim,Stride>::type;
 
   namespace detail {
@@ -45,6 +46,13 @@ namespace bad {
 
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
+
+      constexpr explicit const_cursor(T const * p = nullptr, difference_type i = 0) noexcept : p(p), i(i) {}
+      constexpr const_cursor(const_cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
+      constexpr const_cursor(const_cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+
+      const_cursor & operator =(const_cursor const & rhs) { p = rhs.p; i = rhs.i; return *this; }
+      const_cursor & operator =(const_cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
 
       // default constructible, moveable
       T const * p;
@@ -105,7 +113,13 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      // default constructible, moveable
+      constexpr explicit cursor(T* p = nullptr, difference_type i = 0) noexcept : p(p), i(i) {}
+      constexpr cursor(cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
+      constexpr cursor(cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+
+      cursor & operator =(const cursor & rhs) { p = rhs.p; i = rhs.i; return *this; }
+      cursor & operator =(cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
+
       T * p;
       difference_type i;
 
@@ -212,45 +226,72 @@ namespace bad {
 
       store_() : data() {}
 
+      store_(const T & value) : data() {
+        std::fill(begin(),end(),value);
+      }
+
+      store_(std::initializer_list<T> list) : data() {
+        assert(list.size() <= D);
+        std::copy(list.begin(),list.end(),begin());
+      }
+
+
+//      store_(T value = 0) : data() {
+        //for (index_type i=0;i<D;++i)
+        //  at(i) = value;
+  //    }
+
       // this requires me to know that dimensions are dense and exhaustive
       // template <typename = std::enable_if_t<std::is_same_v<sort<Stride>,row_major<Dim>>
       // store_(const store_ & rhs) : data(rhs.data) {}
 
       template <typename B>
       store_(store_expr<B,Dim> const & rhs) {
-        for (decltype(D) i=0;i<D;++i)
+        for (index_type i=0;i<D;++i)
           at(i) = rhs[i];
       }
 
-      T data[D];
+      T data[seq_product<Dim>];
 
-      iterator begin() noexcept                       { return { data, 0 }; }
-      iterator end() noexcept                         { return { data, D }; }
-      reverse_iterator rbegin() noexcept              { return reverse_iterator(cursor{data, D-1}); }
-      reverse_iterator rend() noexcept                { return reverse_iterator(cursor{data, -1 }); }
-      const_iterator begin() const noexcept           { return { data, 0 }; }
-      const_iterator end() const noexcept             { return { data, D }; }
-      const_iterator cbegin() const noexcept          { return { data, 0 }; }
-      const_iterator cend() const noexcept            { return { data, D }; }
-      const_reverse_iterator rbegin() const noexcept  { return reverse_iterator(cursor{data, D-1 }); }
-      const_reverse_iterator rend() const noexcept    { return reverse_iterator(cursor{data, -1 }); }
-      const_reverse_iterator crbegin() const noexcept { return reverse_iterator(cursor{data, D-1 }); }
-      const_reverse_iterator crend() const noexcept   { return reverse_iterator(cursor{ data, -1 }); }
+      store_ & operator =(T value) {
+        for (index_type i=0;i<D;++i)
+          at(i) = value;
+        return *this;
+      }
+
+      store_ & operator =(std::initializer_list<T> list) {
+        assert(list.size()<=D);
+        std::copy(list.begin(),list.end(),begin());
+        return *this;
+      }
+
+      iterator begin() noexcept                       { return iterator(data, 0); }
+      iterator end() noexcept                         { return iterator(data, D); }
+      reverse_iterator rbegin() noexcept              { return reverse_iterator(iterator(data, D-1)); }
+      reverse_iterator rend() noexcept                { return reverse_iterator(iterator(data, -1)); }
+      const_iterator begin() const noexcept           { return const_iterator(data, 0); }
+      const_iterator end() const noexcept             { return const_iterator(data, D); }
+      const_iterator cbegin() const noexcept          { return const_iterator(data, 0); }
+      const_iterator cend() const noexcept            { return const_iterator(data, D); }
+      const_reverse_iterator rbegin() const noexcept  { return reverse_iterator(const_iterator(data, D-1)); }
+      const_reverse_iterator rend() const noexcept    { return reverse_iterator(const_iterator(data, -1)); }
+      const_reverse_iterator crbegin() const noexcept { return reverse_iterator(const_iterator(data, D-1)); }
+      const_reverse_iterator crend() const noexcept   { return reverse_iterator(const_iterator(data, -1)); }
 
       plane & at(index_type i) noexcept {
-        return *reinterpret_cast<plane *>(data + i*S);
+        return reinterpret_cast<plane &>(data[i*S]);
       }
 
       plane const & at(index_type i) const noexcept {
-        return *reinterpret_cast<plane const *>(data + i*S);
+        return reinterpret_cast<plane const &>(data[i*S]);
       }
 
       plane & operator[](index_type i) noexcept {
-        return *reinterpret_cast<plane *>(data + i*S);
+        return reinterpret_cast<plane &>(data[i*S]);
       }
 
       plane const & operator[](index_type i) const noexcept {
-        return *reinterpret_cast<plane const *>(data + i*S);
+        return reinterpret_cast<plane const &>(data[i*S]);
       }
 
       template <typename B>
@@ -281,5 +322,20 @@ namespace bad {
         return *this;
       }
     };
+
+    template<typename T, typename Dim, typename Stride>
+    std::ostream &operator <<(std::ostream &os, const store_<T,Dim,Stride> & rhs) {
+      // emitting a square vector.
+      os << "{";
+      auto i = rhs.begin();
+      while (i != rhs.end()) {
+        os << *i;
+        ++i;
+        if (i == rhs.end()) break;
+        os << ",";
+      }
+      os << "}";
+      return os;
+    }
   }
 }

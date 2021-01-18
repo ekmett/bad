@@ -125,7 +125,7 @@ namespace bad {
     template <size_t N, typename S> struct seq_stride_{};
     template <size_t N, typename T, T ... is>
     struct seq_stride_<N,std::integer_sequence<T,is...>> {
-      static constexpr auto type = stride<N,T,is...>;
+      static constexpr auto value = stride<N,T,is...>;
     };
   }
 
@@ -134,10 +134,10 @@ namespace bad {
   constexpr auto seq_stride = detail::seq_stride_<N,S>::value;
 
   namespace detail {
-    template <typename S, typename Is> struct row_major_{};
+    template <typename S, typename Is> struct row_major_;
     template <typename S, typename T, T ... is>
     struct row_major_<S,std::integer_sequence<T,is...>> {
-      using type = std::integer_sequence<T,seq_stride<is,S>...>;
+      using type = std::integer_sequence<T,(seq_stride<is,S>)...>;
     };
   }
 
@@ -145,6 +145,6 @@ namespace bad {
   template <typename S>
   using row_major = typename detail::row_major_<
     S,
-    typename std::make_index_sequence<seq_length<S>>::type
+    typename std::make_index_sequence<seq_length<S>>
   >::type;
 }

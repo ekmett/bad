@@ -12,7 +12,7 @@ add_executable(t_shape t_shape.cc shape.hh catch.hh)
 target_link_libraries(t_shape ${CMAKE_DL_LIBS})
 set_target_properties(t_shape PROPERTIES ENABLE_EXPORTS 1)
 
-add_executable(t_store t_store.cc store.hh shape.hh catch.hh)
+add_executable(t_store t_store.cc store.hh shape.hh catch.hh abi.cc abi.hh)
 target_link_libraries(t_store ${CMAKE_DL_LIBS})
 set_target_properties(t_store PROPERTIES ENABLE_EXPORTS 1)
 
