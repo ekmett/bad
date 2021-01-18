@@ -11,13 +11,11 @@
 #include <cstddef>
 #include <iostream>
 #include "abi.h"
-namespace bad {
+#include "index.h"
 
-  using diff_t = std::int32_t;
-  using index_t = std::uint32_t;
+namespace bad {
   static constexpr index_t record_alignment = 16;
   static constexpr index_t record_mask = static_cast<index_t>(~0xf);
-  static constexpr index_t no_index = static_cast<index_t>(-1);
 
   namespace detail {
 

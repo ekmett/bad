@@ -4,7 +4,7 @@
 #include <limits>
 #include <vector>
 #include <iostream>
-#include "abi.h"
+#include "abi.hh"
 
 namespace autodiff {
   template <typename T, typename Act> struct tape;
@@ -48,7 +48,7 @@ namespace autodiff {
       index_t const * i = indices.data() + indices.size(); // indices.cend();
       Dl_info info;
       for (auto e = entries.rbegin(); e != entries.rend(); ++e) {
-        bool ok = dladdr(static_cast<void *>(*e),&info) != 0;
+        bool ok = dladdr(reinterpret_cast<void *>(*e),&info) != 0;
         assert(ok);
         T const * od = d;
         index_t const * oi = i;
@@ -318,7 +318,7 @@ namespace autodiff {
     std::unique_ptr<T[]> activations (new T[N]);
     for (int i=0;i<N;++i) activations[i] = 0;
     if (N != 0) activations[N-1] = 1;
-    t.propagate_verbose(activations.get());
+    t.propagate(activations.get());
     return { result.primal, activations[0] };
   }
 } // namespace autodiff
