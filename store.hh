@@ -247,17 +247,19 @@ namespace bad {
       }
       return false;
     }
+  }
 
+  namespace detail {
 
     // a lens is a pointer into a matrix, not a matrix
     template <typename T, typename Dim, typename Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
-      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
+      using index_type             = typename std::make_unsigned<seq_element_type<Dim>>::type;
       using iterator               = cursor<T,Dim,Stride>;
       using const_iterator         = const_cursor<T,Dim,Stride>;
       using reverse_iterator       = std::reverse_iterator<iterator>;
       using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-      using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
+      using plane                  = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
 
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
@@ -359,6 +361,13 @@ namespace bad {
           at(i) *= rhs[i];
         return *this;
       }
+
+      // can we use trickery to superimpose this as '.t' with no ()'s?
+
+      // sfinae?
+      using transpose = store_<T,seq_transpose<Dim>,seq_transpose<Stride>>;
+      //transpose & t() { return reinterpret_cast<transpose &>(*this); }
+      //const transpose & t() const { return reinterpret_cast<transpose &>(*this); }
     };
 
     template<typename T, typename Dim, typename Stride>

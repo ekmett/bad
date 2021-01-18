@@ -3,7 +3,7 @@
 src := $(wildcard *.cc) $(wildcard *.hh)
 cmake := $(wildcard cmake/*)
 open ?= open
-main ?= t_einsum
+main ?= t_symbol
 
 run: $(main)
 
@@ -21,13 +21,16 @@ t_einsum: build/t_einsum
 t_shape: build/t_shape
 	build/t_shape
 
+t_symbol: build/t_symbol
+	build/t_symbol
+
 t_store: build/t_store
 	build/t_store
 
 x_tape: build/x_tape
 	build/x_tape
 
-.PHONY: t_ad t_einsum t_shape t_store x_tape
+.PHONY: t_ad t_einsum t_shape t_store t_symbol x_tape
 
 build/t_ad: build
 	@ninja -C build t_ad
@@ -40,6 +43,9 @@ build/t_shape: build
 
 build/t_store: build
 	@ninja -C build t_store
+
+build/t_symbol: build
+	@ninja -C build t_symbol
 
 build/x_tape: build
 	@ninja -C build x_tape

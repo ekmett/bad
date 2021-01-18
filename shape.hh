@@ -180,4 +180,46 @@ namespace bad {
     S,
     typename std::make_index_sequence<seq_length<S>-std::max(N, seq_length<S>)>
   >::type;
+
+  namespace detail {
+    template <typename T, T i, typename S> struct seq_cons_{};
+    template <typename T, T i, T ... is> struct seq_cons_<T,i,std::integer_sequence<T,is...>> {
+      using type = std::integer_sequence<T,i,is...>;
+    };
+  }
+  template <typename T, T i, typename S> using seq_cons = typename detail::seq_cons_<T,i,S>::type;
+  
+  namespace detail {
+    template <typename T, T ... is> struct pack_transpose_;
+    template <typename T, T i, T j> struct pack_transpose_<T,i,j> {
+      using type = std::integer_sequence<T,j,i>;
+    };
+    template <typename T, T i, T j, T k, T ... ls> struct pack_transpose_<T,i,j,k,ls...> {
+      using type = seq_cons<T,i,typename pack_transpose_<T,j,k,ls...>::type>;
+    };
+  }
+
+  template <typename T, T ... is> using pack_transpose = typename detail::pack_transpose_<T,is...>::type;
+
+  namespace detail {
+    template <typename S> struct seq_transpose_ {};
+    template <typename T, T i, T j, T ... is> struct seq_transpose_<std::integer_sequence<T, i, j, is...>> {
+      using type = pack_transpose<T, i, j, is...>;
+    };
+  }
+
+  template <typename S> using seq_transpose = typename detail::seq_transpose_<S>::type;
+
+  /*
+  // transpoe the last two rows, used to transpose in place.
+  namespace detail {
+    template <typename S> struct seq_transpose_ {};
+    template <typename T, T i, T j, T ... is> struct seq_transpose_<std::integer_sequence<T,is...,i,j>> {
+      using type = std::integer_sequence<T,is...,j,i>;
+    };
+  }
+
+  template <typename S> using seq_transpose = typename seq_transpose_<S>::type;
+  */
+
 }

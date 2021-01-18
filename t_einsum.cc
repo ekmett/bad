@@ -17,5 +17,7 @@ TEST_CASE( "str", "[einsum]" ) {
   REQUIRE(sym_find<'a',sym<'w','a','t'>> == 1);
   REQUIRE(sym_find<'z',sym<'w','a','t'>> == 3);
 
+  constexpr std::string cs = "yolo"s;
+
   //we're able to make string literal objects, and check them for equality. not we just need to write a parser.
 }
