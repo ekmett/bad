@@ -35,7 +35,7 @@ TEST_CASE("einsum sketch", "[str]") {
   cout << "dot-product: " << type(dot) << endl;
   op(,i,i) sv;
   cout << "scalar-vector: " << type(sv) << endl;
-  op(ij,j,i) mv;
+  op(ij,i,j) mv;
   cout << "matrix-vector: " << type(mv) << endl;
   op(i,) sum;
   cout << "sum: " << type(sum) << endl;
@@ -51,5 +51,5 @@ TEST_CASE("einsum sketch", "[str]") {
 
 // auto z = einsum(i,i,)(x,y) // dot
 // auto z = einsum(ij,jk,il)(x,y) // mmul
-// auto z = einsum(ij,j,i)(m,v) // matrix vector multiplication
+// auto z = einsum(ij,i,j)(m,v) // matrix vector multiplication
 // auto z = einsum(,i,i)(s,v) // scalar vector multiplication

@@ -127,12 +127,12 @@ namespace bad {
     template <std::size_t N, typename T, T ... xs> struct stride_;
     template <typename T> struct stride_<0,T> {
       // consteval?
-      static constexpr T value() { return 1; }
+      static constexpr T value() noexcept { return 1; }
     };
     template <std::size_t N, typename T, T x, T ... xs>
     struct stride_<N,T,x,xs...> {
       // consteval?
-      static constexpr decltype(x) value() {
+      static constexpr decltype(x) value() noexcept {
         if constexpr (N == 0) {
           return (T(1) * ... * xs); // use prod_t in case i choose to manually drop the T(1) fold?
         } else {
@@ -171,7 +171,7 @@ namespace bad {
   namespace detail {
     // return the nth item in a parameter pack.
     template <std::size_t N, auto ... xs>
-    constexpr auto nth_() {
+    constexpr auto nth_() noexcept {
       static_assert(N < sizeof...(xs), "index out of bounds");
       constexpr decltype(head<xs...>) args[] {xs ...};
       return args[N];

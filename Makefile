@@ -12,8 +12,8 @@ build: CMakeLists.txt $(src) $(cmake)
 	@cmake -Bbuild -GNinja
 
 # `make t_seq` will run the test
-$(notdir $(tests)): %: build/%
-	@build/$@
+$(tests): %: build/%
+	build/$@
 
 # `make build/t_seq` will compile it
 $(addprefix build/, $(tests)): %: build

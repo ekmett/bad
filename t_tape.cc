@@ -1,3 +1,12 @@
+#define CATCH_CONFIG_MAIN
+#include "catch.hh"
+#include "map.hh"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
 #include <iostream>
 #include <array>
 #include <tuple>
@@ -7,27 +16,22 @@
 using namespace bad;
 using namespace std;
 
-struct simple : detail::static_propagator<5, simple, int> {
+struct simp : detail::static_propagator<5, simp, int> {
   inline void prop(act_t, index_t &) const noexcept {}
   std::array<int,5000> padding;
 };
 
-struct complx : detail::static_propagator<1, complx, int> {
+struct comp : detail::static_propagator<1, comp, int> {
   inline void prop(act_t, index_t &) const noexcept {}
   std::array<int,1000> padding;
 };
 
-// i have one off by one error and its infuriating.
-int main (int argc, char ** argv) {
+TEST_CASE("tape works","[str]") {
   dl open;
-
   tape<int> t;
   for (int i=0;i<15;++i) {
-    t.push<simple>();
+    t.push<simp>();
+    t.push<comp>();
   }
-  for (auto & p : t)
-    cout << p << endl;
-  cout << t.activations << endl;
-
-  return 0;
+  REQUIRE(t.activations == 90);
 }
