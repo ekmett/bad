@@ -1,6 +1,6 @@
 #pragma once
 #include <array>
-#include "shape.hh"
+#include "seq.hh"
 
 namespace bad {
   namespace detail {

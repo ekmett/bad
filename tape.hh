@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <iostream>
 #include "abi.hh"
-#include "shape.hh"
+#include "seq.hh"
 
 namespace bad {
   static constexpr index_t record_alignment = 16;

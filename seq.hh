@@ -12,13 +12,22 @@ namespace bad {
   template <index_t ... is>
   using seq = std::integer_sequence<index_t, is...>;
 
+  namespace detail {
+    template <typename S> struct reify_{};
+    template <typename T, T...xs> struct reify_<std::integer_sequence<T, xs...>> {
+       typedef T const type[sizeof...(xs)];
+       static constexpr T const value[sizeof...(xs)] = { xs ... };
+    };
+  }
+
+  // convert to a user 
+  template <typename S>
+  constexpr typename detail::reify_<S>::type & reify = detail::reify_<S>::value;
+
   // auto sequence type
   template <auto x, auto ... xs>
   using aseq = std::integer_sequence<decltype(x), x, xs...>;
 
-  // char is an 'integer type'.
-  template <char...cs>
-  using sym = std::integer_sequence<char, cs...>;
 
   template <auto ... xs>
   constexpr auto prod = (1*...*xs);

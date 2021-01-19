@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hh"
-#include "shape.hh"
+#include "seq.hh"
 
 using namespace bad;
 using namespace std;
@@ -30,3 +30,4 @@ TEST_CASE("seq_nth works","[shape]") {
 TEST_CASE("seq_length works","[shape]") {
    REQUIRE(seq_length<seq<3,2,1>> == 3);
 }
+

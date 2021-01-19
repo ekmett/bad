@@ -1,7 +1,7 @@
 #include <iostream>
 #include <array>
 #include <tuple>
-#include "shape.hh"
+#include "seq.hh"
 #include "tape.hh"
 
 using namespace bad;

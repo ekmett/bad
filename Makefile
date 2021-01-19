@@ -1,56 +1,31 @@
 # yes, a makefile for a cmake build system, just to keep muscle memory working
 
 src := $(wildcard *.cc) $(wildcard *.hh)
+
+tests := $(basename $(wildcard t_*.cc))
+execs := $(basename $(wildcard x_*.cc))
 cmake := $(wildcard cmake/*)
 open ?= open
-main ?= t_symbol
+main ?= t_str
 
 run: $(main)
 
-test: t_ad t_einsum t_shape t_store
+test: $(tests)
 
 build: CMakeLists.txt $(src) $(cmake)
 	@cmake -Bbuild -GNinja
 
-t_ad: build/t_ad
-	build/t_ad
+# `make t_seq` will run the test
+$(tests) $(execs): %: build/%
+	@build/$@
 
-t_einsum: build/t_einsum
-	build/t_einsum
-
-t_shape: build/t_shape
-	build/t_shape
-
-t_symbol: build/t_symbol
-	build/t_symbol
-
-t_store: build/t_store
-	build/t_store
-
-x_tape: build/x_tape
-	build/x_tape
-
-.PHONY: t_ad t_einsum t_shape t_store t_symbol x_tape
-
-build/t_ad: build
-	@ninja -C build t_ad
-
-build/t_einsum: build
-	@ninja -C build t_einsum
-
-build/t_shape: build
-	@ninja -C build t_shape
-
-build/t_store: build
-	@ninja -C build t_store
-
-build/t_symbol: build
-	@ninja -C build t_symbol
-
-build/x_tape: build
-	@ninja -C build x_tape
+# `make build/t_seq` will compile it
+$(addprefix build/, $(tests) $(execs)): %: build
+	@ninja -C build $(notdir $@)
 
 clean:
 	@rm -rf build
 
-.PHONY: clean run doc test
+phony:
+
+.PHONY: clean run doc test phony

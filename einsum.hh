@@ -2,7 +2,7 @@
 #include <string>
 #include <cstdint>
 #include "store.hh"
-#include "shape.hh"
+#include "seq.hh"
 namespace bad {
 /*
   // an interned compile time string with o(1) comparison.
@@ -17,10 +17,6 @@ namespace bad {
 
   // who knows, it varies by compiler?
   //template <char...cs>
-  template <typename T, T...cs>
-  auto operator""_sym() -> sym<cs...> {
-    return sym<cs...>();
-  }
 
 /*
 
