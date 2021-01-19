@@ -19,9 +19,9 @@ set_target_properties(t_str PROPERTIES ENABLE_EXPORTS 1)
 
 add_executable(t_map t_map.cc map.hh catch.hh)
 
-add_executable(x_tape x_tape.cc tape.hh seq.hh abi.cc abi.hh)
-target_link_libraries(x_tape ${CMAKE_DL_LIBS})
-set_target_properties(x_tape PROPERTIES ENABLE_EXPORTS 1)
+# add_executable(tape t/tape.cc tape.hh seq.hh abi.cc abi.hh)
+# target_link_libraries(tape ${CMAKE_DL_LIBS})
+# set_target_properties(tape PROPERTIES ENABLE_EXPORTS 1)
 
 #add_executable(t_ad t_ad.cc ad.hh abi.cc abi.hh)
 #target_link_libraries(t_ad ${CMAKE_DL_LIBS})
