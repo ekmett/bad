@@ -291,7 +291,7 @@ namespace bad {
           at(i) = rhs[i];
       }
 
-      T data[seq_product<Dim>];
+      T data[seq_prod<Dim>];
 
       store_ & operator =(T value) {
         for (index_type i=0;i<D;++i)
