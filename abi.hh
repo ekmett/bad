@@ -9,6 +9,7 @@ template <class T> std::string type(const T & t) {
   return demangle(typeid(t).name());
 }
 
+// convenient for dlopening the current program
 struct dl {
   dl(const char * filename = nullptr) : handle(dlopen(filename,0)) {}
   ~dl() { dlclose(handle); }
