@@ -16,6 +16,15 @@ constexpr size_t well_formed(symbol s) {
   //return s.take(p).count(',') + 1;
 }
 
+/*
+template <int arity> struct arity_test {
+  template <typename ... Args>
+  void operator (Args... args) {
+    static_assert(sizeof...(args) == arity);
+  }
+};
+*/
+
 TEST_CASE( "symbol works", "[symbol]" ) {
   { 
     constexpr symbol x = "hello";

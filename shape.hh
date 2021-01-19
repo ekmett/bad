@@ -8,52 +8,67 @@ namespace bad {
   using diff_t = std::int32_t;
   using index_t = std::uint32_t;
   static constexpr index_t no_index = static_cast<index_t>(-1);
-  template <index_t ... is> using seq = std::integer_sequence<index_t, is...>;
 
-  // compute the product of a parameter pack
-  template <typename T, T ... xs>
+  template <index_t ... is>
+  using seq = std::integer_sequence<index_t, is...>;
+
+  // auto sequence type
+  template <auto x, auto ... xs>
+  using aseq = std::integer_sequence<decltype(x), x, xs...>;
+
+  // char is an 'integer type'.
+  template <char...cs>
+  using sym = std::integer_sequence<char, cs...>;
+
+  template <auto ... xs>
   constexpr auto prod = (1*...*xs);
 
   // compute the sum of a parameter pack
-  template <typename T, T ... xs>
+  template <auto ... xs>
   constexpr auto total = (0+...+xs);
 
-  namespace detail {
-    template <std::size_t N, typename T, T ... xs> struct stride_;
+  template <auto x, decltype(x) ... xs>
+  constexpr auto head = x;
 
-    template <typename T>
-    struct stride_<0,T> {
-      static constexpr T value() { return 1; }
+  template <auto x, decltype(x) ... xs>
+  using tail = std::integer_sequence<decltype(x), xs...>;
+
+  namespace detail {
+    template <std::size_t N, auto ... xs> struct stride_;
+
+    template <>
+    struct stride_<0> {
+      static constexpr auto value() { return 1; } // TODO: smallest growable type, uint8_t?
     };
 
     // compute the nth level stride for an arraw in row-major order.
-    template <std::size_t N, typename T, T x, T ... xs>
-    struct stride_<N,T,x,xs...> {
-      static constexpr T value() {
+    template <std::size_t N, auto x, decltype(x) ... xs>
+    struct stride_<N,x,xs...> {
+      static constexpr decltype(x) value() {
         if constexpr (N == 0) {
-          return prod<T,xs...>;
+          return prod<xs...>;
         } else {
-          return stride_<N-1,T,xs...>::value();
+          return stride_<N-1,xs...>::value();
         }
       }
     };
   }
 
-  template <std::size_t N, typename T, T ... xs>
-  constexpr T stride = detail::stride_<N,T,xs...>::value();
+  template <std::size_t N, auto ... xs>
+  constexpr auto stride = detail::stride_<N,xs...>::value();
 
   namespace detail {
     // return the nth item in a parameter pack.
-    template <std::size_t N, typename T, T ... xs>
-    constexpr T nth_() {
+    template <std::size_t N, auto ... xs>
+    constexpr auto nth_() {
       static_assert(0 < N && N < sizeof...(xs), "index out of bounds");
-      constexpr T args[] {xs ...};
+      constexpr decltype(head<xs...>) args[] {xs ...};
       return args[N];
     }
   }
 
-  template <std::size_t N, typename T, T ... xs>
-  constexpr T nth = detail::nth_<N,T,xs...>();
+  template <std::size_t N, auto ... xs>
+  constexpr auto nth = detail::nth_<N,xs...>();
 
   namespace detail {
     template <typename T>
@@ -73,9 +88,9 @@ namespace bad {
     template <typename T>
     struct seq_head_{};
 
-    template <typename T, T i, T ... is>
-    struct seq_head_<std::integer_sequence<T,i,is...>> {
-      constexpr static T value = i;
+    template <typename T, T ... is>
+    struct seq_head_<std::integer_sequence<T,is...>> {
+      constexpr static T value = head<is...>;
     };
   }
 
@@ -125,7 +140,7 @@ namespace bad {
     template <size_t N, typename S> struct seq_stride_{};
     template <size_t N, typename T, T ... is>
     struct seq_stride_<N,std::integer_sequence<T,is...>> {
-      static constexpr auto value = stride<N,T,is...>;
+      static constexpr auto value = stride<N,is...>;
     };
   }
 
@@ -151,11 +166,11 @@ namespace bad {
   namespace detail {
     template <std::size_t N, typename S> struct seq_nth_;
     template <std::size_t N, typename T, T ... xs> struct seq_nth_<N,std::integer_sequence<T,xs...>> {
-      static constexpr auto value = nth<N,T,xs...>;
+      static constexpr auto value = nth<N,xs...>;
     };
   }
-  template <std::size_t N, typename T>
-  constexpr auto seq_nth = detail::seq_nth_<N,T>::value;
+  template <std::size_t N, typename S>
+  constexpr auto seq_nth = detail::seq_nth_<N,S>::value;
 
   template <typename S>
   constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;

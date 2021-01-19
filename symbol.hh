@@ -2,12 +2,18 @@
 #include <string>
 #include <cstdint>
 namespace bad {
+  // issue: this isn't enough to let me actually write einsum("ij,jk->kl")(x,y)
+  // c++20 is needed for composite type template parameters
+  // can't check dimensions dynamically. blah
+
+  // template <symbol ... xs> struct symbols {};
   // when c++20 finally makes std::string constexpr, we can move to that.
   class symbol {
   private:
     const char * const p;
     const std::size_t s;
   public:
+
     static constexpr std::size_t npos = std::string::npos;
     using iterator = char const *;
     using const_iterator = char const *;
@@ -98,4 +104,6 @@ namespace bad {
       return npos;
     }
   };
+
+
 }
