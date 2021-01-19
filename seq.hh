@@ -61,7 +61,6 @@ namespace bad {
 
   template <typename S> constexpr auto seq_total = detail::seq_total_<S>::value;
 
-
   // * head
 
   template <auto x, decltype(x) ... xs> constexpr auto head = x;
@@ -122,8 +121,7 @@ namespace bad {
 
   template <typename S> constexpr auto seq_length = detail::seq_length_<S>::value;
 
-
-  // * individual "strides" in row-major order for a given sequence of dimensions in pack form
+  // * row-major stride calculation
 
   namespace detail {
     template <std::size_t N, typename T, T ... xs> struct stride_;
@@ -147,8 +145,6 @@ namespace bad {
   // constinit?
   template <std::size_t N, typename T, T ... xs> constexpr auto stride = detail::stride_<N,T,xs...>::value();
 
-  // * compute the row-major stride of a single dimension given input as a sequence
-
   namespace detail {
     template <size_t N, typename S> struct seq_stride_;
     template <size_t N, typename T, T ... is> struct seq_stride_<N,seq_t<T,is...>> {
@@ -156,9 +152,7 @@ namespace bad {
     };
   }
 
-  // grab the stride of the nth dimension given row-major dimensions as a seq_t.
-  template <size_t N, typename S>
-  constexpr auto seq_stride = detail::seq_stride_<N,S>::value;
+  template <size_t N, typename S> constexpr auto seq_stride = detail::seq_stride_<N,S>::value;
 
   namespace detail {
     template <typename S, typename Is> struct row_major_;
@@ -168,7 +162,8 @@ namespace bad {
     };
   }
 
-  // * row-major stride
+  // * all row-major strides
+
   template <typename S> using row_major = typename detail::row_major_<S, make_seq<seq_length<S>>>::type;
 
   // * indexing
@@ -191,7 +186,9 @@ namespace bad {
       static constexpr auto value = nth<N,xs...>;
     };
   }
+
   template <std::size_t N, typename S> constexpr auto seq_nth = detail::seq_nth_<N,S>::value;
+
   template <typename S> constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
 
   // * backpermute packs and sequences
@@ -207,18 +204,15 @@ namespace bad {
     };
   }
 
-  template <typename S, typename T>
-  using seq_backpermute = typename detail::seq_backpermute_<S,T>::type;
+  template <typename S, typename T> using seq_backpermute = typename detail::seq_backpermute_<S,T>::type;
 
   // * init
 
-  template <typename S>
-  using seq_init = seq_backpermute<S, make_seq<seq_length<S>-1>>;
+  template <typename S> using seq_init = seq_backpermute<S, make_seq<seq_length<S>-1>>;
 
   // drop the last N entries
   template <std::size_t N, typename S>
   using seq_drop_last = seq_backpermute<S, make_seq<seq_length<S>-std::max(N, seq_length<S>)>>;
-
 
   // * transpose the last two entries in a sequence
 
@@ -231,10 +225,10 @@ namespace bad {
       using type = seq_cons<T,i,typename pack_transpose_<T,j,k,ls...>::type>;
     };
 
+    // maybe move out of detail
     template <typename T, T ... is> using pack_transpose = typename detail::pack_transpose_<T,is...>::type;
 
     template <typename S> struct seq_transpose_;
-
     template <typename T, T i, T j, T ... is> struct seq_transpose_<seq_t<T, i, j, is...>> {
       using type = pack_transpose<T, i, j, is...>;
     };
@@ -257,5 +251,4 @@ namespace bad {
 
   template <std::size_t N, typename S>
   using seq_skip_nth = typename detail::seq_skip_nth_<N,S,make_seq<N>>::template at<make_seq<seq_length<S>-1-N>>::type;
-
 }
