@@ -12,6 +12,8 @@
 #include "seq.hh"
 
 namespace bad {
+  using index_t = std::size_t;
+  static constexpr index_t no_index = static_cast<index_t>(-1);
   static constexpr index_t record_alignment = 16;
   static constexpr index_t record_mask = static_cast<index_t>(~0xf);
 

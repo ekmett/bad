@@ -71,7 +71,7 @@ namespace bad {
       const_cursor operator -- (int) noexcept { return { p, i-- }; }
       const_cursor operator + (difference_type d) const noexcept { return { p, i + d }; }
       const_cursor operator - (difference_type d) const noexcept { return { p, i + d }; }
-      diff_t operator - (const_cursor const & rhs) const noexcept {
+      difference_type operator - (const_cursor const & rhs) const noexcept {
         assert(p == rhs.p);
         return i - rhs.i;
       }
@@ -171,7 +171,7 @@ namespace bad {
 
     template <typename T, typename Dim, typename Stride>
     inline const_cursor<T,Dim,Stride> operator +(
-      diff_t d,
+      typename cursor<T,Dim,Stride>::difference_type d,
       const const_cursor<T,Dim,Stride> & rhs
     ) {
       return rhs + d;
@@ -179,7 +179,7 @@ namespace bad {
 
     template <typename T, typename Dim, typename Stride>
     inline cursor<T,Dim,Stride> operator +(
-      diff_t d,
+      typename cursor<T,Dim,Stride>::difference_type d,
       const cursor<T,Dim,Stride> & rhs
     ) {
       return rhs + d;
@@ -365,7 +365,7 @@ namespace bad {
       // can we use trickery to superimpose this as '.t' with no ()'s?
 
       // sfinae?
-      using transpose = store_<T,seq_transpose<Dim>,seq_transpose<Stride>>;
+      //using transpose = store_<T,seq_transpose<Dim>,seq_transpose<Stride>>;
       //transpose & t() { return reinterpret_cast<transpose &>(*this); }
       //const transpose & t() const { return reinterpret_cast<transpose &>(*this); }
     };

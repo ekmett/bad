@@ -11,9 +11,9 @@ TEST_CASE( "seq_head works", "[shape]" ) {
 }
 
 TEST_CASE("stride works","[shape]") {
-  REQUIRE( stride<0,7,5,3> == 15);
-  REQUIRE( stride<1,7,5,3> == 3);
-  REQUIRE( stride<2,7,5,3> == 1);
+  REQUIRE( stride<0,int,7,5,3> == 15);
+  REQUIRE( stride<1,int,7,5,3> == 3);
+  REQUIRE( stride<2,int,7,5,3> == 1);
 }
 
 TEST_CASE("prod works","[shape]") {

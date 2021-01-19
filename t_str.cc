@@ -41,6 +41,12 @@ TEST_CASE("einsum sketch", "[str]") {
   cout << "sum: " << type(sum) << endl;
   op(ij,ji) transpose;
   cout << "transpose: " << type(transpose) << endl;
+  op(ij,ij,ij) hadamard;
+  cout << "hadamard product: " << type(hadamard) << endl;
+  op(ii,) trace;
+  cout << "trace: " << type(trace) << endl;
+  op(i,j,ij) outer;
+  cout << "outer product: " << type(outer) << endl;
 }
 
 // auto z = einsum(i,i,)(x,y) // dot
