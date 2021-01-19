@@ -25,18 +25,22 @@ TEST_CASE("macro works", "[str]") {
 }
 
 template <typename ... Args> struct list {};
-#define einsumish(...) list<BAD_MAP_LIST(S,__VA_ARGS__)>
+#define op(...) list<BAD_MAP_LIST(S,__VA_ARGS__)>
 
 TEST_CASE("einsum sketch", "[str]") {
   dl open;
-  einsumish(ij,jk,ik) foo;
+  op(ij,jk,ik) foo;
   cout << "matrix-matrix: " << type(foo) << endl;
-  einsumish(i,i,) dot;
+  op(i,i,) dot;
   cout << "dot-product: " << type(dot) << endl;
-  einsumish(,i,i) sv;
+  op(,i,i) sv;
   cout << "scalar-vector: " << type(sv) << endl;
-  einsumish(ij,j,i) mv;
+  op(ij,j,i) mv;
   cout << "matrix-vector: " << type(mv) << endl;
+  op(i,) sum;
+  cout << "sum: " << type(sum) << endl;
+  op(ij,ji) transpose;
+  cout << "transpose: " << type(transpose) << endl;
 }
 
 // auto z = einsum(i,i,)(x,y) // dot
