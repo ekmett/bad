@@ -1,3 +1,5 @@
+-- https://optimized-einsum.readthedocs.io/en/stable/greedy_path.html
+
 data Path = Path
   deriving Show
 
