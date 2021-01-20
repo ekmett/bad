@@ -39,8 +39,4 @@ TEST_CASE( "store works", "[store]" ) {
   x.pull<1>(3)[2] = 100;
   REQUIRE(x[2][3] == 100);
   cout << x << endl;
-
-
-//  s[1][2] = 3;
-  //REQUIRE (s[1][2] == 3);
 }
