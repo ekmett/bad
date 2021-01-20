@@ -261,18 +261,16 @@ namespace bad {
       using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
 
     private:
-      using DimT = seq_element_type<Dim>;
-      using StrideT = seq_element_type<Stride>;
-      template <DimT...> struct calc_max_;
-      template <> struct calc_max_<> {
-        template <StrideT...> struct at {
+      template <typename D, D...> struct calc_max_;
+      template <typename D> struct calc_max_<D> {
+        template <typename S, S...> struct at {
           static constexpr std::size_t value = 0;
         };
       };
-      template <DimT d, DimT ... ds> struct calc_max_<d,ds...> {
-        template <StrideT...> struct at;
-        template <StrideT s, StrideT ... ss> struct at<s,ss...> {
-          static constexpr std::size_t value = s*(d-1) + calc_max_<ds...>::template at<ss...>::value;
+      template <typename D, D d, D ... ds> struct calc_max_<D,d,ds...> {
+        template <typename S,S...> struct at;
+        template <typename S, S s, S ... ss> struct at<S,s,ss...> {
+          static constexpr std::size_t value = s*(d-1) + calc_max_<D,ds...>::template at<S,ss...>::value;
         };
       };
     public:
@@ -280,10 +278,7 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      // maximum reachable flat index using this stride and dimension size.
-      // static constexpr std::size_t max_index = list_apply<max_index_, list_zip<seq_list<Dim>,seq_list<Stride>>>::value;
-
-      static constexpr std::size_t max_index = seq_t_apply<StrideT, seq_t_apply<DimT, calc_max_, Dim>::template at, Stride>::value;
+      static constexpr std::size_t max_index = seq_apply<seq_apply<calc_max_, Dim>::template at, Stride>::value;
       static constexpr std::size_t size = max_index + 1;
 
       constexpr store_() : data() {}
