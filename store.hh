@@ -365,22 +365,15 @@ namespace bad {
       using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
 
     private:
-      template <class D, D...> struct calc_;
-      template <class D> struct calc_<D> {
-        template <class S, S...> struct at {
-          static constexpr ptrdiff_t max = 0;
-          static constexpr ptrdiff_t min = 0;
-        };
+      template <class> struct calc_;
+      template <size_t... is> struct calc_<iseq<is...>> {
+         template <size_t i> static constexpr auto ext = ptrdiff_t(seq_nth<i,Stride>)*ptrdiff_t(seq_nth<i,Dim>-1);
+         static constexpr ptrdiff_t max = (0 + ... + std::max<ptrdiff_t>(0,ext<is>));
+         static constexpr ptrdiff_t min = (0 + ... + std::min<ptrdiff_t>(0,ext<is>));
       };
-      template <class D, D d, D ... ds> struct calc_<D,d,ds...> {
-        template <class S,S...> struct at;
-        template <class S, S s, S ... ss> struct at<S,s,ss...> {
-          static constexpr ptrdiff_t max = std::max<ptrdiff_t>(0,s*(d-1)) + calc_<D,ds...>::template at<S,ss...>::max;
-          static constexpr ptrdiff_t min = std::min<ptrdiff_t>(0,s*(d-1)) + calc_<D,ds...>::template at<S,ss...>::min;
-        };
-      };
-      using calc      = seq_apply<seq_apply<calc_, Dim>::template at, Stride>;
-      using calc_tail = seq_apply<seq_apply<calc_, seq_tail<Dim>>::template at, seq_tail<Stride>>;
+      using calc      = calc_<make_seq<seq_length<Dim>>>;
+      using calc_tail = calc_<seq_range<size_t(1),seq_length<Dim>>>;
+
     public:
 
       static constexpr auto D = seq_head<Dim>;
