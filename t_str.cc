@@ -27,7 +27,6 @@ TEST_CASE("macro works", "[str]") {
 #define op(...) list<BAD_MAP_LIST(S,__VA_ARGS__)>
 
 TEST_CASE("einsum sketch", "[str]") {
-  dl open;
   op(ij,jk,ik) foo;
   cout << "matrix-matrix: " << type(foo) << endl;
   op(i,i,) dot;

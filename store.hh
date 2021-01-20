@@ -1,7 +1,6 @@
 #pragma once
 #include <array>
 #include "seq.hh"
-#include "offset.hh"
 
 namespace bad {
   namespace detail {

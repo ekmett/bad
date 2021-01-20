@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 #include <iostream>
 #include <array>
 #include <tuple>
@@ -27,7 +26,6 @@ struct comp : detail::static_propagator<1, comp, int> {
 };
 
 TEST_CASE("tape works","[str]") {
-  dl open;
   tape<int> t;
   for (int i=0;i<15;++i) {
     t.push<simp>();

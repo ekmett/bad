@@ -7,7 +7,6 @@ using namespace bad;
 using namespace std;
 
 TEST_CASE( "store works", "[store]" ) {
-  dl open;
   store<int,seq<4,5>> s;
   s = { 40,30,20,10}; // set rows
   s[1][1] = 2; // set individual elements

@@ -10,7 +10,6 @@
 #include <iostream>
 #include "abi.hh"
 #include "seq.hh"
-#include "offset.hh"
 
 namespace bad {
   using index_t = std::size_t;
