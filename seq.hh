@@ -75,13 +75,28 @@ namespace bad {
 
   namespace detail {
     template <typename T, T x, typename S> struct seq_range_;
-    template <typename T, T x, T ... ys> struct seq_range_<T,x,seq_t<T,ys...>> {
+    template <typename T, T x, T... ys> struct seq_range_<T,x,seq_t<T,ys...>> {
       using type = seq_t<decltype(x),(x+ys)...>;
     };
   }
 
   template <auto x, decltype(x) y>
   using seq_range = typename detail::seq_range_<decltype(x),x,make_seq<y-x>>::type;
+
+  namespace detail {
+    template <class, class, class> struct seq_append__;
+    template <class T, T... ts, T... ss> struct seq_append__<T,seq_t<T,ts...>, seq_t<T,ss...>> {
+      using type = seq_t<T,ts...,ss...>;
+    };
+    template <class, class...> struct seq_append_;
+    template <class T> struct seq_append_<T> {
+      using type = seq_t<T>;
+    };
+    template <class T, T...ts, class...ss> struct seq_append_<T,seq_t<T,ts...>, ss...> {
+      using type = typename seq_append__<T,seq_t<T,ts...>,typename seq_append_<T,ss...>::type>::type;
+    };
+  }
+  template <class T, class... S> using seq_append = typename detail::seq_append_<T,S...>::type;
 
   // * reify
 
@@ -92,6 +107,7 @@ namespace bad {
        static constexpr T const value[sizeof...(xs)] = { xs ... };
     };
   }
+
 
   template <class S> constexpr typename detail::reify_<S>::type & reify = detail::reify_<S>::value;
 
