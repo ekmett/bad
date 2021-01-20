@@ -4,12 +4,13 @@
 #include <utility>
 
 namespace bad {
+  using std::size_t;
 
   // * sequence types
 
   template <class T, T... is> using seq_t = std::integer_sequence<T, is...>;
   template <auto x, auto... xs> using seq = seq_t<decltype(x), x, xs...>;
-  template <std::size_t ... is> using iseq = std::index_sequence<is...>;
+  template <size_t ... is> using iseq = std::index_sequence<is...>;
 
   // * sequence construction
 
@@ -143,12 +144,12 @@ namespace bad {
   // * row-major stride calculation
 
   namespace detail {
-    template <std::size_t, class T, T...> struct stride_;
+    template <size_t, class T, T...> struct stride_;
     template <class T> struct stride_<0,T> {
       // consteval?
       static constexpr T value() noexcept { return 1; }
     };
-    template <std::size_t N, class T, T x, T... xs>
+    template <size_t N, class T, T x, T... xs>
     struct stride_<N,T,x,xs...> {
       // consteval?
       static constexpr decltype(x) value() noexcept {
@@ -162,7 +163,7 @@ namespace bad {
   }
 
   // constinit?
-  template <std::size_t N, class T, T... xs> constexpr auto stride = detail::stride_<N,T,xs...>::value();
+  template <size_t N, class T, T... xs> constexpr auto stride = detail::stride_<N,T,xs...>::value();
 
   namespace detail {
     template <size_t, class> struct seq_stride_;
@@ -189,7 +190,7 @@ namespace bad {
 
   namespace detail {
     // return the nth item in a parameter pack.
-    template <std::size_t N, auto... xs>
+    template <size_t N, auto... xs>
     constexpr auto nth_() noexcept {
       static_assert(N < sizeof...(xs), "index out of bounds");
       constexpr decltype(head<xs...>) args[] {xs ...};
@@ -197,23 +198,23 @@ namespace bad {
     }
   }
 
-  template <std::size_t N, auto... xs> constexpr auto nth = detail::nth_<N,xs...>();
+  template <size_t N, auto... xs> constexpr auto nth = detail::nth_<N,xs...>();
 
   namespace detail {
-    template <std::size_t, class> struct seq_nth_;
-    template <std::size_t N, class T, T... xs> struct seq_nth_<N,seq_t<T,xs...>> {
+    template <size_t, class> struct seq_nth_;
+    template <size_t N, class T, T... xs> struct seq_nth_<N,seq_t<T,xs...>> {
       static constexpr auto value = nth<N,xs...>;
     };
   }
 
-  template <std::size_t N, class S> constexpr auto seq_nth = detail::seq_nth_<N,S>::value;
+  template <size_t N, class S> constexpr auto seq_nth = detail::seq_nth_<N,S>::value;
 
   template <class S> constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
 
   // * backpermute packs and sequences
 
   // backpermute<seq<a,b,c,d>,iseq<0,3,2,3,1,0>> = seq<a,d,c,d,b,a>
-  template <class S, std::size_t... is>
+  template <class S, size_t... is>
   using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
 
   namespace detail {
@@ -230,7 +231,7 @@ namespace bad {
   template <class S> using seq_init = seq_backpermute<S, make_seq<seq_length<S>-1>>;
 
   // drop the last N entries
-  template <std::size_t N, class S>
+  template <size_t N, class S>
   using seq_drop_last = seq_backpermute<S, make_seq<seq_length<S>-std::max(N, seq_length<S>)>>;
 
   // * transpose the last two entries in a sequence
@@ -259,16 +260,16 @@ namespace bad {
   // * skip the nth element
 
   namespace detail {
-    template <std::size_t, class, class> struct seq_skip_nth_;
-    template <std::size_t N, class S, std::size_t ... ps> struct seq_skip_nth_<N,S,iseq<ps...>> {
+    template <size_t, class, class> struct seq_skip_nth_;
+    template <size_t N, class S, size_t ... ps> struct seq_skip_nth_<N,S,iseq<ps...>> {
       template <class Suffix> struct at;
-      template <std::size_t ... ss> struct at<iseq<ss...>> {
+      template <size_t ... ss> struct at<iseq<ss...>> {
         using type = seq_t<seq_element_type<S>, seq_nth<ps,S>..., seq_nth<ss+N,S>...>;
       };
     };
   }
 
-  template <std::size_t N, class S>
+  template <size_t N, class S>
   using seq_skip_nth = typename detail::seq_skip_nth_<N,S,make_seq<N>>::template at<make_seq<seq_length<S>-1-N>>::type;
 
   // heterogeneous list

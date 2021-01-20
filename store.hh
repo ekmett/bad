@@ -11,13 +11,13 @@ namespace bad {
     struct store_t{};
 
     template <class T, class Td, class Ts>
-    struct store_t<T,std::integer_sequence<Td>,std::integer_sequence<Ts>> {
+    struct store_t<T,seq_t<Td>,seq_t<Ts>> {
       using type = T;
     };
 
     template <class T, class Dim, class Ts, Ts ... Ss>
-    struct store_t<T,Dim,std::integer_sequence<Ts,Ss...>> {
-      using type = store_<T,Dim,std::integer_sequence<Ts,Ss...>>;
+    struct store_t<T,Dim,seq_t<Ts,Ss...>> {
+      using type = store_<T,Dim,seq_t<Ts,Ss...>>;
     };
   } // namespace detail
 }
@@ -233,7 +233,7 @@ namespace bad {
     }
 
     template <class L, class R, class U, U D, U... Ds>
-    constexpr bool operator==(store_expr<L,std::integer_sequence<U,D,Ds...>> const &l, store_expr<R,std::integer_sequence<U,D,Ds...>> const & r) noexcept {
+    constexpr bool operator==(store_expr<L,seq_t<U,D,Ds...>> const &l, store_expr<R,seq_t<U,D,Ds...>> const & r) noexcept {
       for (U i=0;i<D;++i) {
         if (l[i] != r[i]) return false;
       }
@@ -241,7 +241,7 @@ namespace bad {
     }
 
     template <class L, class R, class U, U D, U... Ds>
-    constexpr bool operator!=(store_expr<L,std::integer_sequence<U,D,Ds...>> const &l, store_expr<R,std::integer_sequence<U,D,Ds...>> const & r) noexcept {
+    constexpr bool operator!=(store_expr<L,seq_t<U,D,Ds...>> const &l, store_expr<R,seq_t<U,D,Ds...>> const & r) noexcept {
       for (U i=0;i<D;++i) {
         if (l[i] != r[i]) return true;
       }
@@ -264,13 +264,13 @@ namespace bad {
       template <class D, D...> struct calc_max_;
       template <class D> struct calc_max_<D> {
         template <class S, S...> struct at {
-          static constexpr std::size_t value = 0;
+          static constexpr size_t value = 0;
         };
       };
       template <class D, D d, D ... ds> struct calc_max_<D,d,ds...> {
         template <class S,S...> struct at;
         template <class S, S s, S ... ss> struct at<S,s,ss...> {
-          static constexpr std::size_t value = s*(d-1) + calc_max_<D,ds...>::template at<S,ss...>::value;
+          static constexpr size_t value = s*(d-1) + calc_max_<D,ds...>::template at<S,ss...>::value;
         };
       };
     public:
@@ -278,8 +278,8 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      static constexpr std::size_t max_index = seq_apply<seq_apply<calc_max_, Dim>::template at, Stride>::value;
-      static constexpr std::size_t size = max_index + 1;
+      static constexpr size_t max_index = seq_apply<seq_apply<calc_max_, Dim>::template at, Stride>::value;
+      static constexpr size_t size = max_index + 1;
 
       constexpr store_() : data() {}
 
