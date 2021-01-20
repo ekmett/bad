@@ -21,21 +21,21 @@ TEST_CASE( "store works", "[store]" ) {
   REQUIRE(reinterpret_cast<byte*>(&s[1]) - reinterpret_cast<byte*>(&s[0]) == 5*sizeof(int));
   REQUIRE(reinterpret_cast<byte*>(&s[1][1]) - reinterpret_cast<byte*>(&s[1]) == sizeof(int));
   REQUIRE(type(s[1][1]) == "int");
-  cout << s << endl;
+  // cout << s << endl;
 
   store<int,seq<4,5>> t(2);
-  cout << t << endl;
+  // cout << t << endl;
 
   // column major
   store<int,seq<4,5>,seq<1,4>> r = s - t;
-  cout << r << endl;
+  // cout << r << endl;
 
   r.pull<1>(1) = 200;
-  cout << r << endl;
+  // cout << r << endl;
 
   store<int,seq<4,5>> x;
   x.pull<1>() = {1,2,3,4,5};
   x.pull<1>(3)[2] = 100;
   REQUIRE(x[2][3] == 100);
-  cout << x << endl;
+  // cout << x << endl;
 }

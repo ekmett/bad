@@ -30,6 +30,7 @@ namespace bad {
 #pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
 #endif
 
+  // until you give me a standard legal way to do this, i'm going to do what i have to do
   template <class T, T...cs>
   str<cs...> operator""_str() {
     return {};
@@ -67,7 +68,20 @@ namespace bad {
       using type = F<xs...>;
     };
   }
+
   template <class T, template <T...> class F, class L> using seq_t_apply = typename detail::seq_t_apply_<T,F,L>::type;
+
+  // * ranges
+
+  namespace detail {
+    template <typename T, T x, typename S> struct seq_range_;
+    template <typename T, T x, T ... ys> struct seq_range_<T,x,seq_t<T,ys...>> {
+      using type = seq_t<decltype(x),(x+ys)...>;
+    };
+  }
+
+  template <auto x, decltype(x) y>
+  using seq_range = typename detail::seq_range_<decltype(x),x,make_seq<y-x>>::type;
 
   // * reify
 

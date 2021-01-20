@@ -62,22 +62,22 @@ TEST_CASE("map works","[str]") {
 #define op(...) list<BAD_MAP_LIST(S,__VA_ARGS__)>
 
 TEST_CASE("einsum sketch", "[str]") {
-  op(ij,jk,ik) foo;
-  cout << "matrix-matrix: " << type(foo) << endl;
+  op(ij,jk,ik) mul;
+  //cout << "matrix-matrix: " << type(mul) << endl;
   op(i,i,) dot;
-  cout << "dot-product: " << type(dot) << endl;
+  //cout << "dot-product: " << type(dot) << endl;
   op(,i,i) sv;
-  cout << "scalar-vector: " << type(sv) << endl;
+  //cout << "scalar-vector: " << type(sv) << endl;
   op(ij,i,j) mv;
-  cout << "matrix-vector: " << type(mv) << endl;
+  //cout << "matrix-vector: " << type(mv) << endl;
   op(i,) sum;
-  cout << "sum: " << type(sum) << endl;
+  //cout << "sum: " << type(sum) << endl;
   op(ij,ji) transpose;
-  cout << "transpose: " << type(transpose) << endl;
+  //cout << "transpose: " << type(transpose) << endl;
   op(ij,ij,ij) hadamard;
-  cout << "hadamard product: " << type(hadamard) << endl;
+  //cout << "hadamard product: " << type(hadamard) << endl;
   op(ii,) trace;
-  cout << "trace: " << type(trace) << endl;
+  //cout << "trace: " << type(trace) << endl;
   op(i,j,ij) outer;
-  cout << "outer product: " << type(outer) << endl;
+  //cout << "outer product: " << type(outer) << endl;
 }
