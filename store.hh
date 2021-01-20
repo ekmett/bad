@@ -186,15 +186,9 @@ namespace bad {
     }
   }
 
-  //template <size_t N, class B> auto pull(B & rhs) noexcept {
-  //  return rhs.template pull<N>();
-  //}
   template <size_t N, class B> auto pull(B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
-  //template <size_t N, class B> auto pull(const B & rhs) noexcept {
-  //  return rhs.template pull<N>();
-  //}
   template <size_t N, class B> auto pull(const B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
@@ -398,16 +392,6 @@ namespace bad {
         std::copy(list.begin(),list.end(),begin());
       }
 
-
-//      store_(T value = 0) : data() {
-        //for (index_type i=0;i<D;++i)
-        //  at(i) = value;
-  //    }
-
-      // this requires me to know that dimensions are dense and exhaustive, but it'd be fast
-      // template <class = std::enable_if_t<std::is_same_v<sort<Stride>,row_major<Dim>>
-      // store_(const store_ & rhs) : data(rhs.data) {}
-
       template <class B>
       constexpr store_(store_expr<B,Dim> const & rhs) noexcept {
         for (index_type i=0;i<D;++i)
@@ -507,13 +491,6 @@ namespace bad {
       template <seq_element_type<Dim> D> auto rep() noexcept {
         return reinterpret_cast<store_<T,seq_cons<D,Dim>,seq_cons<seq_element_type<Stride>(0),Stride>> &>(*this);
       }
-
-      // can we use trickery to superimpose this as '.t' with no ()'s?
-
-      // sfinae? enable_if_t?
-      //using transpose = store_<T,seq_transpose<Dim>,seq_transpose<Stride>>;
-      //transpose & t() { return reinterpret_cast<transpose &>(*this); }
-      //const transpose & t() const { return reinterpret_cast<transpose &>(*this); }
     };
   }
 
@@ -540,8 +517,7 @@ namespace bad {
       auto i = rhs.begin();
       while (i != rhs.end()) {
         os << *i;
-        ++i;
-        if (i == rhs.end()) break;
+        if (++i == rhs.end()) break;
         os << ",";
       }
       os << "}";
