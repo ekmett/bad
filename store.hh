@@ -184,13 +184,41 @@ namespace bad {
     ) {
       return rhs + d;
     }
+  }
+
+  template <size_t N, class B> auto pull(B & rhs) noexcept {
+    return rhs.template pull<N>();
+  }
+  template <size_t N, class B> auto pull(B & rhs, typename B::index_type i) noexcept {
+    return rhs.template pull<N>(i);
+  }
+  template <size_t N, class B> auto pull(const B & rhs) noexcept {
+    return rhs.template pull<N>();
+  }
+  template <size_t N, class B> auto pull(const B & rhs, typename B::index_type i) noexcept {
+    return rhs.template pull<N>(i);
+  }
+
+  namespace detail {
 
     template <class B, class Dim>
     struct store_expr {
       static constexpr auto D = seq_head<Dim>;
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
+
+      store_expr const & operator()() const noexcept { return *this; }
+      template <class... Args> auto operator ()(index_type i, Args... args) const noexcept {
+        return (*this)[i](args...);
+      }
+
       auto operator [](index_type i) const noexcept {
         return static_cast<B const &>(*this)[i];
+      }
+      template <size_t N> auto pull() const noexcept {
+        return static_cast<B const &>(*this).template pull<N>();
+      }
+      template <size_t N> auto pull(index_type i) const noexcept {
+        return static_cast<B const &>(*this).template pull<N>(i);
       }
     };
 
@@ -201,15 +229,22 @@ namespace bad {
       L const & l;
       R const & r;
 
-      store_add_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r)
+      store_add_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
       : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+
       auto operator [](index_type i) const noexcept {
         return l[i] + r[i];
+      }
+      template <size_t N> auto pull() const noexcept {
+        return l.template pull<N>() + r.template pull<N>();
+      }
+      template <size_t N> auto pull(index_type i) const noexcept {
+        return l.template pull<N>(i) + r.template pull<N>(i);
       }
     };
 
     template <class L, class R, class Dim>
-    auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) {
+    auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_add_expr<L,R,Dim>(l,r);
     }
 
@@ -220,16 +255,48 @@ namespace bad {
       L const & l;
       R const & r;
 
-      store_sub_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r)
+      store_sub_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
       : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
       auto operator [](index_type i) const noexcept {
         return l[i] - r[i];
       }
+      template <size_t N> auto pull() const noexcept {
+        return l.template pull<N>() - r.template pull<N>();
+      }
+      template <size_t N> auto pull(index_type i) const noexcept {
+        return l.template pull<N>(i) - r.template pull<N>(i);
+      }
     };
 
     template <class L, class R, class Dim>
-    auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) {
+    auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_sub_expr<L,R,Dim>(l,r);
+    }
+
+    template <class L, class R, class Dim>
+    struct store_hadamard_expr : store_expr<store_hadamard_expr<L,R,Dim>,Dim> {
+      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
+
+      L const & l;
+      R const & r;
+
+      store_hadamard_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
+      : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      auto operator [](index_type i) const noexcept {
+        return l[i] - r[i];
+      }
+      template <size_t N> auto pull() const noexcept {
+        return l.template pull<N>() * r.template pull<N>();
+      }
+      template <size_t N> auto pull(index_type i) const noexcept {
+        return l.template pull<N>(i) * r.template pull<N>(i);
+      }
+    };
+
+    // NOTE: multiplication is hadamard by default, not matrix multiplication or matrix vector!!!
+    template <class L, class R, class Dim>
+    auto operator*(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+      return store_hadamard_expr<L,R,Dim>(l,r);
     }
 
     template <class L, class R, class U, U D, U... Ds>
@@ -249,7 +316,10 @@ namespace bad {
     }
   }
 
+  template <size_t N, class L> using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
+
   namespace detail {
+
     // a lens is a pointer into a matrix, not a matrix
     template <class T, class Dim, class Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
@@ -281,13 +351,13 @@ namespace bad {
       static constexpr size_t max_index = seq_apply<seq_apply<calc_max_, Dim>::template at, Stride>::value;
       static constexpr size_t size = max_index + 1;
 
-      constexpr store_() : data() {}
+      constexpr store_() noexcept : data() {}
 
-      constexpr store_(const T & value) : data() {
+      constexpr store_(const T & value) noexcept : data() {
         std::fill(begin(),end(),value);
       }
 
-      constexpr store_(std::initializer_list<T> list) : data() {
+      constexpr store_(std::initializer_list<T> list) noexcept : data() {
         assert(list.size() <= D);
         std::copy(list.begin(),list.end(),begin());
       }
@@ -303,20 +373,20 @@ namespace bad {
       // store_(const store_ & rhs) : data(rhs.data) {}
 
       template <class B>
-      constexpr store_(store_expr<B,Dim> const & rhs) {
+      constexpr store_(store_expr<B,Dim> const & rhs) noexcept {
         for (index_type i=0;i<D;++i)
           at(i) = rhs[i];
       }
 
       T data[size];
 
-      store_ & operator =(T value) {
+      store_ & operator =(T value) noexcept {
         for (index_type i=0;i<D;++i)
           at(i) = value;
         return *this;
       }
 
-      store_ & operator =(std::initializer_list<T> list) {
+      store_ & operator =(std::initializer_list<T> list) noexcept {
         assert(list.size()<=D);
         std::copy(list.begin(),list.end(),begin());
         return *this;
@@ -351,33 +421,49 @@ namespace bad {
         return reinterpret_cast<plane const &>(data[i*S]);
       }
 
+      store_ const & operator()() const noexcept { return *this; }
+      template <class... Args> auto const &  operator ()(index_type i, Args... args) const noexcept {
+        return (*this)[i](args...);
+      }
+
+      store_ & operator()() noexcept { return *this; }
+      template <class... Args> auto & operator ()(index_type i, Args... args) noexcept {
+        return (*this)[i](args...);
+      }
+
       template <class B>
-      store_ & operator = (store_expr<B,Dim> const & rhs) {
+      store_ & operator = (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) = rhs[i];
         return *this;
       }
 
       template <class B>
-      store_ & operator += (store_expr<B,Dim> const & rhs) {
+      store_ & operator += (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) += rhs[i];
         return *this;
       }
 
       template <class B>
-      store_ & operator -= (store_expr<B,Dim> const & rhs) {
+      store_ & operator -= (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) -= rhs[i];
         return *this;
       }
 
       template <class B>
-      store_ & operator *= (store_expr<B,Dim> const & rhs) {
+      store_ & operator *= (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) *= rhs[i];
         return *this;
       }
+
+      template <size_t N> using store_pull = store_<T, seq_pull<N,Dim>, seq_pull<N,Stride>>;
+      template <size_t N> store_pull<N> & pull() noexcept { return reinterpret_cast<store_pull<N>&>(*this); };
+      template <size_t N> const store_pull<N> & pull() const noexcept { return reinterpret_cast<store_pull<N> const &>(*this); };
+      template <size_t N> typename store_pull<N>::plane & pull(index_type i) noexcept { return pull<N>()[i]; };
+      template <size_t N> typename store_pull<N>::plane const & pull(index_type i) const noexcept { return pull<N>()[i]; }
 
       // can we use trickery to superimpose this as '.t' with no ()'s?
 
@@ -386,6 +472,17 @@ namespace bad {
       //transpose & t() { return reinterpret_cast<transpose &>(*this); }
       //const transpose & t() const { return reinterpret_cast<transpose &>(*this); }
     };
+
+    template <typename T, typename Dim, typename Stride1, typename Stride2>
+    void swap(
+      store<T,Dim,Stride1> & l,
+      store<T,Dim,Stride2> & r
+    ) {
+      using std::swap;
+      using L = store<T,Dim,Stride1>;
+      for (typename L::index_type i=0;i<l.D;++i)
+        swap(l.at(i),r.at(i));
+    }
 
     template<class T, class Dim, class Stride>
     std::ostream &operator <<(std::ostream &os, const store_<T,Dim,Stride> & rhs) {
