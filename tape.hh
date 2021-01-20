@@ -19,7 +19,7 @@ namespace bad {
 
   namespace detail {
 
-    template <typename T>
+    template <class T>
     inline T * offset(T *ptr, std::ptrdiff_t delta) {
       return reinterpret_cast<T*>(reinterpret_cast<std::byte *>(ptr) + delta);
     }
@@ -29,13 +29,13 @@ namespace bad {
       return !(iptr % alignment);
     }
 
-    template <typename T, typename Act = T*>
+    template <class T, class Act = T*>
     struct record;
 
     // TODO: alignment
     // TODO: cuda memory allocation
     // TODO: __host__ __device__ markers
-    template <typename T, typename Act = T*>
+    template <class T, class Act = T*>
     struct segment {
       using record_t = record<T,Act>;
 
@@ -70,7 +70,7 @@ namespace bad {
       segment & operator=(segment && rhs) noexcept;
     };
 
-    template <typename T, typename Act>
+    template <class T, class Act>
     void swap(segment<T, Act> & a, segment<T, Act> & b) {
       using std::swap;
       swap(a.current, b.current);
@@ -79,7 +79,7 @@ namespace bad {
   } // detail
 
   // forward declaration of tape
-  template <typename T, typename Act = T*>
+  template <class T, class Act = T*>
   struct tape;
 
   namespace detail {
@@ -87,10 +87,10 @@ namespace bad {
       return (i + record_alignment - 1) & record_mask;
     }
 
-    template <typename T, typename Act = T*> struct link;
+    template <class T, class Act = T*> struct link;
 
     // implement record
-    template <typename T, typename Act>
+    template <class T, class Act>
     struct alignas(record_alignment) record {
       using tape_t = tape<T,Act>;
       using segment_t = segment<T, Act>;
@@ -137,12 +137,12 @@ namespace bad {
       void operator delete[](void *, size_t, std::align_val_t) noexcept = delete;
     };
 
-    template <typename T, typename Act>
+    template <class T, class Act>
     std::ostream & operator << (std::ostream & os, const record<T, Act> & d) {
       return d.what(os);
     }
 
-    template <typename T, typename Act>
+    template <class T, class Act>
     void * record<T,Act>::operator new(size_t t, segment_t & segment) noexcept {
       if (segment.memory == nullptr) return nullptr;
       std::byte * p = reinterpret_cast<std::byte *>(segment.current);
@@ -155,7 +155,7 @@ namespace bad {
       return static_cast<void *>(p);
     }
 
-    template <typename T, typename Act>
+    template <class T, class Act>
     segment<T, Act>::~segment() noexcept {
       if (current != nullptr) {
         record<T, Act> * p = current;
@@ -182,14 +182,14 @@ namespace bad {
       memory = nullptr;
     }
 
-    template <typename T, typename Act>
+    template <class T, class Act>
     segment<T, Act> & segment<T, Act>::operator=(segment<T, Act> && rhs) noexcept {
       using std::swap;
       swap(*this,rhs);
       return *this;
     }
 
-    template <typename T, typename Act = T*>
+    template <class T, class Act = T*>
     struct terminator : record<T, Act> {
       using record_t = record<T, Act>;
       record_t * next() noexcept override { return nullptr; }
@@ -200,7 +200,7 @@ namespace bad {
       }
     };
 
-    template <typename T, typename Act> segment<T, Act>::segment(index_t n) noexcept
+    template <class T, class Act> segment<T, Act>::segment(index_t n) noexcept
     : segment(
         static_cast<std::byte*>(aligned_alloc(record_alignment, pad_to_alignment(n))),
         pad_to_alignment(n)
@@ -209,7 +209,7 @@ namespace bad {
       assert(is_aligned(p,record_alignment));
     } // alignas and pad to alignment
 
-    template <typename T, typename Act>
+    template <class T, class Act>
     struct link: record<T, Act> {
       using record_t = record<T, Act>;
       using segment_t = segment<T, Act>;
@@ -227,7 +227,7 @@ namespace bad {
       segment_t segment;
     };
 
-    template <typename T, typename Act>
+    template <class T, class Act>
     segment<T, Act>::segment(index_t n, segment<T, Act> && next) noexcept
     : segment(
         static_cast<std::byte*>(aligned_alloc(record_alignment, pad_to_alignment(n))),
@@ -242,7 +242,7 @@ namespace bad {
       }
     }
 
-    template <typename A>
+    template <class A>
     struct intrusive_iterator : std::iterator<std::forward_iterator_tag, A> {
       using pointer = A*;
       using reference = A&;
@@ -280,11 +280,11 @@ namespace bad {
       constexpr const_pointer const_ptr() const noexcept { return p; }
       constexpr operator bool() const noexcept { return p != nullptr; }
 
-      // template <typename = std::enable_if_v<!std::is_const_v(A)> >
+      // template <class = std::enable_if_v<!std::is_const_v(A)> >
       constexpr operator intrusive_iterator<const A> () const noexcept { return p; }
     };
 
-    template <typename A>
+    template <class A>
     void swap (intrusive_iterator<A> & a, intrusive_iterator<A> & b) {
       using std::swap;
       swap(a.p,b.p);
@@ -292,7 +292,7 @@ namespace bad {
   } // detail
 
   // the workhorse
-  template <typename T, typename Act>
+  template <class T, class Act>
   struct tape {
   protected:
     using segment_t = detail::segment<T,Act>;
@@ -317,7 +317,7 @@ namespace bad {
     }
 
     // put more stuff in here
-    template <typename U, typename ... Args>
+    template <class U, class ... Args>
     U & push(Args ... args) noexcept {
       static_assert(std::is_base_of_v<record_t, U>, "tape record not derived from record<T>");
       auto result = new (*this) U(std::forward<Args>(args)...);
@@ -332,7 +332,7 @@ namespace bad {
     constexpr const_iterator cend() { return const_iterator(); }
   };
 
-  template <typename T, typename Act>
+  template <class T, class Act>
   void swap(tape<T, Act> & a, tape<T, Act> & b) {
     using std::swap;
     swap(a.segment, b.segment);
@@ -340,7 +340,7 @@ namespace bad {
   }
 
   namespace detail {
-    template <typename T, typename Act>
+    template <class T, class Act>
     void * record<T,Act>::operator new(size_t size, tape_t & tape) noexcept {
       auto result = record::operator new(size, tape.segment);
       if (result) return result;
@@ -351,7 +351,7 @@ namespace bad {
     }
 
     // a non-terminal entry designed for allocation in a slab
-    template <typename B, typename T, typename Act = T &>
+    template <class B, class T, class Act = T &>
     struct propagator : record<T,Act> {
       propagator() : record<T,Act>() {
       }
@@ -372,7 +372,7 @@ namespace bad {
     };
 
     // a non-terminal entry designed for allocation in a slab, that produce a fixed number of activation records
-    template <size_t Acts, typename B, typename T, typename Act = T*>
+    template <size_t Acts, class B, class T, class Act = T*>
     struct static_propagator : propagator<B,T,Act> {
       static_propagator() : propagator<B,T,Act>() {}
       static constexpr size_t acts = Acts;

@@ -4,29 +4,29 @@
 
 namespace bad {
   namespace detail {
-    template <typename T, typename Dim, typename Stride = row_major<Dim>>
+    template <class T, class Dim, class Stride = row_major<Dim>>
     struct store_;
 
-    template <typename T, typename Dim, typename Stride = row_major<Dim>>
+    template <class T, class Dim, class Stride = row_major<Dim>>
     struct store_t{};
 
-    template <typename T, typename Td, typename Ts>
+    template <class T, class Td, class Ts>
     struct store_t<T,std::integer_sequence<Td>,std::integer_sequence<Ts>> {
       using type = T;
     };
 
-    template <typename T, typename Dim, typename Ts, Ts ... Ss>
+    template <class T, class Dim, class Ts, Ts ... Ss>
     struct store_t<T,Dim,std::integer_sequence<Ts,Ss...>> {
       using type = store_<T,Dim,std::integer_sequence<Ts,Ss...>>;
     };
   } // namespace detail
 }
 namespace bad {
-  template <typename T, typename Dim, typename Stride = row_major<Dim>>
+  template <class T, class Dim, class Stride = row_major<Dim>>
   using store = typename detail::store_t<T,Dim,Stride>::type;
 
   namespace detail {
-    template <typename T, typename Dim, typename Stride = row_major<Dim>>
+    template <class T, class Dim, class Stride = row_major<Dim>>
     struct const_cursor
     : std::iterator<
         std::random_access_iterator_tag,
@@ -92,7 +92,7 @@ namespace bad {
       }
     };
 
-    template <typename T, typename Dim, typename Stride = row_major<Dim>>
+    template <class T, class Dim, class Stride = row_major<Dim>>
     struct cursor
     : std::iterator<
         std::random_access_iterator_tag,
@@ -169,7 +169,7 @@ namespace bad {
       }
     };
 
-    template <typename T, typename Dim, typename Stride>
+    template <class T, class Dim, class Stride>
     inline const_cursor<T,Dim,Stride> operator +(
       typename cursor<T,Dim,Stride>::difference_type d,
       const const_cursor<T,Dim,Stride> & rhs
@@ -177,7 +177,7 @@ namespace bad {
       return rhs + d;
     }
 
-    template <typename T, typename Dim, typename Stride>
+    template <class T, class Dim, class Stride>
     inline cursor<T,Dim,Stride> operator +(
       typename cursor<T,Dim,Stride>::difference_type d,
       const cursor<T,Dim,Stride> & rhs
@@ -185,7 +185,7 @@ namespace bad {
       return rhs + d;
     }
 
-    template <typename B, typename Dim>
+    template <class B, class Dim>
     struct store_expr {
       static constexpr auto D = seq_head<Dim>;
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
@@ -194,7 +194,7 @@ namespace bad {
       }
     };
 
-    template <typename L, typename R, typename Dim>
+    template <class L, class R, class Dim>
     struct store_add_expr : store_expr<store_add_expr<L,R,Dim>,Dim> {
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
 
@@ -208,12 +208,12 @@ namespace bad {
       }
     };
 
-    template <typename L, typename R, typename Dim>
+    template <class L, class R, class Dim>
     auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) {
       return store_add_expr<L,R,Dim>(l,r);
     }
 
-    template <typename L, typename R, typename Dim>
+    template <class L, class R, class Dim>
     struct store_sub_expr : store_expr<store_sub_expr<L,R,Dim>,Dim> {
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
 
@@ -227,12 +227,12 @@ namespace bad {
       }
     };
 
-    template <typename L, typename R, typename Dim>
+    template <class L, class R, class Dim>
     auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) {
       return store_sub_expr<L,R,Dim>(l,r);
     }
 
-    template <typename L, typename R, typename U, U D, U ... Ds>
+    template <class L, class R, class U, U D, U... Ds>
     constexpr bool operator==(store_expr<L,std::integer_sequence<U,D,Ds...>> const &l, store_expr<R,std::integer_sequence<U,D,Ds...>> const & r) noexcept {
       for (U i=0;i<D;++i) {
         if (l[i] != r[i]) return false;
@@ -240,7 +240,7 @@ namespace bad {
       return true;
     }
 
-    template <typename L, typename R, typename U, U D, U ... Ds>
+    template <class L, class R, class U, U D, U... Ds>
     constexpr bool operator!=(store_expr<L,std::integer_sequence<U,D,Ds...>> const &l, store_expr<R,std::integer_sequence<U,D,Ds...>> const & r) noexcept {
       for (U i=0;i<D;++i) {
         if (l[i] != r[i]) return true;
@@ -251,7 +251,7 @@ namespace bad {
 
   namespace detail {
     // a lens is a pointer into a matrix, not a matrix
-    template <typename T, typename Dim, typename Stride>
+    template <class T, class Dim, class Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
       using iterator = cursor<T,Dim,Stride>;
@@ -261,15 +261,15 @@ namespace bad {
       using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
 
     private:
-      template <typename D, D...> struct calc_max_;
-      template <typename D> struct calc_max_<D> {
-        template <typename S, S...> struct at {
+      template <class D, D...> struct calc_max_;
+      template <class D> struct calc_max_<D> {
+        template <class S, S...> struct at {
           static constexpr std::size_t value = 0;
         };
       };
-      template <typename D, D d, D ... ds> struct calc_max_<D,d,ds...> {
-        template <typename S,S...> struct at;
-        template <typename S, S s, S ... ss> struct at<S,s,ss...> {
+      template <class D, D d, D ... ds> struct calc_max_<D,d,ds...> {
+        template <class S,S...> struct at;
+        template <class S, S s, S ... ss> struct at<S,s,ss...> {
           static constexpr std::size_t value = s*(d-1) + calc_max_<D,ds...>::template at<S,ss...>::value;
         };
       };
@@ -299,10 +299,10 @@ namespace bad {
   //    }
 
       // this requires me to know that dimensions are dense and exhaustive, but it'd be fast
-      // template <typename = std::enable_if_t<std::is_same_v<sort<Stride>,row_major<Dim>>
+      // template <class = std::enable_if_t<std::is_same_v<sort<Stride>,row_major<Dim>>
       // store_(const store_ & rhs) : data(rhs.data) {}
 
-      template <typename B>
+      template <class B>
       constexpr store_(store_expr<B,Dim> const & rhs) {
         for (index_type i=0;i<D;++i)
           at(i) = rhs[i];
@@ -351,28 +351,28 @@ namespace bad {
         return reinterpret_cast<plane const &>(data[i*S]);
       }
 
-      template <typename B>
+      template <class B>
       store_ & operator = (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) = rhs[i];
         return *this;
       }
 
-      template <typename B>
+      template <class B>
       store_ & operator += (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) += rhs[i];
         return *this;
       }
 
-      template <typename B>
+      template <class B>
       store_ & operator -= (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) -= rhs[i];
         return *this;
       }
 
-      template <typename B>
+      template <class B>
       store_ & operator *= (store_expr<B,Dim> const & rhs) {
         for (int i=0;i<D;++i)
           at(i) *= rhs[i];
@@ -387,7 +387,7 @@ namespace bad {
       //const transpose & t() const { return reinterpret_cast<transpose &>(*this); }
     };
 
-    template<typename T, typename Dim, typename Stride>
+    template<class T, class Dim, class Stride>
     std::ostream &operator <<(std::ostream &os, const store_<T,Dim,Stride> & rhs) {
       // emitting a square vector.
       os << "{";
