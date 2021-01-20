@@ -1,7 +1,10 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hh"
+#include "abi.hh"
 #include "seq.hh"
+#include "map.hh"
 
+using namespace std;
 using namespace bad;
 
 TEST_CASE("seq_head works", "[shape]") {
@@ -30,3 +33,51 @@ TEST_CASE("seq_length works","[shape]") {
   REQUIRE(seq_length<seq<3,2,1>> == 3);
 }
 
+TEST_CASE("reify works","[str]") {
+   REQUIRE(sizeof(reify<str<'c','a','t'>>) == 3);
+   REQUIRE(reify<str<'c','a','t'>>[1] == 'a');
+   REQUIRE(&reify<str<'c','a','t'>> == &reify<str<'c','a','t'>>);
+}
+
+TEST_CASE("_str", "[str]") {
+  auto x = "wat"_str; // gives me back a thing of that type
+  REQUIRE(sizeof(reify<decltype("wat"_str)>) == 3);
+}
+
+#define S(str) decltype(#str ## _str)
+TEST_CASE("macro works", "[str]") {
+  REQUIRE(reify<S(wat)>[2] == 't');
+  REQUIRE(sizeof(reify<S(wat)>) == 3);
+}
+
+#define M(x) #x ## s
+TEST_CASE("map works","[str]") {
+  std::string strings[] = { BAD_MAP_LIST(M,hello,world) }; // testing empty strings
+  REQUIRE(sizeof(strings) / sizeof(string) == 2);
+  REQUIRE(strings[1][1] == 'o');
+  std::string empty[] = { BAD_MAP_LIST(M,,hello,,world,) }; // testing empty strings
+  REQUIRE(sizeof(empty) / sizeof(string) == 5);
+}
+
+#define op(...) list<BAD_MAP_LIST(S,__VA_ARGS__)>
+
+TEST_CASE("einsum sketch", "[str]") {
+  op(ij,jk,ik) foo;
+  cout << "matrix-matrix: " << type(foo) << endl;
+  op(i,i,) dot;
+  cout << "dot-product: " << type(dot) << endl;
+  op(,i,i) sv;
+  cout << "scalar-vector: " << type(sv) << endl;
+  op(ij,i,j) mv;
+  cout << "matrix-vector: " << type(mv) << endl;
+  op(i,) sum;
+  cout << "sum: " << type(sum) << endl;
+  op(ij,ji) transpose;
+  cout << "transpose: " << type(transpose) << endl;
+  op(ij,ij,ij) hadamard;
+  cout << "hadamard product: " << type(hadamard) << endl;
+  op(ii,) trace;
+  cout << "trace: " << type(trace) << endl;
+  op(i,j,ij) outer;
+  cout << "outer product: " << type(outer) << endl;
+}

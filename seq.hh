@@ -12,10 +12,36 @@ namespace bad {
   template <class T, T... is> using seq_t = std::integer_sequence<T, is...>;
   template <auto x, auto... xs> using seq = seq_t<decltype(x), x, xs...>;
   template <size_t ... is> using iseq = std::index_sequence<is...>;
+  template <char...cs> using str = std::integer_sequence<char, cs...>;
 
   // * sequence construction
 
   template <auto x> using make_seq = std::make_integer_sequence<decltype(x),x>;
+
+  // * char is an 'integer type'.
+
+#ifdef __clang__
+#ifndef ICC // icpc is a lying liar that lies
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-string-literal-operator-template"
+#endif
+#elif defined __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
+#endif
+
+  template <class T, T...cs>
+  str<cs...> operator""_str() {
+    return {};
+  }
+
+#ifdef __clang__
+#ifndef ICC
+#pragma clang diagnostic pop
+#endif
+#elif defined __GNUC__
+#pragma GCC diagnostic pop
+#endif
 
   // * application
 
