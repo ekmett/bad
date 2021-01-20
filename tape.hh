@@ -26,7 +26,6 @@ namespace bad {
     template <class T, class Act = T*>
     struct record;
 
-    // TODO: alignment
     // TODO: cuda memory allocation
     // TODO: __host__ __device__ markers
     template <class T, class Act = T*>
@@ -65,7 +64,7 @@ namespace bad {
     };
 
     template <class T, class Act>
-    void swap(segment<T, Act> & a, segment<T, Act> & b) {
+    void swap(segment<T, Act> & a, segment<T, Act> & b) noexcept {
       using std::swap;
       swap(a.current, b.current);
       swap(a.memory, b.memory);
@@ -77,7 +76,7 @@ namespace bad {
   struct tape;
 
   namespace detail {
-    static constexpr index_t pad_to_alignment(index_t i) {
+    static constexpr index_t pad_to_alignment(index_t i) noexcept {
       return (i + record_alignment - 1) & record_mask;
     }
 
@@ -132,7 +131,7 @@ namespace bad {
     };
 
     template <class T, class Act>
-    std::ostream & operator << (std::ostream & os, const record<T, Act> & d) {
+    std::ostream & operator << (std::ostream & os, const record<T, Act> & d) noexcept {
       return d.what(os);
     }
 
@@ -245,7 +244,7 @@ namespace bad {
 
       pointer p;
 
-      intrusive_iterator() : p() {}
+      intrusive_iterator() noexcept : p() {}
       intrusive_iterator(pointer p) noexcept : p(p) {}
       intrusive_iterator(const intrusive_iterator & rhs) noexcept : p(rhs.p) {}
       intrusive_iterator(intrusive_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
@@ -255,8 +254,8 @@ namespace bad {
       constexpr bool operator == (const intrusive_iterator & rhs) const noexcept { return p == rhs.p; }
       constexpr bool operator != (const intrusive_iterator & rhs) const noexcept { return p != rhs.p; }
 
-      constexpr reference operator *() const { return *p; }
-      constexpr pointer operator -> () { return p; }
+      constexpr reference operator *() const noexcept { return *p; }
+      constexpr pointer operator -> () noexcept { return p; }
       intrusive_iterator & operator ++ () noexcept {
         assert(p != nullptr);
         p = p->next();
@@ -312,22 +311,22 @@ namespace bad {
 
     // put more stuff in here
     template <class U, class ... Args>
-    U & push(Args ... args) noexcept {
+    [[maybe_unused]] U & push(Args ... args) noexcept {
       static_assert(std::is_base_of_v<record_t, U>, "tape record not derived from record<T>");
       auto result = new (*this) U(std::forward<Args>(args)...);
       activations += result->activation_records();
       return *result;
     }
 
-    iterator begin() { return segment.current; }
-    constexpr iterator end() { return iterator(); }
+    iterator begin() noexcept { return segment.current; }
+    constexpr iterator end() noexcept { return iterator(); }
 
-    const_iterator cbegin() const { return segment.current; }
-    constexpr const_iterator cend() { return const_iterator(); }
+    const_iterator cbegin() const noexcept { return segment.current; }
+    constexpr const_iterator cend() noexcept { return const_iterator(); }
   };
 
   template <class T, class Act>
-  void swap(tape<T, Act> & a, tape<T, Act> & b) {
+  void swap(tape<T, Act> & a, tape<T, Act> & b) noexcept {
     using std::swap;
     swap(a.segment, b.segment);
     swap(a.activations, b.activations);
@@ -347,7 +346,7 @@ namespace bad {
     // a non-terminal entry designed for allocation in a slab
     template <class B, class T, class Act = T &>
     struct propagator : record<T,Act> {
-      propagator() : record<T,Act>() {
+      propagator() noexcept : record<T,Act>() {
       }
       inline record<T, Act> const * next() const noexcept override {
         return reinterpret_cast<record<T, Act> const *>(reinterpret_cast<std::byte const*>(this) + pad_to_alignment(sizeof(B)));
@@ -368,7 +367,7 @@ namespace bad {
     // a non-terminal entry designed for allocation in a slab, that produce a fixed number of activation records
     template <size_t Acts, class B, class T, class Act = T*>
     struct static_propagator : propagator<B,T,Act> {
-      static_propagator() : propagator<B,T,Act>() {}
+      static_propagator() noexcept : propagator<B,T,Act>() {}
       static constexpr size_t acts = Acts;
       constexpr index_t activation_records() const noexcept override {
         return acts;
