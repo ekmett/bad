@@ -253,15 +253,38 @@ namespace bad {
     // a lens is a pointer into a matrix, not a matrix
     template <typename T, typename Dim, typename Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
-      using index_type             = typename std::make_unsigned<seq_element_type<Dim>>::type;
-      using iterator               = cursor<T,Dim,Stride>;
-      using const_iterator         = const_cursor<T,Dim,Stride>;
-      using reverse_iterator       = std::reverse_iterator<iterator>;
+      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
+      using iterator = cursor<T,Dim,Stride>;
+      using const_iterator = const_cursor<T,Dim,Stride>;
+      using reverse_iterator = std::reverse_iterator<iterator>;
       using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-      using plane                  = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
+      using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
+
+    private:
+      using DimT = seq_element_type<Dim>;
+      using StrideT = seq_element_type<Stride>;
+      template <DimT...> struct calc_max_;
+      template <> struct calc_max_<> {
+        template <StrideT...> struct at {
+          static constexpr std::size_t value = 0;
+        };
+      };
+      template <DimT d, DimT ... ds> struct calc_max_<d,ds...> {
+        template <StrideT...> struct at;
+        template <StrideT s, StrideT ... ss> struct at<s,ss...> {
+          static constexpr std::size_t value = s*(d-1) + calc_max_<ds...>::template at<ss...>::value;
+        };
+      };
+    public:
 
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
+
+      // maximum reachable flat index using this stride and dimension size.
+      // static constexpr std::size_t max_index = list_apply<max_index_, list_zip<seq_list<Dim>,seq_list<Stride>>>::value;
+
+      static constexpr std::size_t max_index = seq_t_apply<StrideT, seq_t_apply<DimT, calc_max_, Dim>::template at, Stride>::value;
+      static constexpr std::size_t size = max_index + 1;
 
       constexpr store_() : data() {}
 
@@ -280,7 +303,7 @@ namespace bad {
         //  at(i) = value;
   //    }
 
-      // this requires me to know that dimensions are dense and exhaustive
+      // this requires me to know that dimensions are dense and exhaustive, but it'd be fast
       // template <typename = std::enable_if_t<std::is_same_v<sort<Stride>,row_major<Dim>>
       // store_(const store_ & rhs) : data(rhs.data) {}
 
@@ -290,7 +313,7 @@ namespace bad {
           at(i) = rhs[i];
       }
 
-      T data[seq_prod<Dim>];
+      T data[size];
 
       store_ & operator =(T value) {
         for (index_type i=0;i<D;++i)
