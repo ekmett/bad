@@ -8,7 +8,7 @@ add_executable(t_seq t_seq.cc seq.hh catch.hh)
 target_link_libraries(t_seq ${CMAKE_DL_LIBS})
 set_target_properties(t_seq PROPERTIES ENABLE_EXPORTS 1)
 
-add_executable(t_store t_store.cc store.hh seq.hh catch.hh abi.cc abi.hh)
+add_executable(t_store t_store.cc store.hh seq.hh offset.hh catch.hh abi.cc abi.hh)
 target_link_libraries(t_store ${CMAKE_DL_LIBS})
 set_target_properties(t_store PROPERTIES ENABLE_EXPORTS 1)
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include "seq.hh"
+#include "offset.hh"
 
 namespace bad {
   namespace detail {
@@ -361,25 +362,33 @@ namespace bad {
       using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
 
     private:
-      template <class D, D...> struct calc_max_;
-      template <class D> struct calc_max_<D> {
+      template <class D, D...> struct calc_;
+      template <class D> struct calc_<D> {
         template <class S, S...> struct at {
-          static constexpr size_t value = 0;
+          static constexpr ptrdiff_t max = 0;
+          static constexpr ptrdiff_t min = 0;
         };
       };
-      template <class D, D d, D ... ds> struct calc_max_<D,d,ds...> {
+      template <class D, D d, D ... ds> struct calc_<D,d,ds...> {
         template <class S,S...> struct at;
         template <class S, S s, S ... ss> struct at<S,s,ss...> {
-          static constexpr size_t value = s*(d-1) + calc_max_<D,ds...>::template at<S,ss...>::value;
+          static constexpr ptrdiff_t max = std::max<ptrdiff_t>(0,s*(d-1)) + calc_<D,ds...>::template at<S,ss...>::max;
+          static constexpr ptrdiff_t min = std::min<ptrdiff_t>(0,s*(d-1)) + calc_<D,ds...>::template at<S,ss...>::min;
         };
       };
+      using calc      = seq_apply<seq_apply<calc_, Dim>::template at, Stride>;
+      using calc_tail = seq_apply<seq_apply<calc_, seq_tail<Dim>>::template at, seq_tail<Stride>>;
     public:
 
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      static constexpr size_t max_index = seq_apply<seq_apply<calc_max_, Dim>::template at, Stride>::value;
-      static constexpr size_t size = max_index + 1;
+      static constexpr size_t    max_index = size_t(calc::max); // non-negative
+      static constexpr ptrdiff_t min_index = calc::min; // non-positive
+      static constexpr size_t offset = -calc::min; // positive
+      static constexpr size_t tail_offset = -calc_tail::min; // positive
+      static constexpr size_t delta_offset = offset - tail_offset; // non-negative
+      static constexpr size_t size = offset + max_index + 1; // offset so negative strides remain in bounds to shut up valgrind, etc.
 
       constexpr store_() noexcept : data() {}
 
@@ -412,33 +421,33 @@ namespace bad {
         return *this;
       }
 
-      iterator begin() noexcept                       { return iterator(data, 0); }
-      iterator end() noexcept                         { return iterator(data, D); }
-      reverse_iterator rbegin() noexcept              { return reverse_iterator(iterator(data, D-1)); }
-      reverse_iterator rend() noexcept                { return reverse_iterator(iterator(data, -1)); }
-      const_iterator begin() const noexcept           { return const_iterator(data, 0); }
-      const_iterator end() const noexcept             { return const_iterator(data, D); }
-      const_iterator cbegin() const noexcept          { return const_iterator(data, 0); }
-      const_iterator cend() const noexcept            { return const_iterator(data, D); }
-      const_reverse_iterator rbegin() const noexcept  { return reverse_iterator(const_iterator(data, D-1)); }
-      const_reverse_iterator rend() const noexcept    { return reverse_iterator(const_iterator(data, -1)); }
-      const_reverse_iterator crbegin() const noexcept { return reverse_iterator(const_iterator(data, D-1)); }
-      const_reverse_iterator crend() const noexcept   { return reverse_iterator(const_iterator(data, -1)); }
+      iterator begin() noexcept                       { return iterator(data + offset, 0); }
+      iterator end() noexcept                         { return iterator(data + offset, D); }
+      reverse_iterator rbegin() noexcept              { return reverse_iterator(iterator(data + offset, D-1)); }
+      reverse_iterator rend() noexcept                { return reverse_iterator(iterator(data + offset, -1)); }
+      const_iterator begin() const noexcept           { return const_iterator(data + offset, 0); }
+      const_iterator end() const noexcept             { return const_iterator(data + offset, D); }
+      const_iterator cbegin() const noexcept          { return const_iterator(data + offset, 0); }
+      const_iterator cend() const noexcept            { return const_iterator(data + offset, D); }
+      const_reverse_iterator rbegin() const noexcept  { return reverse_iterator(const_iterator(data + offset, D-1)); }
+      const_reverse_iterator rend() const noexcept    { return reverse_iterator(const_iterator(data + offset, -1)); }
+      const_reverse_iterator crbegin() const noexcept { return reverse_iterator(const_iterator(data + offset, D-1)); }
+      const_reverse_iterator crend() const noexcept   { return reverse_iterator(const_iterator(data + offset, -1)); }
 
       plane & at(index_type i) noexcept {
-        return reinterpret_cast<plane &>(data[i*S]);
+        return reinterpret_cast<plane &>(data[delta_offset + i*S]);
       }
 
       plane const & at(index_type i) const noexcept {
-        return reinterpret_cast<plane const &>(data[i*S]);
+        return reinterpret_cast<plane const &>(data[delta_offset + i*S]);
       }
 
       plane & operator[](index_type i) noexcept {
-        return reinterpret_cast<plane &>(data[i*S]);
+        return reinterpret_cast<plane &>(data[delta_offset + i*S]);
       }
 
       plane const & operator[](index_type i) const noexcept {
-        return reinterpret_cast<plane const &>(data[i*S]);
+        return reinterpret_cast<plane const &>(data[delta_offset + i*S]);
       }
 
       store_ const & operator()() const noexcept { return *this; }

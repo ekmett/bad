@@ -10,6 +10,7 @@
 #include <iostream>
 #include "abi.hh"
 #include "seq.hh"
+#include "offset.hh"
 
 namespace bad {
   using index_t = std::size_t;
@@ -18,12 +19,6 @@ namespace bad {
   static constexpr index_t record_mask = static_cast<index_t>(~0xf);
 
   namespace detail {
-
-    template <class T>
-    inline T * offset(T *ptr, std::ptrdiff_t delta) {
-      return reinterpret_cast<T*>(reinterpret_cast<std::byte *>(ptr) + delta);
-    }
-
     inline bool is_aligned(const void * ptr, std::uintptr_t alignment) noexcept {
       auto iptr = reinterpret_cast<std::uintptr_t>(ptr);
       return !(iptr % alignment);

@@ -5,6 +5,7 @@
 
 namespace bad {
   using std::size_t;
+  using std::ptrdiff_t;
 
   // * sequence types
 
