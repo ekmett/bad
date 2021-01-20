@@ -34,11 +34,13 @@ namespace bad {
         store<T,seq_tail<Dim>,seq_tail<Stride>> const,
         typename std::make_signed<seq_element_type<Dim>>::type
       > {
+    private:
       using super = std::iterator<
         std::random_access_iterator_tag,
         store<T,seq_tail<Dim>,seq_tail<Stride>> const,
         typename std::make_signed<seq_element_type<Dim>>::type
       >;
+    public:
       using difference_type = typename super::difference_type;
       using pointer = typename super::pointer;
       using reference = typename super::reference;
@@ -100,11 +102,13 @@ namespace bad {
         store<T,seq_tail<Dim>,seq_tail<Stride>>,
         typename std::make_signed<seq_element_type<Dim>>::type
       > {
+    private:
       using super = std::iterator<
         std::random_access_iterator_tag,
         store<T,seq_tail<Dim>,seq_tail<Stride>>,
         typename std::make_signed<seq_element_type<Dim>>::type
       >;
+    public:
       using difference_type = typename super::difference_type;
       using pointer = typename super::pointer;
       using reference = typename super::reference;
