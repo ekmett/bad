@@ -24,7 +24,6 @@ TEST_CASE("macro works", "[str]") {
   REQUIRE(sizeof(reify<S(wat)>) == 3);
 }
 
-template <typename ... Args> struct list {};
 #define op(...) list<BAD_MAP_LIST(S,__VA_ARGS__)>
 
 TEST_CASE("einsum sketch", "[str]") {

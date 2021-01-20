@@ -15,6 +15,32 @@ namespace bad {
 
   template <auto x> using make_seq = std::make_integer_sequence<decltype(x),x>;
 
+  // * application
+
+  namespace detail {
+    template <template <typename T, T ...> typename F, typename L> struct seq_apply_;
+    template <template <typename T, T ...> typename F, typename X, X ... xs> struct seq_apply_<F,seq_t<X,xs...>> {
+      using type = F<X,xs...>;
+    };
+  }
+  template <template <typename T, T ...> typename F, typename L> using seq_apply = typename detail::seq_apply_<F,L>::type;
+
+  namespace detail {
+    template <template <auto x, decltype(x) ...> typename F, typename L> struct seq_auto_apply_;
+    template <template <auto x, decltype(x) ...> typename F, typename X, X x, X ... xs> struct seq_auto_apply_<F,seq_t<X,x,xs...>> {
+      using type = F<x,xs...>;
+    };
+  }
+  template <template <auto x, decltype(x) ...> typename F, typename L> using seq_auto_apply = typename detail::seq_auto_apply_<F,L>::type;
+
+  namespace detail {
+    template <typename T, template <T...> typename F, typename L> struct seq_t_apply_;
+    template <typename T, template <T...> typename F, T ... xs> struct seq_t_apply_<T,F,seq_t<T,xs...>> {
+      using type = F<xs...>;
+    };
+  }
+  template <typename T, template <T...> typename F, typename L> using seq_t_apply = typename detail::seq_t_apply_<T,F,L>::type;
+
   // * reify
 
   namespace detail {
@@ -31,6 +57,7 @@ namespace bad {
 
   template <typename T, T ... is> constexpr T prod_t = (T(1) * ... * is);
   template <auto ... xs> constexpr auto prod = (...*xs);
+  // template <typename S> constexpr auto seq_prod = seq_apply<prod_t,S>; this is  constexpr, not a template, won't work.
 
   namespace detail {
     template <typename S> struct seq_prod_;
@@ -78,6 +105,7 @@ namespace bad {
 
   template <auto x, decltype(x) ... xs> using tail = seq_t<decltype(x), xs...>;
 
+/*
   namespace detail {
     template <typename S> struct seq_tail_;
     template <typename T, T i, T ... is> struct seq_tail_<seq_t<T,i,is...>> {
@@ -86,6 +114,8 @@ namespace bad {
   }
 
   template <typename S> using seq_tail = typename detail::seq_tail_<S>::type;
+*/
+  template <typename S> using seq_tail = seq_auto_apply<tail,S>;
 
   // * cons
 
@@ -96,8 +126,8 @@ namespace bad {
     };
   }
 
-  template <typename T, T i, typename S>
-  using seq_cons = typename detail::seq_cons_<T,i,S>::type;
+  template <auto i, typename S>
+  using seq_cons = typename detail::seq_cons_<decltype(i),i,S>::type;
 
   // * element type
 
@@ -222,7 +252,7 @@ namespace bad {
       using type = seq_t<T,j,i>;
     };
     template <typename T, T i, T j, T k, T ... ls> struct pack_transpose_<T,i,j,k,ls...> {
-      using type = seq_cons<T,i,typename pack_transpose_<T,j,k,ls...>::type>;
+      using type = seq_cons<i,typename pack_transpose_<T,j,k,ls...>::type>;
     };
 
     // maybe move out of detail
@@ -251,4 +281,89 @@ namespace bad {
 
   template <std::size_t N, typename S>
   using seq_skip_nth = typename detail::seq_skip_nth_<N,S,make_seq<N>>::template at<make_seq<seq_length<S>-1-N>>::type;
+
+  // heterogeneous list
+  template <typename ... ts> struct list {};
+
+  // * list cons
+
+  namespace detail {
+    template <typename x, typename xs> struct list_cons_;
+    template <typename x, typename ... xs> struct list_cons_<x,list<xs...>> {
+      using type = list<x, xs...>;
+    };
+  }
+
+  template <typename x, typename xs> using list_cons = typename detail::list_cons_<x,xs>::type;
+
+  // * list head
+
+  namespace detail {
+    template <typename L> struct list_head_;
+    template <typename x, typename ... xs> struct list_head_<list<x,xs...>> {
+      using type = x;
+    };
+  }
+
+  template <typename L> using list_head = typename detail::list_head_<L>::type;
+
+  // * conversion from sequences
+
+  template <auto x> using int_t = std::integral_constant<decltype(x), x>;
+
+  namespace detail {
+    template <typename S> struct seq_list_;
+    template <typename T, T ... is> struct seq_list_<seq_t<T,is...>> {
+      using type = list<int_t<is>...>;
+    };
+  }
+
+  template <typename S> using seq_list = typename detail::seq_list_<S>::type;
+
+  // * zipping
+
+  namespace detail {
+    template <typename S> struct list_zip_;
+    template <> struct list_zip_<list<>> {
+      template <typename T> struct at {
+        using type = list<>;
+      };
+    };
+    template <typename x, typename ... xs> struct list_zip_<list<x,xs...>> {
+      template <typename T> struct at;
+      template <> struct at<list<>> {
+        using type = list<>;
+      };
+      template <typename y, typename ... ys> struct at<list<y,ys...>> {
+        using type = list_cons<std::tuple<x,y>,typename list_zip_<xs...>::template at<ys...>::type>;
+      };
+    };
+  };
+
+  template <typename X, typename Y> using list_zip = typename detail::list_zip_<X>::template at<Y>::type;
+
+  namespace detail {
+    template <typename T, typename S> struct list_seq_;
+    template <typename T> struct list_seq_<T,list<>> {
+      using type = seq_t<T>;
+    };
+    template <typename T, T i, typename ... xs> struct list_seq_<T,list<int_t<i>,xs...>> {
+      using type = seq_cons<i,typename list_seq_<T,list<xs...>>::type>;
+    };
+  };
+
+  template <typename T, typename S> using list_seq = typename detail::list_seq_<T,S>::type;
+
+  // list application
+
+  namespace detail {
+    template <template <typename ...> typename F, typename L> struct list_apply_;
+    template <template <typename ...> typename F, typename ... xs> struct list_apply_<F,list<xs...>> {
+      using type = F<xs...>;
+    };
+  }
+
+  template <template <typename...> typename F, typename L> using list_apply = typename detail::list_apply_<F,L>::type;
+
+
 }

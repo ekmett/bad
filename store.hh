@@ -250,7 +250,6 @@ namespace bad {
   }
 
   namespace detail {
-
     // a lens is a pointer into a matrix, not a matrix
     template <typename T, typename Dim, typename Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
