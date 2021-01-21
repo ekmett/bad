@@ -11,7 +11,7 @@ add_library(abi STATIC abi.cc abi.hh map.hh attrib.hh)
 link_libraries(abi)
 
 add_executable(t_seq t_seq.cc seq.hh catch.hh)
-target_precompile_headers(t_seq PRIVATE [["abi.hh"]] [["seq.hh"]] [["map.hh"]])
+target_precompile_headers(t_seq PRIVATE [["abi.hh"]] [["seq.hh"]])
 
 add_executable(t_store t_store.cc store.hh seq.hh catch.hh)
 target_precompile_headers(t_store REUSE_FROM t_seq)
