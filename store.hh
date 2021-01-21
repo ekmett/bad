@@ -192,11 +192,11 @@ namespace bad {
   }
 
   template <size_t N, class B> 
-  BAD(HD,INLINE) auto pull(B & rhs, typename B::index_type i) noexcept {
+  BAD(HD,INLINE) auto pull(BAD(LIFETIMEBOUND) B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
   template <size_t N, class B>
-  BAD(HD,INLINE) auto pull(const B & rhs, typename B::index_type i) noexcept {
+  BAD(HD,INLINE) auto pull(BAD(LIFETIMEBOUND) const B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
 
