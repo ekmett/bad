@@ -102,4 +102,3 @@
 
 /// use the c++ standard attribute
 #define BAD_MAYBE_UNUSED [[maybe_unused]]
-
