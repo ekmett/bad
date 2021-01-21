@@ -135,6 +135,21 @@
 #warning no noescape
 #endif
 
+#if __has_attribute(callback)
+#define BAD_CALLBACK(...) __attribute__((callback(__VA_ARGS__)))
+#else
+#define BAD_CALLBACK(...)
+#warning no callback
+#endif
+
+#if __has_attribute(lifetimebound)
+#define BAD_LIFETIMEBOUND __attribute__((lifetimebound))
+#else
+#define BAD_LIFETIMEBOUND
+#warning no lifetimebound
+#endif
+
+
 #if __has_attribute(returns_nonnull)
 #define BAD_RETURNS_NONNULL __attribute__((returns_nonnull))
 #else

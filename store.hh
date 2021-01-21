@@ -272,8 +272,11 @@ namespace bad {
       L const & l;
       R const & r;
 
-      BAD(HD,INLINE,NOALIAS) store_add_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
-      : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      BAD(HD,INLINE,NOALIAS)
+      store_add_expr(
+        BAD(LIFETIMEBOUND) store_expr<L,Dim> const & l,
+        BAD(LIFETIMEBOUND) store_expr<R,Dim> const & r
+      ) noexcept : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
 
       BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return l[i] + r[i];
@@ -289,7 +292,10 @@ namespace bad {
     };
 
     template <class L, class R, class Dim>
-    BAD(HD,INLINE,CONST) auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE,CONST) auto operator+(
+      BAD(LIFETIMEBOUND) store_expr<L,Dim> const &l,
+      BAD(LIFETIMEBOUND) store_expr<R,Dim> const &r
+    ) noexcept {
       return store_add_expr<L,R,Dim>(l,r);
     }
 
@@ -300,8 +306,11 @@ namespace bad {
       L const & l;
       R const & r;
 
-      BAD(HD,INLINE,NOALIAS) store_sub_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
-      : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      BAD(HD,INLINE,NOALIAS)
+      store_sub_expr(
+        BAD(LIFETIMEBOUND) store_expr<L,Dim> const & l,
+        BAD(LIFETIMEBOUND) store_expr<R,Dim> const & r
+      ) noexcept : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
 
       BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return l[i] - r[i];
@@ -317,7 +326,10 @@ namespace bad {
     };
 
     template <class L, class R, class Dim>
-    BAD(HD,INLINE,CONST) auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE,CONST) auto operator-(
+      BAD(LIFETIMEBOUND) store_expr<L,Dim> const &l,
+      BAD(LIFETIMEBOUND) store_expr<R,Dim> const &r
+    ) noexcept {
       return store_sub_expr<L,R,Dim>(l,r);
     }
 
@@ -328,8 +340,10 @@ namespace bad {
       L const & l;
       R const & r;
 
-      BAD(HD,INLINE,NOALIAS) store_hadamard_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
-      : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      BAD(HD,INLINE,NOALIAS) store_hadamard_expr(
+        BAD(LIFETIMEBOUND) store_expr<L,Dim> const & l,
+        BAD(LIFETIMEBOUND) store_expr<R,Dim> const & r
+      ) noexcept : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
       BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return l[i] - r[i];
       }
@@ -345,7 +359,10 @@ namespace bad {
 
     // NOTE: multiplication is hadamard by default, not matrix multiplication or matrix vector!!!
     template <class L, class R, class Dim>
-    BAD(HD,INLINE,CONST) auto operator*(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE,CONST) auto operator*(
+      BAD(LIFETIMEBOUND) store_expr<L,Dim> const &l,
+      BAD(LIFETIMEBOUND) store_expr<R,Dim> const &r
+    ) noexcept {
       return store_hadamard_expr<L,R,Dim>(l,r);
     }
 
