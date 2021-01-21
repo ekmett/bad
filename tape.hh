@@ -207,14 +207,15 @@ namespace bad {
       using segment_t = segment<T, Act>;
       BAD_HD link() = delete;
       BAD_HD link(segment_t && segment) noexcept : segment(std::move(segment)) {}
-      BAD(HD,INLINE) record_t * next() noexcept override { return segment.current; }
-      BAD(HD,INLINE) record_t const * next() const noexcept override { return segment.current; }
+
+      BAD(HD,INLINE,PURE) record_t * next() noexcept override { return segment.current; }
+      BAD(HD,INLINE,PURE) record_t const * next() const noexcept override { return segment.current; }
       BAD_HD std::ostream & what(std::ostream & os) const noexcept override { return os << "link"; }
-      BAD(HD,INLINE) record_t const * propagate(BAD_MAYBE_UNUSED Act act, BAD_MAYBE_UNUSED index_t &) const noexcept override {
+      BAD(HD,INLINE,PURE) record_t const * propagate(BAD_MAYBE_UNUSED Act act, BAD_MAYBE_UNUSED index_t &) const noexcept override {
         return segment.current;
       }
+      BAD(HD,INLINE,CONST) link<T, Act> * as_link() noexcept override { return this; }
 
-      BAD(HD,INLINE) link<T, Act> * as_link() noexcept override { return this; }
       segment_t segment;
     };
 
@@ -249,11 +250,11 @@ namespace bad {
 
       BAD(HD,INLINE) ~intrusive_iterator() noexcept {}
 
-      BAD(HD,INLINE) constexpr bool operator == (const intrusive_iterator & rhs) const noexcept { return p == rhs.p; }
-      BAD(HD,INLINE) constexpr bool operator != (const intrusive_iterator & rhs) const noexcept { return p != rhs.p; }
+      BAD(HD,INLINE,PURE) constexpr bool operator == (const intrusive_iterator & rhs) const noexcept { return p == rhs.p; }
+      BAD(HD,INLINE,PURE) constexpr bool operator != (const intrusive_iterator & rhs) const noexcept { return p != rhs.p; }
 
-      BAD(HD,INLINE) constexpr reference operator *() const noexcept { return *p; }
-      BAD(HD,INLINE) constexpr pointer operator -> () noexcept { return p; }
+      BAD(HD,INLINE,PURE) constexpr reference operator *() const noexcept { return *p; }
+      BAD(HD,INLINE,PURE) constexpr pointer operator -> () noexcept { return p; }
       BAD(HD,INLINE) intrusive_iterator & operator ++ () noexcept {
         assert(p != nullptr);
         p = p->next();
@@ -267,12 +268,12 @@ namespace bad {
         return q;
       }
 
-      BAD(HD,INLINE) constexpr pointer ptr() noexcept { return p; }
-      BAD(HD,INLINE) constexpr const_pointer const_ptr() const noexcept { return p; }
-      BAD(HD,INLINE) constexpr operator bool() const noexcept { return p != nullptr; }
+      BAD(HD,INLINE,PURE) constexpr pointer ptr() noexcept { return p; }
+      BAD(HD,INLINE,PURE) constexpr const_pointer const_ptr() const noexcept { return p; }
+      BAD(HD,INLINE,PURE) constexpr operator bool() const noexcept { return p != nullptr; }
 
       // template <class = std::enable_if_v<!std::is_const_v(A)> >
-      BAD(HD,INLINE) constexpr operator intrusive_iterator<const A> () const noexcept { return p; }
+      BAD(HD,INLINE,PURE) constexpr operator intrusive_iterator<const A> () const noexcept { return p; }
     };
 
     template <class A>
@@ -312,11 +313,11 @@ namespace bad {
       return *result;
     }
 
-    BAD_HD iterator begin() noexcept { return segment.current; }
-    BAD_HD constexpr iterator end() noexcept { return iterator(); }
+    BAD(HD,PURE) iterator begin() noexcept { return segment.current; }
+    BAD(HD,CONST) constexpr iterator end() noexcept { return iterator(); }
 
-    BAD_HD const_iterator cbegin() const noexcept { return segment.current; }
-    BAD_HD constexpr const_iterator cend() noexcept { return const_iterator(); }
+    BAD(HD,PURE) const_iterator cbegin() const noexcept { return segment.current; }
+    BAD(HD,CONST) constexpr const_iterator cend() noexcept { return const_iterator(); }
   };
 
   template <class T, class Act>
@@ -348,10 +349,10 @@ namespace bad {
     struct propagator : record<T,Act> {
       BAD(HD,INLINE) propagator() noexcept : record<T,Act>() {
       }
-      BAD(HD,INLINE,FLATTEN) record<T, Act> const * next() const noexcept override {
+      BAD(HD,INLINE,FLATTEN,CONST) record<T, Act> const * next() const noexcept override {
         return reinterpret_cast<record<T, Act> const *>(reinterpret_cast<std::byte const*>(this) + pad_to_alignment(sizeof(B)));
       }
-      BAD(HD,INLINE,FLATTEN) record<T, Act> * next() noexcept override {
+      BAD(HD,INLINE,FLATTEN,CONST) record<T, Act> * next() noexcept override {
         return reinterpret_cast<record<T, Act> *>(reinterpret_cast<std::byte*>(this) + pad_to_alignment(sizeof(B)));
       }
       BAD(MAYBE_UNUSED,HD,FLATTEN) std::ostream & what(std::ostream & os) const noexcept override {
