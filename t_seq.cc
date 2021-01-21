@@ -2,7 +2,6 @@
 #include "catch.hh"
 #include "abi.hh"
 #include "seq.hh"
-#include "map.hh"
 
 using namespace std;
 using namespace bad;

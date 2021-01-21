@@ -1,16 +1,13 @@
-#define CATCH_CONFIG_MAIN
-#include "catch.hh"
-#include "map.hh"
 #include <iostream>
 #include <string>
-
-using namespace std;
-
-#include <iostream>
 #include <array>
 #include <tuple>
+
 #include "seq.hh"
 #include "tape.hh"
+
+#define CATCH_CONFIG_MAIN
+#include "catch.hh"
 
 using namespace bad;
 using namespace std;
