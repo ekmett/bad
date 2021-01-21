@@ -1,4 +1,5 @@
 #pragma once
+#include "map.hh"
 
 #ifndef __has_attribute
 #define __has_attribute(x) 0
@@ -27,7 +28,17 @@
 #endif
 
 #ifdef __CUDACC__
-#define BAD_HD __host__ __device__
+#define BAD_HOST __host__
+#define BAD_DEVICE __device__
+#define BAD_GLOBAL __global__
 #else
-#define BAD_HD
+#define BAD_HOST
+#define BAD_DEVICE
+#define BAD_GLOBAL
 #endif
+
+#define BAD_HD BAD_HOST BAD_DEVICE
+
+/// use the c++ standard attribute
+#define BAD_MAYBE_UNUSED [[maybe_unused]]
+

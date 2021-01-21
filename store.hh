@@ -50,47 +50,47 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      BAD_HD BAD_INLINE constexpr explicit const_cursor(T const * p = nullptr, difference_type i = 0) noexcept : p(p), i(i) {}
-      BAD_HD BAD_INLINE constexpr const_cursor(const_cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
-      BAD_HD BAD_INLINE constexpr const_cursor(const_cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+      BAD(HD,INLINE) constexpr explicit const_cursor(T const * p = nullptr, difference_type i = 0) noexcept : p(p), i(i) {}
+      BAD(HD,INLINE) constexpr const_cursor(const_cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
+      BAD(HD,INLINE) constexpr const_cursor(const_cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
 
-      BAD_HD BAD_INLINE const_cursor & operator =(const_cursor const & rhs) { p = rhs.p; i = rhs.i; return *this; }
-      BAD_HD BAD_INLINE const_cursor & operator =(const_cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
+      BAD(HD,INLINE) const_cursor & operator =(const_cursor const & rhs) { p = rhs.p; i = rhs.i; return *this; }
+      BAD(HD,INLINE) const_cursor & operator =(const_cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
 
       // default constructible, moveable
       T const * p;
       difference_type i; // signed because rend actually has a negative index
 
-      BAD_HD BAD_INLINE bool operator == (const_cursor const & rhs) const noexcept { return p == rhs.p && i == rhs.i; }
-      BAD_HD BAD_INLINE bool operator != (const_cursor const & rhs) const noexcept { return p != rhs.p || i != rhs.i; }
-      BAD_HD BAD_INLINE bool operator < (const_cursor const & rhs) const noexcept { return i < rhs.i; }
-      BAD_HD BAD_INLINE bool operator > (const_cursor const & rhs) const noexcept { return i > rhs.i; }
-      BAD_HD BAD_INLINE bool operator <= (const_cursor const & rhs) const noexcept { return i <= rhs.i; }
-      BAD_HD BAD_INLINE bool operator >= (const_cursor const & rhs) const noexcept { return i >= rhs.i; }
+      BAD(HD,INLINE) bool operator == (const_cursor const & rhs) const noexcept { return p == rhs.p && i == rhs.i; }
+      BAD(HD,INLINE) bool operator != (const_cursor const & rhs) const noexcept { return p != rhs.p || i != rhs.i; }
+      BAD(HD,INLINE) bool operator < (const_cursor const & rhs) const noexcept { return i < rhs.i; }
+      BAD(HD,INLINE) bool operator > (const_cursor const & rhs) const noexcept { return i > rhs.i; }
+      BAD(HD,INLINE) bool operator <= (const_cursor const & rhs) const noexcept { return i <= rhs.i; }
+      BAD(HD,INLINE) bool operator >= (const_cursor const & rhs) const noexcept { return i >= rhs.i; }
 
-      BAD_HD BAD_INLINE const_cursor & operator ++ () noexcept { ++i; return *this; }
-      BAD_HD BAD_INLINE const_cursor operator ++ (int) noexcept { return { p, i++ }; }
-      BAD_HD BAD_INLINE const_cursor & operator -- () noexcept { --i; return *this; }
-      BAD_HD BAD_INLINE const_cursor operator -- (int) noexcept { return { p, i-- }; }
-      BAD_HD BAD_INLINE const_cursor operator + (difference_type d) const noexcept { return { p, i + d }; }
-      BAD_HD BAD_INLINE const_cursor operator - (difference_type d) const noexcept { return { p, i + d }; }
-      BAD_HD BAD_INLINE difference_type operator - (const_cursor const & rhs) const noexcept {
+      BAD(HD,INLINE) const_cursor & operator ++ () noexcept { ++i; return *this; }
+      BAD(HD,INLINE) const_cursor operator ++ (int) noexcept { return { p, i++ }; }
+      BAD(HD,INLINE) const_cursor & operator -- () noexcept { --i; return *this; }
+      BAD(HD,INLINE) const_cursor operator -- (int) noexcept { return { p, i-- }; }
+      BAD(HD,INLINE) const_cursor operator + (difference_type d) const noexcept { return { p, i + d }; }
+      BAD(HD,INLINE) const_cursor operator - (difference_type d) const noexcept { return { p, i + d }; }
+      BAD(HD,INLINE) difference_type operator - (const_cursor const & rhs) const noexcept {
         assert(p == rhs.p);
         return i - rhs.i;
       }
-      BAD_HD BAD_INLINE const_cursor & operator += (difference_type d) const noexcept { i += d; return *this; }
-      BAD_HD BAD_INLINE const_cursor & operator -= (difference_type d) const noexcept { i -= d; return *this; }
+      BAD(HD,INLINE) const_cursor & operator += (difference_type d) const noexcept { i += d; return *this; }
+      BAD(HD,INLINE) const_cursor & operator -= (difference_type d) const noexcept { i -= d; return *this; }
 
-      BAD_HD BAD_INLINE reference operator *() const noexcept {
+      BAD(HD,INLINE) reference operator *() const noexcept {
         return *reinterpret_cast<pointer>(p + i*S);
       }
-      BAD_HD BAD_INLINE pointer operator ->() const noexcept {
+      BAD(HD,INLINE) pointer operator ->() const noexcept {
         return reinterpret_cast<pointer>(p + i*S);
       }
-      BAD_HD BAD_INLINE reference operator[](difference_type di) const noexcept {
+      BAD(HD,INLINE) reference operator[](difference_type di) const noexcept {
         return *reinterpret_cast<pointer>(p + (i+di)*S);
       }
-      BAD_HD BAD_INLINE bool valid() const noexcept {
+      BAD(HD,INLINE) bool valid() const noexcept {
         return p != nullptr && 0 <= i && i <= D;
       }
     };
@@ -118,64 +118,64 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      BAD_HD BAD_INLINE constexpr explicit cursor(T* p = nullptr, difference_type i = 0) noexcept : p(p), i(i) {}
-      BAD_HD BAD_INLINE constexpr cursor(cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
-      BAD_HD BAD_INLINE constexpr cursor(cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+      BAD(HD,INLINE) constexpr explicit cursor(T* p = nullptr, difference_type i = 0) noexcept : p(p), i(i) {}
+      BAD(HD,INLINE) constexpr cursor(cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
+      BAD(HD,INLINE) constexpr cursor(cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
 
-      BAD_HD BAD_INLINE cursor & operator =(const cursor & rhs) { p = rhs.p; i = rhs.i; return *this; }
-      BAD_HD BAD_INLINE cursor & operator =(cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
+      BAD(HD,INLINE) cursor & operator =(const cursor & rhs) { p = rhs.p; i = rhs.i; return *this; }
+      BAD(HD,INLINE) cursor & operator =(cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
 
       T * p;
       difference_type i;
 
-      BAD_HD BAD_INLINE operator const_cursor<T, Dim, Stride>() const {
+      BAD(HD,INLINE) operator const_cursor<T, Dim, Stride>() const {
         return { p, i };
       }
 
       // valid across sources
-      BAD_HD BAD_INLINE bool operator == (const cursor & rhs) const noexcept { return p == rhs.p && i == rhs.i; }
-      BAD_HD BAD_INLINE bool operator != (const cursor & rhs) const noexcept { return p != rhs.p || i != rhs.i; }
+      BAD(HD,INLINE) bool operator == (const cursor & rhs) const noexcept { return p == rhs.p && i == rhs.i; }
+      BAD(HD,INLINE) bool operator != (const cursor & rhs) const noexcept { return p != rhs.p || i != rhs.i; }
 
       // valid within a single source
-      BAD_HD BAD_INLINE bool operator < (const cursor & rhs) const noexcept { return i < rhs.i; }
-      BAD_HD BAD_INLINE bool operator > (const cursor & rhs) const noexcept { return i > rhs.i; }
-      BAD_HD BAD_INLINE bool operator <= (const cursor & rhs) const noexcept { return i <= rhs.i; }
-      BAD_HD BAD_INLINE bool operator >= (const cursor & rhs) const noexcept { return i >= rhs.i; }
+      BAD(HD,INLINE) bool operator < (const cursor & rhs) const noexcept { return i < rhs.i; }
+      BAD(HD,INLINE) bool operator > (const cursor & rhs) const noexcept { return i > rhs.i; }
+      BAD(HD,INLINE) bool operator <= (const cursor & rhs) const noexcept { return i <= rhs.i; }
+      BAD(HD,INLINE) bool operator >= (const cursor & rhs) const noexcept { return i >= rhs.i; }
 
-      BAD_HD BAD_INLINE cursor & operator ++ () noexcept { ++i; return *this; }
-      BAD_HD BAD_INLINE cursor operator ++ (int) noexcept { return { p, i++ }; }
-      BAD_HD BAD_INLINE cursor & operator -- () noexcept { --i; return *this; }
-      BAD_HD BAD_INLINE cursor operator -- (int) noexcept { return { p, i-- }; }
-      BAD_HD BAD_INLINE cursor operator + (difference_type d) const noexcept { return { p, i + d }; }
-      BAD_HD BAD_INLINE cursor operator - (difference_type d) const noexcept { return { p, i + d }; }
+      BAD(HD,INLINE) cursor & operator ++ () noexcept { ++i; return *this; }
+      BAD(HD,INLINE) cursor operator ++ (int) noexcept { return { p, i++ }; }
+      BAD(HD,INLINE) cursor & operator -- () noexcept { --i; return *this; }
+      BAD(HD,INLINE) cursor operator -- (int) noexcept { return { p, i-- }; }
+      BAD(HD,INLINE) cursor operator + (difference_type d) const noexcept { return { p, i + d }; }
+      BAD(HD,INLINE) cursor operator - (difference_type d) const noexcept { return { p, i + d }; }
 
-      BAD_HD BAD_INLINE difference_type operator - (const cursor & rhs) const noexcept {
+      BAD(HD,INLINE) difference_type operator - (const cursor & rhs) const noexcept {
         assert(p == rhs.p);
         return i - rhs.i;
       }
 
-      BAD_HD BAD_INLINE cursor & operator += (difference_type d) const noexcept { i += d; return *this; }
-      BAD_HD BAD_INLINE cursor & operator -= (difference_type d) const noexcept { i -= d; return *this; }
+      BAD(HD,INLINE) cursor & operator += (difference_type d) const noexcept { i += d; return *this; }
+      BAD(HD,INLINE) cursor & operator -= (difference_type d) const noexcept { i -= d; return *this; }
 
-      BAD_HD BAD_INLINE reference operator *() const noexcept {
+      BAD(HD,INLINE) reference operator *() const noexcept {
         return *reinterpret_cast<pointer>(p + i*S);
       }
 
-      BAD_HD BAD_INLINE pointer operator ->() const noexcept {
+      BAD(HD,INLINE) pointer operator ->() const noexcept {
         return reinterpret_cast<pointer>(p + i*S);
       }
 
-      BAD_HD BAD_INLINE reference operator[](difference_type di) const noexcept {
+      BAD(HD,INLINE) reference operator[](difference_type di) const noexcept {
         return *reinterpret_cast<pointer>(p + (i+di)*S);
       }
 
-      BAD_HD BAD_INLINE bool valid() const noexcept {
+      BAD(HD,INLINE) bool valid() const noexcept {
         return 0 <= i && i <= D;
       }
     };
 
     template <class T, class Dim, class Stride>
-    BAD_HD BAD_INLINE const_cursor<T,Dim,Stride> operator +(
+    BAD(HD,INLINE) const_cursor<T,Dim,Stride> operator +(
       typename cursor<T,Dim,Stride>::difference_type d,
       const const_cursor<T,Dim,Stride> & rhs
     ) {
@@ -183,7 +183,7 @@ namespace bad {
     }
 
     template <class T, class Dim, class Stride>
-    BAD_HD BAD_INLINE cursor<T,Dim,Stride> operator +(
+    BAD(HD,INLINE) cursor<T,Dim,Stride> operator +(
       typename cursor<T,Dim,Stride>::difference_type d,
       const cursor<T,Dim,Stride> & rhs
     ) {
@@ -192,11 +192,11 @@ namespace bad {
   }
 
   template <size_t N, class B> 
-  BAD_HD BAD_INLINE auto pull(B & rhs, typename B::index_type i) noexcept {
+  BAD(HD,INLINE) auto pull(B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
   template <size_t N, class B>
-  BAD_HD BAD_INLINE auto pull(const B & rhs, typename B::index_type i) noexcept {
+  BAD(HD,INLINE) auto pull(const B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
 
@@ -207,24 +207,24 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
 
-      BAD_HD BAD_INLINE store_expr const & operator()() const noexcept { return *this; }
+      BAD(HD,INLINE) store_expr const & operator()() const noexcept { return *this; }
 
       template <class... Args>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto operator ()(index_type i, Args... args) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto operator ()(index_type i, Args... args) const noexcept {
         return (*this)[i](args...);
       }
 
-      BAD_HD BAD_INLINE BAD_FLATTEN auto operator [](index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return static_cast<B const &>(*this)[i];
       }
 
       template <size_t N>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto pull(index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto pull(index_type i) const noexcept {
         return static_cast<B const &>(*this).template pull<N>(i);
       }
 
       template <size_t D>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto rep() const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto rep() const noexcept {
         return static_cast<B const &>(*this).template rep<D>();
       }
     };
@@ -241,14 +241,14 @@ namespace bad {
       B const & base;
       using index_type = typename std::make_unsigned<decltype(D)>::type;
 
-      BAD_HD BAD_INLINE store_rep_expr(store_expr<B,Dim> const & base) noexcept
+      BAD(HD,INLINE) store_rep_expr(store_expr<B,Dim> const & base) noexcept
       : base(static_cast<B const &>(base)) {}
 
-      BAD_HD BAD_INLINE auto operator [](index_type i) const noexcept {
+      BAD(HD,INLINE) auto operator [](index_type i) const noexcept {
         return base;
       }
       template <size_t N>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto pull(index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto pull(index_type i) const noexcept {
         if constexpr(N == 0) {
           return base;
         } else {
@@ -256,7 +256,7 @@ namespace bad {
         }
       }
       template <size_t E>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto rep() const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto rep() const noexcept {
         return store_rep_expr<E, store_rep_expr<D,B,Dim>, Dim>(*this);
       }
     };
@@ -272,24 +272,24 @@ namespace bad {
       L const & l;
       R const & r;
 
-      BAD_HD BAD_INLINE store_add_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
+      BAD(HD,INLINE) store_add_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
       : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
 
-      BAD_HD BAD_INLINE BAD_FLATTEN auto operator [](index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return l[i] + r[i];
       }
       template <size_t N> 
-      BAD_HD BAD_INLINE BAD_FLATTEN auto pull(index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto pull(index_type i) const noexcept {
         return l.template pull<N>(i) + r.template pull<N>(i);
       }
       template <seq_element_type<Dim> D>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto rep() const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto rep() const noexcept {
         return store_rep_expr<D, store_add_expr<L,R,Dim>, Dim>(*this);
       }
     };
 
     template <class L, class R, class Dim>
-    BAD_HD BAD_INLINE auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE) auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_add_expr<L,R,Dim>(l,r);
     }
 
@@ -300,24 +300,24 @@ namespace bad {
       L const & l;
       R const & r;
 
-      BAD_HD BAD_INLINE store_sub_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
+      BAD(HD,INLINE) store_sub_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
       : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
 
-      BAD_HD BAD_INLINE BAD_FLATTEN auto operator [](index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return l[i] - r[i];
       }
       template <size_t N>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto pull(index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto pull(index_type i) const noexcept {
         return l.template pull<N>(i) - r.template pull<N>(i);
       }
       template <seq_element_type<Dim> D>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto rep() const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto rep() const noexcept {
         return store_rep_expr<D, store_sub_expr<L,R,Dim>, Dim>(*this);
       }
     };
 
     template <class L, class R, class Dim>
-    BAD_HD BAD_INLINE auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE) auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_sub_expr<L,R,Dim>(l,r);
     }
 
@@ -328,29 +328,29 @@ namespace bad {
       L const & l;
       R const & r;
 
-      BAD_HD BAD_INLINE store_hadamard_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
+      BAD(HD,INLINE) store_hadamard_expr(store_expr<L,Dim> const & l, store_expr<R,Dim> const & r) noexcept
       : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
-      BAD_HD BAD_INLINE BAD_FLATTEN auto operator [](index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return l[i] - r[i];
       }
       template <size_t N>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto pull(index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto pull(index_type i) const noexcept {
         return l.template pull<N>(i) * r.template pull<N>(i);
       }
       template <seq_element_type<Dim> D>
-      BAD_HD BAD_INLINE auto rep() const noexcept {
+      BAD(HD,INLINE) auto rep() const noexcept {
         return store_rep_expr<D, store_hadamard_expr<L,R,Dim>, Dim>(*this);
       }
     };
 
     // NOTE: multiplication is hadamard by default, not matrix multiplication or matrix vector!!!
     template <class L, class R, class Dim>
-    BAD_HD BAD_INLINE auto operator*(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE) auto operator*(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_hadamard_expr<L,R,Dim>(l,r);
     }
 
     template <class L, class R, class U, U D, U... Ds>
-    BAD_HD BAD_INLINE constexpr bool operator==(
+    BAD(HD,INLINE) constexpr bool operator==(
       store_expr<L,seq_t<U,D,Ds...>> const & l,
       store_expr<R,seq_t<U,D,Ds...>> const & r
     ) noexcept {
@@ -361,7 +361,7 @@ namespace bad {
     }
 
     template <class L, class R, class U, U D, U... Ds>
-    BAD_HD BAD_INLINE constexpr bool operator!=(
+    BAD(HD,INLINE) constexpr bool operator!=(
       store_expr<L,seq_t<U,D,Ds...>> const & l,
       store_expr<R,seq_t<U,D,Ds...>> const & r
     ) noexcept {
@@ -408,89 +408,89 @@ namespace bad {
       static constexpr size_t delta_offset = offset - tail_offset; // non-negative
       static constexpr size_t size = offset + max_index + 1; // offset so negative strides remain in bounds to shut up valgrind, etc.
 
-      BAD_HD BAD_INLINE constexpr store_() noexcept : data() {}
+      BAD(HD,INLINE) constexpr store_() noexcept : data() {}
 
-      BAD_HD BAD_INLINE constexpr store_(const T & value) noexcept : data() {
+      BAD(HD,INLINE) constexpr store_(const T & value) noexcept : data() {
         std::fill(begin(),end(),value);
       }
 
-      BAD_HD BAD_INLINE constexpr store_(std::initializer_list<T> list) noexcept : data() {
+      BAD(HD,INLINE) constexpr store_(std::initializer_list<T> list) noexcept : data() {
         assert(list.size() <= D);
         std::copy(list.begin(),list.end(),begin());
       }
 
       template <class B>
-      BAD_HD BAD_INLINE constexpr store_(store_expr<B,Dim> const & rhs) noexcept {
+      BAD(HD,INLINE) constexpr store_(store_expr<B,Dim> const & rhs) noexcept {
         for (index_type i=0;i<D;++i)
           at(i) = rhs[i];
       }
 
       T data[size];
 
-      BAD_HD BAD_INLINE store_ & operator =(T value) noexcept {
+      BAD(HD,INLINE) store_ & operator =(T value) noexcept {
         for (index_type i=0;i<D;++i)
           at(i) = value;
         return *this;
       }
 
-      BAD_HD BAD_INLINE store_ & operator =(std::initializer_list<T> list) noexcept {
+      BAD(HD,INLINE) store_ & operator =(std::initializer_list<T> list) noexcept {
         assert(list.size()<=D);
         std::copy(list.begin(),list.end(),begin());
         return *this;
       }
 
-      BAD_HD BAD_INLINE iterator begin() noexcept                       { return iterator(data + offset, 0); }
-      BAD_HD BAD_INLINE iterator end() noexcept                         { return iterator(data + offset, D); }
-      BAD_HD BAD_INLINE reverse_iterator rbegin() noexcept              { return reverse_iterator(iterator(data + offset, D-1)); }
-      BAD_HD BAD_INLINE reverse_iterator rend() noexcept                { return reverse_iterator(iterator(data + offset, -1)); }
-      BAD_HD BAD_INLINE const_iterator begin() const noexcept           { return const_iterator(data + offset, 0); }
-      BAD_HD BAD_INLINE const_iterator end() const noexcept             { return const_iterator(data + offset, D); }
-      BAD_HD BAD_INLINE const_iterator cbegin() const noexcept          { return const_iterator(data + offset, 0); }
-      BAD_HD BAD_INLINE const_iterator cend() const noexcept            { return const_iterator(data + offset, D); }
-      BAD_HD BAD_INLINE const_reverse_iterator rbegin() const noexcept  { return reverse_iterator(const_iterator(data + offset, D-1)); }
-      BAD_HD BAD_INLINE const_reverse_iterator rend() const noexcept    { return reverse_iterator(const_iterator(data + offset, -1)); }
-      BAD_HD BAD_INLINE const_reverse_iterator crbegin() const noexcept { return reverse_iterator(const_iterator(data + offset, D-1)); }
-      BAD_HD BAD_INLINE const_reverse_iterator crend() const noexcept   { return reverse_iterator(const_iterator(data + offset, -1)); }
+      BAD(HD,INLINE) iterator begin() noexcept                       { return iterator(data + offset, 0); }
+      BAD(HD,INLINE) iterator end() noexcept                         { return iterator(data + offset, D); }
+      BAD(HD,INLINE) reverse_iterator rbegin() noexcept              { return reverse_iterator(iterator(data + offset, D-1)); }
+      BAD(HD,INLINE) reverse_iterator rend() noexcept                { return reverse_iterator(iterator(data + offset, -1)); }
+      BAD(HD,INLINE) const_iterator begin() const noexcept           { return const_iterator(data + offset, 0); }
+      BAD(HD,INLINE) const_iterator end() const noexcept             { return const_iterator(data + offset, D); }
+      BAD(HD,INLINE) const_iterator cbegin() const noexcept          { return const_iterator(data + offset, 0); }
+      BAD(HD,INLINE) const_iterator cend() const noexcept            { return const_iterator(data + offset, D); }
+      BAD(HD,INLINE) const_reverse_iterator rbegin() const noexcept  { return reverse_iterator(const_iterator(data + offset, D-1)); }
+      BAD(HD,INLINE) const_reverse_iterator rend() const noexcept    { return reverse_iterator(const_iterator(data + offset, -1)); }
+      BAD(HD,INLINE) const_reverse_iterator crbegin() const noexcept { return reverse_iterator(const_iterator(data + offset, D-1)); }
+      BAD(HD,INLINE) const_reverse_iterator crend() const noexcept   { return reverse_iterator(const_iterator(data + offset, -1)); }
 
-      BAD_HD BAD_INLINE plane & at(index_type i) noexcept {
+      BAD(HD,INLINE) plane & at(index_type i) noexcept {
         return reinterpret_cast<plane &>(data[delta_offset + i*S]);
       }
 
-      BAD_HD BAD_INLINE plane const & at(index_type i) const noexcept {
+      BAD(HD,INLINE) plane const & at(index_type i) const noexcept {
         return reinterpret_cast<plane const &>(data[delta_offset + i*S]);
       }
 
-      BAD_HD BAD_INLINE plane & operator[](index_type i) noexcept {
+      BAD(HD,INLINE) plane & operator[](index_type i) noexcept {
         return reinterpret_cast<plane &>(data[delta_offset + i*S]);
       }
 
-      BAD_HD BAD_INLINE plane const & operator[](index_type i) const noexcept {
+      BAD(HD,INLINE) plane const & operator[](index_type i) const noexcept {
         return reinterpret_cast<plane const &>(data[delta_offset + i*S]);
       }
 
-      BAD_HD BAD_INLINE store_ const & operator()() const noexcept { return *this; }
+      BAD(HD,INLINE) store_ const & operator()() const noexcept { return *this; }
 
       template <class... Args>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto const &  operator ()(index_type i, Args... args) const noexcept {
+      BAD(HD,INLINE,FLATTEN) auto const &  operator ()(index_type i, Args... args) const noexcept {
         return (*this)[i](args...);
       }
 
-      BAD_HD BAD_INLINE store_ & operator()() noexcept { return *this; }
+      BAD(HD,INLINE) store_ & operator()() noexcept { return *this; }
 
       template <class... Args>
-      BAD_HD BAD_INLINE BAD_FLATTEN auto & operator ()(index_type i, Args... args) noexcept {
+      BAD(HD,INLINE,FLATTEN) auto & operator ()(index_type i, Args... args) noexcept {
         return (*this)[i](args...);
       }
 
       template <class B>
-      BAD_HD BAD_INLINE BAD_FLATTEN store_ & operator = (store_expr<B,Dim> const & rhs) noexcept {
+      BAD(HD,INLINE,FLATTEN) store_ & operator = (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) = rhs[i];
         return *this;
       }
 
       template <class B>
-      BAD_HD BAD_INLINE BAD_FLATTEN
+      BAD(HD,INLINE,FLATTEN)
       store_ & operator += (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) += rhs[i];
@@ -498,7 +498,7 @@ namespace bad {
       }
 
       template <class B>
-      BAD_HD BAD_INLINE BAD_FLATTEN
+      BAD(HD,INLINE,FLATTEN)
       store_ & operator -= (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) -= rhs[i];
@@ -506,7 +506,7 @@ namespace bad {
       }
 
       template <class B>
-      BAD_HD BAD_INLINE BAD_FLATTEN
+      BAD(HD,INLINE,FLATTEN)
       store_ & operator *= (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) *= rhs[i];
@@ -516,31 +516,31 @@ namespace bad {
       template <size_t N> using store_pull = store_<T, seq_pull<N,Dim>, seq_pull<N,Stride>>;
 
       template <size_t N> 
-      BAD_HD BAD_INLINE store_pull<N> & pull() noexcept {
+      BAD(HD,INLINE) store_pull<N> & pull() noexcept {
         return reinterpret_cast<store_pull<N>&>(*this);
       };
 
       template <size_t N>
-      BAD_HD BAD_INLINE const store_pull<N> & pull() const noexcept {
+      BAD(HD,INLINE) const store_pull<N> & pull() const noexcept {
         return reinterpret_cast<store_pull<N> const &>(*this);
       };
 
       template <size_t N>
-      BAD_HD BAD_INLINE BAD_FLATTEN typename store_pull<N>::plane & pull(index_type i) noexcept {
+      BAD(HD,INLINE,FLATTEN) typename store_pull<N>::plane & pull(index_type i) noexcept {
         return pull<N>()[i];
       };
 
       template <size_t N>
-      BAD_HD BAD_INLINE BAD_FLATTEN typename store_pull<N>::plane const & pull(index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN) typename store_pull<N>::plane const & pull(index_type i) const noexcept {
         return pull<N>()[i];
       }
 
       template <seq_element_type<Dim> D>
-      BAD_HD BAD_INLINE auto rep() const noexcept {
+      BAD(HD,INLINE) auto rep() const noexcept {
         return reinterpret_cast<store_<T,seq_cons<D,Dim>,seq_cons<seq_element_type<Stride>(0),Stride>> const &>(*this);
       }
       template <seq_element_type<Dim> D>
-      BAD_HD BAD_INLINE auto rep() noexcept {
+      BAD(HD,INLINE) auto rep() noexcept {
         return reinterpret_cast<store_<T,seq_cons<D,Dim>,seq_cons<seq_element_type<Stride>(0),Stride>> &>(*this);
       }
     };
@@ -548,7 +548,7 @@ namespace bad {
 
   namespace detail {
     template <typename T, typename Dim, typename Stride1, typename Stride2>
-    BAD_HD BAD_INLINE BAD_FLATTEN void swap(
+    BAD(HD,INLINE,FLATTEN) void swap(
       store_<T,Dim,Stride1> & l,
       store_<T,Dim,Stride2> & r
     ) {
