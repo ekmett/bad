@@ -6,10 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_library(abi STATIC abi.cc abi.hh)
+add_library(abi STATIC abi.cc abi.hh map.hh attrib.hh)
 link_libraries(abi)
 
-add_executable(t_seq t_seq.cc seq.hh map.hh catch.hh)
+add_executable(t_seq t_seq.cc seq.hh catch.hh)
 target_precompile_headers(t_seq PRIVATE [["abi.hh"]] [["seq.hh"]] [["map.hh"]])
 
 add_executable(t_store t_store.cc store.hh seq.hh catch.hh)
