@@ -220,8 +220,8 @@ namespace bad {
     };
   }
 
-  // constinit?
-  template <size_t N, class T, T... xs> constexpr auto stride = detail::stride_<N,T,xs...>::value();
+  template <size_t N, class T, T... xs>
+  BAD(CONSTINIT) constexpr auto stride = detail::stride_<N,T,xs...>::value();
 
   namespace detail {
     template <size_t, class> struct seq_stride_;
@@ -242,8 +242,7 @@ namespace bad {
 
   // * all row-major strides
 
-  template <class S> using row_major = typename detail::row_major_<S, make_seq<seq_length<S>>>::type;
-
+  template <class S> using row_major = typename detail::row_major_<S, make_seq<seq_length<S>>>::type; 
   // * indexing
 
   namespace detail {

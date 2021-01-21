@@ -20,12 +20,27 @@
 #warning no flatten
 #endif
 
+// #if __clang__
+// #define BAD_NO_UNIQUE_ADDRESS [[no_unique_address]]
+// #else
+#define BAD_NO_UNIQUE_ADDRESS
+// #endif
+
 #if __has_attribute(malloc)
 #define BAD_MALLOC __attribute__((malloc))
 #else
 #define BAD_MALLOC
 #warning no malloc
 #endif
+
+
+#if __has_attribute(uninitialized)
+#define BAD_UNINITIALIZED __attribute__((uninitialized))
+#else
+#define BAD_UNINITIALIZED
+#warning no uninitialized
+#endif
+
 
 /// only modifies data reachable through pointer arguments
 #if defined(__clang__) || defined(_MSC_VER)
@@ -34,6 +49,16 @@
 #define BAD_NOALIAS
 #warning no noalias
 #endif
+
+/// only modifies data reachable through pointer arguments
+#if __has_attribute(require_constant_initialization)
+#define BAD_CONSTINIT __attribute__((require_constant_initialization))
+#else
+#define BAD_CONSTINIT
+#warning no constinit
+#endif
+
+/// check that this is called once on all execution paths
 
 /// check that this is called once on all execution paths
 //#if __has_attribute(called_once)
@@ -69,14 +94,7 @@
 #warning no reinitializes
 #endif
 
-#if __has_attribute(deprecated)
-#define BAD_DEPRECATED __attribute__((deprecated))
-#elif defined _MSC_VER
-#define BAD_DEPRECATED __declspec(deprecated)
-#else
-#define BAD_DEPRECATED
-#warning no deprecated
-#endif
+// C++14
 
 #if __has_attribute(assume_aligned)
 #define BAD_ASSUME_ALIGNED(x) __attribute__((assume_aligned(x)))
@@ -136,5 +154,11 @@
 
 #define BAD_HD BAD_HOST BAD_DEVICE
 
-/// use the c++ standard attribute
+/// @since C++17
 #define BAD_MAYBE_UNUSED [[maybe_unused]]
+
+/// @since C++14
+#define BAD_DEPRECATED [[deprecated]]
+
+/// @since C++17
+#define BAD_NODISCARD [[nodiscard]]
