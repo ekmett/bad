@@ -720,7 +720,6 @@ namespace bad {
   namespace detail {
     template<class T, class Dim, class Stride>
     BAD(hd) std::ostream &operator <<(std::ostream &os, const store_<T,Dim,Stride> & rhs) {
-      // emitting a square vector.
       os << "{";
       auto i = rhs.begin();
       while (i != rhs.end()) {
