@@ -553,11 +553,11 @@ namespace bad {
       }
 
       template <seq_element_type<Dim> D>
-      BAD(HD,INLINE,CONST) auto rep() const noexcept {
+      BAD(HD,INLINE,CONST) auto & rep() const noexcept {
         return reinterpret_cast<store_<T,seq_cons<D,Dim>,seq_cons<seq_element_type<Stride>(0),Stride>> const &>(*this);
       }
       template <seq_element_type<Dim> D>
-      BAD(HD,INLINE,CONST) auto rep() noexcept {
+      BAD(HD,INLINE,CONST) auto & rep() noexcept {
         return reinterpret_cast<store_<T,seq_cons<D,Dim>,seq_cons<seq_element_type<Stride>(0),Stride>> &>(*this);
       }
     };
