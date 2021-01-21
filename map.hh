@@ -28,7 +28,7 @@
 #define BAD_MAP_LIST1_(f, x, peek, ...) f(x) BAD_MAP_LIST_NEXT_(peek, BAD_MAP_LIST0_)(f, peek, __VA_ARGS__)
 
 #define BAD_JOIN_(X,Y) X ## Y
-#define BAD_(Y) BAD_JOIN_(BAD_,Y)
+#define bad_(Y) BAD_JOIN_(bad_,Y)
 
 /// Applies the function macro `f` to each of the parameters.
 #define BAD_MAP(f, ...) BAD_EVAL_(BAD_MAP1_(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
@@ -38,7 +38,7 @@
 
 /// convenient macro for applying several attributes
 // e.g. BAD(HD,INLINE) vs. BAD_HD BAD_INLINE
-#define BAD(...) BAD_MAP(BAD_,__VA_ARGS__)
+#define BAD(...) BAD_MAP(bad_,__VA_ARGS__)
 
 /*
  * Copyright (C) 2012 William Swanson, 2021 Edward Kmett

@@ -5,56 +5,67 @@
 #define __has_attribute(x) 0
 #endif
 
-#if __has_attribute(always_inline)
-#define BAD_INLINE inline __attribute__((always_inline))
-#elif defined _WIN32
-#define BAD_INLINE __forceinline
+#if __has_cpp_attribute(likely)
+#define bad_likely(x) (x) [[likely]]
+#define bad_unlikely(x) (x) [[unlikely]]
 #else
-#define BAD_INLINE inline
+#define bad_likely(x) __builtin_expect(!!(x),1)
+#define bad_unlikely(x) __builtin_expect(!!(x),0)
+#endif
+
+// TODO: restrict
+// TODO: gsl::Owner, gsl::Pointer?
+
+#if __has_attribute(always_inline)
+#define bad_inline inline __attribute__((always_inline))
+#elif defined _WIN32
+#define bad_inline __forceinline
+#else
+#define bad_inline inline
 #endif
 
 #if __has_attribute(flatten)
-#define BAD_FLATTEN __attribute__((flatten))
+#define bad_flatten __attribute__((flatten))
 #else
-#define BAD_FLATTEN
+#define bad_flatten
 #warning no flatten
 #endif
 
 // #if __clang__
-// #define BAD_NO_UNIQUE_ADDRESS [[no_unique_address]]
+// #define bad_no_unique_address [[no_unique_address]]
 // #else
-#define BAD_NO_UNIQUE_ADDRESS
+#define bad_no_unique_address
 // #endif
 
 #if __has_attribute(malloc)
-#define BAD_MALLOC __attribute__((malloc))
+#define bad_malloc __attribute__((malloc))
 #else
-#define BAD_MALLOC
+#define bad_malloc
 #warning no malloc
 #endif
 
 
 #if __has_attribute(uninitialized)
-#define BAD_UNINITIALIZED __attribute__((uninitialized))
+#define bad_uninitialized __attribute__((uninitialized))
 #else
-#define BAD_UNINITIALIZED
+#define bad_uninitialized
 #warning no uninitialized
 #endif
 
 
 /// only modifies data reachable through pointer arguments
 #if defined(__clang__) || defined(_MSC_VER)
-#define BAD_NOALIAS __declspec(noalias)
+#define bad_noalias __declspec(noalias)
 #else
-#define BAD_NOALIAS
+#define bad_noalias
 #warning no noalias
 #endif
 
 /// only modifies data reachable through pointer arguments
 #if __has_attribute(require_constant_initialization)
-#define BAD_CONSTINIT __attribute__((require_constant_initialization))
+#define bad_constinit __attribute__((require_constant_initialization))
 #else
-#define BAD_CONSTINIT
+#define bad_constinit
 #warning no constinit
 #endif
 
@@ -72,108 +83,116 @@
 
 /// only examines arguments, no effect other than return value
 #if __has_attribute(const)
-#define BAD_CONST __attribute__((const))
+#define bad_const __attribute__((const))
 #else
-#define BAD_CONST
+#define bad_const
 #warning no const
 #endif
 
 /// no effect other than return value, may inspect globals
 #if __has_attribute(pure)
-#define BAD_PURE __attribute__((pure))
+#define bad_pure __attribute__((pure))
 #else
-#define BAD_PURE
+#define bad_pure
 #warning no pure
 #endif
 
 #ifdef __clang__
-#define BAD_REINITIALIZES [[clang::reinitializes]]
+#define bad_reinitializes [[clang::reinitializes]]
 #else
 // TODO: support GCC
-#define BAD_REINITIALIZES
+#define bad_reinitializes
 #warning no reinitializes
 #endif
 
 // C++14
 
 #if __has_attribute(assume_aligned)
-#define BAD_ASSUME_ALIGNED(x) __attribute__((assume_aligned(x)))
+#define bad_assume_aligned(x) __attribute__((assume_aligned(x)))
 #else
-#define BAD_ASSUME_ALIGNED(x)
+#define bad_assume_aligned(x)
 #warning no assume_aligned
 #endif
 
 // arg # (1-based) of the attribute that tells you the alignment of the result
 
 #if __has_attribute(align_value)
-#define BAD_ALIGN_VALUE(x) __attribute__((align_value(x)))
+#define bad_align_value(x) __attribute__((align_value(x)))
 #else
-#define BAD_ALIGN_VALUE(x)
+#define bad_align_value(x)
 #warning no align_value
 #endif
 
 // arg # (1-based) of the attribute that tells you the alignment of the result
 #if __has_attribute(alloc_align)
-#define BAD_ALLOC_ALIGN(x) __attribute__((alloc_align(x)))
+#define bad_alloc_align(x) __attribute__((alloc_align(x)))
 #else
-#define BAD_ALLOC_ALIGN(x)
+#define bad_alloc_align(x)
 #warning no alloc_align
 #endif
 
 // arg # (1-based) of the attribute that tells you the size of the result in bytes
 #if __has_attribute(alloc_size)
-#define BAD_ALLOC_SIZE(x) __attribute__((alloc_size(x)))
+#define bad_alloc_size(x) __attribute__((alloc_size(x)))
 #else
-#define BAD_ALLOC_SIZE(x)
+#define bad_alloc_size(x)
 #warning no alloc_size
 #endif
 
 #if __has_attribute(noescape)
-#define BAD_NOESCAPE __attribute__((noescape))
+#define bad_noescape __attribute__((noescape))
 #else
-#define BAD_NOESCAPE
+#define bad_noescape
 #warning no noescape
 #endif
 
 #if __has_attribute(callback)
-#define BAD_CALLBACK(...) __attribute__((callback(__VA_ARGS__)))
+#define bad_callback(...) __attribute__((callback(__VA_ARGS__)))
 #else
-#define BAD_CALLBACK(...)
+#define bad_callback(...)
 #warning no callback
 #endif
 
 #if __has_attribute(lifetimebound)
-#define BAD_LIFETIMEBOUND __attribute__((lifetimebound))
+#define bad_lifetimebound __attribute__((lifetimebound))
 #else
-#define BAD_LIFETIMEBOUND
+#define bad_lifetimebound
 #warning no lifetimebound
 #endif
 
 
 #if __has_attribute(returns_nonnull)
-#define BAD_RETURNS_NONNULL __attribute__((returns_nonnull))
+#define bad_returns_nonnull __attribute__((returns_nonnull))
 #else
-#define BAD_RETURNS_NONNULL
+#define bad_returns_nonnull
 #warning no returns_nonnull
 #endif
 
 #ifdef __CUDACC__
-#define BAD_HOST __host__
-#define BAD_DEVICE __device__
-#define BAD_GLOBAL __global__
+#define bad_host __host__
+#define bad_device __device__
+#define bad_global __global__
 #else
-#define BAD_HOST
-#define BAD_DEVICE
-#define BAD_GLOBAL
+#define bad_host
+#define bad_device
+#define bad_global
 #endif
 
-#define BAD_HD BAD_HOST BAD_DEVICE
+#define bad_hd bad_host bad_device
 
 /// @since C++17
-#define BAD_MAYBE_UNUSED [[maybe_unused]]
+#define bad_maybe_unused [[maybe_unused]]
 
 /// @since C++14
-#define BAD_DEPRECATED [[deprecated]]
+#if __has_cpp_attribute(deprecated)
+#define bad_deprecated [[deprecated]]
+#else
+#warning no deprecated
+#endif
 
 /// @since C++17
-#define BAD_NODISCARD [[nodiscard]]
+#if __has_cpp_attribute(nodiscard)
+#define bad_nodiscard [[nodiscard]]
+#else
+#warning no nodiscard
+#endif
