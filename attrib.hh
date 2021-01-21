@@ -47,6 +47,14 @@
 #define BAD_DEPRECATED
 #endif
 
+#if __has_attribute(assume_aligned)
+#define BAD_ASSUME_ALIGNED(x) __attribute__((assume_aligned(x)))
+#else
+#define BAD_ASSUME_ALIGNED(x)
+#endif
+
+// arg # (1-based) of the attribute that tells you the alignment of the result
+
 #if __has_attribute(align_value)
 #define BAD_ALIGN_VALUE(x) __attribute__((align_value(x)))
 #else

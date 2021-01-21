@@ -102,14 +102,14 @@ namespace bad {
       // now we have to add a bunch of stuff for doing propagation
       BAD(HD) virtual index_t activation_records() const noexcept { return 0; }
       // should return the same answer as next
-      BAD_HD virtual record const * propagate(Act act, index_t & i) const noexcept = 0;
-      BAD(HD) virtual link<T,Act> * as_link() noexcept { return nullptr; }
+      BAD(HD,ASSUME_ALIGNED(record_alignment)) virtual record const * propagate(Act act, index_t & i) const noexcept = 0;
+      BAD(HD,ASSUME_ALIGNED(record_alignment)) virtual link<T,Act> * as_link() noexcept { return nullptr; }
 
       // unlike usual, the result can be reached through the tape.
-      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC) void * operator new(size_t size, tape_t & tape) noexcept;
+      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC,ASSUME_ALIGNED(record_alignment)) void * operator new(size_t size, tape_t & tape) noexcept;
 
       // used internally. returns null if the segment is out of room.
-      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC) void * operator new(size_t size, segment_t & segment) noexcept;
+      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC,ASSUME_ALIGNED(record_alignment)) void * operator new(size_t size, segment_t & segment) noexcept;
 
       // we don't use the argument
       BAD_HD void operator delete(BAD_MAYBE_UNUSED void * data) noexcept {}
@@ -234,53 +234,99 @@ namespace bad {
       }
     }
 
-    template <class A>
-    struct intrusive_iterator : std::iterator<std::forward_iterator_tag, A> {
-      using pointer = A*;
-      using reference = A&;
-      using const_pointer = std::add_const_t<pointer>;
-      using const_reference = std::add_const_t<reference>;
+    template <class T, class Act = T*>
+    struct const_record_iterator : std::iterator<std::forward_iterator_tag, record<T,Act> const> {
+      using pointer = record<T,Act> const *;
+      using reference = record<T,Act> const &;
+      using const_pointer = pointer;
+      using const_reference = reference;
 
       pointer p;
 
-      BAD(HD,INLINE) intrusive_iterator() noexcept : p() {}
-      BAD(HD,INLINE) intrusive_iterator(pointer p) noexcept : p(p) {}
-      BAD(HD,INLINE) intrusive_iterator(const intrusive_iterator & rhs) noexcept : p(rhs.p) {}
-      BAD(HD,INLINE) intrusive_iterator(intrusive_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
+      BAD(HD,INLINE) const_record_iterator() noexcept : p() {}
+      BAD(HD,INLINE) const_record_iterator(pointer p) noexcept : p(p) {}
+      BAD(HD,INLINE) const_record_iterator(const const_record_iterator & rhs) noexcept : p(rhs.p) {}
+      BAD(HD,INLINE) const_record_iterator(const_record_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
 
-      BAD(HD,INLINE) ~intrusive_iterator() noexcept {}
+      BAD(HD,INLINE) ~const_record_iterator() noexcept {}
 
-      BAD(HD,INLINE,PURE) constexpr bool operator == (const intrusive_iterator & rhs) const noexcept { return p == rhs.p; }
-      BAD(HD,INLINE,PURE) constexpr bool operator != (const intrusive_iterator & rhs) const noexcept { return p != rhs.p; }
+      BAD(HD,INLINE,PURE) constexpr bool operator == (const const_record_iterator & rhs) const noexcept { return p == rhs.p; }
+      BAD(HD,INLINE,PURE) constexpr bool operator != (const const_record_iterator & rhs) const noexcept { return p != rhs.p; }
 
-      BAD(HD,INLINE,PURE) constexpr reference operator *() const noexcept { return *p; }
-      BAD(HD,INLINE,PURE) constexpr pointer operator -> () noexcept { return p; }
-      BAD(HD,INLINE) intrusive_iterator & operator ++ () noexcept {
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr reference operator *() const noexcept { return *p; }
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr pointer operator -> () noexcept { return p; }
+      BAD(HD,INLINE) const_record_iterator & operator ++ () noexcept {
         assert(p != nullptr);
         p = p->next();
         return *this;
       }
 
-      BAD(HD,INLINE) intrusive_iterator operator ++ (int) noexcept {
+      BAD(HD,INLINE) const_record_iterator operator ++ (int) noexcept {
         assert(p != nullptr);
         auto q = p;
         p = p->next();
         return q;
       }
 
-      BAD(HD,INLINE,PURE) constexpr pointer ptr() noexcept { return p; }
-      BAD(HD,INLINE,PURE) constexpr const_pointer const_ptr() const noexcept { return p; }
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr pointer ptr() noexcept { return p; }
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr const_pointer const_ptr() const noexcept { return p; }
       BAD(HD,INLINE,PURE) constexpr operator bool() const noexcept { return p != nullptr; }
-
-      // template <class = std::enable_if_v<!std::is_const_v(A)> >
-      BAD(HD,INLINE,PURE) constexpr operator intrusive_iterator<const A> () const noexcept { return p; }
     };
 
-    template <class A>
-    BAD(HD,INLINE) void swap (intrusive_iterator<A> & a, intrusive_iterator<A> & b) {
+    template <class T,class Act>
+    BAD(HD,INLINE) void swap (const_record_iterator<T,Act> & a, const_record_iterator<T,Act> & b) {
       using std::swap;
       swap(a.p,b.p);
     }
+
+    template <class T, class Act = T*>
+    struct record_iterator : std::iterator<std::forward_iterator_tag, record<T,Act>> {
+      using pointer = record<T,Act>*;
+      using reference = record<T,Act>&;
+      using const_pointer = record<T,Act> const *;
+      using const_reference = record<T,Act> const &;
+
+      pointer p;
+
+      BAD(HD,INLINE) record_iterator() noexcept : p() {}
+      BAD(HD,INLINE) record_iterator(pointer p) noexcept : p(p) {}
+      BAD(HD,INLINE) record_iterator(const record_iterator & rhs) noexcept : p(rhs.p) {}
+      BAD(HD,INLINE) record_iterator(record_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
+
+      BAD(HD,INLINE) ~record_iterator() noexcept {}
+
+      BAD(HD,INLINE,PURE) constexpr bool operator == (const record_iterator & rhs) const noexcept { return p == rhs.p; }
+      BAD(HD,INLINE,PURE) constexpr bool operator != (const record_iterator & rhs) const noexcept { return p != rhs.p; }
+
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr reference operator *() const noexcept { return *p; }
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr pointer operator -> () noexcept { return p; }
+      BAD(HD,INLINE) record_iterator & operator ++ () noexcept {
+        assert(p != nullptr);
+        p = p->next();
+        return *this;
+      }
+
+      BAD(HD,INLINE) record_iterator operator ++ (int) noexcept {
+        assert(p != nullptr);
+        auto q = p;
+        p = p->next();
+        return q;
+      }
+
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr pointer ptr() noexcept { return p; }
+      BAD(HD,INLINE,PURE,ASSUME_ALIGNED(record_alignment)) constexpr const_pointer const_ptr() const noexcept { return p; }
+      BAD(HD,INLINE,PURE) constexpr operator bool() const noexcept { return p != nullptr; }
+
+      BAD(HD,INLINE,PURE) constexpr operator const_record_iterator<T,Act> () const noexcept { return p; }
+    };
+
+    template <class T,class Act>
+    BAD(HD,INLINE) void swap (record_iterator<T,Act> & a, record_iterator<T,Act> & b) {
+      using std::swap;
+      swap(a.p,b.p);
+    }
+
+
   } // detail
 
   // the workhorse
@@ -294,8 +340,8 @@ namespace bad {
     segment_t segment; // current segment
     index_t activations;
 
-    using iterator = detail::intrusive_iterator<record_t>;
-    using const_iterator = detail::intrusive_iterator<const record_t>;
+    using iterator = detail::record_iterator<T,Act>;
+    using const_iterator = detail::const_record_iterator<T,Act>;
 
     BAD_HD tape() noexcept : segment(), activations() {}
     BAD_HD tape(tape && rhs) noexcept : segment(std::move(rhs.segment)), activations(std::move(rhs.activations)) {}
