@@ -19,12 +19,58 @@
 #define BAD_FLATTEN
 #endif
 
+#if __has_attribute(malloc)
+#define BAD_MALLOC __attribute__((malloc))
+#else
+#define BAD_MALLOC
+#endif
+
+/// only examines arguments, no effect other than return value
+#if __has_attribute(const)
+#define BAD_CONST __attribute__((const))
+#else
+#define BAD_CONST
+#endif
+
+/// no effect other than return value, may inspect globals
+#if __has_attribute(pure)
+#define BAD_PURE __attribute__((pure))
+#else
+#define BAD_PURE
+#endif
+
 #if __has_attribute(deprecated)
 #define BAD_DEPRECATED __attribute__((deprecated))
 #elif defined _MSC_VER
 #define BAD_DEPRECATED __declspec(deprecated)
 #else
 #define BAD_DEPRECATED
+#endif
+
+#if __has_attribute(align_value)
+#define BAD_ALIGN_VALUE(x) __attribute__((align_value(x)))
+#else
+#define BAD_ALIGN_VALUE(x)
+#endif
+
+// arg # (1-based) of the attribute that tells you the alignment of the result
+#if __has_attribute(alloc_align)
+#define BAD_ALLOC_ALIGN(x) __attribute__((alloc_align(x)))
+#else
+#define BAD_ALLOC_ALIGN(x)
+#endif
+
+// arg # (1-based) of the attribute that tells you the size of the result in bytes
+#if __has_attribute(alloc_size)
+#define BAD_ALLOC_SIZE(x) __attribute__((alloc_size(x)))
+#else
+#define BAD_ALLOC_SIZE(x)
+#endif
+
+#if __has_attribute(returns_nonnull)
+#define BAD_RETURNS_NONNULL __attribute__((returns_nonnull))
+#else
+#define BAD_RETURNS_NONNULL
 #endif
 
 #ifdef __CUDACC__

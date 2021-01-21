@@ -33,7 +33,7 @@ namespace bad {
 
   // until you give me a standard legal way to do this, i'm going to do what i have to do
   template <class T, T...cs>
-  BAD_HD str<cs...> operator""_str() {
+  BAD(HD,CONST) str<cs...> operator""_str() {
     return {};
   }
 
@@ -205,12 +205,12 @@ namespace bad {
     template <size_t, class T, T...> struct stride_;
     template <class T> struct stride_<0,T> {
       // consteval?
-      static constexpr BAD_HD T value() noexcept { return 1; }
+      static constexpr BAD(HD,CONST) T value() noexcept { return 1; }
     };
     template <size_t N, class T, T x, T... xs>
     struct stride_<N,T,x,xs...> {
       // consteval?
-      static constexpr BAD_HD decltype(x) value() noexcept {
+      static constexpr BAD(HD,CONST) decltype(x) value() noexcept {
         if constexpr (N == 0) {
           return (T(1) * ... * xs); // use prod_t in case i choose to manually drop the T(1) fold?
         } else {
@@ -249,7 +249,7 @@ namespace bad {
   namespace detail {
     // return the nth item in a parameter pack.
     template <size_t N, auto... xs>
-    constexpr BAD_HD auto nth_() noexcept {
+    constexpr BAD(HD,CONST) auto nth_() noexcept {
       static_assert(N < sizeof...(xs), "index out of bounds");
       constexpr decltype(head<xs...>) args[] {xs ...};
       return args[N];

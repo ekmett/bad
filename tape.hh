@@ -18,7 +18,7 @@ namespace bad {
   static constexpr index_t record_mask = static_cast<index_t>(~0xf);
 
   namespace detail {
-    BAD(HD,INLINE) bool is_aligned(const void * ptr, std::uintptr_t alignment) noexcept {
+    BAD(HD,INLINE,CONST) bool is_aligned(const void * ptr, std::uintptr_t alignment) noexcept {
       auto iptr = reinterpret_cast<std::uintptr_t>(ptr);
       return !(iptr % alignment);
     }
@@ -48,7 +48,7 @@ namespace bad {
 
     public:
       BAD(HD,INLINE) segment() noexcept : current(nullptr), memory(nullptr) {};
-      BAD_HD segment(index_t n) noexcept;
+      BAD(HD) segment(index_t n) noexcept;
       BAD_HD segment(index_t n, segment && next) noexcept;
       BAD_HD segment(record_t * current, std::byte * memory) : current(current), memory(memory) {}
       BAD(HD,INLINE) segment(segment && rhs) noexcept
@@ -92,24 +92,24 @@ namespace bad {
 
       BAD(HD,INLINE) record() noexcept {}
       // disable copy construction
-      record(const record &) = delete;
-      record & operator=(const record &) = delete;
+      BAD_HD record(const record &) = delete;
+      BAD_HD record & operator=(const record &) = delete;
 
       BAD_HD virtual record * next() noexcept = 0;
       BAD_HD virtual record const * next() const noexcept = 0;
       BAD_HD virtual ~record() noexcept {}
       BAD(MAYBE_UNUSED,HD) virtual std::ostream & what(std::ostream & os) const noexcept = 0;
       // now we have to add a bunch of stuff for doing propagation
-      BAD_HD virtual index_t activation_records() const noexcept { return 0; }
+      BAD(HD) virtual index_t activation_records() const noexcept { return 0; }
       // should return the same answer as next
       BAD_HD virtual record const * propagate(Act act, index_t & i) const noexcept = 0;
-      BAD_HD virtual link<T,Act> * as_link() noexcept { return nullptr; }
+      BAD(HD) virtual link<T,Act> * as_link() noexcept { return nullptr; }
 
       // unlike usual, the result can be reached through the tape.
-      BAD(MAYBE_UNUSED,HD) void * operator new(size_t size, tape_t & tape) noexcept;
+      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC) void * operator new(size_t size, tape_t & tape) noexcept;
 
       // used internally. returns null if the segment is out of room.
-      BAD(MAYBE_UNUSED,HD) void * operator new(size_t size, segment_t & segment) noexcept;
+      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC) void * operator new(size_t size, segment_t & segment) noexcept;
 
       // we don't use the argument
       BAD_HD void operator delete(BAD_MAYBE_UNUSED void * data) noexcept {}
@@ -137,7 +137,7 @@ namespace bad {
     template <class T, class Act>
     void * record<T,Act>::operator new(size_t t, segment_t & segment) noexcept {
       if (segment.memory == nullptr) return nullptr;
-      std::byte * p = reinterpret_cast<std::byte *>(segment.current);
+      std::byte * p BAD_ALIGN_VALUE(record_alignment) = reinterpret_cast<std::byte *>(segment.current);
       t = pad_to_alignment(t);
       if (p - segment.memory < t) return nullptr;
       p -= t;
@@ -150,11 +150,11 @@ namespace bad {
     template <class T, class Act>
     segment<T, Act>::~segment() noexcept {
       if (current != nullptr) {
-        record<T, Act> * p = current;
+        record<T, Act> * p BAD_ALIGN_VALUE(record_alignment) = current;
         // this avoids building up a stack frame for each segment, but yeesh.
         while (p != nullptr) {
-          record<T, Act> * np = p->next();
-          link<T, Act> * link = p->as_link();
+          record<T, Act> * np BAD_ALIGN_VALUE(record_alignment) = p->next();
+          link<T, Act> * link BAD_ALIGN_VALUE(record_alignment)= p->as_link();
           if (link) {
             // we're going to become it
             segment<T, Act> temp = std::move(link->segment);
@@ -184,10 +184,10 @@ namespace bad {
     template <class T, class Act = T*>
     struct terminator : record<T, Act> {
       using record_t = record<T, Act>;
-      BAD(HD,INLINE) record_t * next() noexcept override { return nullptr; }
-      BAD(HD,INLINE) record_t const * next() const noexcept override { return nullptr; }
+      BAD(HD,INLINE,CONST) record_t * next() noexcept override { return nullptr; }
+      BAD(HD,INLINE,CONST) record_t const * next() const noexcept override { return nullptr; }
       std::ostream & what(std::ostream & os) const noexcept override { return os << "terminator"; }
-      BAD(HD,INLINE) record_t const * propagate(BAD_MAYBE_UNUSED Act act, BAD_MAYBE_UNUSED index_t &) const noexcept override {
+      BAD(HD,INLINE,CONST) record_t const * propagate(BAD_MAYBE_UNUSED Act act, BAD_MAYBE_UNUSED index_t &) const noexcept override {
         return nullptr;
       }
     };
@@ -307,7 +307,7 @@ namespace bad {
     template <class U, class ... Args>
     BAD(MAYBE_UNUSED,HD,FLATTEN) U & push(Args ... args) noexcept {
       static_assert(std::is_base_of_v<record_t, U>, "tape record not derived from record<T>");
-      auto result = new (*this) U(std::forward<Args>(args)...);
+      U * result BAD_ALIGN_VALUE(record_alignment) = new (*this) U(std::forward<Args>(args)...);
       activations += result->activation_records();
       return *result;
     }
@@ -369,7 +369,7 @@ namespace bad {
     struct static_propagator : propagator<B,T,Act> {
       BAD(HD,INLINE) static_propagator() noexcept : propagator<B,T,Act>() {}
       static constexpr size_t acts = Acts;
-      BAD(HD,INLINE) constexpr index_t activation_records() const noexcept override {
+      BAD(HD,INLINE,CONST) constexpr index_t activation_records() const noexcept override {
         return acts;
       }
     };
