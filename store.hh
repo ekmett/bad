@@ -288,9 +288,8 @@ namespace bad {
       }
     };
 
-    // CONST?
     template <class L, class R, class Dim>
-    BAD(HD,INLINE,NOALIAS) auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE,CONST) auto operator+(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_add_expr<L,R,Dim>(l,r);
     }
 
@@ -317,9 +316,8 @@ namespace bad {
       }
     };
 
-    // CONST?
     template <class L, class R, class Dim>
-    BAD(HD,INLINE,NOALIAS) auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE,CONST) auto operator-(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_sub_expr<L,R,Dim>(l,r);
     }
 
@@ -346,9 +344,8 @@ namespace bad {
     };
 
     // NOTE: multiplication is hadamard by default, not matrix multiplication or matrix vector!!!
-    // CONST?
     template <class L, class R, class Dim>
-    BAD(HD,INLINE,NOALIAS) auto operator*(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
+    BAD(HD,INLINE,CONST) auto operator*(store_expr<L,Dim> const &l, store_expr<R,Dim> const &r) noexcept {
       return store_hadamard_expr<L,R,Dim>(l,r);
     }
 
