@@ -332,7 +332,7 @@ namespace bad {
       ) noexcept : base(static_cast<B const &>(base)) {}
 
       BAD(hd,inline,pure)
-      auto operator [](index_type i) const noexcept {
+      auto operator [](BAD(maybe_unused) index_type i) const noexcept {
         return base;
       }
 

@@ -69,13 +69,13 @@ namespace bad {
 
     template <class U>
     BAD(hd,inline,const)
-    bool operator ==(BAD(noescape) aligned_allocator<U,Alignment> * rhs) const noexcept {
+    bool operator ==(BAD(maybe_unused,noescape) aligned_allocator<U,Alignment> * rhs) const noexcept {
       return true;
     }
 
     template <class U>
     BAD(hd,inline,const)
-    bool operator !=(BAD(noescape) aligned_allocator<U,Alignment> * rhs) const noexcept {
+    bool operator !=(BAD(maybe_unused,noescape) aligned_allocator<U,Alignment> * rhs) const noexcept {
       return false;
     }
   };
@@ -220,7 +220,7 @@ namespace bad {
       if (segment.memory == nullptr) return nullptr;
       std::byte * p BAD(align_value(record_alignment)) = reinterpret_cast<std::byte *>(segment.current);
       t = pad_to_alignment(t);
-      if (p - segment.memory < t) return nullptr;
+      if (p - segment.memory < ptrdiff_t(t)) return nullptr;
       p -= t;
       segment.current = reinterpret_cast<record_t*>(p);
       // requires c++20
