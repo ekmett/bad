@@ -54,8 +54,8 @@ namespace bad {
       BAD(HD,INLINE,NOALIAS) constexpr const_cursor(const_cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
       BAD(HD,INLINE,NOALIAS) constexpr const_cursor(const_cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
 
-      BAD(HD,INLINE,NOALIAS) const_cursor & operator =(const_cursor const & rhs) { p = rhs.p; i = rhs.i; return *this; }
-      BAD(HD,INLINE,NOALIAS) const_cursor & operator =(const_cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
+      BAD(REINITIALIZES,HD,INLINE,NOALIAS) const_cursor & operator =(const_cursor const & rhs) { p = rhs.p; i = rhs.i; return *this; }
+      BAD(REINITIALIZES,HD,INLINE,NOALIAS) const_cursor & operator =(const_cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
 
       // default constructible, moveable
       T const * p;
@@ -122,8 +122,8 @@ namespace bad {
       BAD(HD,INLINE,NOALIAS) constexpr cursor(cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
       BAD(HD,INLINE,NOALIAS) constexpr cursor(cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
 
-      BAD(HD,INLINE,NOALIAS) cursor & operator =(const cursor & rhs) { p = rhs.p; i = rhs.i; return *this; }
-      BAD(HD,INLINE,NOALIAS) cursor & operator =(cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
+      BAD(REINITIALIZES,HD,INLINE,NOALIAS) cursor & operator =(const cursor & rhs) { p = rhs.p; i = rhs.i; return *this; }
+      BAD(REINITIALIZES,HD,INLINE,NOALIAS) cursor & operator =(cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
 
       T * p;
       difference_type i;
@@ -427,7 +427,7 @@ namespace bad {
 
       T data[size];
 
-      BAD(HD,INLINE) store_ & operator =(T value) noexcept {
+      BAD(REINITIALIZES,HD,INLINE) store_ & operator =(T value) noexcept {
         for (index_type i=0;i<D;++i)
           at(i) = value;
         return *this;
@@ -483,7 +483,7 @@ namespace bad {
       }
 
       template <class B>
-      BAD(HD,INLINE,FLATTEN) store_ & operator = (store_expr<B,Dim> const & rhs) noexcept {
+      BAD(REINITIALIZES,HD,INLINE,FLATTEN) store_ & operator = (store_expr<B,Dim> const & rhs) noexcept {
         for (int i=0;i<D;++i)
           at(i) = rhs[i];
         return *this;

@@ -18,7 +18,7 @@ namespace bad {
   static constexpr index_t record_mask = static_cast<index_t>(~0xf);
 
   namespace detail {
-    BAD(HD,INLINE,CONST) bool is_aligned(const void * ptr, std::uintptr_t alignment) noexcept {
+    BAD(HD,INLINE,CONST) bool is_aligned(BAD(NOESCAPE) const void * ptr, std::uintptr_t alignment) noexcept {
       auto iptr = reinterpret_cast<std::uintptr_t>(ptr);
       return !(iptr % alignment);
     }
@@ -60,11 +60,11 @@ namespace bad {
 
       BAD(HD,NOALIAS) ~segment() noexcept;
 
-      BAD(HD,NOALIAS) segment & operator=(segment && rhs) noexcept;
+      BAD(REINITIALIZES,HD,NOALIAS) segment & operator=(segment && rhs) noexcept;
     };
 
     template <class T, class Act>
-    BAD(HD,INLINE,NOALIAS) void swap(segment<T, Act> & a, segment<T, Act> & b) noexcept {
+    BAD(HD,INLINE,NOALIAS) void swap(BAD(NOESCAPE) segment<T, Act> & a, BAD(NOESCAPE) segment<T, Act> & b) noexcept {
       using std::swap;
       swap(a.current, b.current);
       swap(a.memory, b.memory);
@@ -76,7 +76,7 @@ namespace bad {
   struct tape;
 
   namespace detail {
-    static constexpr BAD(HD,INLINE) index_t pad_to_alignment(index_t i) noexcept {
+    BAD(HD,INLINE,CONST) static constexpr index_t pad_to_alignment(index_t i) noexcept {
       return (i + record_alignment - 1) & record_mask;
     }
 
@@ -92,50 +92,51 @@ namespace bad {
 
       BAD(HD,INLINE,NOALIAS) record() noexcept {}
       // disable copy construction
-      BAD_HD record(const record &) = delete;
-      BAD_HD record & operator=(const record &) = delete;
+      BAD(HD) record(const record &) = delete;
+      BAD(HD) record & operator=(const record &) = delete;
 
-      BAD_HD virtual record * next() noexcept = 0;
-      BAD_HD virtual record const * next() const noexcept = 0;
-      BAD_HD virtual ~record() noexcept {}
-      BAD(MAYBE_UNUSED,HD) virtual std::ostream & what(std::ostream & os) const noexcept = 0;
+      BAD(HD) virtual record * next() noexcept = 0;
+      BAD(HD) virtual record const * next() const noexcept = 0;
+      BAD(HD) virtual ~record() noexcept {}
+      BAD(HD) virtual void what(BAD(NOESCAPE) std::ostream & os) const noexcept = 0;
       // now we have to add a bunch of stuff for doing propagation
       BAD(HD) virtual index_t activation_records() const noexcept { return 0; }
       // should return the same answer as next
-      BAD(HD,ASSUME_ALIGNED(record_alignment)) virtual record const * propagate(Act act, index_t & i) const noexcept = 0;
+      BAD(HD,ASSUME_ALIGNED(record_alignment)) virtual record const * propagate(Act act, BAD(NOESCAPE) index_t & i) const noexcept = 0;
       BAD(HD,ASSUME_ALIGNED(record_alignment),NOALIAS) virtual link<T,Act> * as_link() noexcept { return nullptr; }
 
       // unlike usual, the result can be reached through the tape.
-      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC,ASSUME_ALIGNED(record_alignment)) void * operator new(size_t size, tape_t & tape) noexcept;
+      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC,ASSUME_ALIGNED(record_alignment)) void * operator new(size_t size, BAD(NOESCAPE) tape_t & tape) noexcept;
 
       // used internally. returns null if the segment is out of room.
-      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC,ASSUME_ALIGNED(record_alignment)) void * operator new(size_t size, segment_t & segment) noexcept;
+      BAD(MAYBE_UNUSED,HD,ALLOC_SIZE(1),MALLOC,ASSUME_ALIGNED(record_alignment)) void * operator new(size_t size, BAD(NOESCAPE) segment_t & segment) noexcept;
 
       // we don't use the argument
-      BAD_HD void operator delete(BAD_MAYBE_UNUSED void * data) noexcept {}
+      BAD(HD) void operator delete(BAD(MAYBE_UNUSED) void * data) noexcept {}
 
       // disable other new/delete forms:
-      BAD_HD void * operator new  (size_t) = delete;
-      BAD_HD void * operator new  (size_t, void *) noexcept = delete;
-      BAD_HD void * operator new  (size_t, const std::nothrow_t &) = delete;
-      BAD_HD void * operator new  (size_t, const std::align_val_t &, const std::nothrow_t &) = delete;
-      BAD_HD void * operator new[](size_t) = delete;
-      BAD_HD void * operator new[] (size_t, void *) noexcept = delete;
-      BAD_HD void * operator new[](size_t, const std::nothrow_t &) = delete;
-      BAD_HD void * operator new[](size_t, const std::align_val_t &, const std::nothrow_t &) = delete;
-      BAD_HD void operator delete[](void *) noexcept = delete;
-      BAD_HD void operator delete[](void *, size_t) noexcept = delete;
-      BAD_HD void operator delete[](void *, std::align_val_t) noexcept = delete;
-      BAD_HD void operator delete[](void *, size_t, std::align_val_t) noexcept = delete;
+      BAD(HD) void * operator new  (size_t) = delete;
+      BAD(HD) void * operator new  (size_t, void *) noexcept = delete;
+      BAD(HD) void * operator new  (size_t, const std::nothrow_t &) = delete;
+      BAD(HD) void * operator new  (size_t, const std::align_val_t &, const std::nothrow_t &) = delete;
+      BAD(HD) void * operator new[](size_t) = delete;
+      BAD(HD) void * operator new[] (size_t, void *) noexcept = delete;
+      BAD(HD) void * operator new[](size_t, const std::nothrow_t &) = delete;
+      BAD(HD) void * operator new[](size_t, const std::align_val_t &, const std::nothrow_t &) = delete;
+      BAD(HD) void operator delete[](void *) noexcept = delete;
+      BAD(HD) void operator delete[](void *, size_t) noexcept = delete;
+      BAD(HD) void operator delete[](void *, std::align_val_t) noexcept = delete;
+      BAD(HD) void operator delete[](void *, size_t, std::align_val_t) noexcept = delete;
     };
 
     template <class T, class Act>
-    inline std::ostream & operator << (std::ostream & os, const record<T, Act> & d) noexcept {
-      return d.what(os);
+    inline std::ostream & operator << (std::ostream & os, BAD(NOESCAPE) const record<T, Act> & d) noexcept {
+      d.what(os);
+      return os;
     }
 
     template <class T, class Act>
-    void * record<T,Act>::operator new(size_t t, segment_t & segment) noexcept {
+    void * record<T,Act>::operator new(size_t t, BAD(NOESCAPE) segment_t & segment) noexcept {
       if (segment.memory == nullptr) return nullptr;
       std::byte * p BAD_ALIGN_VALUE(record_alignment) = reinterpret_cast<std::byte *>(segment.current);
       t = pad_to_alignment(t);
@@ -186,8 +187,8 @@ namespace bad {
       using record_t = record<T, Act>;
       BAD(HD,INLINE,CONST) record_t * next() noexcept override { return nullptr; }
       BAD(HD,INLINE,CONST) record_t const * next() const noexcept override { return nullptr; }
-      BAD(HD,MAYBE_UNUSED) std::ostream & what(std::ostream & os) const noexcept override { return os << "terminator"; }
-      BAD(HD,INLINE,CONST) record_t const * propagate(BAD_MAYBE_UNUSED Act act, BAD_MAYBE_UNUSED index_t &) const noexcept override {
+      BAD(HD) void what(BAD(NOESCAPE) std::ostream & os) const noexcept override { os << "terminator"; }
+      BAD(HD,INLINE,CONST) record_t const * propagate(BAD(MAYBE_UNUSED) Act act, BAD(MAYBE_UNUSED,NOESCAPE) index_t &) const noexcept override {
         return nullptr;
       }
     };
@@ -205,13 +206,13 @@ namespace bad {
     struct link: record<T, Act> {
       using record_t = record<T, Act>;
       using segment_t = segment<T, Act>;
-      BAD_HD link() = delete;
+      BAD(HD) link() = delete;
       BAD(HD,NOALIAS) link(segment_t && segment) noexcept : segment(std::move(segment)) {}
 
       BAD(HD,INLINE,PURE) record_t * next() noexcept override { return segment.current; }
       BAD(HD,INLINE,PURE) record_t const * next() const noexcept override { return segment.current; }
-      BAD(HD,MAYBE_UNUSED) std::ostream & what(std::ostream & os) const noexcept override { return os << "link"; }
-      BAD(HD,INLINE,PURE) record_t const * propagate(BAD_MAYBE_UNUSED Act act, BAD_MAYBE_UNUSED index_t &) const noexcept override {
+      BAD(HD) void what(BAD(NOESCAPE) std::ostream & os) const noexcept override { os << "link"; }
+      BAD(HD,INLINE,PURE) record_t const * propagate(BAD(MAYBE_UNUSED) Act act, BAD(MAYBE_UNUSED,NOESCAPE) index_t &) const noexcept override {
         return segment.current;
       }
       BAD(HD,INLINE,CONST) link<T, Act> * as_link() noexcept override { return this; }
@@ -344,7 +345,7 @@ namespace bad {
     BAD(HD) tape(const tape &) = delete;
 
     BAD(MAYBE_UNUSED,HD) tape & operator=(const tape &) = delete;
-    BAD(MAYBE_UNUSED,HD,NOALIAS) tape & operator=(tape && rhs) noexcept;
+    BAD(REINITIALIZES,MAYBE_UNUSED,HD,NOALIAS) tape & operator=(tape && rhs) noexcept;
 
     // put more stuff in here
     template <class U, class ... Args>
@@ -377,7 +378,7 @@ namespace bad {
 
   namespace detail {
     template <class T, class Act>
-    inline void * record<T,Act>::operator new(size_t size, tape_t & tape) noexcept {
+    inline void * record<T,Act>::operator new(size_t size, BAD(NOESCAPE) tape_t & tape) noexcept {
       auto result = record::operator new(size, tape.segment);
       if (result) return result;
       tape.segment = segment(std::max(segment_t::minimum_size, static_cast<index_t>(pad_to_alignment(std::max(sizeof(link<T, Act>), sizeof(terminator<T, Act>))) + pad_to_alignment(size))), std::move(tape.segment));
@@ -396,11 +397,11 @@ namespace bad {
       BAD(HD,INLINE,FLATTEN,CONST,ASSUME_ALIGNED(record_alignment)) record<T, Act> * next() noexcept override {
         return reinterpret_cast<record<T, Act> *>(reinterpret_cast<std::byte*>(this) + pad_to_alignment(sizeof(B)));
       }
-      BAD(MAYBE_UNUSED,HD,FLATTEN) std::ostream & what(std::ostream & os) const noexcept override {
-        return os << type(*static_cast<B const *>(this));
+      BAD(HD,FLATTEN) void what(BAD(NOESCAPE) std::ostream & os) const noexcept override {
+        os << type(*static_cast<B const *>(this));
       }
 
-      BAD(HD,INLINE,FLATTEN,ASSUME_ALIGNED(record_alignment)) const record<T,Act> * propagate(Act act, index_t & i) const noexcept override {
+      BAD(HD,INLINE,FLATTEN,ASSUME_ALIGNED(record_alignment)) const record<T,Act> * propagate(Act act, BAD(NOESCAPE) index_t & i) const noexcept override {
         reinterpret_cast<B const *>(this)->prop(act, i);
         return next(); // this shares the virtual function call dispatch, because here it isn't virtual.
       }
