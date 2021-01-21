@@ -273,7 +273,7 @@ namespace bad {
     };
 
     template <class T,class Act>
-    BAD(HD,INLINE,NOALIAS) void swap (const_record_iterator<T,Act> & a, const_record_iterator<T,Act> & b) {
+    BAD(HD,INLINE,NOALIAS) void swap (BAD(NOESCAPE) const_record_iterator<T,Act> & a, BAD(NOESCAPE) const_record_iterator<T,Act> & b) {
       using std::swap;
       swap(a.p,b.p);
     }
@@ -318,7 +318,7 @@ namespace bad {
     };
 
     template <class T,class Act>
-    BAD(HD,INLINE,NOALIAS) void swap (record_iterator<T,Act> & a, record_iterator<T,Act> & b) {
+    BAD(HD,INLINE,NOALIAS) void swap (BAD(NOESCAPE) record_iterator<T,Act> & a, BAD(NOESCAPE) record_iterator<T,Act> & b) {
       using std::swap;
       swap(a.p,b.p);
     }
@@ -364,7 +364,7 @@ namespace bad {
   };
 
   template <class T, class Act>
-  BAD(HD,INLINE,NOALIAS) void swap(tape<T, Act> & a, tape<T, Act> & b) noexcept {
+  BAD(HD,INLINE,NOALIAS) void swap(BAD(NOESCAPE) tape<T, Act> & a, BAD(NOESCAPE) tape<T, Act> & b) noexcept {
     using std::swap;
     swap(a.segment, b.segment);
     swap(a.activations, b.activations);
