@@ -191,6 +191,16 @@ namespace bad {
     }
   }
 
+  template <size_t N, class B>
+  BAD(HD,INLINE) auto rep(BAD(LIFETIMEBOUND) B & rhs) noexcept {
+    return rhs.template rep<N>();
+  }
+
+  template <size_t N, class B>
+  BAD(HD,INLINE) auto rep(BAD(LIFETIMEBOUND) const B & rhs) noexcept {
+    return rhs.template rep<N>();
+  }
+
   template <size_t N, class B> 
   BAD(HD,INLINE) auto pull(BAD(LIFETIMEBOUND) B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
