@@ -12,7 +12,7 @@ cmake := $(wildcard cmake/*)
 open ?= open
 
 test: build
-	@ninja -C build -j 10 all
+	@ninja -v -C build -j 10 all
 	@for i in $(tests); do \
 		echo build/$$i; \
 		time build/$$i; \
@@ -27,7 +27,7 @@ $(tests): %: build/%
 
 # `make build/t_seq` will compile it
 $(addprefix build/, $(tests)): %: build $(src)
-	@ninja -C build -j 10 $(notdir $@)
+	@ninja -v -C build -j 10 $(notdir $@)
 
 clean:
 	@rm -rf build

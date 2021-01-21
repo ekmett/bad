@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 include_directories(${CMAKE_SOURCE_DIR})
-add_compile_options(-fdeclspec)
+add_compile_options(-fdeclspec -Wall)
 
 add_library(abi STATIC abi.cc abi.hh map.hh attrib.hh)
 link_libraries(abi)

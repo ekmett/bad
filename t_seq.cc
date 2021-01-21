@@ -39,7 +39,7 @@ TEST_CASE("reify works","[str]") {
 }
 
 TEST_CASE("_str", "[str]") {
-  auto x = "wat"_str; // gives me back a thing of that type
+  BAD(maybe_unused) auto x = "wat"_str; // gives me back a thing of that type
   REQUIRE(sizeof(reify<decltype("wat"_str)>) == 3);
 }
 
@@ -58,7 +58,7 @@ TEST_CASE("map works","[str]") {
   REQUIRE(sizeof(empty) / sizeof(string) == 5);
 }
 
-#define op(...) list<BAD_MAP_LIST(S,__VA_ARGS__)>
+#define op(...) BAD(maybe_unused) list<BAD_MAP_LIST(S,__VA_ARGS__)>
 
 TEST_CASE("einsum sketch", "[str]") {
   op(ij,jk,ik) mul;
