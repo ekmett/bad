@@ -549,8 +549,8 @@ namespace bad {
   namespace detail {
     template <typename T, typename Dim, typename Stride1, typename Stride2>
     BAD(HD,INLINE,FLATTEN) void swap(
-      store_<T,Dim,Stride1> & l,
-      store_<T,Dim,Stride2> & r
+      BAD(NOESCAPE) store_<T,Dim,Stride1> & l,
+      BAD(NOESCAPE) store_<T,Dim,Stride2> & r
     ) {
       using std::swap;
       using L = store<T,Dim,Stride1>;
