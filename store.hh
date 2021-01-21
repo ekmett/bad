@@ -192,21 +192,25 @@ namespace bad {
   }
 
   template <size_t N, class B>
-  BAD(HD,INLINE) auto rep(BAD(LIFETIMEBOUND) B & rhs) noexcept {
+  BAD(HD,INLINE)
+  auto rep(BAD(LIFETIMEBOUND) B & rhs) noexcept {
     return rhs.template rep<N>();
   }
 
   template <size_t N, class B>
-  BAD(HD,INLINE) auto rep(BAD(LIFETIMEBOUND) const B & rhs) noexcept {
+  BAD(HD,INLINE)
+  auto rep(BAD(LIFETIMEBOUND) const B & rhs) noexcept {
     return rhs.template rep<N>();
   }
 
-  template <size_t N, class B> 
-  BAD(HD,INLINE) auto pull(BAD(LIFETIMEBOUND) B & rhs, typename B::index_type i) noexcept {
+  template <size_t N, class B>
+  BAD(HD,INLINE)
+  auto pull(BAD(LIFETIMEBOUND) B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
   template <size_t N, class B>
-  BAD(HD,INLINE) auto pull(BAD(LIFETIMEBOUND) const B & rhs, typename B::index_type i) noexcept {
+  BAD(HD,INLINE)
+  auto pull(BAD(LIFETIMEBOUND) const B & rhs, typename B::index_type i) noexcept {
     return rhs.template pull<N>(i);
   }
 
@@ -217,26 +221,31 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
 
-      BAD(HD,INLINE,CONST) B const & operator()() const noexcept { 
-        return static_cast<B const &>(*this); 
+      BAD(HD,INLINE,CONST)
+      B const & operator()() const noexcept {
+        return static_cast<B const &>(*this);
       }
 
       template <class... Args>
-      BAD(HD,INLINE,FLATTEN) auto operator ()(index_type i, Args... args) const noexcept {
+      BAD(HD,INLINE,FLATTEN)
+      auto operator ()(index_type i, Args... args) const noexcept {
         return (*this)[i](args...);
       }
 
-      BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN)
+      auto operator [](index_type i) const noexcept {
         return static_cast<B const &>(*this)[i];
       }
 
       template <size_t N>
-      BAD(HD,INLINE,FLATTEN) auto pull(index_type i) const noexcept {
+      BAD(HD,INLINE,FLATTEN)
+      auto pull(index_type i) const noexcept {
         return static_cast<B const &>(*this).template pull<N>(i);
       }
 
       template <size_t D>
-      BAD(HD,INLINE,FLATTEN) auto rep() const noexcept {
+      BAD(HD,INLINE,FLATTEN)
+      auto rep() const noexcept {
         return static_cast<B const &>(*this).template rep<D>();
       }
     };
@@ -291,7 +300,7 @@ namespace bad {
       BAD(HD,INLINE,FLATTEN) auto operator [](index_type i) const noexcept {
         return l[i] + r[i];
       }
-      template <size_t N> 
+      template <size_t N>
       BAD(HD,INLINE,FLATTEN) auto pull(index_type i) const noexcept {
         return l.template pull<N>(i) + r.template pull<N>(i);
       }
@@ -542,7 +551,7 @@ namespace bad {
 
       template <size_t N> using store_pull = store_<T, seq_pull<N,Dim>, seq_pull<N,Stride>>;
 
-      template <size_t N> 
+      template <size_t N>
       BAD(HD,INLINE,CONST) store_pull<N> & pull() noexcept {
         return reinterpret_cast<store_pull<N>&>(*this);
       };
