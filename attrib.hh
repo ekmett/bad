@@ -25,6 +25,13 @@
 #define BAD_MALLOC
 #endif
 
+/// only modifies data reachable through pointer arguments
+#if defined(__clang__) || defined(_MSC_VER)
+#define BAD_NOALIAS __declspec(noalias)
+#else
+#define BAD_NOALIAS
+#endif
+
 /// only examines arguments, no effect other than return value
 #if __has_attribute(const)
 #define BAD_CONST __attribute__((const))
