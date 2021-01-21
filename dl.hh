@@ -3,11 +3,10 @@
 #include "attrib.hh"
 
 namespace bad {
-
   // convenient RAII wrapper for dlopening, usually used for the current program
   struct dl {
-    dl(const char * filename = nullptr) : handle(dlopen(filename,0)) {}
-    ~dl() { dlclose(handle); }
+    BAD_HD dl(const char * filename = nullptr) : handle(dlopen(filename,0)) {}
+    BAD_HD ~dl() { dlclose(handle); }
     void * handle;
   };
 
