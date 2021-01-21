@@ -1,5 +1,6 @@
 #pragma once
 #include <dlfcn.h>
+#include "attrib.hh"
 
 namespace bad {
 
@@ -12,7 +13,7 @@ namespace bad {
 
   // identify a pointer to some built-in thing described at compile time.
   template <class T>
-  std::string wat(T * t) {
+  BAD_HD std::string wat(T * t) {
     Dl_info info;
     if (dladdr(reinterpret_cast<const void *>(t), &info)) {
       return info.dli_sname;
