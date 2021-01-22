@@ -38,7 +38,12 @@
 
 /// convenient macro for applying several attributes
 // e.g. BAD(hd,inline) vs. bad_hd bad_inline
+// erased for doxygen. so only use this for attributes
+#ifdef DOXYGEN
+#define BAD(...)
+#else
 #define BAD(...) BAD_MAP(bad_,__VA_ARGS__)
+#endif
 
 /*
  * Copyright (C) 2012 William Swanson, 2021 Edward Kmett
