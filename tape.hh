@@ -329,9 +329,11 @@ namespace bad {
     }
 
     template <class T, class Act = T*, class Allocator = default_allocator>
-    struct const_record_iterator : std::iterator<std::forward_iterator_tag, record<T,Act,Allocator> const> {
-      using pointer = record<T,Act,Allocator> const *;
-      using reference = record<T,Act,Allocator> const &;
+    struct const_record_iterator {
+      using iterator_category = std::forward_iterator_tag;
+      using value_type = record<T,Act,Allocator> const;
+      using pointer = value_type *;
+      using reference = value_type &;
       using const_pointer = pointer;
       using const_reference = reference;
 
@@ -376,11 +378,13 @@ namespace bad {
     }
 
     template <class T, class Act = T*, class Allocator = default_allocator>
-    struct record_iterator : std::iterator<std::forward_iterator_tag, record<T,Act,Allocator>> {
-      using pointer = record<T,Act,Allocator>*;
-      using reference = record<T,Act,Allocator>&;
-      using const_pointer = record<T,Act,Allocator> const *;
-      using const_reference = record<T,Act,Allocator> const &;
+    struct record_iterator {
+      using iterator_category = std::forward_iterator_tag;
+      using value_type = record<T,Act,Allocator>;
+      using pointer = value_type *;
+      using reference = value_type &;
+      using const_pointer = value_type const *;
+      using const_reference = value_type const &;
 
       pointer p;
 
