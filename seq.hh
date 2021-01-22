@@ -290,59 +290,61 @@ namespace bad {
   // * row-major stride calculation
 
   namespace detail {
-    template <size_t, class T, T...>
+    template <size_t, size_t...>
     struct stride_;
 
-    template <class T>
-    struct stride_<0,T> {
-      BAD(hd,const) // consteval?
-      static constexpr T value() noexcept {
+    template <>
+    struct stride_<0> {
+      BAD(hd,const) // consteval
+      static constexpr ptrdiff_t value() noexcept {
         return 1;
       }
     };
-    template <size_t N, class T, T x, T... xs>
-    struct stride_<N,T,x,xs...> {
+    template <size_t N, size_t x, size_t... xs>
+    struct stride_<N,x,xs...> {
       BAD(hd,const) // consteval
-      static constexpr decltype(x) value() noexcept {
+      static constexpr ptrdiff_t value() noexcept {
         if constexpr (N == 0) {
-          return (T(1) * ... * xs);
+          return (ptrdiff_t(1) * ... * ptrdiff_t(xs));
         } else {
-          return stride_<N-1,T,xs...>::value();
+          return stride_<N-1,xs...>::value();
         }
       }
     };
   }
 
-  template <size_t N, class T, T... xs>
+  template <size_t N, size_t... xs>
   BAD(constinit)
-  constexpr auto stride = detail::stride_<N,T,xs...>::value();
+  constexpr ptrdiff_t stride = detail::stride_<N,xs...>::value();
 
   namespace detail {
     template <size_t, class>
     struct seq_stride_;
 
-    template <size_t N, class T, T ... is>
-    struct seq_stride_<N,seq_t<T,is...>> {
-      static constexpr auto value = stride<N,T,is...>;
+    template <size_t N, size_t ... is>
+    struct seq_stride_<N,seq<is...>> {
+      static constexpr ptrdiff_t value = stride<N,is...>;
     };
   }
 
   template <size_t N, class S>
-  constexpr auto seq_stride = detail::seq_stride_<N,S>::value;
+  constexpr ptrdiff_t seq_stride = detail::seq_stride_<N,S>::value;
 
   namespace detail {
     template <class, class>
     struct row_major_;
 
-    template <class S, class T, T... is>
-    struct row_major_<S,seq_t<T,is...>> {
-      using type = seq_t<T,seq_stride<is,S>...>;
+    template <class S, size_t... is>
+    struct row_major_<S,seq<is...>> {
+      using type = sseq<seq_stride<is,S>...>;
     };
   }
 
-  // * all row-major strides
+  // * compute all row-major strides given a set of dimensions
 
-  template <class S> using row_major = typename detail::row_major_<S, make_aseq<seq_length<S>>>::type;
+  template <class S>
+  using row_major = typename detail::row_major_<S, make_seq<seq_length<S>>>::type;
+
   // * indexing
 
   namespace detail {

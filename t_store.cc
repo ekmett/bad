@@ -27,7 +27,7 @@ TEST_CASE( "store works", "[store]" ) {
   // cout << t << endl;
 
   // column major
-  store<int,seq<4,5>,seq<1,4>> r = s - t;
+  store<int,seq<4,5>,sseq<1,4>> r = s - t;
   // cout << r << endl;
 
   r.pull<1>(1) = 200;

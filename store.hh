@@ -29,16 +29,18 @@ namespace bad {
   using store = typename detail::store_t<T,Dim,Stride>::type;
 
   namespace detail {
-    template <class T, class Dim, class Stride = row_major<Dim>>
-    struct const_cursor {
-      using value_type = store<T,seq_tail<Dim>,seq_tail<Stride>> const;
+    template <class T, class Dim, class Stride = row_major<Dim>> struct const_cursor;
+
+    template <class T, size_t d0, size_t... ds, ssize_t s0, ssize_t... ss>
+    struct const_cursor<T,seq<d0,ds...>,sseq<s0,ss...>> {
+      using value_type = store<T,seq<ds...>,sseq<ss...>> const;
       using difference_type = ptrdiff_t;
       using pointer = value_type *;
       using reference = value_type &;
       using iterator_category = std::random_access_iterator_tag;
 
-      static constexpr size_t D = seq_head<Dim>;
-      static constexpr ptrdiff_t S = seq_head<Stride>;
+      static constexpr size_t D = d0;
+      static constexpr ptrdiff_t S = s0;
 
       BAD(hd,inline,noalias)
       constexpr explicit const_cursor(T const * p = nullptr, difference_type i = 0) noexcept
@@ -169,15 +171,29 @@ namespace bad {
     };
 
     template <class T, class Dim, class Stride = row_major<Dim>>
-    struct cursor {
-      using value_type = store<T,seq_tail<Dim>,seq_tail<Stride>>;
+    struct cursor;
+
+    template <class T, class Dim, class Stride>
+    BAD(hd,inline,pure)
+    const_cursor<T,Dim,Stride> operator + (
+      ptrdiff_t d,
+      const const_cursor<T,Dim,Stride> & rhs
+    ) {
+      return rhs + d;
+    }
+
+    template <class T, size_t d0, size_t... ds, ssize_t s0, ssize_t... ss>
+    struct cursor<T,seq<d0,ds...>,sseq<s0,ss...>> {
+      using dim = seq<d0,ds...>;
+      using stride = sseq<s0,ss...>;
+      using value_type = store<T,seq<ds...>,sseq<ss...>>;
       using difference_type = ptrdiff_t;
       using pointer = value_type *;
       using reference = value_type &;
       using iterator_category = std::random_access_iterator_tag;
 
-      static constexpr auto D = seq_head<Dim>;
-      static constexpr auto S = seq_head<Stride>;
+      static constexpr size_t D = s0;
+      static constexpr ptrdiff_t S = s0;
 
       BAD(hd,inline,noalias) constexpr
       explicit cursor(
@@ -212,7 +228,7 @@ namespace bad {
       difference_type i;
 
       BAD(hd,inline,pure)
-      operator const_cursor<T, Dim, Stride>() const {
+      operator const_cursor<T,dim,stride>() const {
         return { p, i };
       }
 
@@ -321,17 +337,8 @@ namespace bad {
 
     template <class T, class Dim, class Stride>
     BAD(hd,inline,pure)
-    const_cursor<T,Dim,Stride> operator + (
-      typename cursor<T,Dim,Stride>::difference_type d,
-      const const_cursor<T,Dim,Stride> & rhs
-    ) {
-      return rhs + d;
-    }
-
-    template <class T, class Dim, class Stride>
-    BAD(hd,inline,pure)
     cursor<T,Dim,Stride> operator + (
-      typename cursor<T,Dim,Stride>::difference_type d,
+      ptrdiff_t d,
       const cursor<T,Dim,Stride> & rhs
     ) {
       return rhs + d;
@@ -597,15 +604,20 @@ namespace bad {
   using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
 
   namespace detail {
-    // store_<int,seq<1,2,3>,sseq<4,5,1>> -- strides can be negative so use sseq.
-    // a lens is a pointer into a matrix, not a matrix
     template <class T, class Dim, class Stride>
-    struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
-      using iterator = cursor<T,Dim,Stride>;
-      using const_iterator = const_cursor<T,Dim,Stride>;
+    struct store_;
+
+    // store_<int,seq<1,2,3>,sseq<4,5,1>> -- strides can be negative so use sseq.
+    template <class T, size_t d0, ssize_t... ds, ptrdiff_t s0, ptrdiff_t... ss>
+    struct store_<T,seq<d0,ds...>,sseq<s0,ss...>>
+    : store_expr<store_<T,seq<d0,ds...>,sseq<s0,ss...>>,seq<d0,ds...>> {
+      using dim = seq<d0,ds...>;
+      using stride = sseq<s0,ss...>;
+      using iterator = cursor<T,dim,stride>;
+      using const_iterator = const_cursor<T,dim,stride>;
       using reverse_iterator = std::reverse_iterator<iterator>;
       using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-      using plane = store<T,seq_tail<Dim>,seq_tail<Stride>>; // note store, not store_
+      using plane = store<T,seq<ds...>,sseq<ss...>>;
 
     private:
       template <class>
@@ -614,18 +626,18 @@ namespace bad {
       template <size_t... is>
       struct calc_<seq<is...>> {
          template <size_t i>
-         static constexpr auto ext = ptrdiff_t(seq_nth<i,Stride>)*ptrdiff_t(seq_nth<i,Dim>-1);
+         static constexpr auto ext = ptrdiff_t(seq_nth<i,stride>)*ptrdiff_t(seq_nth<i,dim>-1);
 
          static constexpr ptrdiff_t max = (0 + ... + std::max<ptrdiff_t>(0,ext<is>));
          static constexpr ptrdiff_t min = (0 + ... + std::min<ptrdiff_t>(0,ext<is>));
       };
-      using calc      = calc_<make_seq<seq_length<Dim>>>;
-      using calc_tail = calc_<seq_range<size_t(1),seq_length<Dim>>>;
+      using calc      = calc_<make_seq<seq_length<dim>>>;
+      using calc_tail = calc_<seq_range<size_t(1),seq_length<dim>>>;
 
     public:
 
-      static constexpr auto D = seq_head<Dim>;
-      static constexpr auto S = seq_head<Stride>;
+      static constexpr size_t D = d0;
+      static constexpr ptrdiff_t S = s0;
 
       static constexpr size_t max_index = size_t(calc::max); // non-negative
       static constexpr ptrdiff_t min_index = calc::min; // non-positive
@@ -661,7 +673,7 @@ namespace bad {
 
       template <class B>
       BAD(hd,inline)
-      constexpr store_(store_expr<B,Dim> const & rhs) noexcept {
+      constexpr store_(store_expr<B,dim> const & rhs) noexcept {
         for (size_t i=0;i<D;++i)
           at(i) = rhs[i];
       }
@@ -782,7 +794,7 @@ namespace bad {
 
       template <class B>
       BAD(reinitializes,hd,inline,flatten)
-      store_ & operator = (store_expr<B,Dim> const & rhs) noexcept {
+      store_ & operator = (store_expr<B,dim> const & rhs) noexcept {
         for (size_t i=0;i<D;++i)
           at(i) = rhs[i];
         return *this;
@@ -790,7 +802,7 @@ namespace bad {
 
       template <class B>
       BAD(hd,inline,flatten)
-      store_ & operator += (store_expr<B,Dim> const & rhs) noexcept {
+      store_ & operator += (store_expr<B,dim> const & rhs) noexcept {
         for (size_t i=0;i<D;++i)
           at(i) += rhs[i];
         return *this;
@@ -798,7 +810,7 @@ namespace bad {
 
       template <class B>
       BAD(hd,inline,flatten)
-      store_ & operator -= (store_expr<B,Dim> const & rhs) noexcept {
+      store_ & operator -= (store_expr<B,dim> const & rhs) noexcept {
         for (size_t i=0;i<D;++i)
           at(i) -= rhs[i];
         return *this;
@@ -806,14 +818,14 @@ namespace bad {
 
       template <class B>
       BAD(hd,inline,flatten)
-      store_ & operator *= (store_expr<B,Dim> const & rhs) noexcept {
+      store_ & operator *= (store_expr<B,dim> const & rhs) noexcept {
         for (size_t i=0;i<D;++i)
           at(i) *= rhs[i];
         return *this;
       }
 
       template <size_t N>
-      using store_pull = store_<T, seq_pull<N,Dim>, seq_pull<N,Stride>>;
+      using store_pull = store_<T, seq_pull<N,dim>, seq_pull<N,stride>>;
 
       template <size_t N>
       BAD(hd,inline,const)
@@ -839,16 +851,16 @@ namespace bad {
         return pull<N>()[i];
       }
 
-      template <seq_element_type<Dim> D>
+      template <size_t R>
       BAD(hd,inline,const)
       auto & rep() const noexcept {
-        return reinterpret_cast<store_<T,seq_cons<D,Dim>,seq_cons<seq_element_type<Stride>(0),Stride>> const &>(*this);
+        return reinterpret_cast<store_<T,seq_cons<R,dim>,seq_cons<ssize_t(0),stride>> const &>(*this);
       }
 
-      template <seq_element_type<Dim> D>
+      template <size_t R>
       BAD(hd,inline,const)
       auto & rep() noexcept {
-        return reinterpret_cast<store_<T,seq_cons<D,Dim>,seq_cons<seq_element_type<Stride>(0),Stride>> &>(*this);
+        return reinterpret_cast<store_<T,seq_cons<R,dim>,seq_cons<ssize_t(0),stride>> &>(*this);
       }
     };
   }
