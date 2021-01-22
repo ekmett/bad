@@ -2,7 +2,11 @@
 #include "map.hh"
 
 #ifndef __has_attribute
-#define __has_attribute(x) 0
+#define __has_attribute(__x) 0
+#endif
+
+#ifndef __has_declspec_attribute
+#define __has_declspec_attribute(__x) 0
 #endif
 
 #if __has_cpp_attribute(likely)
@@ -54,7 +58,7 @@
 
 
 /// only modifies data reachable through pointer arguments
-#if defined(__clang__) || defined(_MSC_VER)
+#if BAD_USE_DECLSPEC && __has_declspec_attribute(noalias)
 #define bad_noalias __declspec(noalias)
 #else
 #define bad_noalias
@@ -97,7 +101,7 @@
 #warning no pure
 #endif
 
-#ifdef __clang__
+#if __has_cpp_attribute(clang::reinitializes)
 #define bad_reinitializes [[clang::reinitializes]]
 #else
 // TODO: support GCC

@@ -1,3 +1,5 @@
+# for now I assume I'm building on clang
+
 cmake_minimum_required(VERSION 3.10)
 project(bad VERSION 0.0.1 LANGUAGES CXX)
 
@@ -6,19 +8,32 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_compile_options(-fno-strict-aliasing) # required!
-add_compile_options(-fdeclspec) # bad_noalias
+# required, i alias all over the place.
+add_compile_options(-fno-strict-aliasing)
+
+# i'm not interested in CPUs without at least these
+# but for the new Rosetta maybe we can relax and drop -mavx/-mavx2?
+add_compile_options(-msse4.2 -mavx -mavx2)
+
+add_compile_options(-fdeclspec -DBAD_USE_DECLSPEC)
 
 # for sanity
-add_compile_options(-Wall -Wpedantic -Wextra -Wshadow -Wstrict-overflow)
+add_compile_options(-Wall -Wpedantic -Wextra -Wshadow -Wstrict-overflow "-Wno-#warnings")
 # add_compile_options(-Werror) # for testing only
 
-# for local build quality
-add_compile_options(-march=native -msse4.2 -mavx -mavx2)
+option(NATIVE "compile for the current architecture" on)
+if(NATIVE)
+  add_compile_options("-march=native")
+endif(NATIVE)
 
-# experimental
-add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
-add_link_options(-fsanitize=address)
+
+# sanitizers
+
+option(ASAN "address sanitization" OFF)
+if(ASAN)
+  add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
+  add_link_options(-fsanitize=address -fno-omit-frame-pointer)
+endif(ASAN)
 
 # add_compile_options(-O2)
 
