@@ -340,7 +340,7 @@ SEARCH_INCLUDES        = YES
 INCLUDE_PATH           =
 INCLUDE_FILE_PATTERNS  =
 PREDEFINED             = DOXYGEN
-EXPAND_AS_DEFINED      =
+EXPAND_AS_DEFINED      = BAD(...)=
 SKIP_FUNCTION_MACROS   = YES
 
 #---------------------------------------------------------------------------

@@ -96,7 +96,7 @@ namespace bad {
   }
 
   template <template <auto x, decltype(x) ...> class F, class L>
-  using seq_auto_apply = bad_doc(typename detail::seq_auto_apply_<F,L>::type);
+  using seq_auto_apply = typename detail::seq_auto_apply_<F,L>::type;
 
   namespace detail {
     /// @private
