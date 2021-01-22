@@ -8,31 +8,54 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-# required, i alias all over the place.
-add_compile_options(-fno-strict-aliasing)
+# to trim verbosity a bit
+set(CXX_Clang "$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>")
+set(Link_Clang "$<LINK_LANG_AND_ID:CXX,AppleClang,Clang>")
 
-# i'm not interested in CPUs without at least these
-# but for the new Rosetta maybe we can relax and drop -mavx/-mavx2?
-add_compile_options(-msse4.2 -mavx -mavx2)
+# I change types everywhere
+# add_compile_options($<${CXX_Clang}:-fno-strict-aliasing>)
+add_compile_options($<${CXX_Clang}:-fno-strict-aliasing>)
 
-add_compile_options(-fdeclspec -DBAD_USE_DECLSPEC)
+# enable support for __declspec(noalias) on clang
+add_compile_options($<${CXX_Clang}:-fdeclspec>)
+add_compile_definitions($<${CXX_Clang}:BAD_USE_DECLSPEC>)
 
-# for sanity
-add_compile_options(-Wall -Wpedantic -Wextra -Wshadow -Wstrict-overflow "-Wno-#warnings")
-# add_compile_options(-Werror) # for testing only
+# useful warnings
+add_compile_options(
+  $<${CXX_Clang}:-Wall>
+  $<${CXX_Clang}:-Wpedantic>
+  $<${CXX_Clang}:-Wextra>
+  $<${CXX_Clang}:-Wshadow>
+  $<${CXX_Clang}:-Wstrict-overflow>
+  $<${CXX_Clang}:-Wno-\#warnings>
+)
 
-option(NATIVE "compile for the current architecture" on)
-if(NATIVE)
-  add_compile_options("-march=native")
-endif(NATIVE)
+####################################################################
+# * target platform
+####################################################################
 
+# just compile for the local machine for now. add options later as needed
+add_compile_options($<${CXX_Clang}:-march=native>)
+
+# TODO: disable avx on rosetta
+add_compile_options(
+  $<${CXX_Clang}:-msse4.2>
+  $<${CXX_Clang}:-mavx>
+  $<${CXX_Clang}:-mavx2>
+)
 
 # sanitizers
-
-option(ASAN "address sanitization" OFF)
+option(ASAN "address sanitization" off)
 if(ASAN)
-  add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
-  add_link_options(-fsanitize=address -fno-omit-frame-pointer)
+  add_compile_options(
+    $<${CXX_Clang}:-fsanitize=address>
+    $<${CXX_Clang}:-fomit-frame-pointer>
+  )
+  # this should also ensure the linker is clang
+  add_link_options(
+    $<${Link_Clang>:-fsanitize=address>
+    $<${Link_Clang>:-fno-omit-frame-pointer>
+  )
 endif(ASAN)
 
 # add_compile_options(-O2)
