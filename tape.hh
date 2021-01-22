@@ -69,13 +69,19 @@ namespace bad {
 
     template <class U>
     BAD(hd,inline,const)
-    bool operator ==(BAD(maybe_unused,noescape) aligned_allocator<U,Alignment> * rhs) const noexcept {
+    friend bool operator ==(
+      BAD(maybe_unused) aligned_allocator<T,Alignment>,
+      BAD(maybe_unused) aligned_allocator<U,Alignment>
+    ) noexcept {
       return true;
     }
 
     template <class U>
     BAD(hd,inline,const)
-    bool operator !=(BAD(maybe_unused,noescape) aligned_allocator<U,Alignment> * rhs) const noexcept {
+    friend bool operator !=(
+      BAD(maybe_unused) aligned_allocator<T,Alignment>,
+      BAD(maybe_unused) aligned_allocator<U,Alignment>
+    ) noexcept {
       return false;
     }
   };
