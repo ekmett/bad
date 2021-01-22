@@ -11,6 +11,8 @@ cmake := $(wildcard cmake/*)
 
 open ?= open
 
+all: test doc
+
 test: build
 	@ninja -C build -j 10 all
 	@for i in $(tests); do \
@@ -29,7 +31,13 @@ $(tests): %: build/%
 $(addprefix build/, $(tests)): %: build $(src)
 	@ninja -C build -j 10 $(notdir $@)
 
+doc: build/doc
+	open build/doc/html/index.html
+
+build/doc: build
+	@ninja -C build -j 10 doc
+
 clean:
 	@rm -rf build
 
-.PHONY: clean test
+.PHONY: clean doc test

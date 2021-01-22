@@ -72,3 +72,22 @@ target_precompile_headers(t_store REUSE_FROM t_seq)
 
 add_executable(t_tape t_tape.cc tape.hh seq.hh catch.hh)
 target_precompile_headers(t_tape REUSE_FROM t_seq)
+
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+  set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
+  set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+  configure_file(${doxyfile_in} ${doxyfile} @ONLY)
+  add_custom_target(doc ALL ${DOXYGEN_EXECUTABLE} ${doxyfile}
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Generating API documentation with Doxygen"
+    VERBATIM)
+endif(DOXYGEN_FOUND)
+if (DOXYGEN_DOT_FOUND)
+  set(HAVE_DOT YES)
+else()
+  set(HAVE_DOT NO)
+endif()
+if(NOT DOT_PATH)
+  get_filename_component(DOT_PATH ${DOXYGEN_DOT_EXECUTABLE} PATH)
+endif()

@@ -69,9 +69,11 @@ namespace bad {
   // * application
 
   namespace detail {
+    /// @private
     template <template <class T, T...> class, class>
     struct seq_apply_;
 
+    /// @private
     template <template <class T, T...> class F, class X, X ... xs>
     struct seq_apply_<F,seq_t<X,xs...>> {
       using type = F<X,xs...>;
@@ -82,9 +84,11 @@ namespace bad {
   using seq_apply = typename detail::seq_apply_<F,L>::type;
 
   namespace detail {
+    /// @private
     template <template <auto x, decltype(x) ...> class, class>
     struct seq_auto_apply_;
 
+    /// @private
     template <template <auto x, decltype(x) ...> class F, class X, X x, X ... xs>
     struct seq_auto_apply_<F,seq_t<X,x,xs...>> {
       using type = F<x,xs...>;
@@ -92,12 +96,14 @@ namespace bad {
   }
 
   template <template <auto x, decltype(x) ...> class F, class L>
-  using seq_auto_apply = typename detail::seq_auto_apply_<F,L>::type;
+  using seq_auto_apply = bad_doc(typename detail::seq_auto_apply_<F,L>::type);
 
   namespace detail {
+    /// @private
     template <class T, template <T...> class, class>
     struct seq_t_apply_;
 
+    /// @private
     template <class T, template <T...> class F, T... xs>
     struct seq_t_apply_<T,F,seq_t<T,xs...>> {
       using type = F<xs...>;
@@ -110,9 +116,11 @@ namespace bad {
   // * ranges
 
   namespace detail {
+    /// @private
     template <typename T, T x, typename S>
     struct seq_range_;
 
+    /// @private
     template <typename T, T x, T... ys>
     struct seq_range_<T,x,seq_t<T,ys...>> {
       using type = seq_t<decltype(x),(x+ys)...>;
@@ -123,22 +131,27 @@ namespace bad {
   using seq_range = typename detail::seq_range_<decltype(x),x,make_aseq<y-x>>::type;
 
   namespace detail {
+    /// @private
     template <class, class, class>
     struct seq_append__;
 
+    /// @private
     template <class T, T... ts, T... ss>
     struct seq_append__<T,seq_t<T,ts...>, seq_t<T,ss...>> {
       using type = seq_t<T,ts...,ss...>;
     };
 
+    /// @private
     template <class, class...>
     struct seq_append_;
 
+    /// @private
     template <class T>
     struct seq_append_<T> {
       using type = seq_t<T>;
     };
 
+    /// @private
     template <class T, T...ts, class...ss>
     struct seq_append_<T,seq_t<T,ts...>, ss...> {
       using type = typename seq_append__<T,seq_t<T,ts...>,typename seq_append_<T,ss...>::type>::type;
@@ -150,9 +163,11 @@ namespace bad {
   // * reify
 
   namespace detail {
+    /// @private
     template <class>
     struct reify_;
 
+    /// @private
     template <class T, T...xs>
     struct reify_<seq_t<T, xs...>> {
       typedef T const type[sizeof...(xs)];
@@ -173,14 +188,17 @@ namespace bad {
   constexpr auto prod = (...*xs);
 
   namespace detail {
+    /// @private
     template <class>
     struct seq_prod_;
 
+    /// @private
     template <class T>
     struct seq_prod_<seq_t<T>> {
       static constexpr T value = 1;
     };
 
+    /// @private
     template <class T, T i, T... is>
     struct seq_prod_<seq_t<T,i,is...>> {
       static constexpr T value = (i * ... * is);
@@ -199,14 +217,17 @@ namespace bad {
   constexpr T total_t = (T(1)+...+xs);
 
   namespace detail {
+    /// @private
     template <class>
     struct seq_total_;
 
+    /// @private
     template <class T>
     struct seq_total_<seq_t<T>> {
       static constexpr T value = 0;
     };
 
+    /// @private
     template <class T, T i, T... is>
     struct seq_total_<seq_t<T,i,is...>> {
       static constexpr T value = (i + ... + is);
@@ -222,9 +243,11 @@ namespace bad {
   constexpr auto head = x;
 
   namespace detail {
+    /// @private
     template <class>
     struct seq_head_;
 
+    /// @private
     template <class T, T ... is>
     struct seq_head_<seq_t<T,is...>> {
       constexpr static T value = head<is...>;
@@ -245,9 +268,11 @@ namespace bad {
   // * cons
 
   namespace detail {
+    /// @private
     template <class T, T, class>
     struct seq_cons_;
 
+    /// @private
     template <class T, T i, T ... is>
     struct seq_cons_<T,i,seq_t<T,is...>> {
       using type = seq_t<T,i,is...>;
@@ -260,9 +285,11 @@ namespace bad {
   // * element type
 
   namespace detail {
+    /// @private
     template <class>
     struct seq_element_type_;
 
+    /// @private
     template <class T, T ... is>
     struct seq_element_type_<seq_t<T,is...>> {
       using type = T;
@@ -275,9 +302,11 @@ namespace bad {
   // * sequence length
 
   namespace detail {
+    /// @private
     template <class>
     struct seq_length_;
 
+    /// @private
     template <class T, T ... is>
     struct seq_length_<seq_t<T,is...>> {
       static constexpr auto value = sizeof...(is);
@@ -290,9 +319,11 @@ namespace bad {
   // * row-major stride calculation
 
   namespace detail {
+    /// @private
     template <size_t, size_t...>
     struct stride_;
 
+    /// @private
     template <>
     struct stride_<0> {
       BAD(hd,const) // consteval
@@ -300,6 +331,8 @@ namespace bad {
         return 1;
       }
     };
+
+    /// @private
     template <size_t N, size_t x, size_t... xs>
     struct stride_<N,x,xs...> {
       BAD(hd,const) // consteval
@@ -318,9 +351,11 @@ namespace bad {
   constexpr ptrdiff_t stride = detail::stride_<N,xs...>::value();
 
   namespace detail {
+    /// @private
     template <size_t, class>
     struct seq_stride_;
 
+    /// @private
     template <size_t N, size_t ... is>
     struct seq_stride_<N,seq<is...>> {
       static constexpr ptrdiff_t value = stride<N,is...>;
@@ -331,9 +366,11 @@ namespace bad {
   constexpr ptrdiff_t seq_stride = detail::seq_stride_<N,S>::value;
 
   namespace detail {
+    /// @private
     template <class, class>
     struct row_major_;
 
+    /// @private
     template <class S, size_t... is>
     struct row_major_<S,seq<is...>> {
       using type = sseq<seq_stride<is,S>...>;
@@ -348,7 +385,7 @@ namespace bad {
   // * indexing
 
   namespace detail {
-    // return the nth item in a parameter pack.
+    /// @private
     template <size_t N, auto... xs>
     BAD(hd,const)
     constexpr auto nth_() noexcept {
@@ -362,9 +399,11 @@ namespace bad {
   constexpr auto nth = detail::nth_<N,xs...>();
 
   namespace detail {
+    /// @private
     template <size_t, class>
     struct seq_nth_;
 
+    /// @private
     template <size_t N, class T, T... xs>
     struct seq_nth_<N,seq_t<T,xs...>> {
       static constexpr auto value = nth<N,xs...>;
@@ -384,9 +423,11 @@ namespace bad {
   using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
 
   namespace detail {
+    /// @private
     template <class, class>
     struct seq_backpermute_;
 
+    /// @private
     template <class S, class I, I ... is>
     struct seq_backpermute_<S, seq_t<I,is...>> {
       using type = backpermute<S, is...>;
@@ -408,26 +449,32 @@ namespace bad {
   // * transpose the last two entries in a sequence
 
   namespace detail {
-    template <class T, T ...>
+    /// @private
+    template <class T, T...>
     struct pack_transpose_;
 
+    /// @private
     template <class T, T i, T j>
     struct pack_transpose_<T,i,j> {
       using type = seq_t<T,j,i>;
     };
 
-    template <class T, T i, T j, T k, T ... ls>
+    /// @private
+    template <class T, T i, T j, T k, T... ls>
     struct pack_transpose_<T,i,j,k,ls...> {
       using type = seq_cons<i,typename pack_transpose_<T,j,k,ls...>::type>;
     };
+  }
 
-    // maybe move out of detail
-    template <class T, T ... is>
-    using pack_transpose = typename detail::pack_transpose_<T,is...>::type;
+  template <class T, T... is>
+  using pack_transpose = typename detail::pack_transpose_<T,is...>::type;
 
+  namespace detail {
+    /// @private
     template <class>
     struct seq_transpose_;
 
+    /// @private
     template <class T, T i, T j, T ... is>
     struct seq_transpose_<seq_t<T, i, j, is...>> {
       using type = pack_transpose<T, i, j, is...>;
@@ -440,9 +487,11 @@ namespace bad {
   // * skip the nth element
 
   namespace detail {
+    /// @private
     template <size_t, class, class>
     struct seq_skip_nth_;
 
+    /// @private
     template <size_t N, class S, size_t ... ps>
     struct seq_skip_nth_<N,S,seq<ps...>> {
       template <class Suffix>
@@ -469,9 +518,11 @@ namespace bad {
   // * list cons
 
   namespace detail {
+    /// @private
     template <class, class>
     struct list_cons_;
 
+    /// @private
     template <class x, class... xs>
     struct list_cons_<x,list<xs...>> {
       using type = list<x, xs...>;
@@ -484,9 +535,11 @@ namespace bad {
   // * list head
 
   namespace detail {
+    /// @private
     template <class>
     struct list_head_;
 
+    /// @private
     template <class x, class... xs>
     struct list_head_<list<x,xs...>> {
       using type = x;
@@ -502,11 +555,13 @@ namespace bad {
   using int_t = std::integral_constant<decltype(x), x>;
 
   namespace detail {
+    /// @private
     template <class>
     struct seq_list_;
   }
 
   namespace detail {
+    /// @private
     template <class T, T... is>
     struct seq_list_<seq_t<T,is...>> {
       using type = list<int_t<is>...>;
@@ -518,13 +573,20 @@ namespace bad {
   // * zipping
 
   namespace detail {
-    template <class> struct list_zip_;
-    template <> struct list_zip_<list<>> {
+    /// @private
+    template <class>
+    struct list_zip_;
+
+    /// @private
+    template <>
+    struct list_zip_<list<>> {
       template <class>
       struct at {
         using type = list<>;
       };
     };
+
+    /// @private
     template <class x, class... xs>
     struct list_zip_<list<x,xs...>> {
       template <class>
@@ -546,14 +608,17 @@ namespace bad {
   using list_zip = typename detail::list_zip_<X>::template at<Y>::type;
 
   namespace detail {
+    /// @private
     template <class, class>
     struct list_seq_;
 
+    /// @private
     template <class T>
     struct list_seq_<T,list<>> {
       using type = seq_t<T>;
     };
 
+    /// @private
     template <class T, T i, class... xs>
     struct list_seq_<T,list<int_t<i>,xs...>> {
       using type = seq_cons<i,typename list_seq_<T,list<xs...>>::type>;
@@ -566,9 +631,11 @@ namespace bad {
   // list application
 
   namespace detail {
+    /// @private
     template <template <class...> class, class>
     struct list_apply_;
 
+    /// @private
     template <template <class...> class F, class... xs>
     struct list_apply_<F,list<xs...>> {
       using type = F<xs...>;
