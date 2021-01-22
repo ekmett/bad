@@ -37,7 +37,7 @@
 #define BAD_MAP_LIST(f, ...) BAD_EVAL_(BAD_MAP_LIST1_(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
 
 /// convenient macro for applying several attributes
-// e.g. BAD(HD,INLINE) vs. BAD_HD BAD_INLINE
+// e.g. BAD(hd,inline) vs. bad_hd bad_inline
 #define BAD(...) BAD_MAP(bad_,__VA_ARGS__)
 
 /*
