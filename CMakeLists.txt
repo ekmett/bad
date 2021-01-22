@@ -13,12 +13,13 @@ set(CXX_Clang "$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>")
 set(Link_Clang "$<LINK_LANG_AND_ID:CXX,AppleClang,Clang>")
 
 # I change types everywhere
-# add_compile_options($<${CXX_Clang}:-fno-strict-aliasing>)
 add_compile_options($<${CXX_Clang}:-fno-strict-aliasing>)
 
-# enable support for __declspec(noalias) on clang
-add_compile_options($<${CXX_Clang}:-fdeclspec>)
-add_compile_definitions($<${CXX_Clang}:BAD_USE_DECLSPEC>)
+option(DECLSPEC "support __declspec(noalias)" on)
+if(DECLSPEC)
+  add_compile_options($<${CXX_Clang}:-fdeclspec>)
+  add_compile_definitions($<${CXX_Clang}:BAD_USE_DECLSPEC>)
+endif(DECLSPEC)
 
 # useful warnings
 add_compile_options(
