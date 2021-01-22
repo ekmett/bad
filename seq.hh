@@ -14,18 +14,30 @@ namespace bad {
   using seq_t = std::integer_sequence<T, is...>;
 
   template <auto x, auto... xs>
-  using seq = seq_t<decltype(x), x, xs...>;
+  using aseq = seq_t<decltype(x), x, xs...>;
 
-  template <size_t ... is>
-  using iseq = std::index_sequence<is...>;
+  template <size_t... is>
+  using seq = seq_t<size_t, is...>;
+
+  template <ptrdiff_t... is>
+  using sseq = seq_t<ptrdiff_t, is...>;
 
   template <char...cs>
-  using str = std::integer_sequence<char, cs...>;
+  using str = seq_t<char, cs...>;
 
   // * sequence construction
-
+  //
+  template <class T, T x>
+  using make_seq_t = std::make_integer_sequence<T,x>;
+ 
   template <auto x>
-  using make_seq = std::make_integer_sequence<decltype(x),x>;
+  using make_aseq = make_seq_t<decltype(x), x>;
+  
+  template <size_t x>
+  using make_seq = make_seq_t<size_t, x>;
+
+  template <ptrdiff_t x>
+  using make_sseq = make_seq_t<ptrdiff_t, x>;
 
   // * char is an 'integer type'.
 
@@ -85,6 +97,7 @@ namespace bad {
   namespace detail {
     template <class T, template <T...> class, class>
     struct seq_t_apply_;
+
     template <class T, template <T...> class F, T... xs>
     struct seq_t_apply_<T,F,seq_t<T,xs...>> {
       using type = F<xs...>;
@@ -107,7 +120,7 @@ namespace bad {
   }
 
   template <auto x, decltype(x) y>
-  using seq_range = typename detail::seq_range_<decltype(x),x,make_seq<y-x>>::type;
+  using seq_range = typename detail::seq_range_<decltype(x),x,make_aseq<y-x>>::type;
 
   namespace detail {
     template <class, class, class>
@@ -289,10 +302,10 @@ namespace bad {
     };
     template <size_t N, class T, T x, T... xs>
     struct stride_<N,T,x,xs...> {
-      BAD(hd,const) // consteval?
+      BAD(hd,const) // consteval
       static constexpr decltype(x) value() noexcept {
         if constexpr (N == 0) {
-          return (T(1) * ... * xs); // use prod_t in case i choose to manually drop the T(1) base case?
+          return (T(1) * ... * xs);
         } else {
           return stride_<N-1,T,xs...>::value();
         }
@@ -329,7 +342,7 @@ namespace bad {
 
   // * all row-major strides
 
-  template <class S> using row_major = typename detail::row_major_<S, make_seq<seq_length<S>>>::type;
+  template <class S> using row_major = typename detail::row_major_<S, make_aseq<seq_length<S>>>::type;
   // * indexing
 
   namespace detail {
@@ -364,7 +377,7 @@ namespace bad {
 
   // * backpermute packs and sequences
 
-  /// backpermute<seq<a,b,c,d>,iseq<0,3,2,3,1,0>> = seq<a,d,c,d,b,a>
+  /// backpermute<seq_t<T,a,b,c,d>,seq<0,3,2,3,1,0>> = seq_t<T,a,d,c,d,b,a>
   template <class S, size_t... is>
   using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
 
@@ -429,12 +442,12 @@ namespace bad {
     struct seq_skip_nth_;
 
     template <size_t N, class S, size_t ... ps>
-    struct seq_skip_nth_<N,S,iseq<ps...>> {
+    struct seq_skip_nth_<N,S,seq<ps...>> {
       template <class Suffix>
       struct at;
 
-      template <size_t ... ss>
-      struct at<iseq<ss...>> {
+      template <size_t... ss>
+      struct at<seq<ss...>> {
         using type = seq_t<seq_element_type<S>, seq_nth<ps,S>..., seq_nth<ss+N,S>...>;
       };
     };
@@ -562,5 +575,4 @@ namespace bad {
 
   template <template <class...> class F, class L>
   using list_apply = typename detail::list_apply_<F,L>::type;
-
 }

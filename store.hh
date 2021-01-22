@@ -30,27 +30,15 @@ namespace bad {
 
   namespace detail {
     template <class T, class Dim, class Stride = row_major<Dim>>
-    struct const_cursor
-    : std::iterator<
-        std::random_access_iterator_tag,
-        store<T,seq_tail<Dim>,seq_tail<Stride>> const,
-        typename std::make_signed<seq_element_type<Dim>>::type
-      > {
-    private:
-      using super = std::iterator<
-        std::random_access_iterator_tag,
-        store<T,seq_tail<Dim>,seq_tail<Stride>> const,
-        typename std::make_signed<seq_element_type<Dim>>::type
-      >;
-    public:
-      using difference_type = typename super::difference_type;
-      using pointer = typename super::pointer;
-      using reference = typename super::reference;
-      using value_type = typename super::value_type;
-      using iterator_category = typename super::iterator_category;
+    struct const_cursor {
+      using value_type = store<T,seq_tail<Dim>,seq_tail<Stride>> const;
+      using difference_type = ptrdiff_t;
+      using pointer = value_type *;
+      using reference = value_type &;
+      using iterator_category = std::random_access_iterator_tag;
 
-      static constexpr auto D = seq_head<Dim>;
-      static constexpr auto S = seq_head<Stride>;
+      static constexpr size_t D = seq_head<Dim>;
+      static constexpr ptrdiff_t S = seq_head<Stride>;
 
       BAD(hd,inline,noalias)
       constexpr explicit const_cursor(T const * p = nullptr, difference_type i = 0) noexcept
@@ -181,24 +169,12 @@ namespace bad {
     };
 
     template <class T, class Dim, class Stride = row_major<Dim>>
-    struct cursor
-    : std::iterator<
-        std::random_access_iterator_tag,
-        store<T,seq_tail<Dim>,seq_tail<Stride>>,
-        typename std::make_signed<seq_element_type<Dim>>::type
-      > {
-    private:
-      using super = std::iterator<
-        std::random_access_iterator_tag,
-        store<T,seq_tail<Dim>,seq_tail<Stride>>,
-        typename std::make_signed<seq_element_type<Dim>>::type
-      >;
-    public:
-      using difference_type = typename super::difference_type;
-      using pointer = typename super::pointer;
-      using reference = typename super::reference;
-      using value_type = typename super::value_type;
-      using iterator_category = typename super::iterator_category;
+    struct cursor {
+      using value_type = store<T,seq_tail<Dim>,seq_tail<Stride>>;
+      using difference_type = ptrdiff_t;
+      using pointer = value_type *;
+      using reference = value_type &;
+      using iterator_category = std::random_access_iterator_tag;
 
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
@@ -207,13 +183,16 @@ namespace bad {
       explicit cursor(
         T* p = nullptr,
         difference_type i = 0
-      ) noexcept : p(p), i(i) {}
+      ) noexcept
+      : p(p), i(i) {}
 
       BAD(hd,inline,noalias) constexpr
-      cursor(cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
+      cursor(cursor const & rhs) noexcept
+      : p(rhs.p), i(rhs.i) {}
 
       BAD(hd,inline,noalias) constexpr
-      cursor(cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+      cursor(cursor && rhs) noexcept
+      : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
 
       BAD(reinitializes,hd,inline,noalias)
       cursor & operator =(const cursor & rhs) {
@@ -375,7 +354,7 @@ namespace bad {
   BAD(hd,inline)
   auto pull(
     BAD(lifetimebound) B & rhs,
-    typename B::index_type i
+    size_t i
   ) noexcept {
     return rhs.template pull<N>(i);
   }
@@ -384,7 +363,7 @@ namespace bad {
   BAD(hd,inline)
   auto pull(
     BAD(lifetimebound) const B & rhs,
-    typename B::index_type i
+    size_t i
   ) noexcept {
     return rhs.template pull<N>(i);
   }
@@ -442,7 +421,8 @@ namespace bad {
       BAD(hd,inline,noalias)
       store_rep_expr(
         store_expr<B,Dim> const & base
-      ) noexcept : base(static_cast<B const &>(base)) {}
+      ) noexcept
+      : base(static_cast<B const &>(base)) {}
 
       BAD(hd,inline,pure)
       auto operator [](BAD(maybe_unused) index_type i) const noexcept {
@@ -479,7 +459,9 @@ namespace bad {
       store_add_expr(
         BAD(lifetimebound) store_expr<L,Dim> const & l,
         BAD(lifetimebound) store_expr<R,Dim> const & r
-      ) noexcept : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      ) noexcept
+      : l(static_cast<L const &>(l))
+      , r(static_cast<R const &>(r)) {}
 
       BAD(hd,inline,flatten)
       auto operator [](index_type i) const noexcept {
@@ -510,8 +492,6 @@ namespace bad {
 
     template <class L, class R, class Dim>
     struct store_sub_expr : store_expr<store_sub_expr<L,R,Dim>,Dim> {
-      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
-
       L const & l;
       R const & r;
 
@@ -519,19 +499,24 @@ namespace bad {
       store_sub_expr(
         BAD(lifetimebound) store_expr<L,Dim> const & l,
         BAD(lifetimebound) store_expr<R,Dim> const & r
-      ) noexcept : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      ) noexcept
+      : l(static_cast<L const &>(l))
+      , r(static_cast<R const &>(r)) {}
 
-      BAD(hd,inline,flatten) auto operator [](index_type i) const noexcept {
+      BAD(hd,inline,flatten)
+      auto operator [](size_t i) const noexcept {
         return l[i] - r[i];
       }
 
       template <size_t N>
-      BAD(hd,inline,flatten) auto pull(index_type i) const noexcept {
+      BAD(hd,inline,flatten)
+      auto pull(size_t i) const noexcept {
         return l.template pull<N>(i) - r.template pull<N>(i);
       }
 
-      template <seq_element_type<Dim> D>
-      BAD(hd,inline,flatten,const) auto rep() const noexcept {
+      template <size_t D>
+      BAD(hd,inline,flatten,const)
+      auto rep() const noexcept {
         return store_rep_expr<D, store_sub_expr<L,R,Dim>, Dim>(*this);
       }
     };
@@ -546,28 +531,28 @@ namespace bad {
 
     template <class L, class R, class Dim>
     struct store_hadamard_expr : store_expr<store_hadamard_expr<L,R,Dim>,Dim> {
-      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
-
       L const & l;
       R const & r;
 
       BAD(hd,inline,noalias) store_hadamard_expr(
         BAD(lifetimebound) store_expr<L,Dim> const & l,
         BAD(lifetimebound) store_expr<R,Dim> const & r
-      ) noexcept : l(static_cast<L const &>(l)), r(static_cast<R const &>(r)) {}
+      ) noexcept
+      : l(static_cast<L const &>(l))
+      , r(static_cast<R const &>(r)) {}
 
       BAD(hd,inline,flatten)
-      auto operator [](index_type i) const noexcept {
+      auto operator [](size_t i) const noexcept {
         return l[i] - r[i];
       }
 
       template <size_t N>
       BAD(hd,inline,flatten)
-      auto pull(index_type i) const noexcept {
+      auto pull(size_t i) const noexcept {
         return l.template pull<N>(i) * r.template pull<N>(i);
       }
 
-      template <seq_element_type<Dim> D>
+      template <size_t D>
       BAD(hd,inline,const)
       auto rep() const noexcept {
         return store_rep_expr<D, store_hadamard_expr<L,R,Dim>, Dim>(*this);
@@ -583,25 +568,25 @@ namespace bad {
       return store_hadamard_expr<L,R,Dim>(l,r);
     }
 
-    template <class L, class R, class U, U D, U... Ds>
+    template <class L, class R, size_t D, size_t... Ds>
     BAD(hd,inline)
     constexpr bool operator==(
-      store_expr<L,seq_t<U,D,Ds...>> const & l,
-      store_expr<R,seq_t<U,D,Ds...>> const & r
+      store_expr<L,seq<D,Ds...>> const & l,
+      store_expr<R,seq<D,Ds...>> const & r
     ) noexcept {
-      for (U i=0;i<D;++i) {
+      for (size_t i=0;i<D;++i) {
         if (l[i] != r[i]) return false;
       }
       return true;
     }
 
-    template <class L, class R, class U, U D, U... Ds>
+    template <class L, class R, size_t D, size_t... Ds>
     BAD(hd,inline)
     constexpr bool operator!=(
-      store_expr<L,seq_t<U,D,Ds...>> const & l,
-      store_expr<R,seq_t<U,D,Ds...>> const & r
+      store_expr<L,seq<D,Ds...>> const & l,
+      store_expr<R,seq<D,Ds...>> const & r
     ) noexcept {
-      for (U i=0;i<D;++i) {
+      for (size_t i=0;i<D;++i) {
         if (l[i] != r[i]) return true;
       }
       return false;
@@ -612,11 +597,10 @@ namespace bad {
   using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
 
   namespace detail {
-
+    // store_<int,seq<1,2,3>,sseq<4,5,1>> -- strides can be negative so use sseq.
     // a lens is a pointer into a matrix, not a matrix
     template <class T, class Dim, class Stride>
     struct store_ : public store_expr<store_<T,Dim,Stride>,Dim> {
-      using index_type = typename std::make_unsigned<seq_element_type<Dim>>::type;
       using iterator = cursor<T,Dim,Stride>;
       using const_iterator = const_cursor<T,Dim,Stride>;
       using reverse_iterator = std::reverse_iterator<iterator>;
@@ -628,7 +612,7 @@ namespace bad {
       struct calc_;
 
       template <size_t... is>
-      struct calc_<iseq<is...>> {
+      struct calc_<seq<is...>> {
          template <size_t i>
          static constexpr auto ext = ptrdiff_t(seq_nth<i,Stride>)*ptrdiff_t(seq_nth<i,Dim>-1);
 
@@ -661,14 +645,16 @@ namespace bad {
       BAD(hd,inline)
       constexpr store_(
         const T & value
-      ) noexcept : data() {
+      ) noexcept
+      : data() {
         std::fill(begin(),end(),value);
       }
 
       BAD(hd,inline)
       constexpr store_(
         std::initializer_list<T> list
-      ) noexcept : data() {
+      ) noexcept
+      : data() {
         assert(list.size() <= D);
         std::copy(list.begin(),list.end(),begin());
       }
@@ -676,7 +662,7 @@ namespace bad {
       template <class B>
       BAD(hd,inline)
       constexpr store_(store_expr<B,Dim> const & rhs) noexcept {
-        for (index_type i=0;i<D;++i)
+        for (size_t i=0;i<D;++i)
           at(i) = rhs[i];
       }
 
@@ -684,7 +670,7 @@ namespace bad {
 
       BAD(reinitializes,hd,inline)
       store_ & operator =(T value) noexcept {
-        for (index_type i=0;i<D;++i)
+        for (size_t i=0;i<D;++i)
           at(i) = value;
         return *this;
       }
@@ -757,22 +743,22 @@ namespace bad {
       }
 
       BAD(hd,inline,const)
-      plane & at(index_type i) noexcept {
+      plane & at(size_t i) noexcept {
         return reinterpret_cast<plane &>(data[delta_offset + i*S]);
       }
 
       BAD(hd,inline,const)
-      plane const & at(index_type i) const noexcept {
+      plane const & at(size_t i) const noexcept {
         return reinterpret_cast<plane const &>(data[delta_offset + i*S]);
       }
 
       BAD(hd,inline,const)
-      plane & operator[](index_type i) noexcept {
+      plane & operator[](size_t i) noexcept {
         return reinterpret_cast<plane &>(data[delta_offset + i*S]);
       }
 
       BAD(hd,inline,const)
-      plane const & operator[](index_type i) const noexcept {
+      plane const & operator[](size_t i) const noexcept {
         return reinterpret_cast<plane const &>(data[delta_offset + i*S]);
       }
 
@@ -781,7 +767,7 @@ namespace bad {
 
       template <class... Args>
       BAD(hd,inline,flatten)
-      auto const &  operator ()(index_type i, Args... args) const noexcept {
+      auto const &  operator ()(size_t i, Args... args) const noexcept {
         return (*this)[i](args...);
       }
 
@@ -790,14 +776,14 @@ namespace bad {
 
       template <class... Args>
       BAD(hd,inline,flatten)
-      auto & operator ()(index_type i, Args... args) noexcept {
+      auto & operator ()(size_t i, Args... args) noexcept {
         return (*this)[i](args...);
       }
 
       template <class B>
       BAD(reinitializes,hd,inline,flatten)
       store_ & operator = (store_expr<B,Dim> const & rhs) noexcept {
-        for (int i=0;i<D;++i)
+        for (size_t i=0;i<D;++i)
           at(i) = rhs[i];
         return *this;
       }
@@ -805,7 +791,7 @@ namespace bad {
       template <class B>
       BAD(hd,inline,flatten)
       store_ & operator += (store_expr<B,Dim> const & rhs) noexcept {
-        for (int i=0;i<D;++i)
+        for (size_t i=0;i<D;++i)
           at(i) += rhs[i];
         return *this;
       }
@@ -813,7 +799,7 @@ namespace bad {
       template <class B>
       BAD(hd,inline,flatten)
       store_ & operator -= (store_expr<B,Dim> const & rhs) noexcept {
-        for (int i=0;i<D;++i)
+        for (size_t i=0;i<D;++i)
           at(i) -= rhs[i];
         return *this;
       }
@@ -821,7 +807,7 @@ namespace bad {
       template <class B>
       BAD(hd,inline,flatten)
       store_ & operator *= (store_expr<B,Dim> const & rhs) noexcept {
-        for (int i=0;i<D;++i)
+        for (size_t i=0;i<D;++i)
           at(i) *= rhs[i];
         return *this;
       }
@@ -843,13 +829,13 @@ namespace bad {
 
       template <size_t N>
       BAD(hd,inline,flatten)
-      typename store_pull<N>::plane & pull(index_type i) noexcept {
+      typename store_pull<N>::plane & pull(size_t i) noexcept {
         return pull<N>()[i];
       };
 
       template <size_t N>
       BAD(hd,inline,flatten)
-      typename store_pull<N>::plane const & pull(index_type i) const noexcept {
+      typename store_pull<N>::plane const & pull(size_t i) const noexcept {
         return pull<N>()[i];
       }
 
@@ -869,13 +855,13 @@ namespace bad {
 
   namespace detail {
     template <typename T, typename Dim, typename Stride1, typename Stride2>
-    BAD(hd,inline,flatten) void swap(
+    BAD(hd,inline,flatten)
+    void swap(
       BAD(noescape) store_<T,Dim,Stride1> & l,
       BAD(noescape) store_<T,Dim,Stride2> & r
-    ) {
+    ) noexcept {
       using std::swap;
-      using L = store<T,Dim,Stride1>;
-      for (typename L::index_type i=0;i<l.D;++i)
+      for (size_t i=0;i<l.D;++i)
         swap(l.at(i),r.at(i));
     }
   }
