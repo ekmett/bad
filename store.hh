@@ -3,6 +3,8 @@
 #include "seq.hh"
 #include "attrib.hh"
 
+#pragma STDC FP_CONTRACT ON
+
 namespace bad {
   namespace detail {
     template <class T, class Dim, class Stride = row_major<Dim>>
@@ -50,47 +52,130 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      BAD(hd,inline,noalias) constexpr explicit const_cursor(T const * p = nullptr, difference_type i = 0) noexcept : p(p), i(i) {}
-      BAD(hd,inline,noalias) constexpr const_cursor(const_cursor const & rhs) noexcept : p(rhs.p), i(rhs.i) {}
-      BAD(hd,inline,noalias) constexpr const_cursor(const_cursor && rhs) noexcept : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+      BAD(hd,inline,noalias)
+      constexpr explicit const_cursor(T const * p = nullptr, difference_type i = 0) noexcept
+      : p(p), i(i) {}
 
-      BAD(reinitializes,hd,inline,noalias) const_cursor & operator =(const_cursor const & rhs) { p = rhs.p; i = rhs.i; return *this; }
-      BAD(reinitializes,hd,inline,noalias) const_cursor & operator =(const_cursor && rhs) { p = std::move(rhs.p); i = std::move(rhs.i); return *this; }
+      BAD(hd,inline,noalias)
+      constexpr const_cursor(const_cursor const & rhs) noexcept
+      : p(rhs.p), i(rhs.i) {}
+
+      BAD(hd,inline,noalias)
+      constexpr const_cursor(const_cursor && rhs) noexcept
+      : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+
+      BAD(reinitializes,hd,inline,noalias)
+      const_cursor & operator =(const_cursor const & rhs) noexcept {
+        p = rhs.p; i = rhs.i; return *this;
+      }
+
+      BAD(reinitializes,hd,inline,noalias)
+      const_cursor & operator =(const_cursor && rhs) noexcept {
+        p = std::move(rhs.p); i = std::move(rhs.i); return *this;
+      }
 
       // default constructible, moveable
       T const * p;
       difference_type i; // signed because rend actually has a negative index
 
-      BAD(hd,inline,pure) bool operator == (const_cursor const & rhs) const noexcept { return p == rhs.p && i == rhs.i; }
-      BAD(hd,inline,pure) bool operator != (const_cursor const & rhs) const noexcept { return p != rhs.p || i != rhs.i; }
-      BAD(hd,inline,pure) bool operator < (const_cursor const & rhs) const noexcept { return i < rhs.i; }
-      BAD(hd,inline,pure) bool operator > (const_cursor const & rhs) const noexcept { return i > rhs.i; }
-      BAD(hd,inline,pure) bool operator <= (const_cursor const & rhs) const noexcept { return i <= rhs.i; }
-      BAD(hd,inline,pure) bool operator >= (const_cursor const & rhs) const noexcept { return i >= rhs.i; }
+      // NB: iterators are only comparable if they come from the same container
+      BAD(hd,inline,pure)
+      bool operator == (const_cursor const & rhs) const noexcept {
+        return i == rhs.i;
+      }
 
-      BAD(hd,inline,noalias) const_cursor & operator ++ () noexcept { ++i; return *this; }
-      BAD(hd,inline,noalias) const_cursor operator ++ (int) noexcept { return { p, i++ }; }
-      BAD(hd,inline,noalias) const_cursor & operator -- () noexcept { --i; return *this; }
-      BAD(hd,inline,noalias) const_cursor operator -- (int) noexcept { return { p, i-- }; }
-      BAD(hd,inline,pure) const_cursor operator + (difference_type d) const noexcept { return { p, i + d }; }
-      BAD(hd,inline,pure) const_cursor operator - (difference_type d) const noexcept { return { p, i + d }; }
-      BAD(hd,inline,pure) difference_type operator - (const_cursor const & rhs) const noexcept {
+      // NB: iterators are only comparable if they come from the same container
+      BAD(hd,inline,pure)
+      bool operator != (const_cursor const & rhs) const noexcept {
+        return i != rhs.i;
+      }
+
+      BAD(hd,inline,pure)
+      bool operator < (const_cursor const & rhs) const noexcept {
+        return i < rhs.i;
+      }
+
+      BAD(hd,inline,pure)
+      bool operator > (const_cursor const & rhs) const noexcept {
+        return i > rhs.i;
+      }
+
+      BAD(hd,inline,pure)
+      bool operator <= (const_cursor const & rhs) const noexcept {
+        return i <= rhs.i;
+      }
+
+      BAD(hd,inline,pure)
+      bool operator >= (const_cursor const & rhs) const noexcept {
+        return i >= rhs.i;
+      }
+
+      BAD(hd,inline,noalias)
+      const_cursor & operator ++ () noexcept {
+        ++i;
+        return *this;
+      }
+
+      BAD(hd,inline,noalias)
+      const_cursor operator ++ (int) noexcept {
+        return { p, i++ };
+      }
+
+      BAD(hd,inline,noalias)
+      const_cursor & operator -- () noexcept {
+        --i;
+        return *this;
+      }
+
+      BAD(hd,inline,noalias)
+      const_cursor operator -- (int) noexcept {
+        return { p, i-- };
+      }
+
+      BAD(hd,inline,pure)
+      const_cursor operator + (difference_type d) const noexcept {
+        return { p, i + d };
+      }
+
+      BAD(hd,inline,pure)
+      const_cursor operator - (difference_type d) const noexcept {
+        return { p, i + d };
+      }
+
+      BAD(hd,inline,pure)
+      difference_type operator - (const_cursor const & rhs) const noexcept {
         assert(p == rhs.p);
         return i - rhs.i;
       }
-      BAD(hd,inline,noalias) const_cursor & operator += (difference_type d) const noexcept { i += d; return *this; }
-      BAD(hd,inline,noalias) const_cursor & operator -= (difference_type d) const noexcept { i -= d; return *this; }
 
-      BAD(hd,inline,pure) reference operator *() const noexcept {
+      BAD(hd,inline,noalias)
+      const_cursor & operator += (difference_type d) const noexcept {
+        i += d;
+        return *this;
+      }
+
+      BAD(hd,inline,noalias)
+      const_cursor & operator -= (difference_type d) const noexcept {
+        i -= d;
+        return *this;
+      }
+
+      BAD(hd,inline,pure)
+      reference operator *() const noexcept {
         return *reinterpret_cast<pointer>(p + i*S);
       }
-      BAD(hd,inline,pure) pointer operator ->() const noexcept {
+
+      BAD(hd,inline,pure)
+      pointer operator ->() const noexcept {
         return reinterpret_cast<pointer>(p + i*S);
       }
-      BAD(hd,inline,pure) reference operator[](difference_type di) const noexcept {
+
+      BAD(hd,inline,pure)
+      reference operator[](difference_type di) const noexcept {
         return *reinterpret_cast<pointer>(p + (i+di)*S);
       }
-      BAD(hd,inline,pure) bool valid() const noexcept {
+      BAD(hd,inline,pure)
+      bool valid() const noexcept {
         return p != nullptr && 0 <= i && i <= D;
       }
     };
@@ -155,44 +240,66 @@ namespace bad {
       // valid across sources
       BAD(hd,inline,pure)
       bool operator == (const cursor & rhs) const noexcept {
-        return p == rhs.p && i == rhs.i;
+        return i == rhs.i;
       }
 
       BAD(hd,inline,pure)
       bool operator != (const cursor & rhs) const noexcept {
-        return p != rhs.p || i != rhs.i;
+        return i != rhs.i;
       }
 
       // valid within a single source
       BAD(hd,inline,pure)
-      bool operator < (const cursor & rhs) const noexcept { return i < rhs.i; }
+      bool operator < (const cursor & rhs) const noexcept {
+        return i < rhs.i;
+      }
 
       BAD(hd,inline,pure)
-      bool operator > (const cursor & rhs) const noexcept { return i > rhs.i; }
+      bool operator > (const cursor & rhs) const noexcept {
+        return i > rhs.i;
+      }
 
       BAD(hd,inline,pure)
-      bool operator <= (const cursor & rhs) const noexcept { return i <= rhs.i; }
+      bool operator <= (const cursor & rhs) const noexcept {
+        return i <= rhs.i;
+      }
 
       BAD(hd,inline,pure)
-      bool operator >= (const cursor & rhs) const noexcept { return i >= rhs.i; }
+      bool operator >= (const cursor & rhs) const noexcept {
+        return i >= rhs.i;
+      }
 
       BAD(hd,inline,noalias)
-      cursor & operator ++ () noexcept { ++i; return *this; }
+      cursor & operator ++ () noexcept {
+        ++i;
+        return *this;
+      }
 
       BAD(hd,inline,noalias)
-      cursor operator ++ (int) noexcept { return { p, i++ }; }
+      cursor operator ++ (int) noexcept {
+        return { p, i++ };
+      }
 
       BAD(hd,inline,noalias)
-      cursor & operator -- () noexcept { --i; return *this; }
+      cursor & operator -- () noexcept {
+        --i;
+        return *this;
+      }
 
       BAD(hd,inline,noalias)
-      cursor operator -- (int) noexcept { return { p, i-- }; }
+      cursor operator -- (int) noexcept {
+        return { p, i-- };
+      }
 
       BAD(hd,inline,pure)
-      cursor operator + (difference_type d) const noexcept { return { p, i + d }; }
+      cursor operator + (difference_type d) const noexcept {
+        return { p, i + d };
+      }
 
       BAD(hd,inline,pure)
-      cursor operator - (difference_type d) const noexcept { return { p, i + d }; }
+      cursor operator - (difference_type d) const noexcept {
+        return { p, i + d };
+      }
 
       BAD(hd,inline,pure)
       difference_type operator - (const cursor & rhs) const noexcept {
@@ -201,10 +308,16 @@ namespace bad {
       }
 
       BAD(hd,inline,noalias)
-      cursor & operator += (difference_type d) const noexcept { i += d; return *this; }
+      cursor & operator += (difference_type d) const noexcept {
+        i += d;
+        return *this;
+      }
 
       BAD(hd,inline,noalias)
-      cursor & operator -= (difference_type d) const noexcept { i -= d; return *this; }
+      cursor & operator -= (difference_type d) const noexcept {
+        i -= d;
+        return *this;
+      }
 
       BAD(hd,inline,pure)
       reference operator *() const noexcept {
@@ -530,15 +643,20 @@ namespace bad {
       static constexpr auto D = seq_head<Dim>;
       static constexpr auto S = seq_head<Stride>;
 
-      static constexpr size_t    max_index = size_t(calc::max); // non-negative
+      static constexpr size_t max_index = size_t(calc::max); // non-negative
       static constexpr ptrdiff_t min_index = calc::min; // non-positive
       static constexpr size_t offset = -calc::min; // positive
       static constexpr size_t tail_offset = -calc_tail::min; // positive
-      static constexpr size_t delta_offset = offset - tail_offset; // non-negative
-      static constexpr size_t size = offset + max_index + 1; // offset so negative strides remain in bounds to shut up valgrind, etc.
+
+      // non-negative, could be calculated a bit cheaper by just max(0,S*(1-D)) with appropriate conversions?
+      static constexpr size_t delta_offset = offset - tail_offset; 
+
+      // offset so negative strides remain in bounds
+      static constexpr size_t size = offset + max_index + 1; 
 
       BAD(hd,inline)
-      constexpr store_() noexcept : data() {}
+      constexpr store_() noexcept
+      : data() {}
 
       BAD(hd,inline)
       constexpr store_(
@@ -578,18 +696,65 @@ namespace bad {
         return *this;
       }
 
-      BAD(hd,inline,const) iterator begin() noexcept { return iterator(data + offset, 0); }
-      BAD(hd,inline,const) iterator end() noexcept { return iterator(data + offset, D); }
-      BAD(hd,inline,const) reverse_iterator rbegin() noexcept { return reverse_iterator(iterator(data + offset, D-1)); }
-      BAD(hd,inline,const) reverse_iterator rend() noexcept { return reverse_iterator(iterator(data + offset, -1)); }
-      BAD(hd,inline,const) const_iterator begin() const noexcept { return const_iterator(data + offset, 0); }
-      BAD(hd,inline,const) const_iterator end() const noexcept { return const_iterator(data + offset, D); }
-      BAD(hd,inline,const) const_iterator cbegin() const noexcept { return const_iterator(data + offset, 0); }
-      BAD(hd,inline,const) const_iterator cend() const noexcept { return const_iterator(data + offset, D); }
-      BAD(hd,inline,const) const_reverse_iterator rbegin() const noexcept { return reverse_iterator(const_iterator(data + offset, D-1)); }
-      BAD(hd,inline,const) const_reverse_iterator rend() const noexcept { return reverse_iterator(const_iterator(data + offset, -1)); }
-      BAD(hd,inline,const) const_reverse_iterator crbegin() const noexcept { return reverse_iterator(const_iterator(data + offset, D-1)); }
-      BAD(hd,inline,const) const_reverse_iterator crend() const noexcept { return reverse_iterator(const_iterator(data + offset, -1)); }
+      BAD(hd,inline,const)
+      iterator begin() noexcept {
+        return iterator(data + offset, 0);
+      }
+
+      BAD(hd,inline,const)
+      iterator end() noexcept {
+        return iterator(data + offset, D);
+      }
+
+      BAD(hd,inline,const)
+      reverse_iterator rbegin() noexcept {
+        return reverse_iterator(iterator(data + offset, D-1));
+      }
+
+      BAD(hd,inline,const)
+      reverse_iterator rend() noexcept {
+        return reverse_iterator(iterator(data + offset, -1));
+      }
+
+      BAD(hd,inline,const)
+      const_iterator begin() const noexcept {
+        return const_iterator(data + offset, 0);
+      }
+
+      BAD(hd,inline,const)
+      const_iterator end() const noexcept {
+        return const_iterator(data + offset, D);
+      }
+
+      BAD(hd,inline,const)
+      const_iterator cbegin() const noexcept {
+        return const_iterator(data + offset, 0);
+      }
+
+      BAD(hd,inline,const)
+      const_iterator cend() const noexcept {
+        return const_iterator(data + offset, D);
+      }
+
+      BAD(hd,inline,const)
+      const_reverse_iterator rbegin() const noexcept {
+        return reverse_iterator(const_iterator(data + offset, D-1));
+      }
+
+      BAD(hd,inline,const)
+      const_reverse_iterator rend() const noexcept {
+        return reverse_iterator(const_iterator(data + offset, -1));
+      }
+
+      BAD(hd,inline,const)
+      const_reverse_iterator crbegin() const noexcept {
+        return reverse_iterator(const_iterator(data + offset, D-1));
+      }
+
+      BAD(hd,inline,const)
+      const_reverse_iterator crend() const noexcept {
+        return reverse_iterator(const_iterator(data + offset, -1));
+      }
 
       BAD(hd,inline,const)
       plane & at(index_type i) noexcept {
@@ -719,7 +884,8 @@ namespace bad {
 
   namespace detail {
     template<class T, class Dim, class Stride>
-    BAD(hd) std::ostream &operator <<(std::ostream &os, const store_<T,Dim,Stride> & rhs) {
+    BAD(hd)
+    std::ostream &operator <<(std::ostream &os, const store_<T,Dim,Stride> & rhs) {
       os << "{";
       auto i = rhs.begin();
       while (i != rhs.end()) {

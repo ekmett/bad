@@ -40,6 +40,12 @@
 #define bad_inline inline
 #endif
 
+#if bad_has_cpp_attribute(clang::preferred_name)
+#define bad_preferred_name(__x) [[clang::preferred_name(__x)]]
+#else
+#define bad_preferred_name(__x)
+#endif
+
 #if bad_has_attribute(flatten)
 #define bad_flatten __attribute__((flatten))
 #else
