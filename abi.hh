@@ -5,11 +5,12 @@
 
 namespace bad {
   namespace detail {
-    BAD(hd) std::string demangle(const char * name);
+    BAD(hd)
+    std::string demangle(char const * name);
   }
 
   template <class T>
-  BAD(hd) std::string type(const T & t) {
+  BAD(hd) std::string type(T const & t) {
     return detail::demangle(typeid(t).name());
   }
 }
