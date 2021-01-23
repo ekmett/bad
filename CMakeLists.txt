@@ -67,11 +67,17 @@ link_libraries(abi)
 add_executable(t_seq t_seq.cc seq.hh catch.hh)
 target_precompile_headers(t_seq PRIVATE [["abi.hh"]] [["seq.hh"]])
 
+# tape
+add_executable(t_tape t_tape.cc tape.hh seq.hh catch.hh)
+target_precompile_headers(t_tape REUSE_FROM t_seq)
+
+# old storage model
 add_executable(t_store t_store.cc store.hh seq.hh catch.hh)
 target_precompile_headers(t_store REUSE_FROM t_seq)
 
-add_executable(t_tape t_tape.cc tape.hh seq.hh catch.hh)
-target_precompile_headers(t_tape REUSE_FROM t_seq)
+# new storage model
+add_executable(t_storage t_storage.cc storage.hh seq.hh catch.hh)
+target_precompile_headers(t_storage REUSE_FROM t_seq)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)

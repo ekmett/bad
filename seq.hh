@@ -511,6 +511,9 @@ namespace bad {
     make_seq<seq_length<S>-1-N>
   >::type;
 
+  template <size_t N, class L>
+  using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
+
   // heterogeneous list
   template <class...>
   struct list {};
