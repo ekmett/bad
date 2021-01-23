@@ -7,6 +7,7 @@ using namespace bad;
 using namespace std;
 
 TEST_CASE( "store works", "[store]" ) {
+
   store<int,seq<4,5>> s;
   cout << s << endl;
   s = { 40,30,20,10}; // set rows
@@ -17,6 +18,7 @@ TEST_CASE( "store works", "[store]" ) {
   cout << s << endl;
   s[3] = {1,2,3}; // set part of a row, element by element, this clobbers the remaining elements in the row/column to match assignment from a { } initialized store
   cout << s << endl;
+
 
   // various expected failures
   // store<int,seq<43,21>,int> y;
@@ -30,6 +32,12 @@ TEST_CASE( "store works", "[store]" ) {
   REQUIRE(reinterpret_cast<byte*>(&s[1]) - reinterpret_cast<byte*>(&s[0]) == 5*sizeof(int));
   REQUIRE(reinterpret_cast<byte*>(&s[1][1]) - reinterpret_cast<byte*>(&s[1]) == sizeof(int));
   // REQUIRE(type(s[1][1]) == "int");
+
+  store h(1,2,3,4);
+  cout << h << endl;
+
+  vec<int,4> v;
+  REQUIRE(type(h) == type(v));
 
   store<int,seq<4,5>> t = s;
   //store t = s; // would be better, CTAD for using statements?

@@ -168,6 +168,16 @@ namespace bad {
         at(i) = rhs[i];
     }
 
+    template <class A, class B, class... Cs>
+    BAD(hd,inline)
+    constexpr store(A a,B b,Cs...cs) noexcept : data() {
+      static_assert(sizeof...(cs) + 2 <= d);
+      auto i = begin();
+      *i++ = a;
+      *i++ = b;
+      ((*i++ = cs),...,void());
+    }
+
     // this should lifetimebound
     BAD(hd,inline,const)
     plane & operator[](size_t i) noexcept {
@@ -529,7 +539,7 @@ namespace bad {
 
       BAD(hd,inline,pure)
       operator const_iterator() const {
-        return { p, i };
+        return const_iterator(p, i);
       }
 
       // valid across sources
@@ -572,7 +582,7 @@ namespace bad {
 
       BAD(hd,inline,noalias)
       iterator operator ++(int) noexcept {
-        return { p, i++ };
+        return iterator(p, i++);
       }
 
       BAD(hd,inline,noalias)
@@ -583,17 +593,17 @@ namespace bad {
 
       BAD(hd,inline,noalias)
       iterator operator --(int) noexcept {
-        return { p, i-- };
+        return iterator(p, i--);
       }
 
       BAD(hd,inline,pure)
       friend iterator operator +(iterator lhs, ptrdiff_t rhs) noexcept {
-        return { lhs.p, lhs.i + rhs };
+        return iterator(lhs.p, lhs.i + rhs);
       }
 
       BAD(hd,inline,pure)
       friend iterator operator -(iterator lhs, ptrdiff_t rhs) noexcept {
-        return { lhs.p, lhs.i - rhs };
+        return iterator(lhs.p, lhs.i - rhs);
       }
 
       BAD(hd,inline,pure)
@@ -635,7 +645,7 @@ namespace bad {
       }
 
       friend iterator operator + (ptrdiff_t lhs, iterator & rhs) {
-        return { rhs.p, rhs.i + lhs };
+        return iterator(rhs.p, rhs.i + lhs);
       }
     };
 
@@ -713,8 +723,6 @@ namespace bad {
     }
   }; // type
 
-
-
   // scalar initialization
   template <class T>
   store(const T &) -> store<T,seq<>,sseq<>>;
@@ -730,6 +738,23 @@ namespace bad {
   // when constructed from multiple storage expressions, use the length of the argument list to build the outermost dimension.
   template <class B, size_t d, size_t...ds, class... U>
   store(const store_expr<B,d,ds...> &, U...) -> store<typename B::element,seq<1+sizeof...(U),d,ds...>>;
+
+  // vector construction
+  template <class T, class... U>
+  store(T, U...) -> store<T,seq<1+sizeof...(U)>>;
+
+  template <class T, size_t N>
+  using vec = store<T,seq<N>>;
+
+  // for a more general version of the multiple storage expression rule, we'd need to be able to know dimensions for arbitrary types.
+  // if we had something like:
+  // dim<float> = seq<>, dim<store<T,Stride,Dim>> = Stride
+  // dim<store_expr<B,d,ds...>> = seq<d,ds...>
+  // base_type<B> to get at B::element as well
+  // we could make this more robust
+  // take shape and type from first arg, 
+ 
+  
 
   template <typename T, typename stride1, typename stride2, size_t d, size_t... ds>
   BAD(hd,inline,flatten)
