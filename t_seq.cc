@@ -1,10 +1,11 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hh"
-#include "abi.hh"
-#include "seq.hh"
+#include "types.hh"
+#include "sequences.hh"
 
 using namespace std;
 using namespace bad;
+using namespace bad::sequences::exports;
 
 TEST_CASE("seq_head works", "[shape]") {
   REQUIRE(seq_head<seq<1,2,3>> == 1 );
@@ -30,6 +31,7 @@ TEST_CASE("seq_nth works","[shape]") {
 }
 TEST_CASE("seq_length works","[shape]") {
   REQUIRE(seq_length<seq<3,2,1>> == 3);
+  // FAIL(seq_length<int> == 123)
 }
 
 TEST_CASE("reify works","[str]") {

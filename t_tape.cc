@@ -3,8 +3,8 @@
 #include <array>
 #include <tuple>
 
-#include "seq.hh"
-#include "tape.hh"
+#include "sequences.hh"
+#include "tapes.hh"
 
 #define CATCH_CONFIG_MAIN
 #include "catch.hh"

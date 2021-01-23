@@ -1,5 +1,5 @@
 #pragma once
-#include "map.hh"
+#include "macros.hh"
 
 #ifdef __has_attribute
 #define bad_has_attribute(__x) __has_attribute(__x)

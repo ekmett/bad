@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hh"
-#include "store.hh"
-#include "abi.hh"
+#include "storage.hh"
+#include "types.hh"
 
 using namespace bad;
 using namespace std;

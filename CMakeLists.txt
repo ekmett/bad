@@ -61,18 +61,18 @@ endif(ASAN)
 
 # add_compile_options(-O2)
 
-add_library(abi STATIC abi.cc abi.hh map.hh attrib.hh)
-link_libraries(abi)
+add_library(types STATIC types.cc types.hh macros.hh attributes.hh)
+link_libraries(types)
 
-add_executable(t_seq t_seq.cc seq.hh catch.hh)
-target_precompile_headers(t_seq PRIVATE [["abi.hh"]] [["seq.hh"]])
+add_executable(t_seq t_seq.cc sequences.hh catch.hh)
+target_precompile_headers(t_seq PRIVATE [["types.hh"]] [["sequences.hh"]])
 
 # tape
-add_executable(t_tape t_tape.cc tape.hh seq.hh catch.hh)
+add_executable(t_tape t_tape.cc tapes.hh sequences.hh catch.hh)
 target_precompile_headers(t_tape REUSE_FROM t_seq)
 
 # new storage model
-add_executable(t_store t_store.cc store.hh store_expr.hh seq.hh catch.hh)
+add_executable(t_store t_store.cc storage.hh sequences.hh catch.hh)
 target_precompile_headers(t_store REUSE_FROM t_seq)
 
 find_package(Doxygen)
