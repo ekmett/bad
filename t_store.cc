@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hh"
-#include "storage.hh"
+#include "store.hh"
 #include "abi.hh"
 
 using namespace bad;
@@ -18,6 +18,10 @@ TEST_CASE( "store works", "[store]" ) {
   s[3] = {1,2,3}; // set part of a row, element by element, this clobbers the remaining elements in the row/column to match assignment from a { } initialized store
   cout << s << endl;
 
+  // various expected failures
+  // store<int,seq<43,21>,int> y;
+  // store<int,seq<43,21>,seq<2>> y; 
+
   REQUIRE(sizeof(s) == 4*5*sizeof(int));
   REQUIRE(s[1][1] == 2);
   REQUIRE(s[3][4] == 0);
@@ -25,17 +29,25 @@ TEST_CASE( "store works", "[store]" ) {
   REQUIRE(static_cast<void*>(&s) == static_cast<void*>(&s[0][0]));
   REQUIRE(reinterpret_cast<byte*>(&s[1]) - reinterpret_cast<byte*>(&s[0]) == 5*sizeof(int));
   REQUIRE(reinterpret_cast<byte*>(&s[1][1]) - reinterpret_cast<byte*>(&s[1]) == sizeof(int));
-  REQUIRE(type(s[1][1]) == "int");
+  // REQUIRE(type(s[1][1]) == "int");
 
-  store<int,seq<4,5>> t(2);
+  store<int,seq<4,5>> t = s;
+  //store t = s; // would be better, CTAD for using statements?
   cout << t << endl;
+
+  store tprime = s;
+  cout << tprime << endl;
+
+  REQUIRE(type(t) == type(tprime));
 
   // column major
   store<int,seq<4,5>,sseq<1,4>> r = s + t;
-  cout << r << endl;
-
   r.pull<1>(1) = 200;
   cout << r << endl;
+
+  store w = s + t;
+  cout << w << endl;
+  REQUIRE(type(w) != type(r));
 
   store<int,seq<4,5>> x;
   x.pull<1>() = {1,2,3,4,5};
