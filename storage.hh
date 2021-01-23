@@ -41,7 +41,21 @@ namespace bad {
     using expr = storage_expr<C,d,ds...>;
 
     using actual_type = B;
-    // using element = typename B::element;
+
+    BAD(hd,inline,flatten)
+    auto operator[](size_t i) noexcept {
+      return at(i);
+    }
+
+    BAD(hd,inline,flatten)
+    auto operator[](size_t i) const noexcept {
+      return at(i);
+    }
+
+    BAD(hd,inline,const)
+    B & at() noexcept {
+      return static_cast<B &>(*this);
+    }
 
     BAD(hd,inline,const)
     B const & at() const noexcept {
@@ -50,19 +64,44 @@ namespace bad {
 
     template <class... ts>
     BAD(hd,inline,flatten) // this lifetimebound
-    auto at(size_t i, ts... is) const noexcept {
-      return at()[i](is...);
+    auto at(size_t i) noexcept {
+      return at()[i];
     }
 
-    BAD(hd,inline,flatten)
-    B const & operator[](size_t i) const noexcept {
-      return at(i);
+    template <class... ts>
+    BAD(hd,inline,flatten) // this lifetimebound
+    auto at(size_t i) const noexcept {
+      return at()[i];
     }
 
-    BAD(hd,inline,const)
+    template <class... ts>
+    BAD(hd,inline,flatten) // this lifetimebound
+    auto at(size_t i, size_t j, ts... ks) noexcept {
+      return at()[i](j, ks...);
+    }
+
+    template <class... ts>
+    BAD(hd,inline,flatten) // this lifetimebound
+    auto at(size_t i, size_t j, ts... ks) const noexcept {
+      return at()[i](j, ks...);
+    }
+
+    BAD(hd,inline,const) // this lifetimebound
+    B & operator()() noexcept {
+      return at();
+    }
+
+    BAD(hd,inline,const) // this lifetimebound
     B const & operator()() const noexcept {
       return at();
     }
+
+    template <class... ts>
+    BAD(hd,inline,flatten) // this lifetimebound
+    auto operator()(ts... is) noexcept {
+      return at(is...);
+    }
+
 
     template <class... ts>
     BAD(hd,inline,flatten) // this lifetimebound
@@ -90,7 +129,7 @@ namespace bad {
       return false;
     }
 
-    BAD(hd) 
+    BAD(hd)
     friend std::ostream operator <<(std::ostream &os, storage_expr const & rhs) {
       return os << rhs.at();
     }
@@ -100,7 +139,7 @@ namespace bad {
       ptrdiff_t i;
 
       using iterator_category = std::random_access_iterator_tag;
-      using value_type        = decltype(p->at(0));
+      using value_type        = std::add_const<std::remove_reference<decltype(p->at(0))>>;
       using difference_type   = ptrdiff_t;
       using reference_type    = std::add_lvalue_reference<value_type>;
       using pointer_type      = std::add_pointer<value_type>;
@@ -122,32 +161,38 @@ namespace bad {
       // NB: iterators are only comparable if they come from the same container
       BAD(hd,inline,pure)
       friend bool operator ==(const_iterator lhs, const_iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i == rhs.i;
       }
 
       // NB: iterators are only comparable if they come from the same container
       BAD(hd,inline,pure)
       friend bool operator !=(const_iterator lhs, const_iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i != rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator <(const_iterator lhs, const_iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i < rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator >(const_iterator lhs, const_iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i > rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator <=(const_iterator lhs, const_iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i <= rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator >=(const_iterator lhs, const_iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i >= rhs.i;
       }
 
@@ -207,16 +252,19 @@ namespace bad {
 
       BAD(hd,inline,pure)
       auto & operator *() const noexcept {
+        assert(valid());
         return p->at(i);
       }
 
       BAD(hd,inline,pure)
       auto * operator ->() const noexcept {
+        assert(valid());
         return &(p->at(i));
       }
 
       BAD(hd,inline,pure)
       auto & operator[](difference_type di) const noexcept {
+        assert(p && 0 <= i + di && i + di < d);
         return p->at(i + di);
       }
 
@@ -266,32 +314,38 @@ namespace bad {
       // valid across sources
       BAD(hd,inline,pure)
       friend bool operator ==(iterator lhs, iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i == rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator !=(iterator lhs, iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i != rhs.i;
       }
 
       // valid within a single source
       BAD(hd,inline,pure)
       friend bool operator <(iterator lhs, iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i < rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator >(iterator lhs, iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i > rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator <=(iterator lhs, iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i <= rhs.i;
       }
 
       BAD(hd,inline,pure)
       friend bool operator >=(iterator lhs, iterator rhs) noexcept {
+        assert(lhs.p == rhs.p);
         return lhs.i >= rhs.i;
       }
 
@@ -347,22 +401,25 @@ namespace bad {
 
       BAD(hd,inline,pure)
       reference operator *() const noexcept {
+        assert(valid());
         return p->at(i);
       }
 
       BAD(hd,inline,pure)
       pointer operator ->() const noexcept {
+        assert(valid());
         return *(p->at(i));
       }
 
       BAD(hd,inline,pure)
       reference operator[](ptrdiff_t di) const noexcept {
+        assert(valid());
         return p->at(i + di);
       }
 
       BAD(hd,inline,pure)
       bool valid() const noexcept {
-        return 0 <= i && i < d;
+        return p != nullptr && 0 <= i && i < d;
       }
 
       friend iterator operator + (ptrdiff_t lhs, iterator & rhs) {
@@ -469,7 +526,7 @@ namespace bad {
       // this is lifetimebound, move out of line?
       template <size_t N>
       BAD(hd,inline,flatten,const)
-      auto rep() const noexcept { 
+      auto rep() const noexcept {
         using reprep = typename storage<seq<N,d,ds...>>::template rep_expr<rep_expr>;
         return reprep { *this };
       }
@@ -481,9 +538,12 @@ namespace bad {
     };
 
     template <class L, class R>
-    struct add_expr {
+    struct add_expr : expr<add_expr<L,R>> {
       L const & l;
       R const & r;
+
+      BAD(hd)
+      add_expr(expr<L> const & l, expr<R> const & r) : l(l()), r(r()) {}
 
       BAD(hd,inline,pure)
       auto operator[](BAD(maybe_unused) size_t i) const noexcept {
@@ -495,10 +555,10 @@ namespace bad {
       auto pull(size_t i) const noexcept {
         return l.template pull<N>(i) + r.template pull<N>(i);
       }
-      
+
       template <size_t N>
       BAD(hd,inline,flatten,const)
-      auto rep() const noexcept { 
+      auto rep() const noexcept {
         using repadd = typename storage<seq<N,d,ds...>>::template rep_expr<rep_expr>;
         return repadd { *this };
         // return l.template rep<N>(i) + r.template rep<N>(i);
@@ -577,18 +637,88 @@ namespace bad {
 
       // this should lifetimebound
       BAD(hd,inline,const)
-      auto operator[](size_t i) noexcept -> plane & {
+      plane & operator[](size_t i) noexcept {
         return reinterpret_cast<plane &>(data[delta + i*s]);
       }
 
       BAD(hd,inline,const)
-      auto operator[](size_t i) const noexcept -> plane const & {
+      plane const & operator[](size_t i) const noexcept {
         return reinterpret_cast<plane const &>(data[delta + i*s]);
       }
 
-      // tools that use []
-      using super::at;
-      using super::operator();
+      // TOOLS
+      //
+      BAD(hd,inline,const)
+      type & at() noexcept {
+        return *this;
+      }
+
+      BAD(hd,inline,const)
+      type const & at() const noexcept {
+        return *this;
+      }
+
+      template <class... ts>
+      BAD(hd,inline,flatten) // this lifetimebound
+      auto & at(size_t i) noexcept {
+        return at()[i];
+      }
+
+      template <class... ts>
+      BAD(hd,inline,flatten) // this lifetimebound
+      auto & at(size_t i) const noexcept {
+        return at()[i];
+      }
+
+      template <class... ts>
+      BAD(hd,inline,flatten) // this lifetimebound
+      auto at(size_t i, size_t j, ts... ks) noexcept {
+        return at()[i](j, ks...);
+      }
+
+      template <class... ts>
+      BAD(hd,inline,flatten) // this lifetimebound
+      auto at(size_t i, size_t j, ts... ks) const noexcept {
+        return at()[i](j, ks...);
+      }
+
+      BAD(hd,inline,const) // this lifetimebound
+      type & operator()() noexcept {
+        return at();
+      }
+
+      BAD(hd,inline,const) // this lifetimebound
+      type const & operator()() const noexcept {
+        return at();
+      }
+
+      template <class... ts>
+      BAD(hd,inline,flatten) // this lifetimebound
+      auto operator()(ts... is) noexcept {
+        return at(is...);
+      }
+
+
+      template <class... ts>
+      BAD(hd,inline,flatten) // this lifetimebound
+      auto operator()(ts... is) const noexcept {
+        return at(is...);
+      }
+
+      // this should match the behavior of the default = operator, which is to _0_ extend the initializer list
+      // this happens because data is initialized in the initializer_list constructor
+      // if the initializer_list too long, complain at runtime. otherwise we have a choice of semantics to 0 extend like arrays or 
+      BAD(hd,inline)
+      type & operator = (
+        std::initializer_list<T> list
+      ) noexcept {
+        assert(list.size() <= d);
+        std::copy(list.begin(),list.end(),begin());
+        for (size_t i = list.size();i<d; ++ i) {
+          at(i) = 0;
+        }
+        return *this;
+      }
 
       template <class B>
       BAD(reinitializes,hd,inline,flatten)
@@ -598,11 +728,31 @@ namespace bad {
         return *this;
       }
 
+      BAD(hd,inline)
+      type & operator += (
+        std::initializer_list<T> list
+      ) noexcept {
+        assert(list.size() <= d);
+        for (auto i=list.begin(),j=begin();i!=list.end();++i)
+          *j += *i;
+        return *this;
+      }
+
       template <class B>
       BAD(hd,inline,flatten)
       type & operator += (expr<B> const & rhs) noexcept {
         for (size_t i=0;i<d;++i)
           at(i) += rhs[i];
+        return *this;
+      }
+
+      BAD(hd,inline)
+      type & operator -= (
+        std::initializer_list<T> list
+      ) noexcept {
+        assert(list.size() <= d);
+        for (auto i = list.begin(), j = begin();i != list.end();++i)
+          *j -= *i;
         return *this;
       }
 
@@ -1026,7 +1176,7 @@ namespace bad {
         os << "{";
         for (size_t i=0;i<d;++i) {
           if (i) os << ",";
-          os << rhs.data[i];
+          os << rhs[i];
         }
         return os << "}";
       }
@@ -1115,12 +1265,10 @@ namespace bad {
     return os << "}";
   }
 
-/*
   // CTAD
   template <size_t d, size_t... ds, class B>
-  show_values(typename storage<d,ds...>::template expr<B> const & data)
-    -> show_values<d, typename storage<d,ds...>::template expr<B>>;
-*/
+  show_values(storage_expr<B,d,ds...> const & data)
+    -> show_values<d, storage_expr<B,d,ds...>>;
 
   // CTAD
   template <size_t d, class T>
@@ -1132,7 +1280,7 @@ namespace bad {
   auto operator +(
     BAD(lifetimebound) storage_expr<L,d,ds...> const &l,
     BAD(lifetimebound) storage_expr<R,d,ds...> const &r
-  ) noexcept -> typename storage<seq<d,ds...>>::template add_expr<L,R> {
-    return { l() ,r() };
+  ) noexcept {
+    return typename storage<seq<d,ds...>>::template add_expr<L,R>(l(),r());
   }
 }
