@@ -5,15 +5,13 @@
 
 namespace bad {
 
-  template <class T> struct no : std::false_type {};
-
   template <class T, class Dim, class Stride = row_major<Dim>>
   struct store {
     // offer slightly more helpful diagnostics first
     static_assert(std::is_same_v<seq_element_type<Dim>,size_t>, "expected dim to have type seq<...>");
     static_assert(std::is_same_v<seq_element_type<Stride>,ptrdiff_t>, "expected stride to have type sseq<...>");
     static_assert(seq_length<Dim> == seq_length<Stride>, "dim and stride have mismatched lengths");
-    static_assert(no<T>::value, "only partial specializations are valid");
+    static_assert(no<T>, "only partial specializations are valid");
   };
 
   template <class T>

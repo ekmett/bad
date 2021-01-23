@@ -4,7 +4,12 @@
 #include <utility>
 #include "attrib.hh"
 
-namespace bad {
+namespace bad { // bad::seqs, doesn't matter, still had seqs
+  /// @private
+  template <class T> struct no_t : std::false_type {};
+  /// @private
+  template <class T> constexpr bool no = no_t<T>::value;
+
   using std::size_t;
   using std::ptrdiff_t;
 
@@ -29,10 +34,10 @@ namespace bad {
   //
   template <class T, T x>
   using make_seq_t = std::make_integer_sequence<T,x>;
- 
+
   template <auto x>
   using make_aseq = make_seq_t<decltype(x), x>;
-  
+
   template <size_t x>
   using make_seq = make_seq_t<size_t, x>;
 
@@ -70,8 +75,10 @@ namespace bad {
 
   namespace detail {
     /// @private
-    template <template <class T, T...> class, class>
-    struct seq_apply_;
+    template <template <class T, T...> class, class X>
+    struct seq_apply_ {
+      static_assert(no<X>, "seq_apply: not a sequence");
+    };
 
     /// @private
     template <template <class T, T...> class F, class X, X ... xs>
@@ -85,8 +92,10 @@ namespace bad {
 
   namespace detail {
     /// @private
-    template <template <auto x, decltype(x) ...> class, class>
-    struct seq_auto_apply_;
+    template <template <auto x, decltype(x) ...> class, class X>
+    struct seq_auto_apply_ {
+      static_assert(no<X>, "seq_auto_apply: not a sequence");
+    };
 
     /// @private
     template <template <auto x, decltype(x) ...> class F, class X, X x, X ... xs>
@@ -101,7 +110,9 @@ namespace bad {
   namespace detail {
     /// @private
     template <class T, template <T...> class, class>
-    struct seq_t_apply_;
+    struct seq_t_apply_ {
+      static_assert(no<T>, "seq_t_apply: not a sequence");
+    };
 
     /// @private
     template <class T, template <T...> class F, T... xs>
@@ -118,7 +129,9 @@ namespace bad {
   namespace detail {
     /// @private
     template <typename T, T x, typename S>
-    struct seq_range_;
+    struct seq_range_ {
+      static_assert(no<T>, "seq_range: bad arguments");
+    };
 
     /// @private
     template <typename T, T x, T... ys>
@@ -132,8 +145,10 @@ namespace bad {
 
   namespace detail {
     /// @private
-    template <class, class, class>
-    struct seq_append__;
+    template <class T, class, class>
+    struct seq_append__ {
+      static_assert(no<T>, "seq_append: bad sequences (type mismatch?)");
+    };
 
     /// @private
     template <class T, T... ts, T... ss>
@@ -142,8 +157,10 @@ namespace bad {
     };
 
     /// @private
-    template <class, class...>
-    struct seq_append_;
+    template <class T, class...>
+    struct seq_append_ {
+      static_assert(no<T>, "seq_append: bad sequences");
+    };
 
     /// @private
     template <class T>
@@ -164,8 +181,10 @@ namespace bad {
 
   namespace detail {
     /// @private
-    template <class>
-    struct reify_;
+    template <class T>
+    struct reify_ {
+      static_assert(no<T>, "reify: not a sequence");
+    };
 
     /// @private
     template <class T, T...xs>
@@ -189,8 +208,10 @@ namespace bad {
 
   namespace detail {
     /// @private
-    template <class>
-    struct seq_prod_;
+    template <class T>
+    struct seq_prod_ {
+      static_assert(no<T>, "seq_prod: not a sequence");
+    };
 
     /// @private
     template <class T>
@@ -218,8 +239,10 @@ namespace bad {
 
   namespace detail {
     /// @private
-    template <class>
-    struct seq_total_;
+    template <class T>
+    struct seq_total_ {
+      static_assert(no<T>, "seq_total: not a sequence");
+    };
 
     /// @private
     template <class T>
