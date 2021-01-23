@@ -13,7 +13,6 @@ TEST_CASE( "store works", "[store]" ) {
   s[2] = 3; // set an entire row
   s[3] = {1,2,3}; // set part of a row, element by element
 
-/*
   REQUIRE(sizeof(s) == 4*5*sizeof(int));
   REQUIRE(s[1][1] == 2);
   REQUIRE(s[3][4] == 10);
@@ -28,7 +27,7 @@ TEST_CASE( "store works", "[store]" ) {
   // cout << t << endl;
 
   // column major
-  store<int,seq<4,5>,sseq<1,4>> r = s - t;
+  store<int,seq<4,5>,sseq<1,4>> r = s + t;
   // cout << r << endl;
 
   r.pull<1>(1) = 200;
@@ -39,7 +38,4 @@ TEST_CASE( "store works", "[store]" ) {
   x.pull<1>(3)[2] = 100;
   REQUIRE(x[2][3] == 100);
   // cout << x << endl;
-*/ 
 }
-
-

@@ -467,6 +467,31 @@ namespace bad {
       }
     };
 
+    template <class L, class R>
+    struct add_expr {
+      L const & l;
+      R const & r;
+
+      BAD(hd,inline,pure)
+      auto operator[](BAD(maybe_unused) size_t i) const noexcept {
+        return l[i] + r[i];
+      }
+
+      template <size_t N>
+      BAD(hd,inline,flatten)
+      auto pull(size_t i) const noexcept {
+        return l.template pull<N>(i) + r.template pull<N>(i);
+      }
+      
+      template <size_t N>
+      BAD(hd,inline,flatten,const)
+      auto rep() const noexcept { 
+        using repadd = typename storage<N,d,ds...>::template rep_expr<rep_expr>;
+        return repadd { *this };
+        // return l.template rep<N>(i) + r.template rep<N>(i);
+      }
+    };
+
     // using a dependent partial template specialization because
     // default arguments cannot be supplied for parameter packs
     template <class T, class stride = row_major<dim>>
@@ -1088,6 +1113,15 @@ namespace bad {
   template <size_t d, class T>
   show_values(T(&)[d])
     -> show_values<d,T*>;
+
+  template <size_t d, size_t... ds, class L, class R>
+  BAD(hd,inline,const)
+  auto operator +(
+    BAD(lifetimebound) typename storage<d,ds...>::template expr<L> const &l,
+    BAD(lifetimebound) typename storage<d,ds...>::template expr<R> const &r
+  ) noexcept -> typename storage<d,ds...>::template add_expr<L,R> {
+    return { l() ,r() };
+  }
 }
 
 
