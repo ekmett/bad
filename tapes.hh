@@ -19,16 +19,19 @@
 ///
 /// @{
 
-/// Wengert lists for reverse-mode automatic differentiation
-namespace bad::tapes {
-  /// re-exported by both \ref bad and \ref bad::tapes::api
-  namespace common {}
-  using namespace common;
-  /// public components
-  namespace api {
+namespace bad {
+  /// Wengert lists for reverse-mode automatic differentiation
+  namespace tapes {
+    /// re-exported by both \ref bad and \ref bad::tapes::api
+    namespace common {}
     using namespace common;
+    /// public components
+    namespace api {
+      using namespace common;
+    }
+    using namespace api;
   }
-  using namespace api;
+  using namespace tapes::common;
 }
 
 namespace bad::tapes {
