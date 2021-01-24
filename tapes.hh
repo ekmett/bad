@@ -22,7 +22,7 @@
 namespace bad {
   /// Wengert lists for reverse-mode automatic differentiation
   namespace tapes {
-    /// re-exported by both \ref bad and \ref bad::tapes::api
+    /// re-exported by \ref bad and \ref bad::tapes::api
     namespace common {}
     using namespace common;
     /// public components
