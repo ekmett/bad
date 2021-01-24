@@ -24,12 +24,311 @@ namespace bad {
 namespace bad::storage {
   using namespace sequences::api;
   using namespace errors::api;
+
+  template <class B, size_t d>
+  struct const_store_expr_iterator {
+    B const * p;
+    ptrdiff_t i;
+
+    using iterator_category = std::random_access_iterator_tag;
+    using value_type        = std::add_const<std::remove_reference<decltype(p->at(0))>>;
+    using difference_type   = ptrdiff_t;
+    using reference_type    = std::add_lvalue_reference<value_type>;
+    using pointer_type      = std::add_pointer<value_type>;
+
+    BAD(reinitializes,hd,inline,noalias)
+    const_store_expr_iterator & operator =(const_store_expr_iterator rhs) noexcept {
+      p = rhs.p;
+      i = rhs.i;
+      return *this;
+    }
+
+    BAD(reinitializes,hd,inline,noalias)
+    const_store_expr_iterator & operator =(const_store_expr_iterator && rhs) noexcept {
+      p = std::move(rhs.p);
+      i = std::move(rhs.i);
+      return *this;
+    }
+
+    // NB: store_expr_iterators are only comparable if they come from the same container
+    BAD(hd,inline,pure)
+    friend bool operator ==(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i == rhs.i;
+    }
+
+    // NB: store_expr_iterators are only comparable if they come from the same container
+    BAD(hd,inline,pure)
+    friend bool operator !=(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i != rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator <(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i < rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator >(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i > rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator <=(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i <= rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator >=(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i >= rhs.i;
+    }
+
+    BAD(hd,inline,noalias)
+    const_store_expr_iterator & operator ++() noexcept {
+      ++i;
+      return *this;
+    }
+
+    BAD(hd,inline,noalias)
+    const_store_expr_iterator operator ++(int) noexcept {
+      return { p, i++ };
+    }
+
+    BAD(hd,inline,noalias)
+    const_store_expr_iterator & operator --() noexcept {
+      --i;
+      return *this;
+    }
+
+    BAD(hd,inline,noalias)
+    const_store_expr_iterator operator --(int) noexcept {
+      return { p, i-- };
+    }
+
+    BAD(hd,inline,pure)
+    friend const_store_expr_iterator operator +(const_store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
+      return { lhs.p, lhs.i + rhs };
+    }
+
+    friend const_store_expr_iterator operator +(ptrdiff_t lhs, const_store_expr_iterator rhs) noexcept {
+      return { rhs.p, rhs.i + lhs };
+    }
+
+    BAD(hd,inline,pure)
+    friend const_store_expr_iterator operator -(const_store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
+      return { lhs.p, lhs.i - rhs };
+    }
+
+    BAD(hd,inline,pure)
+    friend ptrdiff_t operator -(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i - rhs.i;
+    }
+
+    BAD(hd,inline,noalias)
+    const_store_expr_iterator & operator +=(ptrdiff_t rhs) const noexcept {
+      i += rhs;
+      return *this;
+    }
+
+    BAD(hd,inline,noalias)
+    const_store_expr_iterator & operator -=(ptrdiff_t rhs) const noexcept {
+      i -= rhs;
+      return *this;
+    }
+
+    BAD(hd,inline,pure)
+    auto & operator *() const noexcept {
+      assert(valid());
+      return p->at(i);
+    }
+
+    BAD(hd,inline,pure)
+    auto * operator ->() const noexcept {
+      assert(valid());
+      return &(p->at(i));
+    }
+
+    BAD(hd,inline,pure)
+    auto & operator[](ptrdiff_t di) const noexcept {
+      assert(p && 0 <= i + di && i + di < d);
+      return p->at(i + di);
+    }
+
+    BAD(hd,inline,pure)
+    bool valid() const noexcept {
+      return p != nullptr && 0 <= i && i < d;
+    }
+  };
+
+  template <class B, size_t d> 
+  struct store_expr_iterator {
+    B * p;
+    ptrdiff_t i;
+
+    using iterator_category = std::random_access_iterator_tag;
+    using value_type        = std::remove_reference<decltype(p->at(0))>;
+    using difference_type   = ptrdiff_t;
+    using reference         = std::add_lvalue_reference<value_type>;
+    using pointer           = std::add_pointer<value_type>;
+
+    BAD(hd,inline,noalias) constexpr
+    store_expr_iterator(store_expr_iterator const & rhs) noexcept
+    : p(rhs.p), i(rhs.i) {}
+
+    BAD(hd,inline,noalias) constexpr
+    store_expr_iterator(store_expr_iterator && rhs) noexcept
+    : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
+
+    BAD(reinitializes,hd,inline,noalias)
+    store_expr_iterator & operator=(store_expr_iterator rhs) noexcept {
+      p = rhs.p;
+      i = rhs.i;
+      return *this;
+    }
+
+    BAD(reinitializes,hd,inline,noalias)
+    store_expr_iterator & operator=(store_expr_iterator && rhs) noexcept {
+      p = std::move(rhs.p);
+      i = std::move(rhs.i);
+      return *this;
+    }
+
+    BAD(hd,inline,pure)
+    operator const_store_expr_iterator<B,d>() const {
+      return { p, i };
+    }
+
+    // valid across sources
+    BAD(hd,inline,pure)
+    friend bool operator ==(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i == rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator !=(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i != rhs.i;
+    }
+
+    // valid within a single source
+    BAD(hd,inline,pure)
+    friend bool operator <(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i < rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator >(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i > rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator <=(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i <= rhs.i;
+    }
+
+    BAD(hd,inline,pure)
+    friend bool operator >=(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i >= rhs.i;
+    }
+
+    BAD(hd,inline,noalias)
+    store_expr_iterator & operator ++() noexcept {
+      ++i;
+      return *this;
+    }
+
+    BAD(hd,inline,noalias)
+    store_expr_iterator operator ++(int) noexcept {
+      return { p, i++ };
+    }
+
+    BAD(hd,inline,noalias)
+    store_expr_iterator & operator --() noexcept {
+      --i;
+      return *this;
+    }
+
+    BAD(hd,inline,noalias)
+    store_expr_iterator operator --(int) noexcept {
+      return { p, i-- };
+    }
+
+    BAD(hd,inline,pure)
+    friend store_expr_iterator operator +(store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
+      return { lhs.p, lhs.i + rhs };
+    }
+
+    BAD(hd,inline,pure)
+    friend store_expr_iterator operator -(store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
+      return { lhs.p, lhs.i - rhs };
+    }
+
+    BAD(hd,inline,pure)
+    friend ptrdiff_t operator -(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
+      assert(lhs.p == rhs.p);
+      return lhs.i - rhs.i;
+    }
+
+    BAD(hd,inline,noalias)
+    store_expr_iterator & operator +=(ptrdiff_t rhs) const noexcept {
+      i += rhs;
+      return *this;
+    }
+
+    BAD(hd,inline,noalias)
+    store_expr_iterator & operator -=(ptrdiff_t rhs) const noexcept {
+      i -= rhs;
+      return *this;
+    }
+
+    BAD(hd,inline,pure)
+    reference operator *() const noexcept {
+      assert(valid());
+      return p->at(i);
+    }
+
+    BAD(hd,inline,pure)
+    pointer operator ->() const noexcept {
+      assert(valid());
+      return *(p->at(i));
+    }
+
+    BAD(hd,inline,pure)
+    reference operator[](ptrdiff_t di) const noexcept {
+      assert(valid());
+      return p->at(i + di);
+    }
+
+    BAD(hd,inline,pure)
+    bool valid() const noexcept {
+      return p != nullptr && 0 <= i && i < d;
+    }
+
+    BAD(hd,inline,pure)
+    friend store_expr_iterator operator + (ptrdiff_t lhs, store_expr_iterator rhs) noexcept {
+      return { rhs.p, rhs.i + lhs };
+    }
+  };
 }
 
 namespace bad::storage::api {
   /// \ref variadic expression template
   template <class B, size_t d, size_t... ds>
   struct store_expr {
+    using const_iterator = const_store_expr_iterator<B,d>;
+    using iterator = store_expr_iterator<B,d>;
+
     using dim = seq<d,ds...>;
     static constexpr size_t arity = 1 + sizeof...(ds);
 
@@ -133,299 +432,7 @@ namespace bad::storage::api {
       return os << rhs.at();
     }
 
-    struct const_iterator {
-      B const * p;
-      ptrdiff_t i;
 
-      using iterator_category = std::random_access_iterator_tag;
-      using value_type        = std::add_const<std::remove_reference<decltype(p->at(0))>>;
-      using difference_type   = ptrdiff_t;
-      using reference_type    = std::add_lvalue_reference<value_type>;
-      using pointer_type      = std::add_pointer<value_type>;
-
-      BAD(reinitializes,hd,inline,noalias)
-      const_iterator & operator =(const_iterator rhs) noexcept {
-        p = rhs.p;
-        i = rhs.i;
-        return *this;
-      }
-
-      BAD(reinitializes,hd,inline,noalias)
-      const_iterator & operator =(const_iterator && rhs) noexcept {
-        p = std::move(rhs.p);
-        i = std::move(rhs.i);
-        return *this;
-      }
-
-      // NB: iterators are only comparable if they come from the same container
-      BAD(hd,inline,pure)
-      friend bool operator ==(const_iterator lhs, const_iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i == rhs.i;
-      }
-
-      // NB: iterators are only comparable if they come from the same container
-      BAD(hd,inline,pure)
-      friend bool operator !=(const_iterator lhs, const_iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i != rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator <(const_iterator lhs, const_iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i < rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator >(const_iterator lhs, const_iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i > rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator <=(const_iterator lhs, const_iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i <= rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator >=(const_iterator lhs, const_iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i >= rhs.i;
-      }
-
-      BAD(hd,inline,noalias)
-      const_iterator & operator ++() noexcept {
-        ++i;
-        return *this;
-      }
-
-      BAD(hd,inline,noalias)
-      const_iterator operator ++(int) noexcept {
-        return { p, i++ };
-      }
-
-      BAD(hd,inline,noalias)
-      const_iterator & operator --() noexcept {
-        --i;
-        return *this;
-      }
-
-      BAD(hd,inline,noalias)
-      const_iterator operator --(int) noexcept {
-        return { p, i-- };
-      }
-
-      BAD(hd,inline,pure)
-      friend const_iterator operator +(const_iterator lhs, ptrdiff_t rhs) noexcept {
-        return { lhs.p, lhs.i + rhs };
-      }
-
-      friend const_iterator operator +(ptrdiff_t lhs, const_iterator rhs) noexcept {
-        return { rhs.p, rhs.i + lhs };
-      }
-
-      BAD(hd,inline,pure)
-      friend const_iterator operator -(const_iterator lhs, ptrdiff_t rhs) noexcept {
-        return { lhs.p, lhs.i - rhs };
-      }
-
-      BAD(hd,inline,pure)
-      friend ptrdiff_t operator -(const_iterator lhs, const_iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i - rhs.i;
-      }
-
-      BAD(hd,inline,noalias)
-      const_iterator & operator +=(ptrdiff_t rhs) const noexcept {
-        i += rhs;
-        return *this;
-      }
-
-      BAD(hd,inline,noalias)
-      const_iterator & operator -=(ptrdiff_t rhs) const noexcept {
-        i -= rhs;
-        return *this;
-      }
-
-      BAD(hd,inline,pure)
-      auto & operator *() const noexcept {
-        assert(valid());
-        return p->at(i);
-      }
-
-      BAD(hd,inline,pure)
-      auto * operator ->() const noexcept {
-        assert(valid());
-        return &(p->at(i));
-      }
-
-      BAD(hd,inline,pure)
-      auto & operator[](ptrdiff_t di) const noexcept {
-        assert(p && 0 <= i + di && i + di < d);
-        return p->at(i + di);
-      }
-
-      BAD(hd,inline,pure)
-      bool valid() const noexcept {
-        return p != nullptr && 0 <= i && i < d;
-      }
-    };
-
-    struct iterator {
-      B * p;
-      ptrdiff_t i;
-
-      using iterator_category = std::random_access_iterator_tag;
-      using value_type        = std::remove_reference<decltype(p->at(0))>;
-      using difference_type   = ptrdiff_t;
-      using reference         = std::add_lvalue_reference<value_type>;
-      using pointer           = std::add_pointer<value_type>;
-
-      BAD(hd,inline,noalias) constexpr
-      iterator(iterator const & rhs) noexcept
-      : p(rhs.p), i(rhs.i) {}
-
-      BAD(hd,inline,noalias) constexpr
-      iterator(iterator && rhs) noexcept
-      : p(std::move(rhs.p)), i(std::move(rhs.i)) {}
-
-      BAD(reinitializes,hd,inline,noalias)
-      iterator & operator=(iterator rhs) noexcept {
-        p = rhs.p;
-        i = rhs.i;
-        return *this;
-      }
-
-      BAD(reinitializes,hd,inline,noalias)
-      iterator & operator=(iterator && rhs) noexcept {
-        p = std::move(rhs.p);
-        i = std::move(rhs.i);
-        return *this;
-      }
-
-      BAD(hd,inline,pure)
-      operator const_iterator() const {
-        return { p, i };
-      }
-
-      // valid across sources
-      BAD(hd,inline,pure)
-      friend bool operator ==(iterator lhs, iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i == rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator !=(iterator lhs, iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i != rhs.i;
-      }
-
-      // valid within a single source
-      BAD(hd,inline,pure)
-      friend bool operator <(iterator lhs, iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i < rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator >(iterator lhs, iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i > rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator <=(iterator lhs, iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i <= rhs.i;
-      }
-
-      BAD(hd,inline,pure)
-      friend bool operator >=(iterator lhs, iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i >= rhs.i;
-      }
-
-      BAD(hd,inline,noalias)
-      iterator & operator ++() noexcept {
-        ++i;
-        return *this;
-      }
-
-      BAD(hd,inline,noalias)
-      iterator operator ++(int) noexcept {
-        return { p, i++ };
-      }
-
-      BAD(hd,inline,noalias)
-      iterator & operator --() noexcept {
-        --i;
-        return *this;
-      }
-
-      BAD(hd,inline,noalias)
-      iterator operator --(int) noexcept {
-        return { p, i-- };
-      }
-
-      BAD(hd,inline,pure)
-      friend iterator operator +(iterator lhs, ptrdiff_t rhs) noexcept {
-        return { lhs.p, lhs.i + rhs };
-      }
-
-      BAD(hd,inline,pure)
-      friend iterator operator -(iterator lhs, ptrdiff_t rhs) noexcept {
-        return { lhs.p, lhs.i - rhs };
-      }
-
-      BAD(hd,inline,pure)
-      friend ptrdiff_t operator -(iterator lhs, iterator rhs) noexcept {
-        assert(lhs.p == rhs.p);
-        return lhs.i - rhs.i;
-      }
-
-      BAD(hd,inline,noalias)
-      iterator & operator +=(ptrdiff_t rhs) const noexcept {
-        i += rhs;
-        return *this;
-      }
-
-      BAD(hd,inline,noalias)
-      iterator & operator -=(ptrdiff_t rhs) const noexcept {
-        i -= rhs;
-        return *this;
-      }
-
-      BAD(hd,inline,pure)
-      reference operator *() const noexcept {
-        assert(valid());
-        return p->at(i);
-      }
-
-      BAD(hd,inline,pure)
-      pointer operator ->() const noexcept {
-        assert(valid());
-        return *(p->at(i));
-      }
-
-      BAD(hd,inline,pure)
-      reference operator[](ptrdiff_t di) const noexcept {
-        assert(valid());
-        return p->at(i + di);
-      }
-
-      BAD(hd,inline,pure)
-      bool valid() const noexcept {
-        return p != nullptr && 0 <= i && i < d;
-      }
-
-      BAD(hd,inline,pure)
-      friend iterator operator + (ptrdiff_t lhs, iterator rhs) noexcept {
-        return { rhs.p, rhs.i + lhs };
-      }
-    };
 
     using reverse_iterator = std::reverse_iterator<iterator>;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
