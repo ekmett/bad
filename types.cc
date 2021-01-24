@@ -1,5 +1,8 @@
 #include "types.hh"
 
+/// @file types.cc
+/// @brief type names
+
 #ifdef __GNUG__
 #include <cstdlib>
 #include <memory>

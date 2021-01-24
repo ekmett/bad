@@ -12,7 +12,7 @@
 /// @brief convenient macro for applying several attributes
 ///
 /// e.g. BAD(hd,inline) vs. \ref bad_hd \ref bad_inline
-//
+///
 /// erased for doxygen. so _only_ use this for attributes
 
 #ifndef DOXYGEN

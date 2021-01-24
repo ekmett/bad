@@ -10,7 +10,6 @@
 /// @brief type names
 /// @{
 
-
 namespace bad {
   /// type names
   namespace types {
@@ -42,6 +41,7 @@ namespace bad::types::common {
 
   /// return the name of a given type without passing a reference
   template <class T>
+  BAD(hd)
   std::string type_name() noexcept {
     return demangle(typeid(T).name());
   }

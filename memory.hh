@@ -7,7 +7,7 @@
 #include "attributes.hh"
 
 /// @file memory.hh
-/// @description memory allocation
+/// @brief memory allocation
 ///
 /// @defgroup memory memory
 /// @brief memory allocation
