@@ -66,13 +66,13 @@ namespace bad::tapes {
     std::byte * memory; ///< the slab of memory owned by this segment
 
     BAD(hd)
-    segment(const segment &) = delete;
+    segment(const segment<T, Act, Allocator> &) = delete;
 
     BAD(hd)
-    segment & operator=(segment const&) = delete;
+    segment<T, Act, Allocator> & operator=(segment<T, Act, Allocator> const &) = delete;
 
     BAD(reinitializes,hd,noalias)
-    segment & operator=(segment && rhs) noexcept;
+    segment<T, Act, Allocator> & operator=(segment<T, Act, Allocator> && rhs) noexcept;
 
   private:
     BAD(hd,inline) segment(std::byte * memory, size_t size) noexcept
@@ -88,7 +88,7 @@ namespace bad::tapes {
     segment(size_t n) noexcept;
 
     BAD(hd,noalias)
-    segment(size_t n, segment && next) noexcept;
+    segment(size_t n, segment<T, Act, Allocator> && next) noexcept;
 
     BAD(hd,noalias)
     segment(abstract_record_t * current, std::byte * memory) noexcept : current(current), memory(memory) {}
@@ -127,7 +127,6 @@ namespace bad::tapes {
   template <class T, class Act, class Allocator>
   struct alignas(record_alignment) abstract_record {
     using tape_t = tape<T,Act,Allocator>;
-    using segment_t = segment<T, Act, Allocator>;
     using act_t = Act;
     using abstract_record_t = abstract_record<T, Act, Allocator>;
 
@@ -172,7 +171,7 @@ namespace bad::tapes {
 
     /// used internally. returns nullptr if the \ref bad::tapes::segment is out of room.
     BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
-    void * operator new(size_t size, BAD(noescape) segment_t & segment) noexcept;
+    void * operator new(size_t size, BAD(noescape) segment<T, Act, Allocator> & segment) noexcept;
 
     BAD(hd)
     void operator delete(BAD(maybe_unused) void * data) noexcept {}
@@ -201,7 +200,7 @@ namespace bad::tapes {
   }
 
   template <class T, class Act, class Allocator>
-  void * abstract_record<T,Act,Allocator>::operator new(size_t t, BAD(noescape) segment_t & segment) noexcept {
+  void * abstract_record<T,Act,Allocator>::operator new(size_t t, BAD(noescape) segment<T, Act, Allocator> & segment) noexcept {
     if (segment.memory == nullptr) return nullptr;
     std::byte * p BAD(align_value(record_alignment)) = reinterpret_cast<std::byte *>(segment.current);
     t = pad_to_alignment(t);
@@ -293,13 +292,12 @@ namespace bad::tapes {
   template <class T, class Act, class Allocator>
   struct link : abstract_record<T, Act, Allocator> {
     using abstract_record_t = abstract_record<T, Act, Allocator>;
-    using segment_t = segment<T, Act, Allocator>;
 
     BAD(hd)
     link() = delete;
 
     BAD(hd,noalias)
-    link(segment_t && segment) noexcept
+    link(segment<T, Act, Allocator> && segment) noexcept
     : segment(std::move(segment)) {}
 
     BAD(hd,inline,pure)
@@ -335,11 +333,11 @@ namespace bad::tapes {
       return this;
     }
 
-    segment_t segment;
+    segment<T, Act, Allocator> segment;
   };
 
   template <class T, class Act, class Allocator>
-  segment<T, Act, Allocator>::segment(size_t n, segment<T, Act, Allocator> && next) noexcept
+  segment<T, Act, Allocator>::segment(size_t n, segment<T,Act,Allocator> && next) noexcept
   : segment(
       static_cast<std::byte*>(aligned_alloc(record_alignment, pad_to_alignment(n))),
       pad_to_alignment(n)
@@ -484,7 +482,7 @@ namespace bad::tapes {
     explicit tape_iterator(pointer p) noexcept : p(p) {}
   
     BAD(hd,inline,noalias)
-    tape_iterator(const tape_iterator & rhs) noexcept : p(rhs.p) {}
+    tape_iterator(tape_iterator const & rhs) noexcept : p(rhs.p) {}
   
     BAD(hd,inline,noalias)
     tape_iterator(tape_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
@@ -549,13 +547,12 @@ namespace bad::tapes {
     template <class T, class Act, class Allocator>
     struct tape {
     protected:
-      using segment_t = segment<T,Act,Allocator>;
       using abstract_record_t = abstract_record<T,Act,Allocator>;
     public:
       using iterator = tape_iterator<T,Act,Allocator>;
       using const_iterator = const_tape_iterator<T,Act,Allocator>;
 
-      segment_t segment;  ///< current segment
+      segment<T, Act, Allocator> segment;  ///< current segment
       size_t activations; ///< number of records required to propagate activations
   
       BAD(hd,noalias)
@@ -563,17 +560,17 @@ namespace bad::tapes {
       : segment(), activations() {}
   
       BAD(hd,noalias)
-      tape(tape && rhs) noexcept
+      tape(tape<T, Act, Allocator> && rhs) noexcept
       : segment(std::move(rhs.segment)), activations(std::move(rhs.activations)) {}
   
       BAD(hd)
-      tape(const tape &) = delete;
+      tape(tape<T, Act, Allocator> const &) = delete;
   
       BAD(maybe_unused,hd)
-      tape & operator=(const tape &) = delete;
+      tape<T, Act, Allocator> & operator=(tape<T, Act, Allocator> const &) = delete;
       
       BAD(reinitializes,maybe_unused,hd,noalias)
-      tape & operator=(tape && rhs) noexcept;
+      tape<T, Act, Allocator> & operator=(tape<T, Act, Allocator> && rhs) noexcept;
   
     private:
       template <class>
@@ -593,6 +590,7 @@ namespace bad::tapes {
         static_assert(std::is_base_of_v<abstract_record_t, U>, "only push records");
         static_assert(!std::is_same_v<U, link<T,Act,Allocator>>,"links should not be pushed");
         static_assert(!std::is_same_v<U, terminator<T,Act,Allocator>>,"terminators should not be pushed");
+        static_assert(alignof(U) <= record_alignment, "alignment requirement is too strict for the tape");
         // deliberately excludes link and terminator
 
         U * result BAD(align_value(record_alignment)) = new (*this) U(std::forward<Args>(args)...);
@@ -681,7 +679,7 @@ namespace bad::tapes {
     if (result) return result;
     tape.segment = segment(
       std::max<size_t>(
-        segment_t::minimum_size,
+        segment<T, Act, Allocator>::minimum_size,
         pad_to_alignment(size) + pad_to_alignment(
           std::max<size_t>(sizeof(link<T, Act, Allocator>), sizeof(terminator<T, Act, Allocator>))
         )

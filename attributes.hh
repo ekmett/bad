@@ -39,20 +39,12 @@
 #define bad_has_declspec_attribute(__x) 0
 #endif
 
-/// @def bad_has_cpp_attribute(x)
-/// @brief portable `__has_cpp_attribute(x)`
-#ifdef __has_cpp_attribute
-#define bad_has_cpp_attribute(x) __has_cpp_attribute(x)
-#else
-#define bad_has_cpp_attribute(x) 0
-#endif
-
 /// @def bad_likely(x)
 /// @brief portable `[[likely]]` or `__builtin_expect(x,1)` expressions
 
 /// @def bad_unlikely(x)
 /// @brief portable `[[unlikely]]` or `__builtin_expect(x,0)` expressions
-#if bad_has_cpp_attribute(likely)
+#if __has_cpp_attribute(likely)
 #define bad_likely(x) (x) [[likely]]
 #define bad_unlikely(x) (x) [[unlikely]]
 #else
@@ -80,7 +72,7 @@
 /// can be applied to a template struct to provide better names
 /// for some concrete instantiations
 
-#if bad_has_cpp_attribute(clang::preferred_name)
+#if __has_cpp_attribute(clang::preferred_name)
 #define bad_preferred_name(__x) [[clang::preferred_name(__x)]]
 #else
 #define bad_preferred_name(__x)
@@ -300,6 +292,45 @@
 #warning no returns_nonnull
 #endif
 
+/// @def bad_nonnull(...)
+/// @brief portable `__attribute__((nonnnull(...)))`
+///
+/// Indicates the selected (1-based) indexed arguments to this function
+/// must be non-null. Passing a null pointer to such an argument is
+/// undefined behavior. GCC-style.
+
+#if bad_has_attribute(nonnull)
+#define bad_nonnull(...) __attribute__((nonnull(__VA_ARGS__)))
+#else
+#define bad_nonnull(...)
+#warning no gcc-style nonnull
+#endif
+
+/// @def bad_Nonnull
+/// @brief portable `_Nonnull`
+///
+/// can be applied to each * in an data type to indicate that argument should never be null.
+///
+/// @def bad_Nullable
+/// @brief portable `_Nullable`
+///
+/// can be applied to each * in an data type to indicate that argument might be null.
+///
+/// @def bad_Null_unspecified
+/// @brief portable `_Null_unspecified`
+///
+/// applied to each * in an data type to indicate that the nullability of it is unknown or complicated
+#ifdef __clang__
+#define bad_Nonnull _Nonnull
+#define bad_Nullable _Nullable
+#define bad_Null_unspecified _Null_unspecified
+#else
+#define bad_Nonnull
+#define bad_Nullable
+#define bad_Null_unspecified
+#endif
+
+
 /// @def bad_host
 /// @brief portable `__host__` for cuda
 //
@@ -313,7 +344,7 @@
 /// @def bad_global
 /// @brief portable `__global__` for cuda
 ///
-/// indicates the function is a global entry point for a 
+/// indicates the function is a global entry point for a
 /// compute kernel
 
 #ifdef __CUDACC__
@@ -340,7 +371,7 @@
 ///
 /// clang makes this available slightly earlier
 
-#if bad_has_cpp_attribute(no_unique_address)
+#if __has_cpp_attribute(no_unique_address)
 #define bad_no_unique_address [[no_unique_address]]
 #else
 #define bad_no_unique_address
