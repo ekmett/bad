@@ -611,6 +611,7 @@ namespace bad::storage::common {
 }
 
 namespace bad::storage::common {
+  /// @private
   template <class T, class Dim, class Stride = row_major<Dim>>
   struct store {
     // offer slightly more helpful diagnostics first
@@ -623,7 +624,7 @@ namespace bad::storage::common {
   template <class T>
   using scalar = store<T,seq<>,sseq<>>;
 
-  // scalar<T> is just a proxy for T
+  /// scalars
   template <class T>
   struct store<T, seq<>, sseq<>> {
     using element = T;
@@ -703,7 +704,7 @@ namespace bad::storage::common {
     swap(l.value,r.value);
   }
 
-  // tensor case
+  /// tensors
   template <class T, size_t d, size_t... ds, ptrdiff_t s, ptrdiff_t... ss>
   struct store<T, seq<d,ds...>, sseq<s,ss...>>
        : store_expr<store<T, seq<d,ds...>, sseq<s,ss...>>,d,ds...> {

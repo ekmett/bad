@@ -129,6 +129,9 @@ namespace bad::tapes {
       virtual record const * propagate(Act act, BAD(noescape) size_t & i) const noexcept = 0;
   
       BAD(hd,assume_aligned(record_alignment),noalias)
+      virtual link<T,Act,Allocator> const * as_link() const noexcept { return nullptr; }
+
+      BAD(hd,assume_aligned(record_alignment),noalias)
       virtual link<T,Act,Allocator> * as_link() noexcept { return nullptr; }
   
       // unlike usual, the result can be reached through the tape.
@@ -292,6 +295,11 @@ namespace bad::tapes {
 
     BAD(hd,inline,const)
     link<T, Act, Allocator> * as_link() noexcept override {
+      return this;
+    }
+
+    BAD(hd,inline,const)
+    link<T, Act, Allocator> const * as_link() const noexcept override {
       return this;
     }
 

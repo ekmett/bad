@@ -458,13 +458,13 @@ namespace bad::sequences {
 
     template <class S>
     constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
+
+    // * backpermute packs and sequences
+
+    /// backpermute<seq_t<T,a,b,c,d>,seq<0,3,2,3,1,0>> = seq_t<T,a,d,c,d,b,a>
+    template <class S, size_t... is>
+    using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
   }
-
-  // * backpermute packs and sequences
-
-  /// backpermute<seq_t<T,a,b,c,d>,seq<0,3,2,3,1,0>> = seq_t<T,a,d,c,d,b,a>
-  template <class S, size_t... is>
-  using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
 
   /// @private
   template <class, class>
@@ -681,8 +681,10 @@ namespace bad::sequences {
     using type = seq_cons<i,typename list_seq_<T,list<xs...>>::type>;
   };
 
-  template <class T, class S>
-  using list_seq = typename list_seq_<T,S>::type;
+  namespace api {
+    template <class T, class S>
+    using list_seq = typename list_seq_<T,S>::type;
+  }
 
   // list application
 
