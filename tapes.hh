@@ -112,7 +112,6 @@ namespace bad::tapes {
     return (i + record_alignment - 1) & record_mask;
   }
 
-  /// link to the next \ref segment
   template <class T, class Act = T*, class Allocator = aligned_allocator<std::byte*, record_alignment>>
   struct link;
 
@@ -284,6 +283,7 @@ namespace bad::tapes {
     // done. p is reachable through through current.
   }
 
+  /// link to the next \ref segment
   template <class T, class Act, class Allocator>
   struct link: abstract_record<T, Act, Allocator> {
     using abstract_record_t = abstract_record<T, Act, Allocator>;
@@ -392,7 +392,154 @@ namespace bad::tapes {
         return acts;
       }
     };
+  }
 
+  template <class T, class Act, class Allocator = default_allocator>
+  struct const_tape_iterator {
+    using iterator_category = std::forward_iterator_tag;
+    using value_type = abstract_record<T,Act,Allocator> const;
+    using pointer = value_type *;
+    using reference = value_type &;
+    using const_pointer = pointer;
+    using const_reference = reference;
+  
+    pointer p;
+  
+    BAD(hd,inline,noalias)
+    const_tape_iterator() noexcept : p() {}
+  
+    BAD(hd,inline,noalias)
+    explicit const_tape_iterator(pointer p) noexcept : p(p) {}
+  
+    BAD(hd,inline,noalias)
+    const_tape_iterator(const const_tape_iterator & rhs) noexcept : p(rhs.p) {}
+  
+    BAD(hd,inline,noalias)
+    const_tape_iterator(const_tape_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
+  
+    BAD(hd,inline,pure)
+    friend constexpr bool operator == (const_tape_iterator lhs, const_tape_iterator rhs) noexcept {
+      return lhs.p == rhs.p;
+    }
+  
+    BAD(hd,inline,pure)
+    friend constexpr bool operator != (const_tape_iterator lhs, const_tape_iterator rhs) noexcept {
+      return lhs.p != rhs.p;
+    }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr reference operator *() const noexcept { return *p; }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr pointer operator -> () noexcept { return p; }
+  
+    BAD(hd,inline,noalias)
+    const_tape_iterator & operator ++ () noexcept {
+      assert(p != nullptr);
+      p = p->next();
+      return *this;
+    }
+  
+    BAD(hd,inline,noalias)
+    const_tape_iterator operator ++ (int) noexcept {
+      assert(p != nullptr);
+      auto q = p;
+      p = p->next();
+      return q;
+    }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr pointer ptr() noexcept { return p; }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr const_pointer const_ptr() const noexcept { return p; }
+  
+    BAD(hd,inline,pure)
+    constexpr operator bool() const noexcept {
+      return p != nullptr;
+    }
+  };
+  
+  template <class T, class Act, class Allocator = default_allocator>
+  struct tape_iterator {
+    using iterator_category = std::forward_iterator_tag;
+    using value_type = abstract_record<T,Act,Allocator>;
+    using pointer = value_type *;
+    using reference = value_type &;
+    using const_pointer = value_type const *;
+    using const_reference = value_type const &;
+  
+    pointer p;
+  
+    BAD(hd,inline,noalias)
+    tape_iterator() noexcept : p() {}
+  
+    BAD(hd,inline,noalias)
+    explicit tape_iterator(pointer p) noexcept : p(p) {}
+  
+    BAD(hd,inline,noalias)
+    tape_iterator(const tape_iterator & rhs) noexcept : p(rhs.p) {}
+  
+    BAD(hd,inline,noalias)
+    tape_iterator(tape_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
+  
+    BAD(hd,inline,pure)
+    friend constexpr bool operator == (tape_iterator lhs, tape_iterator rhs) noexcept {
+      return lhs.p == rhs.p;
+    }
+  
+    BAD(hd,inline,pure)
+    friend constexpr bool operator != (tape_iterator lhs, tape_iterator rhs) noexcept {
+      return lhs.p != rhs.p;
+    }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr reference operator *() const noexcept {
+      return *p;
+    }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr pointer operator -> () noexcept {
+      return p;
+    }
+  
+    BAD(hd,inline,noalias)
+    tape_iterator & operator ++ () noexcept {
+      assert(p != nullptr);
+      p = p->next();
+      return *this;
+    }
+  
+    BAD(hd,inline,noalias)
+    tape_iterator operator ++ (int) noexcept {
+      assert(p != nullptr);
+      auto q = p;
+      p = p->next();
+      return q;
+    }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr pointer ptr() noexcept {
+      return p;
+    }
+  
+    BAD(hd,inline,pure,assume_aligned(record_alignment))
+    constexpr const_pointer const_ptr() const noexcept {
+      return p;
+    }
+  
+    BAD(hd,inline,pure)
+    constexpr operator bool() const noexcept {
+      return p != nullptr;
+    }
+  
+    BAD(hd,inline,pure)
+    constexpr operator const_tape_iterator<T,Act,Allocator> () const noexcept {
+      return p;
+    }
+  };
+
+  namespace common {
     /// Wengert list
     template <class T, class Act, class Allocator>
     struct tape {
@@ -400,8 +547,11 @@ namespace bad::tapes {
       using segment_t = segment<T,Act,Allocator>;
       using abstract_record_t = abstract_record<T,Act,Allocator>;
     public:
-      segment_t segment; // current segment
-      size_t activations;
+      using iterator = tape_iterator<T,Act,Allocator>;
+      using const_iterator = const_tape_iterator<T,Act,Allocator>;
+
+      segment_t segment;  ///< current segment
+      size_t activations; ///< number of records required to propagate activations
   
       BAD(hd,noalias)
       tape() noexcept
@@ -445,148 +595,6 @@ namespace bad::tapes {
         return *result;
       }
   
-      struct const_iterator {
-        using iterator_category = std::forward_iterator_tag;
-        using value_type = abstract_record_t const;
-        using pointer = value_type *;
-        using reference = value_type &;
-        using const_pointer = pointer;
-        using const_reference = reference;
-  
-        pointer p;
-  
-        BAD(hd,inline,noalias)
-        const_iterator() noexcept : p() {}
-  
-        BAD(hd,inline,noalias)
-        const_iterator(pointer p) noexcept : p(p) {}
-  
-        BAD(hd,inline,noalias)
-        const_iterator(const const_iterator & rhs) noexcept : p(rhs.p) {}
-  
-        BAD(hd,inline,noalias)
-        const_iterator(const_iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
-  
-        BAD(hd,inline,pure)
-        friend constexpr bool operator == (const_iterator lhs, const_iterator rhs) noexcept {
-          return lhs.p == rhs.p;
-        }
-  
-        BAD(hd,inline,pure)
-        friend constexpr bool operator != (const_iterator lhs, const_iterator rhs) noexcept {
-          return lhs.p != rhs.p;
-        }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr reference operator *() const noexcept { return *p; }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr pointer operator -> () noexcept { return p; }
-  
-        BAD(hd,inline,noalias)
-        const_iterator & operator ++ () noexcept {
-          assert(p != nullptr);
-          p = p->next();
-          return *this;
-        }
-  
-        BAD(hd,inline,noalias)
-        const_iterator operator ++ (int) noexcept {
-          assert(p != nullptr);
-          auto q = p;
-          p = p->next();
-          return q;
-        }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr pointer ptr() noexcept { return p; }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr const_pointer const_ptr() const noexcept { return p; }
-  
-        BAD(hd,inline,pure)
-        constexpr operator bool() const noexcept {
-          return p != nullptr;
-        }
-      };
-  
-      struct iterator {
-        using iterator_category = std::forward_iterator_tag;
-        using value_type = abstract_record_t;
-        using pointer = value_type *;
-        using reference = value_type &;
-        using const_pointer = value_type const *;
-        using const_reference = value_type const &;
-  
-        pointer p;
-  
-        BAD(hd,inline,noalias)
-        iterator() noexcept : p() {}
-  
-        BAD(hd,inline,noalias)
-        iterator(pointer p) noexcept : p(p) {}
-  
-        BAD(hd,inline,noalias)
-        iterator(const iterator & rhs) noexcept : p(rhs.p) {}
-  
-        BAD(hd,inline,noalias)
-        iterator(iterator &&  rhs) noexcept : p(std::move(rhs.p)) {}
-  
-        BAD(hd,inline,pure)
-        friend constexpr bool operator == (iterator lhs, iterator rhs) noexcept {
-          return lhs.p == rhs.p;
-        }
-  
-        BAD(hd,inline,pure)
-        friend constexpr bool operator != (iterator lhs, iterator rhs) noexcept {
-          return lhs.p != rhs.p;
-        }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr reference operator *() const noexcept {
-          return *p;
-        }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr pointer operator -> () noexcept {
-          return p;
-        }
-  
-        BAD(hd,inline,noalias)
-        iterator & operator ++ () noexcept {
-          assert(p != nullptr);
-          p = p->next();
-          return *this;
-        }
-  
-        BAD(hd,inline,noalias)
-        iterator operator ++ (int) noexcept {
-          assert(p != nullptr);
-          auto q = p;
-          p = p->next();
-          return q;
-        }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr pointer ptr() noexcept {
-          return p;
-        }
-  
-        BAD(hd,inline,pure,assume_aligned(record_alignment))
-        constexpr const_pointer const_ptr() const noexcept {
-          return p;
-        }
-  
-        BAD(hd,inline,pure)
-        constexpr operator bool() const noexcept {
-          return p != nullptr;
-        }
-  
-        BAD(hd,inline,pure)
-        constexpr operator const_iterator () const noexcept {
-          return p;
-        }
-      };
   
       BAD(hd,pure)
       iterator begin() noexcept {

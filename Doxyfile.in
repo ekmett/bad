@@ -184,7 +184,7 @@ SOURCE_TOOLTIPS        = YES
 USE_HTAGS              = NO
 VERBATIM_HEADERS       = YES
 ALPHABETICAL_INDEX     = YES
-COLS_IN_ALPHA_INDEX    = 5
+COLS_IN_ALPHA_INDEX    = 1
 IGNORE_PREFIX          =
 
 #---------------------------------------------------------------------------
