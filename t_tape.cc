@@ -12,12 +12,12 @@
 using namespace std;
 using namespace bad::tapes;
 
-struct simp : static_propagator<5, simp, int> {
+struct simp : static_record<5, simp, int> {
   inline void prop(act_t, size_t &) const noexcept {}
   std::array<int,5000> padding;
 };
 
-struct comp : static_propagator<1, comp, int> {
+struct comp : static_record<1, comp, int> {
   inline void prop(act_t, size_t &) const noexcept {}
   std::array<int,1000> padding;
 };
