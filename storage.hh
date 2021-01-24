@@ -1,24 +1,34 @@
 #pragma once
 #include <array>
-#include "seq.hh"
-#include "attrib.hh"
+#include "sequences.hh"
+#include "attributes.hh"
+#include "errors.hh"
 
 #pragma STDC FP_CONTRACT ON
 
+// api
 namespace bad {
   /// implementation details
   namespace storage {
     /// public components exported to bad::
-    inline namespace common{}
+    namespace common{}
+    using namespace common;
     /// public components you can import manually
-    inline namespace exports {
+    namespace api {
       using namespace common;
     }
+    using namespace api;
   }
   using namespace bad::storage::common;
 }
 
-namespace bad::storage::exports {
+// imports
+namespace bad::storage {
+  using namespace sequences::api;
+  using namespace errors::api;
+}
+
+namespace bad::storage::api {
   template <class B, size_t d, size_t... ds>
   struct store_expr {
     using dim = seq<d,ds...>;
@@ -597,6 +607,7 @@ namespace bad::storage::common {
   ) noexcept {
     return rhs().template pull<N>(i);
   }
+}
 
 namespace bad::storage::common {
   template <class T, class Dim, class Stride = row_major<Dim>>
@@ -708,18 +719,22 @@ namespace bad::storage::common {
     template <size_t i> static constexpr ptrdiff_t nth_stride = nth<i,s,ss...>;
     template <size_t i> static constexpr ptrdiff_t nth_extremum = nth_stride<i>*(nth_dim<i>-1);
 
-    template <class B> using expr = store_expr<B,d,ds...>;
+    template <class B>
+    using expr = store_expr<B,d,ds...>;
 
     using super = expr<store>;
 
+    /// @private
     template <class> struct calc_t;
 
+    /// @private
     template <size_t... is>
     struct calc_t<seq<is...>> {
       static constexpr ptrdiff_t max = (0 + ... + std::max<ptrdiff_t>(0,nth_extremum<is>));
       static constexpr ptrdiff_t min = (0 + ... + std::min<ptrdiff_t>(0,nth_extremum<is>));
     };
 
+    /// @private
     using calc = calc_t<make_seq<arity>>;
     // offset in delta to apply when looking up the nth plane
     // keep in mind planes can have higher strides than we do here!
@@ -1356,7 +1371,7 @@ namespace bad::storage::common {
   }
 } // namespace bad::storage::common
 
-namespace bad::storage::exports {
+namespace bad::storage::api {
     /// replicate base data types
   template <size_t d, class T>
   BAD(hd,inline)

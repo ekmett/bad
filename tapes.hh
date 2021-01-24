@@ -9,28 +9,31 @@
 #include <cstddef>
 #include <iostream>
 #include "types.hh"
-#include "sequences.hh"
 #include "memory.hh"
 
 namespace bad {
   namespace tapes {
-    namespace exports {
-      namespace common {}
+    namespace common {}
+    using namespace common;
+    namespace api {
       using namespace common;
     }
-    using namespace exports;
+    using namespace api;
   }
-  using namespace bad::tapes::common;
+  using namespace tapes::common;
 }
 
 namespace bad::tapes {
-  using namespace bad::sequences; // ::exports;
-  using namespace bad::memory; // ::exports;
-
+  using namespace memory::api;
   static constexpr size_t no_index = static_cast<size_t>(-1);
 
-  template <class T, class Act = T*, class Allocator = default_allocator>
-  struct record;
+  namespace common {
+    template <class T, class Act = T*, class Allocator = default_allocator>
+    struct record;
+
+    template <class T, class Act = T*,class Allocator = default_allocator>
+    struct tape;
+  }
 
   /// Assumes stateless allocator that returns data with at least record_alignment alignment
   template <class T, class Act = T*, class Allocator = default_allocator>
@@ -78,13 +81,6 @@ namespace bad::tapes {
     using std::swap;
     swap(a.current, b.current);
     swap(a.memory, b.memory);
-  }
-  } // detail
-
-  namespace common {
-    // forward declaration of tape
-    template <class T, class Act = T*,class Allocator = default_allocator>
-    struct tape;
   }
 
   BAD(hd,inline,const) static constexpr size_t pad_to_alignment(size_t i) noexcept {
@@ -323,8 +319,8 @@ namespace bad::tapes {
     template <class T, class Act, class Allocator>
     struct tape {
     protected:
-      using segment_t = detail::segment<T,Act,Allocator>;
-      using record_t = detail::record<T,Act,Allocator>;
+      using segment_t = segment<T,Act,Allocator>;
+      using record_t = record<T,Act,Allocator>;
     public:
       segment_t segment; // current segment
       size_t activations;
@@ -634,6 +630,9 @@ namespace bad::tapes {
       using std::swap;
       swap(a.p,b.p);
     }
-  } // common
-} // namespace bad::tapes
+  }
+}
 
+namespace bad {
+  using namespace tapes::common;
+}

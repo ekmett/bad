@@ -6,23 +6,19 @@
 #include <memory>
 #include "attributes.hh"
 
-namespace bad {
-  namespace memory {
-    namespace exports {
-      namespace common {}
-      using namespace common;
-    }
-    using namespace exports;
+namespace bad::memory {
+  namespace common {}
+  using namespace common;
+  namespace api {
+    using namespace common;
   }
-  using namespace memory::exports::common;
+  using namespace api;
 }
 
-namespace bad::memory::exports {
+namespace bad::memory::api {
   static constexpr size_t record_alignment = 16;
   static constexpr size_t record_mask = static_cast<size_t>(~0xf);
-}
 
-namespace bad::memory::exports::common {
   BAD(hd,inline,const)
   bool is_aligned(BAD(noescape) const void * ptr, std::uintptr_t alignment) noexcept {
     auto iptr = reinterpret_cast<std::uintptr_t>(ptr);
@@ -89,8 +85,6 @@ namespace bad::memory::exports::common {
       return false;
     }
   };
-}
 
-namespace bad::memory::exports {
   using default_allocator = aligned_allocator<std::byte, record_alignment>;
 }

@@ -3,19 +3,22 @@
 #include <cstdint>
 #include <utility>
 #include "attributes.hh"
+#include "errors.hh"
 
 namespace bad {
   namespace sequences {
-    namespace exports {
-      namespace common {}
+    namespace common {}
+    using namespace common;
+    namespace api {
       using namespace common;
     }
-    using namespace exports;
+    using namespace api;
   }
-  using namespace bad::sequences::exports::common;
+  using namespace sequences::common;
 }
 
 namespace bad::sequences {
+  using namespace errors::api;
 
   using std::size_t;
   using std::ptrdiff_t;
@@ -28,7 +31,7 @@ namespace bad::sequences {
 
   // * sequence types
  
-  namespace exports::common {
+  namespace common {
     template <class T, T... is>
     using seq_t = std::integer_sequence<T, is...>;
   
@@ -52,7 +55,7 @@ namespace bad::sequences {
     }
   }
   
-  namespace exports {
+  namespace api {
     // * sequence construction
     //
     template <class T, T x>
@@ -103,7 +106,7 @@ namespace bad::sequences {
     using type = F<X,xs...>;
   };
 
-  namespace exports {
+  namespace api {
     template <template <class T, T...> class F, class L>
     using seq_apply = typename seq_apply_<F,L>::type;
   }
@@ -120,7 +123,7 @@ namespace bad::sequences {
     using type = F<x,xs...>;
   };
 
-  namespace exports {
+  namespace api {
     template <template <auto x, decltype(x) ...> class F, class L>
     using seq_auto_apply = typename seq_auto_apply_<F,L>::type;
   }
@@ -137,7 +140,7 @@ namespace bad::sequences {
     using type = F<xs...>;
   };
 
-  namespace exports { 
+  namespace api { 
     template <class T, template <T...> class F, class L>
     using seq_t_apply = typename seq_t_apply_<T,F,L>::type;
   }
@@ -156,7 +159,7 @@ namespace bad::sequences {
     using type = seq_t<decltype(x),(x+ys)...>;
   };
 
-  namespace exports {
+  namespace api {
     template <auto x, decltype(x) y>
     using seq_range = typename seq_range_<decltype(x),x,make_aseq<y-x>>::type;
   }
@@ -191,7 +194,7 @@ namespace bad::sequences {
     using type = typename seq_append__<T,seq_t<T,ts...>,typename seq_append_<T,ss...>::type>::type;
   };
 
-  namespace exports {
+  namespace api {
     template <class T, class... S>
     using seq_append = typename seq_append_<T,S...>::type;
   }
@@ -211,7 +214,7 @@ namespace bad::sequences {
     static constexpr T const value[sizeof...(xs)] = { xs ... };
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     constexpr typename reify_<S>::type & reify = reify_<S>::value;
 
@@ -241,7 +244,7 @@ namespace bad::sequences {
     static constexpr T value = (i * ... * is);
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     constexpr auto seq_prod = seq_prod_<S>::value;
 
@@ -272,7 +275,7 @@ namespace bad::sequences {
     static constexpr T value = (i + ... + is);
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     constexpr auto seq_total = seq_total_<S>::value;
 
@@ -291,7 +294,7 @@ namespace bad::sequences {
     constexpr static T value = head<is...>;
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     constexpr auto seq_head = seq_head_<S>::value;
 
@@ -316,7 +319,7 @@ namespace bad::sequences {
     using type = seq_t<T,i,is...>;
   };
 
-  namespace exports {
+  namespace api {
     template <auto i, class S>
     using seq_cons = typename seq_cons_<decltype(i),i,S>::type;
   }
@@ -333,7 +336,7 @@ namespace bad::sequences {
     using type = T;
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     using seq_element_type = typename seq_element_type_<S>::type;
   }
@@ -352,7 +355,7 @@ namespace bad::sequences {
     static constexpr auto value = sizeof...(is);
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     constexpr auto seq_length = seq_length_<S>::value;
   }
@@ -385,7 +388,7 @@ namespace bad::sequences {
     }
   };
 
-  namespace exports {
+  namespace api {
     template <size_t N, size_t... xs>
     BAD(constinit)
     constexpr ptrdiff_t stride = stride_<N,xs...>::value();
@@ -401,7 +404,7 @@ namespace bad::sequences {
     static constexpr ptrdiff_t value = stride<N,is...>;
   };
 
-  namespace exports {
+  namespace api {
     template <size_t N, class S>
     constexpr ptrdiff_t seq_stride = seq_stride_<N,S>::value;
   }
@@ -418,7 +421,7 @@ namespace bad::sequences {
 
   // * compute all row-major strides given a set of dimensions
 
-  namespace exports {
+  namespace api {
     template <class S>
     using row_major = typename row_major_<S, make_seq<seq_length<S>>>::type;
   }
@@ -434,7 +437,7 @@ namespace bad::sequences {
     return args[N];
   }
 
-  namespace exports {
+  namespace api {
     template <size_t N, auto... xs>
     constexpr auto nth = nth_<N,xs...>();
   }
@@ -449,7 +452,7 @@ namespace bad::sequences {
     static constexpr auto value = nth<N,xs...>;
   };
 
-  namespace exports {
+  namespace api {
     template <size_t N, class S>
     constexpr auto seq_nth = seq_nth_<N,S>::value;
 
@@ -473,7 +476,7 @@ namespace bad::sequences {
     using type = backpermute<S, is...>;
   };
 
-  namespace exports {
+  namespace api {
     template <class S, class T>
     using seq_backpermute = typename seq_backpermute_<S,T>::type;
 
@@ -505,7 +508,7 @@ namespace bad::sequences {
     using type = seq_cons<i,typename pack_transpose_<T,j,k,ls...>::type>;
   };
 
-  namespace exports {
+  namespace api {
     template <class T, T... is>
     using pack_transpose = typename pack_transpose_<T,is...>::type;
   }
@@ -520,7 +523,7 @@ namespace bad::sequences {
     using type = pack_transpose<T, i, j, is...>;
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     using seq_transpose = typename seq_transpose_<S>::type;
   }
@@ -534,16 +537,18 @@ namespace bad::sequences {
   /// @private
   template <size_t N, class S, size_t ... ps>
   struct seq_skip_nth_<N,S,seq<ps...>> {
+    /// @private
     template <class Suffix>
     struct at;
 
+    /// @private
     template <size_t... ss>
     struct at<seq<ss...>> {
       using type = seq_t<seq_element_type<S>, seq_nth<ps,S>..., seq_nth<ss+N,S>...>;
     };
   };
 
-  namespace exports {
+  namespace api {
     template <size_t N, class S>
     using seq_skip_nth = typename seq_skip_nth_<
       N, S, make_seq<N>
@@ -555,8 +560,8 @@ namespace bad::sequences {
     using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
   }
   
-  namespace exports::common {
-    // heterogeneous list
+  namespace common {
+    /// heterogeneous lists
     template <class...>
     struct list {};
   }
@@ -573,7 +578,7 @@ namespace bad::sequences {
     using type = list<x, xs...>;
   };
 
-  namespace exports {
+  namespace api {
     template <class x, class xs>
     using list_cons = typename list_cons_<x,xs>::type;
   }
@@ -590,14 +595,16 @@ namespace bad::sequences {
     using type = x;
   };
 
-  namespace exports {
+  namespace api {
+    /// extract the head of a heterogeneous list
     template <class L>
     using list_head = typename list_head_<L>::type;
   }
 
     // * conversion from sequences
   
-  namespace exports::common {
+  namespace common {
+    /// inferrable integral constant
     template <auto x>
     using int_t = std::integral_constant<decltype(x), x>;
   }
@@ -612,7 +619,7 @@ namespace bad::sequences {
     using type = list<int_t<is>...>;
   };
 
-  namespace exports {
+  namespace api {
     template <class S>
     using seq_list = typename seq_list_<S>::type;
   }
@@ -626,6 +633,7 @@ namespace bad::sequences {
   /// @private
   template <>
   struct list_zip_<list<>> {
+    /// @private
     template <class>
     struct at {
       using type = list<>;
@@ -635,21 +643,24 @@ namespace bad::sequences {
   /// @private
   template <class x, class... xs>
   struct list_zip_<list<x,xs...>> {
+    /// @private
     template <class>
     struct at;
 
+    /// @private
     template <>
     struct at<list<>> {
       using type = list<>;
     };
 
+    /// @private
     template <class y, class... ys>
     struct at<list<y,ys...>> {
       using type = list_cons<std::tuple<x,y>,typename list_zip_<xs...>::template at<ys...>::type>;
     };
   };
 
-  namespace exports {
+  namespace api {
     template <class X, class Y>
     using list_zip = typename list_zip_<X>::template at<Y>::type;
   }
@@ -685,7 +696,7 @@ namespace bad::sequences {
     using type = F<xs...>;
   };
 
-  namespace exports {
+  namespace api {
     template <template <class...> class F, class L>
     using list_apply = typename list_apply_<F,L>::type;
   }

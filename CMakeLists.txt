@@ -61,11 +61,15 @@ endif(ASAN)
 
 # add_compile_options(-O2)
 
-add_library(types STATIC types.cc types.hh macros.hh attributes.hh)
+add_library(types STATIC types.cc types.hh macros.hh attributes.hh errors.hh)
 link_libraries(types)
 
 add_executable(t_seq t_seq.cc sequences.hh catch.hh)
-target_precompile_headers(t_seq PRIVATE [["types.hh"]] [["sequences.hh"]])
+target_precompile_headers(t_seq PRIVATE
+  [["types.hh"]]
+  [["sequences.hh"]]
+  [["errors.hh"]]
+)
 
 # tape
 add_executable(t_tape t_tape.cc tapes.hh sequences.hh catch.hh)

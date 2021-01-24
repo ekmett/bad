@@ -10,13 +10,16 @@ namespace bad {
 
     namespace common {
       template <class T>
-      BAD(hd) std::string type(T const & t) {
+      BAD(hd)
+      std::string type(T const & t) {
         return demangle(typeid(t).name());
       }
     }
-    namespace exports {
+    using namespace common;
+    namespace api {
       using namespace common;
     }
+    using namespace api;
   }
   using namespace bad::types::common;
 }
