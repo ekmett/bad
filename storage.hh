@@ -6,14 +6,13 @@
 
 #pragma STDC FP_CONTRACT ON
 
-// api
 namespace bad {
-  /// implementation details
+  /// tensor storage
   namespace storage {
-    /// public components exported to bad::
+    // re-exported by \ref bad and \ref bad::storage::api
     namespace common{}
     using namespace common;
-    /// public components you can import manually
+    /// public components
     namespace api {
       using namespace common;
     }
@@ -22,13 +21,13 @@ namespace bad {
   using namespace bad::storage::common;
 }
 
-// imports
 namespace bad::storage {
   using namespace sequences::api;
   using namespace errors::api;
 }
 
 namespace bad::storage::api {
+  /// \ref variadic expression template
   template <class B, size_t d, size_t... ds>
   struct store_expr {
     using dim = seq<d,ds...>;
@@ -110,7 +109,7 @@ namespace bad::storage::api {
     }
 
     template <class C>
-    BAD(hd,inline) // constexpr?
+    BAD(hd,inline)
     bool operator==(expr<C> & r) const noexcept {
       auto l = at();
       for (size_t i=0;i<d;++i) {
@@ -120,7 +119,7 @@ namespace bad::storage::api {
     }
 
     template <class C>
-    BAD(hd,inline) // constexpr
+    BAD(hd,inline)
     bool operator!=(expr<C> const & r) noexcept {
       auto l = at();
       for (size_t i=0;i<d;++i) {
@@ -745,11 +744,11 @@ namespace bad::storage::common {
   public:
     static constexpr size_t size = calc::max - calc::min + 1;
 
-    T data[size]; // this is the ONLY data member allowed in this class
+    T data[size]; ///< The ONLY data member allowed in this class
 
     BAD(hd,inline)
-    constexpr store() noexcept : data() {
-    }
+    constexpr store() noexcept
+    : data() {}
 
     BAD(hd,inline)
     constexpr store(

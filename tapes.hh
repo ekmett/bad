@@ -23,11 +23,19 @@ namespace bad {
   using namespace tapes::common;
 }
 
+/**
+  \namespace bad::tapes
+  \brief Wengert lists for reverse-mode automatic differentiation
+*/
 namespace bad::tapes {
   using namespace memory::api;
   static constexpr size_t no_index = static_cast<size_t>(-1);
 
   namespace common {
+    /// Constructed with tape::push.
+    //
+    // Describes how to push information backwards through your activations
+    // by using the information stored in the \ref tape.
     template <class T, class Act = T*, class Allocator = default_allocator>
     struct record;
 
@@ -35,19 +43,28 @@ namespace bad::tapes {
     struct tape;
   }
 
-  /// Assumes stateless allocator that returns data with at least record_alignment alignment
+  /// a slab of memory that holds \ref records.
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct segment {
     using record_t = record<T,Act,Allocator>;
 
     static constexpr size_t minimum_size = 65536;
 
-    BAD(no_unique_address) Allocator allocator;
-    record_t * current;
-    std::byte * memory;
+    BAD(no_unique_address)
+    Allocator allocator; ///< stateless allocator, must return data with at least record_alignment
 
+    record_t * current; ///< current record pointer. bump allocated downward
+
+    std::byte * memory; ///< the slab of memory owned by this segment
+
+    BAD(hd)
     segment(const segment &) = delete;
+
+    BAD(hd)
     segment & operator=(segment const&) = delete;
+
+    BAD(reinitializes,hd,noalias)
+    segment & operator=(segment && rhs) noexcept;
 
   private:
     BAD(hd,inline) segment(std::byte * memory, size_t size) noexcept
@@ -56,21 +73,28 @@ namespace bad::tapes {
     }
 
   public:
-    BAD(hd,inline,noalias) segment() noexcept : current(nullptr), memory(nullptr) {};
-    BAD(hd,noalias) segment(size_t n) noexcept;
-    BAD(hd,noalias) segment(size_t n, segment && next) noexcept;
-    BAD(hd,noalias) segment(record_t * current, std::byte * memory) : current(current), memory(memory) {}
-    BAD(hd,inline,noalias) segment(segment && rhs) noexcept
+    BAD(hd,inline,noalias)
+    segment() noexcept : current(nullptr), memory(nullptr) {};
+
+    BAD(hd,noalias)
+    segment(size_t n) noexcept;
+
+    BAD(hd,noalias)
+    segment(size_t n, segment && next) noexcept;
+
+    BAD(hd,noalias)
+    segment(record_t * current, std::byte * memory) noexcept : current(current), memory(memory) {}
+
+    BAD(hd,inline,noalias)
+    segment(segment && rhs) noexcept
     : current(std::move(rhs.current))
     , memory(std::move(rhs.memory)) {
       rhs.current = nullptr;
       rhs.memory = nullptr;
     }
 
-    BAD(hd,noalias) ~segment() noexcept;
-
-    BAD(reinitializes,hd,noalias) segment & operator=(segment && rhs) noexcept;
-
+    BAD(hd,noalias)
+    ~segment() noexcept;
   };
 
   template <class T, class Act, class Allocator>
@@ -83,16 +107,17 @@ namespace bad::tapes {
     swap(a.memory, b.memory);
   }
 
-  BAD(hd,inline,const) static constexpr size_t pad_to_alignment(size_t i) noexcept {
+  BAD(hd,inline,const)
+  static inline constexpr size_t pad_to_alignment(size_t i) noexcept {
     return (i + record_alignment - 1) & record_mask;
   }
 
+  /// link to the next \ref segment
   template <class T, class Act = T*, class Allocator = aligned_allocator<std::byte*, record_alignment>>
   struct link;
 
   namespace common {
 
-    // implement record
     template <class T, class Act, class Allocator>
     struct alignas(record_alignment) record {
       using tape_t = tape<T,Act,Allocator>;
@@ -119,6 +144,7 @@ namespace bad::tapes {
       BAD(hd)
       virtual ~record() noexcept {}
   
+      /// serialize debugging information
       BAD(hd)
       virtual void what(BAD(noescape) std::ostream & os) const noexcept = 0;
   
@@ -134,19 +160,17 @@ namespace bad::tapes {
       BAD(hd,assume_aligned(record_alignment),noalias)
       virtual link<T,Act,Allocator> * as_link() noexcept { return nullptr; }
   
-      // unlike usual, the result can be reached through the tape.
+      /// unlike usual, the result can be reached through the \ref tape.
       BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
       void * operator new(size_t size, BAD(noescape) tape_t & tape) noexcept;
   
-      // used internally. returns null if the segment is out of room.
+      /// used internally. returns nullptr if the \ref segment is out of room.
       BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
       void * operator new(size_t size, BAD(noescape) segment_t & segment) noexcept;
   
-      // we don't use the argument
       BAD(hd)
       void operator delete(BAD(maybe_unused) void * data) noexcept {}
   
-      // disable other new/delete forms:
       BAD(hd) void * operator new  (size_t) = delete;
       BAD(hd) void * operator new  (size_t, void *) noexcept = delete;
       BAD(hd) void * operator new  (size_t, const std::nothrow_t &) = delete;
@@ -179,7 +203,7 @@ namespace bad::tapes {
       p -= t;
       segment.current = reinterpret_cast<record_t*>(p);
       // requires c++20
-      //return std::assume_aligned<record_alignment>(static_cast<void *>(p));
+      // return std::assume_aligned<record_alignment>(static_cast<void *>(p));
       return static_cast<void *>(p);
     }
   }
@@ -220,6 +244,8 @@ namespace bad::tapes {
     return *this;
   }
 
+  /// the last segment in a tape. this is the only thing record that should
+  /// return nullptr from next() and propagate()
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct terminator : record<T, Act, Allocator> {
     using record_t = record<T, Act, Allocator>;
@@ -323,7 +349,7 @@ namespace bad::tapes {
 
   namespace common {
 
-    // the workhorse
+    /// Wengert list
     template <class T, class Act, class Allocator>
     struct tape {
     protected:
