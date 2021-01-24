@@ -6,9 +6,19 @@
 #include <memory>
 #include "attributes.hh"
 
+/// @file memory.hh
+/// @description memory allocation
+///
+/// @defgroup memory memory
+/// @brief memory allocation
+/// @{
+
+/// memory allocation
 namespace bad::memory {
+  /// re-exported by \ref bad and \ref bad::memory::api
   namespace common {}
   using namespace common;
+  /// public components
   namespace api {
     using namespace common;
   }
@@ -88,3 +98,5 @@ namespace bad::memory::api {
 
   using default_allocator = aligned_allocator<std::byte, record_alignment>;
 }
+
+/// @}

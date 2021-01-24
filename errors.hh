@@ -2,10 +2,21 @@
 
 #include <type_traits>
 
+/// @file errors.hh
+/// better user errors
+
+/// @defgroup errors errors
+/// better user errors
+/// @{
+
 namespace bad {
+  /// better user errors
   namespace errors {
+    /// re-exported by \ref bad and \ref bad::errors::api
     namespace common {}
     using namespace common;
+
+    /// public components
     namespace api {
       using namespace common;
     }
@@ -21,6 +32,11 @@ namespace bad::errors {
 }
 
 namespace bad::errors::common {
+  /// an undetectable `false`, for use with `static_assert`
+  /// used to rule out unspecialized templates and provide
+  /// better error messages to users.
   template <class T>
   constexpr bool no = no_t<T>::value;
 }
+
+/// @}

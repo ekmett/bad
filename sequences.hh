@@ -14,9 +14,12 @@
 /// @{
 
 namespace bad {
+  /// type level sequences
   namespace sequences {
+    /// re-exported by \ref bad and \ref bad::sequences::api
     namespace common {}
     using namespace common;
+    /// public components
     namespace api {
       using namespace common;
     }

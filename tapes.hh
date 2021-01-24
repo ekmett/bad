@@ -11,39 +11,44 @@
 #include "types.hh"
 #include "memory.hh"
 
-namespace bad {
-  namespace tapes {
-    namespace common {}
+/// @file tapes.hh
+/// @brief Wengert lists for reverse-mode automatic differentiation
+///
+/// @defgroup tapes tapes
+/// @brief Wengert lists for reverse-mode automatic differentiation
+///
+/// @{
+
+/// Wengert lists for reverse-mode automatic differentiation
+namespace bad::tapes {
+  /// re-exported by both \ref bad and \ref bad::tapes::api
+  namespace common {}
+  using namespace common;
+  /// public components
+  namespace api {
     using namespace common;
-    namespace api {
-      using namespace common;
-    }
-    using namespace api;
   }
-  using namespace tapes::common;
+  using namespace api;
 }
 
-/**
-  \namespace bad::tapes
-  \brief Wengert lists for reverse-mode automatic differentiation
-*/
 namespace bad::tapes {
   using namespace memory::api;
   static constexpr size_t no_index = static_cast<size_t>(-1);
 
   namespace common {
-    /// Tape sensitivities. Constructed with tape::push.
-    //
-    // Describes how to push information backwards through your activations
-    // by using the information stored in the \ref tape.
+    /// \brief Tape sensitivities. Constructed with tape::push.
+    ///
+    /// Describes how to push information backwards through your activations
+    /// by using the information stored in the \ref tape.
     template <class T, class Act = T*, class Allocator = default_allocator>
     struct abstract_record;
 
+    /// Wengert list
     template <class T, class Act = T*,class Allocator = default_allocator>
     struct tape;
   }
 
-  /// a slab of memory that holds \ref abstract_records.
+  /// holds several \ref abstract_record entries in a slab of aligned memory
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct segment {
     using abstract_record_t = abstract_record<T,Act,Allocator>;
@@ -112,11 +117,11 @@ namespace bad::tapes {
     return (i + record_alignment - 1) & record_mask;
   }
 
-  template <class T, class Act = T*, class Allocator = aligned_allocator<std::byte*, record_alignment>>
+  /// inherits from \ref bad::tapes::common::abstract_record, but doxygen is broken and can't figure this out.
+  template <class T, class Act = T*, class Allocator = default_allocator>
   struct link;
 
   namespace common {
-
     template <class T, class Act, class Allocator>
     struct alignas(record_alignment) abstract_record {
       using tape_t = tape<T,Act,Allocator>;
@@ -285,7 +290,7 @@ namespace bad::tapes {
 
   /// link to the next \ref segment
   template <class T, class Act, class Allocator>
-  struct link: abstract_record<T, Act, Allocator> {
+  struct link : abstract_record<T, Act, Allocator> {
     using abstract_record_t = abstract_record<T, Act, Allocator>;
     using segment_t = segment<T, Act, Allocator>;
 
@@ -349,7 +354,7 @@ namespace bad::tapes {
 
   namespace common {
     // a non-terminal entry designed for allocation in a slab
-    template <class B, class T, class Act = T &, class Allocator = default_allocator>
+    template <class B, class T, class Act = T *, class Allocator = default_allocator>
     struct record : abstract_record<T,Act,Allocator> {
       using abstract_record_t = abstract_record<T,Act,Allocator>;
   
@@ -540,7 +545,6 @@ namespace bad::tapes {
   };
 
   namespace common {
-    /// Wengert list
     template <class T, class Act, class Allocator>
     struct tape {
     protected:
@@ -690,6 +694,10 @@ namespace bad::tapes {
   }
 }
 
+/// @}
+
 namespace bad {
   using namespace tapes::common;
 }
+
+
