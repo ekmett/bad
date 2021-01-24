@@ -23,12 +23,6 @@ namespace bad::sequences {
   using std::size_t;
   using std::ptrdiff_t;
 
-  /// @private
-  template <class T> struct no_t : std::false_type {};
-
-  /// @private
-  template <class T> constexpr bool no = no_t<T>::value;
-
   // * sequence types
  
   namespace common {
