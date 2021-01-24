@@ -223,7 +223,7 @@ namespace bad::storage::api {
         return { lhs.p, lhs.i + rhs };
       }
 
-      friend const_iterator operator +(ptrdiff_t lhs, const_iterator & rhs) noexcept {
+      friend const_iterator operator +(ptrdiff_t lhs, const_iterator rhs) noexcept {
         return { rhs.p, rhs.i + lhs };
       }
 
@@ -263,7 +263,7 @@ namespace bad::storage::api {
       }
 
       BAD(hd,inline,pure)
-      auto & operator[](difference_type di) const noexcept {
+      auto & operator[](ptrdiff_t di) const noexcept {
         assert(p && 0 <= i + di && i + di < d);
         return p->at(i + di);
       }
@@ -285,7 +285,7 @@ namespace bad::storage::api {
       using pointer           = std::add_pointer<value_type>;
 
       BAD(hd,inline,noalias) constexpr
-      iterator(const iterator & rhs) noexcept
+      iterator(iterator const & rhs) noexcept
       : p(rhs.p), i(rhs.i) {}
 
       BAD(hd,inline,noalias) constexpr
@@ -422,7 +422,8 @@ namespace bad::storage::api {
         return p != nullptr && 0 <= i && i < d;
       }
 
-      friend iterator operator + (ptrdiff_t lhs, iterator & rhs) {
+      BAD(hd,inline,pure)
+      friend iterator operator + (ptrdiff_t lhs, iterator rhs) noexcept {
         return { rhs.p, rhs.i + lhs };
       }
     };
@@ -967,7 +968,7 @@ namespace bad::storage::common {
       using iterator_category = std::random_access_iterator_tag;
 
       BAD(hd,inline,noalias)
-      constexpr explicit const_iterator(T const * p = nullptr, difference_type i = 0) noexcept
+      constexpr explicit const_iterator(T const * p = nullptr, ptrdiff_t i = 0) noexcept
       : p(p), i(i) {}
 
       BAD(hd,inline,noalias)
@@ -1055,7 +1056,7 @@ namespace bad::storage::common {
         return { lhs.p, lhs.i + rhs };
       }
 
-      friend const_iterator operator +(ptrdiff_t lhs, const_iterator & rhs) noexcept {
+      friend const_iterator operator +(ptrdiff_t lhs, const_iterator rhs) noexcept {
         return { rhs.p, rhs.i + lhs };
       }
 
@@ -1093,7 +1094,7 @@ namespace bad::storage::common {
       }
 
       BAD(hd,inline,pure)
-      reference operator[](difference_type di) const noexcept {
+      reference operator[](ptrdiff_t di) const noexcept {
         return *reinterpret_cast<pointer>(p + (i+di)*s);
       }
 
@@ -1113,12 +1114,12 @@ namespace bad::storage::common {
       BAD(hd,inline,noalias) constexpr
       explicit iterator(
         T* p = nullptr,
-        difference_type i = 0
+        ptrdiff_t i = 0
       ) noexcept
       : p(p), i(i) {}
 
       BAD(hd,inline,noalias) constexpr
-      iterator(const iterator & rhs) noexcept
+      iterator(iterator const & rhs) noexcept
       : p(rhs.p), i(rhs.i) {}
 
       BAD(hd,inline,noalias) constexpr
@@ -1140,7 +1141,7 @@ namespace bad::storage::common {
       }
 
       T * p;
-      difference_type i;
+      ptrdiff_t i;
 
       BAD(hd,inline,pure)
       operator const_iterator() const {
@@ -1249,7 +1250,7 @@ namespace bad::storage::common {
         return 0 <= i && i < d;
       }
 
-      friend iterator operator + (ptrdiff_t lhs, iterator & rhs) {
+      friend iterator operator + (ptrdiff_t lhs, iterator rhs) {
         return iterator(rhs.p, rhs.i + lhs);
       }
     };
