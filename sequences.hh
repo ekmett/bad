@@ -5,6 +5,14 @@
 #include "attributes.hh"
 #include "errors.hh"
 
+/// @file sequences.hh
+/// @brief type level sequences
+///
+/// @defgroup sequences sequences
+/// @brief type level sequences
+///
+/// @{
+
 namespace bad {
   namespace sequences {
     namespace common {}
@@ -23,8 +31,6 @@ namespace bad::sequences {
   using std::size_t;
   using std::ptrdiff_t;
 
-  // * sequence types
- 
   namespace common {
     template <class T, T... is>
     using seq_t = std::integer_sequence<T, is...>;
@@ -697,3 +703,5 @@ namespace bad::sequences {
     using list_apply = typename list_apply_<F,L>::type;
   }
 }
+
+/// @}

@@ -1,5 +1,13 @@
 #pragma once
 
+/// @file macros.hh
+/// @brief variadic macro utilities
+/// @author William Swanson
+/// @author Edward Kmett
+
+/// @defgroup macros macros
+/// @brief variadic macro utilities
+
 #define BAD_EVAL0_(...) __VA_ARGS__
 #define BAD_EVAL1_(...) BAD_EVAL0_(BAD_EVAL0_(BAD_EVAL0_(__VA_ARGS__)))
 #define BAD_EVAL2_(...) BAD_EVAL1_(BAD_EVAL1_(BAD_EVAL1_(__VA_ARGS__)))
@@ -23,27 +31,21 @@
 
 #define BAD_MAP_LIST_NEXT1_(test, next) BAD_MAP_NEXT0_(test, BAD_MAP_COMMA_ next, 0)
 #define BAD_MAP_LIST_NEXT_(test, next)  BAD_MAP_LIST_NEXT1_(BAD_MAP_GET_END_ test, next)
-
 #define BAD_MAP_LIST0_(f, x, peek, ...) f(x) BAD_MAP_LIST_NEXT_(peek, BAD_MAP_LIST1_)(f, peek, __VA_ARGS__)
 #define BAD_MAP_LIST1_(f, x, peek, ...) f(x) BAD_MAP_LIST_NEXT_(peek, BAD_MAP_LIST0_)(f, peek, __VA_ARGS__)
 
 #define BAD_JOIN_(X,Y) X ## Y
 #define bad_(Y) BAD_JOIN_(bad_,Y)
 
-/// Applies the function macro `f` to each of the parameters.
+/// @{
+
+/// Applies macro `f` to each parameter.
 #define BAD_MAP(f, ...) BAD_EVAL_(BAD_MAP1_(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
 
-/// Applies the function macro `f` to each of the parameters. Inserts commas between the results.
+/// Applies macro `f` to each parameter. Inserts commas between the results.
 #define BAD_MAP_LIST(f, ...) BAD_EVAL_(BAD_MAP_LIST1_(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
 
-/// convenient macro for applying several attributes
-// e.g. BAD(hd,inline) vs. bad_hd bad_inline
-// erased for doxygen. so only use this for attributes
-#ifdef DOXYGEN
-#define BAD(...)
-#else
-#define BAD(...) BAD_MAP(bad_,__VA_ARGS__)
-#endif
+/// @}
 
 /*
  * Copyright (C) 2012 William Swanson, 2021 Edward Kmett

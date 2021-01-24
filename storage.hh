@@ -4,10 +4,12 @@
 #include "attributes.hh"
 #include "errors.hh"
 
+/// @file storage.hh
+/// @brief tensor storage
+
 #pragma STDC FP_CONTRACT ON
 
 namespace bad {
-  /// tensor storage
   namespace storage {
     // re-exported by \ref bad and \ref bad::storage::api
     namespace common{}
@@ -21,6 +23,11 @@ namespace bad {
   using namespace bad::storage::common;
 }
 
+/// @defgroup storage storage
+/// @brief tensor storage and expressions
+/// @{
+
+/// tensor storage
 namespace bad::storage {
   using namespace sequences::api;
   using namespace errors::api;
@@ -323,7 +330,7 @@ namespace bad::storage {
 }
 
 namespace bad::storage::api {
-  /// \ref variadic expression template
+  /// variadic expression template
   template <class B, size_t d, size_t... ds>
   struct store_expr {
     using const_iterator = const_store_expr_iterator<B,d>;
@@ -1428,3 +1435,4 @@ namespace bad::storage::api {
     -> show_values<d,T*>;
 }
 
+/// @}
