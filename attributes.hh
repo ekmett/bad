@@ -138,10 +138,10 @@
 #warning no noalias
 #endif
 
-/// @def bad_require_constant_initialization
+/// @def bad_constinit
 /// @brief portable `constinit`
 ///
-/// `constinit` requires C++20, this is available earlier
+/// `constinit` requires C++20, but __attribute__((require_constant_initialization)) is available earlier
 #if bad_has_attribute(require_constant_initialization)
 #define bad_constinit __attribute__((require_constant_initialization))
 #else

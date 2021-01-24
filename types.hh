@@ -13,7 +13,7 @@
 namespace bad {
   /// type names
   namespace types {
-    /// re-exported by both \ref bad and \ref bad::common::api
+    /// re-exported by both \ref bad and \ref bad::types::api
     namespace common {}
     using namespace common;
     /// public components
