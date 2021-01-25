@@ -329,6 +329,7 @@ namespace bad::storage {
 
 namespace bad::storage::api {
   /// variadic expression template
+  /// @ingroup storage
   template <class B, size_t d, size_t... ds>
   struct store_expr {
     using const_iterator = const_store_expr_iterator<B,d>;
@@ -500,6 +501,7 @@ namespace bad::storage::api {
     }
   };
 
+  /// @ingroup storage
   template <class B, size_t d, size_t...ds>
   struct store_rep_expr : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
     using element = typename B::element;
@@ -536,6 +538,7 @@ namespace bad::storage::api {
     }
   };
 
+  /// @ingroup storage
   template <class L, class R, size_t d, size_t... ds>
   struct store_add_expr : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
     using dim = seq<d,ds...>;
@@ -572,6 +575,7 @@ namespace bad::storage::api {
     }
   };
 
+  /// @ingroup storage
   template <class L, class R, size_t d, size_t... ds>
   BAD(hd,inline,const)
   auto operator +(
@@ -583,20 +587,22 @@ namespace bad::storage::api {
 }
 
 namespace bad::storage::common {
+  /// @ingroup storage
   template <size_t d0, class B, size_t d1, size_t... ds>
   BAD(hd,inline)
   auto rep(BAD(lifetimebound) store_expr<B,d1,ds...> const & x) noexcept {
     return x().template rep<d0>();
   }
 
+  /// @ingroup storage
   template <size_t d0, class B, size_t d1, size_t... ds>
   BAD(hd,inline)
   auto rep(BAD(lifetimebound) store_expr<B,d1,ds...> & x) noexcept {
     return x().template rep<d0>();
   }
 
-  // * pull the nth dimension of a storage expression to the front.
-
+  /// pull the `N`th dimension of a storage expression to the front.
+  /// @ingroup storage
   template <size_t N, class B, size_t d, size_t... ds>
   BAD(hd,inline)
   auto pull(
@@ -606,8 +612,8 @@ namespace bad::storage::common {
     return rhs().template pull<N>(i);
   }
 
-  // * pull the nth dimension of a store to the front.
-
+  /// pulls the `N`th dimension of a store to the front.
+  /// @ingroup storage
   template <size_t N, class B, size_t d, size_t... ds>
   BAD(hd,inline)
   auto pull(
@@ -629,10 +635,12 @@ namespace bad::storage::common {
     static_assert(no<T>, "only partial specializations are valid");
   };
 
+  /// @ingroup storage
   template <class T>
   using scalar = store<T,seq<>,sseq<>>;
 
   /// scalars
+  /// @ingroup storage
   template <class T>
   struct store<T, seq<>, sseq<>> {
     using element = T;
@@ -702,6 +710,7 @@ namespace bad::storage::common {
     operator T const & () const noexcept { return value; }
   };
 
+  /// @ingroup storage
   template <typename T>
   BAD(hd,inline,flatten)
   void swap(
@@ -1014,6 +1023,7 @@ namespace bad::storage {
 
 namespace bad::storage::common {
   /// tensors
+  /// @ingroup storage
   template <class T, size_t d, size_t... ds, ptrdiff_t s, ptrdiff_t... ss>
   struct store<T, seq<d,ds...>, sseq<s,ss...>>
   : store_expr<store<T, seq<d,ds...>, sseq<s,ss...>>,d,ds...> {
@@ -1346,26 +1356,33 @@ namespace bad::storage::common {
     }
   }; // type
 
-  // scalar initialization
+  /// scalar initialization
+  /// @ingroup storage
   template <class T>
   store(const T &) -> store<T,seq<>,sseq<>>;
 
-  // copy stride if copying from another store
+  /// copy stride if copying from another store
+  /// @ingroup storage
   template <class T, class dim, class stride>
   store(const store<T,dim,stride> &) -> store<T,dim,stride>;
 
-  // when fed one store_expression copy its dimensions, and pick a row_major order
+  /// when fed one store_expression copy its dimensions, and pick a row_major order
+  /// @ingroup storage
   template <class B, size_t d, size_t... ds>
   store(const store_expr<B,d,ds...> &) -> store<typename B::element,seq<d,ds...>>; // implicitly row_major
 
-  // when constructed from multiple storage expressions, use the length of the argument list to build the outermost dimension.
+  /// when constructed from multiple storage expressions, use the length of the argument list to build the outermost dimension.
+  /// @ingroup storage
   template <class B, size_t d, size_t...ds, class... U>
   store(const store_expr<B,d,ds...> &, U...) -> store<typename B::element,seq<1+sizeof...(U),d,ds...>>;
 
-  // vector construction
+  /// vector construction
+  /// @ingroup storage
   template <class T, class... U>
   store(T, U...) -> store<T,seq<1+sizeof...(U)>>;
 
+  /// synonym, even though \ref store has better inference
+  /// @ingroup storage
   template <class T, size_t N>
   using vec = store<T,seq<N>>;
 
@@ -1377,6 +1394,7 @@ namespace bad::storage::common {
   // we could make this more robust
   // take shape and type from first arg, 
  
+  /// @ingroup storage
   template <typename T, typename stride1, typename stride2, size_t d, size_t... ds>
   BAD(hd,inline,flatten)
   void swap(
@@ -1390,14 +1408,16 @@ namespace bad::storage::common {
 } // namespace bad::storage::common
 
 namespace bad::storage::api {
-    /// replicate base data types
+  /// replicate base data types
+  /// @ingroup storage
   template <size_t d, class T>
   BAD(hd,inline)
   auto rep(T t) noexcept -> store<T,seq<d>,sseq<0>> {
     return t;
   }
 
-  // used to show the values in an expr or fixed array
+  /// used to show the values in an expr or fixed array
+  /// @ingroup storage
   template <size_t d, class T>
   struct show_values {
     T const & data;
@@ -1411,6 +1431,7 @@ namespace bad::storage::api {
     : data(data) {}
   };
 
+  /// @ingroup storage
   template <size_t d, class T>
   BAD(hd)
   std::ostream & operator << (std::ostream &os, const show_values<d,T> & rhs) {
@@ -1422,12 +1443,14 @@ namespace bad::storage::api {
     return os << "}";
   }
 
-  // CTAD
+  /// infer \ref show_values size from store_expr dimension
+  /// @ingroup storage
   template <size_t d, size_t... ds, class B>
   show_values(store_expr<B,d,ds...> const & data)
     -> show_values<d, store_expr<B,d,ds...>>;
 
-  // CTAD
+  /// infer \ref show_values size from array size
+  /// @ingroup storage
   template <size_t d, class T>
   show_values(T(&)[d])
     -> show_values<d,T*>;

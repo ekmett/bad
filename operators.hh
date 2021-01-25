@@ -69,7 +69,7 @@ namespace bad {
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(U const & lhs, T&& rhs)\
     noexcept(noexcept(T(lhs), std::declval<T&>() op## = std::move(rhs), T(std::declval<T&>()))) {\
-      T x(lhs); x op## = std::move( rhs ); return x;\
+      T x(lhs); x op## = std::move(rhs); return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(U&& lhs, T const & rhs)\
@@ -78,7 +78,7 @@ namespace bad {
     }\
     friend T operator op(U&& lhs, T&& rhs)\
     noexcept(noexcept(T(std::move(lhs)), std::declval<T&>() op## = std::move(rhs), T(std::declval<T&>()))) {\
-      T x( std::move(lhs)); x op## = std::move( rhs ); return x;\
+      T x( std::move(lhs)); x op## = std::move(rhs); return x;\
     }\
   }
 
@@ -87,20 +87,20 @@ namespace bad {
   /** provides `T op U` and `U op T` given `T op## = U` @n\
    @param T current type @n\
    @param U the other type */\
-  template<class T, class U = T >\
+  template<class T, class U = T>\
   struct BAD(empty_bases) commutative_##name {\
     BAD(hd,nodiscard,inline,flatten)\
-    friend T operator op(T const & lhs, U const & rhs )\
+    friend T operator op(T const & lhs, U const & rhs)\
     noexcept(noexcept(T(lhs), std::declval<T&>() op## = rhs,T(std::declval<T&>()))) {\
       T x(lhs); x op## = rhs; return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
-    friend T operator op(T const & lhs, U&& rhs )\
+    friend T operator op(T const & lhs, U&& rhs)\
     noexcept(noexcept(T(lhs), std::declval<T&>() op## = std::move(rhs), T(std::declval<T&>()))) {\
       T x(lhs); x op## = std::move(rhs); return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
-    friend T operator op(T&& lhs, U const & rhs )\
+    friend T operator op(T&& lhs, U const & rhs)\
     noexcept(noexcept(T(std::move(lhs)), std::declval<T&>() op## = rhs, T(std::declval<T&>()))) {\
       T x(std::move(lhs)); x op## = rhs; return x;\
     }\
@@ -110,19 +110,19 @@ namespace bad {
       T x(std::move(lhs)); x op## = std::move(rhs); return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
-    friend T operator op( const U& lhs, const T& rhs )\
+    friend T operator op(U const & lhs, T const & rhs)\
     noexcept(noexcept(T(rhs), std::declval<T&>() op## = lhs, T(std::declval<T&>()))) {\
       T x(rhs); x op## = lhs; return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(U const & lhs, T&& rhs)\
     noexcept(noexcept(T(std::move(rhs)),std::declval<T&>() op## = lhs, T(std::declval<T&>()))) {\
-      T x( std::move( rhs ) ); x op## = lhs; return x;\
+      T x(std::move(rhs)); x op## = lhs; return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(U&& lhs, T const & rhs)\
     noexcept(noexcept(T(rhs), std::declval<T&>() op## = std::move(lhs))) {\
-      T x( rhs ); x op## = std::move( lhs ); return x;\
+      T x(rhs); x op## = std::move( lhs ); return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(U&& lhs, T&& rhs)\
@@ -131,10 +131,10 @@ namespace bad {
     }\
   };\
 \
-  template< typename T >\
+  template<class T>\
   /** provides `T op T` given `T op##= T` @n\
    @param T current type */\
-  struct BAD(empty_bases) commutative_##name< T > {\
+  struct BAD(empty_bases) commutative_##name< T> {\
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(T const & lhs, T const & rhs)\
     noexcept(noexcept(T(lhs), std::declval<T&>() op## = rhs, T(std::declval<T&>()))) {\
@@ -143,7 +143,7 @@ namespace bad {
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(T const & lhs, T&& rhs)\
     noexcept(noexcept(T(lhs), std::declval< T& >() op## = std::move(rhs), T(std::declval<T&>()))) {\
-      T x(lhs); x op## = std::move( rhs ); return x;\
+      T x(lhs); x op## = std::move(rhs); return x;\
     }\
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(T&& lhs, T const & rhs)\
@@ -161,7 +161,8 @@ namespace bad {
 
 namespace bad::operators::api {
 
-  /// @defgroup comparison comparison
+  /// @defgroup equality equality
+  /// `!=` and `==`
   /// @ingroup operators
   /// @{
 
@@ -201,8 +202,174 @@ namespace bad::operators::api {
   };
 
   /// @}
+  
+  /// @defgroup ordering ordering
+  /// `<`, `>`, `<=`, and `=>`
+  /// @ingroup operators
+  /// @{
+
+  /// provides `T <= U`, `T >= U`, `U < T`, `U > T`, `U <= T`, and `U >= T` when given `T < U` and `T > U`
+  /// @param T current type
+  /// @param U the other type
+  template<class T, class U = T>
+  struct BAD(empty_bases) less_than_comparable {
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<=(T const & lhs, U const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs > rhs))) {
+      return !static_cast<bool>(lhs > rhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>=(T const & lhs, U const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs < rhs))) {
+      return !static_cast<bool>(lhs < rhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<(U const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs > lhs))) {
+      return static_cast<bool>(rhs > lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>(U const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
+      return static_cast<bool>(rhs < lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<=(U const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs >= lhs))) {
+      return static_cast<bool>(rhs >= lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>=(U const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs <= lhs))) {
+      return static_cast<bool>(rhs <= lhs);
+    }
+  };
+
+  /// provides `T <= T`, `T >= T`, `T > T` when given `T < T`
+  /// @param T current type
+  template<class T>
+  struct BAD(empty_bases) less_than_comparable<T> {
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>(T const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
+      return static_cast<bool>(rhs < lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<=(T const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
+      return !static_cast<bool>(rhs < lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>=(T const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs < rhs))) {
+      return !static_cast<bool>(lhs < rhs);
+    }
+  };
+
+  template<class T, class U = T>
+  struct BAD(empty_bases) totally_ordered
+  : less_than_comparable<T,U>
+  , equality_comparable<T,U> {};
+
+  /// provides `T == U` when given `T < U` and `T > U`
+  /// @param T current type
+  /// @param U the other type
+  template<class T, class U = T>
+  struct BAD(empty_bases) equivalent {
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator==(T const & lhs, U const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs < rhs), static_cast<bool>(lhs > rhs))) {
+      return !static_cast<bool>(lhs < rhs) && !static_cast<bool>(lhs > rhs);
+    }
+  };
+
+  /// provides `T == T when given `T < T`
+  /// @param T current type
+  template<class T>
+  struct BAD(empty_bases) equivalent<T> {
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator==(T const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs < rhs))) {
+      return !static_cast<bool>(lhs < rhs) && !static_cast<bool>(rhs < lhs);
+    }
+  };
+
+  /// provides `T <= U`, `T >= U`, `U < T`, `U <= T`, and `U >= T` when given `T < U`, `T > U`, `T == U`
+  /// @param T current type
+  /// @param U the other type
+  template<class T, class U = T>
+  struct BAD(empty_bases) partially_ordered {
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<=(T const & lhs, U const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs < rhs), static_cast<bool>(lhs == rhs))) {
+      return static_cast<bool>(lhs < rhs) || static_cast<bool>(lhs == rhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>=(T const & lhs, U const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs > rhs), static_cast<bool>(lhs == rhs))) {
+      return static_cast<bool>(lhs > rhs) || static_cast<bool>(lhs == rhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<(U const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs > lhs))) {
+      return static_cast<bool>(rhs > lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>(U const & lhs, T const & rhs)
+    noexcept( noexcept( static_cast<bool>(rhs < lhs))) {
+      return static_cast<bool>(rhs < lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<=(U const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs >= lhs))) {
+      return static_cast< bool >(rhs >= lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>=(U const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs <= lhs))) {
+      return static_cast<bool>(rhs <= lhs);
+    }
+  };
+
+  /// provides `T > T`, `T <= T`, and `T >= T` when given `T < T` and `T == T`
+  /// @param T current type
+  template<class T>
+  struct BAD(empty_bases) partially_ordered<T> {
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>(T const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
+      return static_cast<bool>(rhs < lhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator<=(T const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(lhs < rhs), static_cast<bool>(lhs == rhs))) {
+      return static_cast<bool>(lhs < rhs) || static_cast<bool>(lhs == rhs);
+    }
+
+    BAD(hd,nodiscard,inline,flatten)
+    friend constexpr bool operator>=(T const & lhs, T const & rhs)
+    noexcept(noexcept(static_cast<bool>(rhs < lhs), static_cast<bool>(lhs == rhs))) {
+      return static_cast<bool>(rhs < lhs) || static_cast<bool>(lhs == rhs);
+    }
+  };
+
+  /// @}
 
   /// @defgroup arithmetic arithmetic
+  /// `+`,`-`,`*`,`/`, and `%`
   /// @ingroup operators
   /// @{
 
@@ -212,7 +379,7 @@ namespace bad::operators::api {
   bad_op_left(dividable, /);
   bad_op_left(modable, % );
 
-  /// provides `T @ U` and `U @ T` when given `T(U)`, `T @= U` for `@` in `{ +, -, * }`
+  /// provides `T @ U` and `U @ T` when given `T(U)`, `T @= U` for `@` in `{+,-,*}`
   /// @param T current type
   /// @param U the other type
   template <class T, class U=T>
@@ -225,6 +392,7 @@ namespace bad::operators::api {
   /// @}
 
   /// @defgroup bitwise bitwise
+  /// `&`, `|`, `^`, `<<` and `>>`
   /// @ingroup operators
   /// @{
 
@@ -232,7 +400,7 @@ namespace bad::operators::api {
   bad_op_commutative(orable, |);
   bad_op_commutative(xorable, ^);
 
-  /// provides `T @ U` when given `T @= U` for `@` in `{ &, |, ^ }`
+  /// provides `T @ U` when given `T @= U` for `@` in `{&,|,^}`
   /// @param T current type
   /// @param U the other type
   template <class T, class U=T>
@@ -241,7 +409,7 @@ namespace bad::operators::api {
   , orable<T,U>
   , xorable<T,U> {};
 
-  /// provides `U @ T` when given `T @= U` and `T(U)` for `@` in `{ &, |, ^ }`
+  /// provides `U @ T` when given `T @= U` and `T(U)` for `@` in `{&,|,^}`
   /// @param T current type
   /// @param U the other type
   template <class T, class U=T>
@@ -250,7 +418,7 @@ namespace bad::operators::api {
   , orable_left<T,U>
   , xorable_left<T,U> {};
 
-  /// provides `T @ U` and `U @ T` when given `T @= U` in `{ &, |, ^ }`
+  /// provides `T @ U` and `U @ T` when given `T @= U` in `{&,|,^}`
   /// @param T current type
   /// @param U the other type
   template <class T, class U=T>
@@ -262,6 +430,9 @@ namespace bad::operators::api {
   bad_op(left_shiftable, <<);
   bad_op(right_shiftable, >>);
 
+  /// provides `T @ U` when given `T @= U` for `@` in `{<<,>>}`
+  /// @param T current type
+  /// @param U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) shiftable
   : left_shiftable<T,U>

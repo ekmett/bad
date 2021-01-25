@@ -27,15 +27,19 @@ namespace bad::memory {
 }
 
 namespace bad::memory::api {
+  /// @ingroup memory
   static constexpr size_t record_alignment = 16;
+  /// @ingroup memory
   static constexpr size_t record_mask = static_cast<size_t>(~0xf);
 
+  /// @ingroup memory
   BAD(hd,inline,const)
   bool is_aligned(BAD(noescape) const void * ptr, std::uintptr_t alignment) noexcept {
     auto iptr = reinterpret_cast<std::uintptr_t>(ptr);
     return !(iptr % alignment);
   }
 
+  /// @ingroup memory
   template <class T, size_t Alignment = record_alignment>
   struct aligned_allocator {
     using pointer = T*;
@@ -97,6 +101,7 @@ namespace bad::memory::api {
     }
   };
 
+  /// @ingroup memory
   using default_allocator = aligned_allocator<std::byte, record_alignment>;
 }
 
