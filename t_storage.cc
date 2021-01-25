@@ -6,7 +6,7 @@
 using namespace bad;
 using namespace std;
 
-TEST_CASE( "store works", "[store]" ) {
+TEST_CASE( "store works", "[storage]" ) {
 
   store<int,seq<4,5>> s;
   cout << s << endl;

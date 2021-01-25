@@ -64,20 +64,20 @@ endif(ASAN)
 add_library(types STATIC types.cc types.hh macros.hh attributes.hh errors.hh)
 link_libraries(types)
 
-add_executable(t_seq t_seq.cc sequences.hh catch.hh)
-target_precompile_headers(t_seq PRIVATE
+add_executable(t_sequences t_sequences.cc sequences.hh catch.hh)
+target_precompile_headers(t_sequences PRIVATE
   [["types.hh"]]
   [["sequences.hh"]]
   [["errors.hh"]]
 )
 
-# tape
-add_executable(t_tape t_tape.cc tapes.hh sequences.hh catch.hh)
-target_precompile_headers(t_tape REUSE_FROM t_seq)
+add_executable(t_operators t_operators.cc operators.hh catch.hh)
 
-# new storage model
-add_executable(t_store t_store.cc storage.hh sequences.hh catch.hh)
-target_precompile_headers(t_store REUSE_FROM t_seq)
+add_executable(t_tapes t_tapes.cc tapes.hh sequences.hh catch.hh)
+target_precompile_headers(t_tapes REUSE_FROM t_sequences)
+
+add_executable(t_storage t_storage.cc storage.hh sequences.hh catch.hh)
+target_precompile_headers(t_storage REUSE_FROM t_sequences)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)

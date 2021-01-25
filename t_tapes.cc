@@ -22,7 +22,7 @@ struct comp : static_record<1, comp, int> {
   std::array<int,1000> padding;
 };
 
-TEST_CASE("tape works","[str]") {
+TEST_CASE("tape works","[tapes]") {
   tape<int> t;
   for (int i=0;i<15;++i) {
     t.push<simp>();
