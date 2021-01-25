@@ -5,6 +5,7 @@
 
 /// @file types.hh
 /// @brief type names
+/// @author Edward Kmett
 ///
 /// @defgroup types types
 /// @brief type names
@@ -15,11 +16,8 @@ namespace bad {
   namespace types {
     /// re-exported by \ref bad and \ref bad::types::api
     namespace common {}
-    using namespace common;
     /// public components
-    namespace api {
-      using namespace common;
-    }
+    namespace api { using namespace common; }
     using namespace api;
   }
   using namespace types::common;
@@ -45,7 +43,6 @@ namespace bad::types::common {
   std::string type_name() noexcept {
     return demangle(typeid(T).name());
   }
-
 }
 
 /// @}

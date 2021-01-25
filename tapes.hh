@@ -13,6 +13,7 @@
 
 /// @file tapes.hh
 /// @brief Wengert lists for reverse-mode automatic differentiation
+/// @author Edward Kmett
 ///
 /// @defgroup tapes tapes
 /// @brief Wengert lists for reverse-mode automatic differentiation
@@ -24,11 +25,8 @@ namespace bad {
   namespace tapes {
     /// re-exported by \ref bad and \ref bad::tapes::api
     namespace common {}
-    using namespace common;
     /// public components
-    namespace api {
-      using namespace common;
-    }
+    namespace api { using namespace common; }
     using namespace api;
   }
   using namespace tapes::common;

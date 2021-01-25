@@ -19,7 +19,6 @@ TEST_CASE( "store works", "[store]" ) {
   s[3] = {1,2,3}; // set part of a row, element by element, this clobbers the remaining elements in the row/column to match assignment from a { } initialized store
   cout << s << endl;
 
-
   // various expected failures
   // store<int,seq<43,21>,int> y;
   // store<int,seq<43,21>,seq<2>> y; 

@@ -7,6 +7,7 @@
 
 /// @file sequences.hh
 /// @brief type level sequences
+/// @author Edward Kmett
 ///
 /// @defgroup sequences sequences
 /// @brief type level sequences
@@ -18,7 +19,6 @@ namespace bad {
   namespace sequences {
     /// re-exported by \ref bad and \ref bad::sequences::api
     namespace common {}
-    using namespace common;
     /// public components
     namespace api {
       using namespace common;

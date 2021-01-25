@@ -6,6 +6,7 @@
 
 /// @file storage.hh
 /// @brief tensor storage
+/// @author Edward Kmett
 
 #pragma STDC FP_CONTRACT ON
 
@@ -13,14 +14,11 @@ namespace bad {
   namespace storage {
     /// re-exported by \ref bad and \ref bad::storage::api
     namespace common{}
-    using namespace common;
     /// public components
-    namespace api {
-      using namespace common;
-    }
+    namespace api { using namespace common; }
     using namespace api;
   }
-  using namespace bad::storage::common;
+  using namespace storage::common;
 }
 
 /// @defgroup storage storage

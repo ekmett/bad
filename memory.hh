@@ -8,6 +8,7 @@
 
 /// @file memory.hh
 /// @brief memory allocation
+/// @author Edward Kmett
 ///
 /// @defgroup memory memory
 /// @brief memory allocation

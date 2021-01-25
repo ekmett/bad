@@ -377,6 +377,18 @@
 #define bad_no_unique_address
 #endif
 
+
+/// @def bad_empty_bases
+/// @brief portable __declspec(empty_bases)
+///
+/// just for msvc for now.
+
+#if defined(_MSC_VER) && !defined(__clang__)
+#define bad_empty_bases __declspec(empty_bases)
+#else
+#define bad_empty_bases
+#endif
+
 /// @def bad_maybe_unused
 /// @brief argument, member or definition `[[maybe_unused]]`
 ///

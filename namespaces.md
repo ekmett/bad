@@ -46,11 +46,8 @@ In practice this amounts to writing a prelude like
       namespace foo {
         /** re-exported by \ref bad and \ref bad::foo::api */
         namespace common {};
-        using namespace common;
         /** public api */
-        namespace api {
-          using namespace common;
-        }
+        namespace api { using namespace common; }
         using namespace api;
       }
       using namespace foo::common;
@@ -65,5 +62,7 @@ at the top of each component as boilerplate and then defining things directly in
 But now internal to the component each of these namespaces can see each other. and bad::foo can freely
 `using namespace` other components' `api` namespaces (or even their internals) and I
 don't have to fight with namespaces all day long.
+
+This should probably become a macro.
 
 --Edward

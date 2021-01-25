@@ -14,12 +14,8 @@ namespace bad {
   namespace errors {
     /// re-exported by \ref bad and \ref bad::errors::api
     namespace common {}
-    using namespace common;
-
     /// public components
-    namespace api {
-      using namespace common;
-    }
+    namespace api { using namespace common; }
     using namespace api;
   }
   using namespace errors::common;
