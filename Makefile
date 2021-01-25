@@ -32,7 +32,18 @@ $(addprefix build/, $(tests)): %: build $(src)
 	@ninja -C build -j 10 $(notdir $@)
 
 doc: build/doc
-	open build/doc/html/index.html
+	@open build/doc/html/index.html
+
+publish: build/doc
+	@cp -aRv build/doc/html/* doc
+	# assumes subdir doc check if we're in a git repo
+	@if [ -d doc/.git ]; then \
+		cd doc; \
+		git add *; \
+		git commit -a -m "doc update"; \
+		git push; \
+	fi
+	@open https://ekmett.github.io/bad/index.html
 
 build/doc: build
 	@ninja -C build -j 10 doc
@@ -40,4 +51,4 @@ build/doc: build
 clean:
 	@rm -rf build
 
-.PHONY: clean doc test
+.PHONY: clean doc test publish

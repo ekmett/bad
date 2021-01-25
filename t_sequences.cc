@@ -2,9 +2,11 @@
 #include "catch.hh"
 #include "types.hh"
 #include "sequences.hh"
+#include "lists.hh"
 
 using namespace std;
 using namespace bad::sequences::api;
+using namespace bad::lists::api;
 
 TEST_CASE("seq_head works", "[sequences]") {
   REQUIRE(seq_head<seq<1,2,3>> == 1 );
