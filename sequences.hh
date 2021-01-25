@@ -5,32 +5,37 @@
 #include "attributes.hh"
 #include "errors.hh"
 
-/// @file sequences.hh
-/// @brief type level integer sequences
-/// @author Edward Kmett
+/// \file
+/// \brief type level integer sequences
+/// \author Edward Kmett
 ///
-/// @defgroup sequences_group sequences
-/// @brief type level sequences
-///
-/// @{
+/// \defgroup sequences_group sequences
+/// \brief type level sequences
+
+/// \namespace bad
+/// \meta
 namespace bad {
-  /// The @ref sequences_group "sequences" module. This namespace holds internals. You should probably import bad::types::api instead.
+  /// \namespace bad::sequences
+  /// \ref sequences_group "sequences" internals, import bad::sequences::api
+  /// \ingroup sequences_group
   namespace sequences {
-    /// re-exported by \ref bad and \ref bad::sequences::api "api"
+    /// \namespace bad::sequences::common
+    /// \ingroup sequences_group
+    /// re-exported by \ref bad and bad::sequences::api
     namespace common {}
-    /// public components. See the @ref sequences_group "sequences" module for a complete listing
-    /// this listing will fail to show names supplied by \ref bad::errors::common "common"
-    namespace api {
-      using namespace common;
-    }
+    /// \namespace bad::sequences::api
+    /// \ingroup sequences_group
+    /// See \ref sequences_group "sequences" for a complete listing.
+    namespace api { using namespace common; }
     using namespace api;
   }
   using namespace sequences::common;
 }
 
+/// \{
+
 namespace bad::sequences {
   using namespace errors::api;
-
 
   using std::size_t;
   using std::ptrdiff_t;
@@ -103,13 +108,13 @@ namespace bad::sequences {
 
   // * application
 
-  /// @private
+  /// \meta
   template <template <class T, T...> class, class X>
   struct seq_apply_ {
     static_assert(no<X>, "seq_apply: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <template <class T, T...> class F, class X, X ... xs>
   struct seq_apply_<F,seq_t<X,xs...>> {
     using type = F<X,xs...>;
@@ -117,18 +122,18 @@ namespace bad::sequences {
 
   namespace api {
     /// apply the type of a sequence and its parameter pack to a template, analogous to `std::apply` for tuples
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <template <class T, T...> class F, class L>
     using seq_apply = typename seq_apply_<F,L>::type;
   }
 
-  /// @private
+  /// \meta
   template <template <auto x, decltype(x) ...> class, class X>
   struct seq_auto_apply_ {
     static_assert(no<X>, "seq_auto_apply: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <template <auto x, decltype(x) ...> class F, class X, X x, X ... xs>
   struct seq_auto_apply_<F,seq_t<X,x,xs...>> {
     using type = F<x,xs...>;
@@ -136,39 +141,39 @@ namespace bad::sequences {
 
   namespace api {
     /// apply a non-empty sequence to a template that uses auto to infer the sequennce type
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <template <auto x, decltype(x) ...> class F, class L>
     using seq_auto_apply = typename seq_auto_apply_<F,L>::type;
   }
 
-  /// @private
+  /// \meta
   template <class T, template <T...> class, class>
   struct seq_t_apply_ {
     static_assert(no<T>, "seq_t_apply: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T, template <T...> class F, T... xs>
   struct seq_t_apply_<T,F,seq_t<T,xs...>> {
     using type = F<xs...>;
   };
 
   namespace api { 
-    /// Apply a sequence of values of known type @p T to a given template.
-    /// @ingroup sequences_group
+    /// Apply a sequence of values of known type \p T to a given template.
+    /// \ingroup sequences_group
     template <class T, template <T...> class F, class L>
     using seq_t_apply = typename seq_t_apply_<T,F,L>::type;
   }
 
   // * ranges
 
-  /// @private
+  /// \meta
   template <typename T, T x, typename S>
   struct seq_range_ {
     static_assert(no<T>, "seq_range: bad arguments");
   };
 
-  /// @private
+  /// \meta
   template <typename T, T x, T... ys>
   struct seq_range_<T,x,seq_t<T,ys...>> {
     using type = seq_t<decltype(x),(x+ys)...>;
@@ -176,36 +181,36 @@ namespace bad::sequences {
 
   namespace api {
     /// return the range `[x,y)` as a sequence, with type matching the type of `x`
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <auto x, decltype(x) y>
     using seq_range = typename seq_range_<decltype(x),x,make_aseq<y-x>>::type;
   }
 
-  /// @private
+  /// \meta
   template <class T, class, class>
   struct seq_append__ {
     static_assert(no<T>, "seq_append: bad sequences (type mismatch?)");
   };
 
-  /// @private
+  /// \meta
   template <class T, T... ts, T... ss>
   struct seq_append__<T,seq_t<T,ts...>, seq_t<T,ss...>> {
     using type = seq_t<T,ts...,ss...>;
   };
 
-  /// @private
+  /// \meta
   template <class T, class...>
   struct seq_append_ {
     static_assert(no<T>, "seq_append: bad sequences");
   };
 
-  /// @private
+  /// \meta
   template <class T>
   struct seq_append_<T> {
     using type = seq_t<T>;
   };
 
-  /// @private
+  /// \meta
   template <class T, T...ts, class...ss>
   struct seq_append_<T,seq_t<T,ts...>, ss...> {
     using type = typename seq_append__<T,seq_t<T,ts...>,typename seq_append_<T,ss...>::type>::type;
@@ -213,21 +218,21 @@ namespace bad::sequences {
 
   namespace api {
     /// append (possibly several) sequences
-    /// @param T the type elements present in all of the sequences, and the type of elements in the result sequence
-    /// @ingroup sequences_group
+    /// \param T the type elements present in all of the sequences, and the type of elements in the result sequence
+    /// \ingroup sequences_group
     template <class T, class... S>
     using seq_append = typename seq_append_<T,S...>::type;
   }
 
   // * reify
 
-  /// @private
+  /// \meta
   template <class T>
   struct reify_ {
     static_assert(no<T>, "reify: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T, T...xs>
   struct reify_<seq_t<T, xs...>> {
     /// This type synonym allows us to return a reference to an array, rather than a pointer
@@ -244,34 +249,34 @@ namespace bad::sequences {
     ///
     /// This may cause complications if you want to pass it to C library functions as a `const char *`!
     ///
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     constexpr typename reify_<S>::type & reify = reify_<S>::value;
 
     /// the product of a non-empty parameter pack of numbers, with type inference
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <auto... xs>
     constexpr auto prod = (...*xs);
 
     /// the product of a parameter pack of numbers
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class T, T... is>
     constexpr T prod_t = (T(1) * ... * is);
   }
 
-  /// @private
+  /// \meta
   template <class T>
   struct seq_prod_ {
     static_assert(no<T>, "seq_prod: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T>
   struct seq_prod_<seq_t<T>> {
     static constexpr T value = 1;
   };
 
-  /// @private
+  /// \meta
   template <class T, T i, T... is>
   struct seq_prod_<seq_t<T,i,is...>> {
     static constexpr T value = (i * ... * is);
@@ -279,34 +284,34 @@ namespace bad::sequences {
 
   namespace api {
     /// the product of a sequence of numbers.
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     constexpr auto seq_prod = seq_prod_<S>::value;
 
     /// the sum of a non-empty parameter pack of numbers, with type inference
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <auto... xs>
     constexpr auto total = (...+xs);
 
     /// the sum of a typed parameter pack of numbers
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class T, T... xs>
     constexpr T total_t = (T(1)+...+xs);
   }
 
-  /// @private
+  /// \meta
   template <class T>
   struct seq_total_ {
     static_assert(no<T>, "seq_total: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T>
   struct seq_total_<seq_t<T>> {
     static constexpr T value = 0;
   };
 
-  /// @private
+  /// \meta
   template <class T, T i, T... is>
   struct seq_total_<seq_t<T,i,is...>> {
     static constexpr T value = (i + ... + is);
@@ -314,7 +319,7 @@ namespace bad::sequences {
 
   namespace api {
     /// the sum of a sequence of numbers
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     constexpr auto seq_total = seq_total_<S>::value;
 
@@ -323,13 +328,13 @@ namespace bad::sequences {
     constexpr auto head = x;
   }
 
-  /// @private
+  /// \meta
   template <class S>
   struct seq_head_ {
     static_assert(no<S>, "seq_head: not a non-empty sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T, T ... is>
   struct seq_head_<seq_t<T,is...>> {
     constexpr static T value = head<is...>;
@@ -337,30 +342,30 @@ namespace bad::sequences {
 
   namespace api {
     /// head of a sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     constexpr auto seq_head = seq_head_<S>::value;
 
     /// tail of a non-empty parameter pack of numbers, with type inference
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <auto x, decltype(x) ... xs>
     using tail = seq_t<decltype(x), xs...>;
 
     /// tail of a non-empty sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     using seq_tail = seq_auto_apply<tail,S>;
   }
 
   // * cons
 
-  /// @private
+  /// \meta
   template <class T, T, class>
   struct seq_cons_ {
     static_assert(no<T>, "seq_cons: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T, T i, T ... is>
   struct seq_cons_<T,i,seq_t<T,is...>> {
     using type = seq_t<T,i,is...>;
@@ -369,20 +374,20 @@ namespace bad::sequences {
   namespace api {
     /// prepend a value to a sequence
     /// the type of the new argument determines the type of the output sequence, as long as the types are convertible
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <auto i, class S>
     using seq_cons = typename seq_cons_<decltype(i),i,S>::type;
   }
 
   // * element type
 
-  /// @private
+  /// \meta
   template <class S>
   struct seq_element_type_ {
     static_assert(no<S>, "seq_element_type: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T, T ... is>
   struct seq_element_type_<seq_t<T,is...>> {
     using type = T;
@@ -390,20 +395,20 @@ namespace bad::sequences {
 
   namespace api {
     /// type of elements in a given sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     using seq_element_type = typename seq_element_type_<S>::type;
   }
 
   // * sequence length
 
-  /// @private
+  /// \meta
   template <class T>
   struct seq_length_ {
     static_assert(no<T>, "seq_length: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T, T ... is>
   struct seq_length_<seq_t<T,is...>> {
     static constexpr auto value = sizeof...(is);
@@ -411,18 +416,18 @@ namespace bad::sequences {
 
   namespace api {
     /// the length of a sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     constexpr auto seq_length = seq_length_<S>::value;
   }
 
   // * row-major stride calculation
 
-  /// @private
+  /// \meta
   template <size_t, size_t...>
   struct stride_;
 
-  /// @private
+  /// \meta
   template <>
   struct stride_<0> {
     BAD(hd,const) // consteval
@@ -431,7 +436,7 @@ namespace bad::sequences {
     }
   };
 
-  /// @private
+  /// \meta
   template <size_t N, size_t x, size_t... xs>
   struct stride_<N,x,xs...> {
     BAD(hd,const) // consteval
@@ -446,19 +451,19 @@ namespace bad::sequences {
 
   namespace api {
     /// compute the row-major stride of the nth dimension in a parameter pack of dimensions
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <size_t N, size_t... xs>
     BAD(constinit)
     constexpr ptrdiff_t stride = stride_<N,xs...>::value();
   }
 
-  /// @private
+  /// \meta
   template <size_t, class T>
   struct seq_stride_ {
     static_assert(no<T>, "seq_stride: seq<...> expected");
   };
 
-  /// @private
+  /// \meta
   template <size_t N, size_t ... is>
   struct seq_stride_<N,seq<is...>> {
     static constexpr ptrdiff_t value = stride<N,is...>;
@@ -466,18 +471,18 @@ namespace bad::sequences {
 
   namespace api {
     /// compute the row-major stride of the nth dimension in a sequence of dimensions
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <size_t N, class S>
     constexpr ptrdiff_t seq_stride = seq_stride_<N,S>::value;
   }
 
-  /// @private
+  /// \meta
   template <class, class U>
   struct row_major_ {
     static_assert(no<U>, "row_major: seq<...> expected");
   };
 
-  /// @private
+  /// \meta
   template <class S, size_t... is>
   struct row_major_<S,seq<is...>> {
     using type = sseq<seq_stride<is,S>...>;
@@ -490,14 +495,14 @@ namespace bad::sequences {
     /// the result is returned as a \ref bad::sequences::common::sseq "sseq", so we can play games with
     /// negating strides to flip dimensions over
     ///
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     using row_major = typename row_major_<S, make_seq<seq_length<S>>>::type;
   }
 
   // * indexing
 
-  /// @private
+  /// \meta
   template <size_t N, auto... xs>
   BAD(hd,const)
   constexpr auto nth_() noexcept {
@@ -511,13 +516,13 @@ namespace bad::sequences {
     constexpr auto nth = nth_<N,xs...>();
   }
 
-  /// @private
+  /// \meta
   template <size_t, class S>
   struct seq_nth_ {
     static_assert(no<S>,"seq_nth: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <size_t N, class T, T... xs>
   struct seq_nth_<N,seq_t<T,xs...>> {
     static constexpr auto value = nth<N,xs...>;
@@ -525,28 +530,28 @@ namespace bad::sequences {
 
   namespace api {
     /// return the nth member of a sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <size_t N, class S>
     constexpr auto seq_nth = seq_nth_<N,S>::value;
 
     /// return the last member of a sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
 
     /// backpermute a sequence with a pack of indices
     ///
     /// `backpermute<seq_t<T,a,b,c,d>,0,3,2,3,1,0> = seq_t<T,a,d,c,d,b,a>`
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S, size_t... is>
     using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
   }
 
-  /// @private
+  /// \meta
   template <class, class>
   struct seq_backpermute_;
 
-  /// @private
+  /// \meta
   template <class S, class I, I ... is>
   struct seq_backpermute_<S, seq_t<I,is...>> {
     using type = backpermute<S, is...>;
@@ -556,36 +561,36 @@ namespace bad::sequences {
     /// backpermute a sequence with an index sequence of indices
     //
     /// `seq_backpermute<seq_t<T,a,b,c,d>,seq<0,3,2,3,1,0>> = seq_t<T,a,d,c,d,b,a>`
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S, class T>
     using seq_backpermute = typename seq_backpermute_<S,T>::type;
 
     /// returns all but the last entry in the non-empty sequence \p S
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     using seq_init = seq_backpermute<S, make_seq<seq_length<S>-1>>;
 
     /// drop the last \p N entries from a sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <size_t N, class S>
     using seq_drop_last = seq_backpermute<S, make_seq<seq_length<S>-std::max(N, seq_length<S>)>>;
   }
 
   // * transpose the last two entries in a sequence
 
-  /// @private
+  /// \meta
   template <class T, T...>
   struct pack_transpose_ {
     static_assert(no<T>,"pack_transpose: not a sequence or not enough dimensions");
   };
 
-  /// @private
+  /// \meta
   template <class T, T i, T j>
   struct pack_transpose_<T,i,j> {
     using type = seq_t<T,j,i>;
   };
 
-  /// @private
+  /// \meta
   template <class T, T i, T j, T k, T... ls>
   struct pack_transpose_<T,i,j,k,ls...> {
     using type = seq_cons<i,typename pack_transpose_<T,j,k,ls...>::type>;
@@ -593,18 +598,18 @@ namespace bad::sequences {
 
   namespace api {
     /// swap the last two dimensions in a parameter pack
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class T, T... is>
     using pack_transpose = typename pack_transpose_<T,is...>::type;
   }
 
-  /// @private
+  /// \meta
   template <class S>
   struct seq_transpose_ {
     static_assert(no<S>,"seq_transpose: not a sequence");
   };
 
-  /// @private
+  /// \meta
   template <class T, T i, T j, T ... is>
   struct seq_transpose_<seq_t<T, i, j, is...>> {
     using type = pack_transpose<T, i, j, is...>;
@@ -612,25 +617,25 @@ namespace bad::sequences {
 
   namespace api {
     /// swap the last two entries in a sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <class S>
     using seq_transpose = typename seq_transpose_<S>::type;
   }
 
   // * skip the nth element
 
-  /// @private
+  /// \meta
   template <size_t, class, class>
   struct seq_skip_nth_;
 
-  /// @private
+  /// \meta
   template <size_t N, class S, size_t ... ps>
   struct seq_skip_nth_<N,S,seq<ps...>> {
-    /// @private
+    /// \meta
     template <class Suffix>
     struct at;
 
-    /// @private
+    /// \meta
     template <size_t... ss>
     struct at<seq<ss...>> {
       using type = seq_t<seq_element_type<S>, seq_nth<ps,S>..., seq_nth<ss+N,S>...>;
@@ -639,7 +644,7 @@ namespace bad::sequences {
 
   namespace api {
     /// skip the `N`th entry in a sequence
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <size_t N, class S>
     using seq_skip_nth = typename seq_skip_nth_<
       N, S, make_seq<N>
@@ -648,10 +653,10 @@ namespace bad::sequences {
     >::type;
   
     /// pull the `N`th entry to the front of the sequence. Useful for algorithms like `einsum` and the like.
-    /// @ingroup sequences_group
+    /// \ingroup sequences_group
     template <size_t N, class L>
     using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
   }
 }
 
-/// @}
+/// \}

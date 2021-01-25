@@ -1,12 +1,12 @@
 #pragma once
 
-/// @file macros.hh
-/// @brief variadic macro utilities
-/// @author William Swanson
-/// @author Edward Kmett
+/// \file
+/// \brief variadic macro utilities
+/// \author William Swanson
+/// \author Edward Kmett
 
-/// @defgroup macros macros
-/// @brief variadic macro utilities
+/// \defgroup macros macros
+/// \brief variadic macro utilities
 
 #define BAD_EVAL0_(...) __VA_ARGS__
 #define BAD_EVAL1_(...) BAD_EVAL0_(BAD_EVAL0_(BAD_EVAL0_(__VA_ARGS__)))
@@ -37,7 +37,7 @@
 #define BAD_JOIN_(X,Y) X ## Y
 #define bad_(Y) BAD_JOIN_(bad_,Y)
 
-/// @{
+/// \{
 
 /// Applies macro `f` to each parameter.
 #define BAD_MAP(f, ...) BAD_EVAL_(BAD_MAP1_(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
@@ -45,7 +45,7 @@
 /// Applies macro `f` to each parameter. Inserts commas between the results.
 #define BAD_MAP_LIST(f, ...) BAD_EVAL_(BAD_MAP_LIST1_(f, __VA_ARGS__, ()()(), ()()(), ()()(), 0))
 
-/// @}
+/// \}
 
 /*
  * Copyright (C) 2012 William Swanson, 2021 Edward Kmett

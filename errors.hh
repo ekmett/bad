@@ -2,45 +2,51 @@
 
 #include <type_traits>
 
-// bad_module(errors,user errors)
+/// \file
+/// better errors for users
+///
+/// \defgroup errors_group errors
+/// better errors for users
 
-
-/// @file errors.hh
-/// better user errors
-
-/// @defgroup errors_group errors
-/// better user errors
-/// @{
-
+/// \namespace bad
+/// \private
 namespace bad {
-  /// @ref errors_group "errors" internals. import the bad::errors::api namespace
+  /// \namespace bad::errors
+  /// \ref errors_group "errors" internals, import bad::errors::api
+  /// \ingroup errors_group
   namespace errors {
-    /// also re-exported by \ref bad and \ref bad::errors::api "api"
+    /// \namespace bad::errors::common
+    /// \ingroup errors_group
+    /// re-exported by \ref bad and bad::errors::api
     namespace common {}
-    /// See @ref errors_group "errors" for a complete listing.
-    /// (this listing will fail to show names supplied by \ref bad::errors::common "common")
+    /// \namespace bad::errors::api
+    /// \ingroup errors_group
+    /// See \ref errors_group "errors" for a complete listing.
     namespace api { using namespace common; }
     using namespace api;
   }
   using namespace errors::common;
 }
 
+/// \{
 namespace bad::errors {
-  /// undetectable false-hood. After all, the user _could_ partially specialize this template
-  /// @ingroup errors_group
-  /// @private
+  /// undetectable `false`, traditional template form.
+  /// After all, the user _could_ at least theoretically partially specialize this template
+  ///
+  /// \ingroup errors_group
   template <class T>
   struct no_t : std::false_type {};
 }
 
 namespace bad::errors::common {
-  /// @brief an undetectable `false`, for use with `static_assert`
+  /// \brief an undetectable `false` as a variable template.
   ///
-  /// used to rule out unspecialized templates and provide
-  /// better error messages to users.
-  /// @ingroup errors_group
+  /// For use with `static_assert` to allow me to rule out the unspecialized case when
+  /// partial template specialization is required. This allows us to give the user
+  /// informative error messaages, rather than just say the template isn't instantiated.
+  ///
+  /// \ingroup errors_group
   template <class T>
   constexpr bool no = no_t<T>::value;
 }
-
-/// @}
+/// \}

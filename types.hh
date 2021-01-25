@@ -3,37 +3,45 @@
 #include <typeinfo>
 #include "attributes.hh"
 
-/// @file types.hh
-/// @brief type names
-/// @author Edward Kmett
+/// \file
+/// \brief type names
+/// \author Edward Kmett
 ///
-/// @defgroup types_group types
-/// @brief type names
-/// @{
+/// \defgroup types_group types
+/// \brief type names
 
+/// \namespace bad
+/// \private
 namespace bad {
-  /// The @ref types_group "types" module. This namespace holds internals. You should probably import bad::types::api instead.
+  /// \namespace bad::types
+  /// \ref types_group "types" internals, import bad::types::api
+  /// \ingroup types_group
   namespace types {
-    /// re-exported by \ref bad and \ref bad::types::api "api"
+    /// \namespace bad::types::common
+    /// \ingroup types_group
+    /// re-exported by \ref bad and bad::types::api
     namespace common {}
-    /// public components. See the @ref types_group "types" module for a complete listing
+    /// \namespace bad::types::api
+    /// \ingroup types_group
+    /// See \ref types_group "types" for a complete listing.
     namespace api { using namespace common; }
     using namespace api;
   }
   using namespace types::common;
 }
 
+/// \{
 namespace bad::types {
   /// demangle a type name with the C++ ABI if available
-  /// @ingroup types_group
-  /// @private
+  /// \ingroup types_group
+  /// \private
   BAD(hd)
   std::string demangle(char const * name);
 }
 
 namespace bad::types::common {
   /// return the name of a given type given a reference
-  /// @ingroup types_group
+  /// \ingroup types_group
   template <class T>
   BAD(hd)
   std::string type(T const & t) noexcept {
@@ -41,7 +49,7 @@ namespace bad::types::common {
   }
 
   /// return the name of a given type without passing a reference
-  /// @ingroup types_group
+  /// \ingroup types_group
   template <class T>
   BAD(hd)
   std::string type_name() noexcept {
@@ -49,4 +57,4 @@ namespace bad::types::common {
   }
 }
 
-/// @}
+/// \}

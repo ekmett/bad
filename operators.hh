@@ -2,38 +2,40 @@
 
 #include "attributes.hh"
 
-/// @file operators.hh
-/// @brief operators and move semantics
-/// @author Edward Kmett
-/// @author Daniel Friy
+/// \file
+/// \brief operators and move semantics
+/// \author Edward Kmett
+/// \author Daniel Friy
 
-/// @defgroup operators operators
-/// @brief operators and move semantics
-/// @{
+/// \defgroup operators_group operators
+/// \brief operators and move semantics
+
+/// \namespace bad
+/// \private
 namespace bad {
-  /// operators and move semantics
-  /// @ingroup operators
+  /// \namespace bad::operators
+  /// \ref operators_group "operators" internals, import bad::operators::api
+  /// \ingroup operators_group
   namespace operators {
-    /// re-exported by \ref bad and \ref bad::operators::api "api"
-    /// @ingroup operators
+    /// \namespace bad::operators::common
+    /// \ingroup operators_group
+    /// re-exported by \ref bad and bad::operators::api
     namespace common {}
-    /// public components
-    /// @ingroup operators
-    namespace api {
-      using namespace common;
-    }
+    /// \namespace bad::operators::api
+    /// \ingroup operators_group
+    /// See \ref operators_group "operators" for a complete listing.
+    namespace api { using namespace common; }
     using namespace api;
   }
   using namespace operators::common;
 }
-/// @}
 
-/// @def bad_op(name,op)
-/// @private
+/// \def bad_op(name,op)
+/// \private
 #define bad_op(name,op) \
-  /** provides `T op U` given `T op## = U`. @n\
-   @param T current type @n\
-   @param U the other type */\
+  /** provides `T op U` given `T op## = U`. \n\
+   \tparam T current type \n\
+   \tparam U the other type */\
   template<class T, class U = T>\
   struct BAD(empty_bases) name {\
     BAD(hd,nodiscard,inline,flatten)\
@@ -58,13 +60,13 @@ namespace bad {
     }\
   }
 
-/// @def bad_op_left(name,op)
-/// @private
+/// \def bad_op_left(name,op)
+/// \private
 #define bad_op_left(name,op) \
   bad_op(name,op);\
-  /** provides `U op T` given both `T(U)` and `T op## = U` @n\
-   @param T current type @n\
-   @param U the other type */\
+  /** provides `U op T` given both `T(U)` and `T op## = U` \n\
+   \tparam T current type \n\
+   \tparam U the other type */\
   template<class T, class U>\
   struct BAD(empty_bases) name##_left {\
     BAD(hd,nodiscard,inline,flatten)\
@@ -88,12 +90,12 @@ namespace bad {
     }\
   }
 
-/// @private
+/// \private
 #define bad_op_commutative(name,op) \
   bad_op_left(name,op);\
-  /** provides `T op U` and `U op T` given `T op## = U` @n\
-   @param T current type @n\
-   @param U the other type */\
+  /** provides `T op U` and `U op T` given `T op## = U` \n\
+   \tparam T current type \n\
+   \tparam U the other type */\
   template<class T, class U = T>\
   struct BAD(empty_bases) commutative_##name {\
     BAD(hd,nodiscard,inline,flatten)\
@@ -139,8 +141,8 @@ namespace bad {
   };\
 \
   template<class T>\
-  /** provides `T op T` given `T op##= T` @n\
-   @param T current type */\
+  /** provides `T op T` given `T op##= T` \n\
+   \tparam T current type */\
   struct BAD(empty_bases) commutative_##name< T> {\
     BAD(hd,nodiscard,inline,flatten)\
     friend T operator op(T const & lhs, T const & rhs)\
@@ -166,19 +168,19 @@ namespace bad {
     }\
   }
 
-/// @ingroup operators
-/// @{
+/// \ingroup operators_group
+/// \{
 
 namespace bad::operators::api {
 
-  /// @defgroup equality equality
+  /// \defgroup equality equality
   /// `!=` and `==`
-  /// @ingroup operators
-  /// @{
+  /// \ingroup operators_group
+  /// \{
 
   /// provides `T != U`, `U == T`, and `U != T`, when given `T == U`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) equality_comparable {
     BAD(hd,nodiscard,inline,flatten)
@@ -201,7 +203,7 @@ namespace bad::operators::api {
   };
 
   /// provides `T != T` when given `T == T`
-  /// @param T current type
+  /// \tparam T current type
   template <class T>
   struct BAD(empty_bases) equality_comparable<T> {
     BAD(hd,nodiscard,inline,flatten)
@@ -211,16 +213,16 @@ namespace bad::operators::api {
     }
   };
 
-  /// @}
+  /// \}
 
-  /// @defgroup ordering ordering
+  /// \defgroup ordering ordering
   /// `<`, `>`, `<=`, and `=>`
-  /// @ingroup operators
-  /// @{
+  /// \ingroup operators_group
+  /// \{
 
   /// provides `T <= U`, `T >= U`, `U < T`, `U > T`, `U <= T`, and `U >= T` when given `T < U` and `T > U`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template<class T, class U = T>
   struct BAD(empty_bases) less_than_comparable {
     BAD(hd,nodiscard,inline,flatten)
@@ -261,7 +263,7 @@ namespace bad::operators::api {
   };
 
   /// provides `T <= T`, `T >= T`, `T > T` when given `T < T`
-  /// @param T current type
+  /// \tparam T current type
   template<class T>
   struct BAD(empty_bases) less_than_comparable<T> {
     BAD(hd,nodiscard,inline,flatten)
@@ -289,8 +291,8 @@ namespace bad::operators::api {
   , equality_comparable<T,U> {};
 
   /// provides `T == U` when given `T < U` and `T > U`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template<class T, class U = T>
   struct BAD(empty_bases) equivalent {
     BAD(hd,nodiscard,inline,flatten)
@@ -301,7 +303,7 @@ namespace bad::operators::api {
   };
 
   /// provides `T == T when given `T < T`
-  /// @param T current type
+  /// \tparam T current type
   template<class T>
   struct BAD(empty_bases) equivalent<T> {
     BAD(hd,nodiscard,inline,flatten)
@@ -312,8 +314,8 @@ namespace bad::operators::api {
   };
 
   /// provides `T <= U`, `T >= U`, `U < T`, `U <= T`, and `U >= T` when given `T < U`, `T > U`, `T == U`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template<class T, class U = T>
   struct BAD(empty_bases) partially_ordered {
     BAD(hd,nodiscard,inline,flatten)
@@ -354,7 +356,7 @@ namespace bad::operators::api {
   };
 
   /// provides `T > T`, `T <= T`, and `T >= T` when given `T < T` and `T == T`
-  /// @param T current type
+  /// \tparam T current type
   template<class T>
   struct BAD(empty_bases) partially_ordered<T> {
     BAD(hd,nodiscard,inline,flatten)
@@ -376,12 +378,12 @@ namespace bad::operators::api {
     }
   };
 
-  /// @}
+  /// \}
 
-  /// @defgroup arithmetic arithmetic
+  /// \defgroup arithmetic arithmetic
   /// `+`,`-`,`*`,`/`, and `%`
-  /// @ingroup operators
-  /// @{
+  /// \ingroup operators_group
+  /// \{
 
   bad_op_commutative(addable, +);
   bad_op_left(subtractable, -);
@@ -390,8 +392,8 @@ namespace bad::operators::api {
   bad_op_left(modable, % );
 
   /// provides `T @ U` and `U @ T` when given `T(U)`, `T @= U` for `@` in `{+,-,*}`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) ringlike
   : commutative_addable<T,U>
@@ -399,20 +401,20 @@ namespace bad::operators::api {
   , subtractable_left<T,U>
   , multipliable<T,U> {};
 
-  /// @}
+  /// \}
 
-  /// @defgroup bitwise bitwise
+  /// \defgroup bitwise bitwise
   /// `&`, `|`, `^`, `<<` and `>>`
-  /// @ingroup operators
-  /// @{
+  /// \ingroup operators_group
+  /// \{
 
   bad_op_commutative(andable, &);
   bad_op_commutative(orable, |);
   bad_op_commutative(xorable, ^);
 
   /// provides `T @ U` when given `T @= U` for `@` in `{&,|,^}`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) bitwise
   : andable<T,U>
@@ -420,8 +422,8 @@ namespace bad::operators::api {
   , xorable<T,U> {};
 
   /// provides `U @ T` when given `T @= U` and `T(U)` for `@` in `{&,|,^}`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) bitwise_left
   : andable_left<T,U>
@@ -429,8 +431,8 @@ namespace bad::operators::api {
   , xorable_left<T,U> {};
 
   /// provides `T @ U` and `U @ T` when given `T @= U` in `{&,|,^}`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) commutative_bitwise
   : commutative_andable<T,U>
@@ -441,16 +443,16 @@ namespace bad::operators::api {
   bad_op(right_shiftable, >>);
 
   /// provides `T @ U` when given `T @= U` for `@` in `{<<,>>}`
-  /// @param T current type
-  /// @param U the other type
+  /// \tparam T current type
+  /// \tparam U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) shiftable
   : left_shiftable<T,U>
   , right_shiftable<T,U> {};
 
-  /// @}
+  /// \}
 }
-/// @}
+/// \}
 
 #undef bad_op
 #undef bad_op_left

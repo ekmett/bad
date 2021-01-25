@@ -6,15 +6,34 @@
 #include "errors.hh"
 #include "sequences.hh"
 
-/// @file lists.hh
-/// @brief type level heterogeneous lists
-/// @author Edward Kmett
-///
-/// @defgroup lists lists 
-/// @brief type level heterogeneous lists
-///
-/// @{
+/// \file
+/// \brief type level heterogeneous lists
+/// \author Edward Kmett
 
+/// \defgroup lists_group lists 
+/// \brief type level heterogeneous lists
+
+/// \namespace bad
+/// \private
+namespace bad {
+  /// \namespace bad::lists
+  /// \ref lists_group "lists" internals, import bad::lists::api
+  /// \ingroup lists_group
+  namespace lists {
+    /// \namespace bad::lists::common
+    /// \ingroup lists_group
+    /// re-exported by \ref bad and bad::lists::api
+    namespace common {}
+    /// \namespace bad::lists::api
+    /// \ingroup lists_group
+    /// See \ref lists_group "lists" for a complete listing.
+    namespace api { using namespace common; }
+    using namespace api;
+  }
+  using namespace lists::common;
+}
+
+/// \{
 namespace bad {
   /// type level lists
   namespace lists {
@@ -38,18 +57,18 @@ namespace bad::lists {
 
   namespace common {
     /// heterogeneous lists
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <class...>
     struct BAD(empty_bases) list {};
   }
 
-  /// @private
+  /// \private
   template <class, class L>
   struct list_cons_ {
     static_assert(no<L>,"list_cons: not a list");
   };
 
-  /// @private
+  /// \private
   template <class x, class... xs>
   struct list_cons_<x,list<xs...>> {
     using type = list<x, xs...>;
@@ -57,18 +76,18 @@ namespace bad::lists {
 
   namespace api {
     /// prepend a type onto a heterogeneous list
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <class x, class xs>
     using list_cons = typename list_cons_<x,xs>::type;
   }
 
-  /// @private
+  /// \private
   template <class L>
   struct list_head_ {
     static_assert(no<L>,"list_head: not a list");
   };
 
-  /// @private
+  /// \private
   template <class x, class... xs>
   struct list_head_<list<x,xs...>> {
     using type = x;
@@ -76,23 +95,23 @@ namespace bad::lists {
 
   namespace api {
     /// extract the head of a heterogeneous list
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <class L>
     using list_head = typename list_head_<L>::type;
   }
 
   namespace common {
     /// inferrable `std::integral_constant`, used to encode lists as heterogenous lists
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <auto x>
     using int_t = std::integral_constant<decltype(x), x>;
   }
 
-  /// @private
+  /// \private
   template <class>
   struct seq_list_;
 
-  /// @private
+  /// \private
   template <class T, T... is>
   struct seq_list_<seq_t<T,is...>> {
     using type = list<int_t<is>...>;
@@ -100,43 +119,43 @@ namespace bad::lists {
 
   namespace api {
     /// convert a sequence to a heteregeneous list of integral constants
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <class S>
     using seq_list = typename seq_list_<S>::type;
   }
 
-  /// @private
+  /// \private
   template <class L>
   struct list_zip_ {
     static_assert(no<L>,"list_zip: first arg is not a list");
   };
 
-  /// @private
+  /// \private
   template <>
   struct list_zip_<list<>> {
-    /// @private
+    /// \private
     template <class>
     struct at {
       using type = list<>;
     };
   };
 
-  /// @private
+  /// \private
   template <class x, class... xs>
   struct list_zip_<list<x,xs...>> {
-    /// @private
+    /// \private
     template <class R>
     struct at {
       static_assert(no<R>,"list_zip: second arg is not a list");
     };
 
-    /// @private
+    /// \private
     template <>
     struct at<list<>> {
       using type = list<>;
     };
 
-    /// @private
+    /// \private
     template <class y, class... ys>
     struct at<list<y,ys...>> {
       using type = list_cons<std::tuple<x,y>,typename list_zip_<xs...>::template at<ys...>::type>;
@@ -145,24 +164,24 @@ namespace bad::lists {
 
   namespace api {
     /// zip two heterogenous lists together to form a heterogeneous list of tuples
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <class X, class Y>
     using list_zip = typename list_zip_<X>::template at<Y>::type;
   }
 
-  /// @private
+  /// \private
   template <class, class L>
   struct list_seq_ {
     static_assert(no<L>,"list_seq: not a homogeneous list of integral constants");
   };
 
-  /// @private
+  /// \private
   template <class T>
   struct list_seq_<T,list<>> {
     using type = seq_t<T>;
   };
 
-  /// @private
+  /// \private
   template <class T, T i, class... xs>
   struct list_seq_<T,list<int_t<i>,xs...>> {
     using type = seq_cons<i,typename list_seq_<T,list<xs...>>::type>;
@@ -170,18 +189,18 @@ namespace bad::lists {
 
   namespace api {
     /// convert a list of integral constants, each of type T to a sequence
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <class T, class S>
     using list_seq = typename list_seq_<T,S>::type;
   }
 
-  /// @private
+  /// \private
   template <template <class...> class, class L>
   struct list_apply_ {
     static_assert(no<L>, "list_apply: not a list");
   };
 
-  /// @private
+  /// \private
   template <template <class...> class F, class... xs>
   struct list_apply_<F,list<xs...>> {
     using type = F<xs...>;
@@ -189,10 +208,10 @@ namespace bad::lists {
 
   namespace api {
     /// pass each type in a heterogeneous list to a given template
-    /// @ingroup lists
+    /// \ingroup lists_group
     template <template <class...> class F, class L>
     using list_apply = typename list_apply_<F,L>::type;
   }
 }
 
-/// @}
+/// \}

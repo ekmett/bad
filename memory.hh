@@ -6,15 +6,34 @@
 #include <memory>
 #include "attributes.hh"
 
-/// @file memory.hh
-/// @brief memory allocation
-/// @author Edward Kmett
+/// \file memory.hh
+/// \brief memory allocation
+/// \author Edward Kmett
 ///
-/// @defgroup memory memory
-/// @brief memory allocation
-/// @{
+/// \defgroup memory_group memory
+/// \brief memory allocation
 
-/// memory allocation
+/// \namespace bad
+/// \private
+namespace bad {
+  /// \namespace bad::memory
+  /// \ref memory_group "memory" internals, import bad::memory::api
+  /// \ingroup memory_group
+  namespace memory {
+    /// \namespace bad::memory::common
+    /// \ingroup memory_group
+    /// re-exported by \ref bad and bad::memory::api
+    namespace common {}
+    /// \namespace bad::memory::api
+    /// \ingroup memory_group
+    /// See \ref memory_group "memory" for a complete listing.
+    namespace api { using namespace common; }
+    using namespace api;
+  }
+  using namespace memory::common;
+}
+
+/// \{
 namespace bad::memory {
   /// re-exported by \ref bad and \ref bad::memory::api "api"
   namespace common {}
@@ -27,19 +46,19 @@ namespace bad::memory {
 }
 
 namespace bad::memory::api {
-  /// @ingroup memory
+  /// \ingroup memory_group
   static constexpr size_t record_alignment = 16;
-  /// @ingroup memory
+  /// \ingroup memory_group
   static constexpr size_t record_mask = static_cast<size_t>(~0xf);
 
-  /// @ingroup memory
+  /// \ingroup memory_group
   BAD(hd,inline,const)
   bool is_aligned(BAD(noescape) const void * ptr, std::uintptr_t alignment) noexcept {
     auto iptr = reinterpret_cast<std::uintptr_t>(ptr);
     return !(iptr % alignment);
   }
 
-  /// @ingroup memory
+  /// \ingroup memory_group
   template <class T, size_t Alignment = record_alignment>
   struct aligned_allocator {
     using pointer = T*;
@@ -101,8 +120,8 @@ namespace bad::memory::api {
     }
   };
 
-  /// @ingroup memory
+  /// \ingroup memory_group
   using default_allocator = aligned_allocator<std::byte, record_alignment>;
 }
 
-/// @}
+/// \}

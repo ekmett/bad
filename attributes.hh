@@ -1,15 +1,15 @@
 #pragma once
 #include "macros.hh"
 
-/// @file attributes.hh
+/// \file
 /// macros for applying attributes.
 ///
-/// @defgroup attributes attributes
+/// \defgroup attributes attributes
 /// macros for applying attributes to functions, members, arguments, etc.
-/// @{
+/// \{
 ///
-/// @def BAD(...)
-/// @brief convenient macro for applying several attributes
+/// \def BAD(...)
+/// \brief convenient macro for applying several attributes
 ///
 /// e.g. BAD(hd,inline) vs. \ref bad_hd \ref bad_inline
 ///
@@ -21,16 +21,16 @@
 #define BAD(...)
 #endif
 
-/// @def bad_has_attribute(__x)
-/// @brief portable `__has_attribute(x)`
+/// \def bad_has_attribute(__x)
+/// \brief portable `__has_attribute(x)`
 #ifdef __has_attribute
 #define bad_has_attribute(__x) __has_attribute(__x)
 #else
 #define bad_has_attribute(__x) 0
 #endif
 
-/// @def bad_has_declspec_attribute(__x)
-/// @brief portable `__has_declspec_attribute(__x)`
+/// \def bad_has_declspec_attribute(__x)
+/// \brief portable `__has_declspec_attribute(__x)`
 #if defined(_MSC_VER)
 #define bad_has_declspec_attribute(__x) 1
 #elif defined(BAD_USE_DECLSPEC) && defined(__has_declspec_attribute)
@@ -39,11 +39,11 @@
 #define bad_has_declspec_attribute(__x) 0
 #endif
 
-/// @def bad_likely(x)
-/// @brief portable `[[likely]]` or `__builtin_expect(x,1)` expressions
+/// \def bad_likely(x)
+/// \brief portable `[[likely]]` or `__builtin_expect(x,1)` expressions
 
-/// @def bad_unlikely(x)
-/// @brief portable `[[unlikely]]` or `__builtin_expect(x,0)` expressions
+/// \def bad_unlikely(x)
+/// \brief portable `[[unlikely]]` or `__builtin_expect(x,0)` expressions
 #if __has_cpp_attribute(likely)
 #define bad_likely(x) (x) [[likely]]
 #define bad_unlikely(x) (x) [[unlikely]]
@@ -55,8 +55,8 @@
 // TODO: restrict
 // TODO: gsl::Owner, gsl::Pointer?
 
-/// @def bad_inline
-/// @brief portable `inline __forceinline` or `inline __attribute__((always_inline))`
+/// \def bad_inline
+/// \brief portable `inline __forceinline` or `inline __attribute__((always_inline))`
 
 #if bad_has_attribute(always_inline)
 #define bad_inline inline __attribute__((always_inline))
@@ -66,8 +66,8 @@
 #define bad_inline inline
 #endif
 
-/// @def bad_preferred_name(x)
-/// @brief portable `[[clang::preferred_name(x)]]` annotations
+/// \def bad_preferred_name(x)
+/// \brief portable `[[clang::preferred_name(x)]]` annotations
 ///
 /// can be applied to a template struct to provide better names
 /// for some concrete instantiations
@@ -78,8 +78,8 @@
 #define bad_preferred_name(__x)
 #endif
 
-/// @def bad_flatten
-/// @brief portable `[[flatten]]`
+/// \def bad_flatten
+/// \brief portable `[[flatten]]`
 ///
 /// the compiler should inline recursively aggressively under
 /// this definition. use with care, good for expression templates
@@ -91,8 +91,8 @@
 #warning no flatten
 #endif
 
-/// @def bad_malloc
-/// @brief portable `__attribute__((malloc))` attribute
+/// \def bad_malloc
+/// \brief portable `__attribute__((malloc))` attribute
 ///
 /// indicates the returned memory does not alias with any other pointer
 
@@ -103,8 +103,8 @@
 #warning no malloc
 #endif
 
-/// @def bad_uninitialized
-/// @brief portable `[[clang::uninitialized]]` attribute
+/// \def bad_uninitialized
+/// \brief portable `[[clang::uninitialized]]` attribute
 ///
 /// ensures a stack variable remains uninitialized regardless of
 /// `-ftrivial-auto-var-init=*` settings passed to the compiler
@@ -116,8 +116,8 @@
 #warning no uninitialized
 #endif
 
-/// @def bad_noalias
-/// @brief portable `__declspec(noalias)`
+/// \def bad_noalias
+/// \brief portable `__declspec(noalias)`
 ///
 /// indicates a function only accesses data through pointer arguments
 ///
@@ -130,8 +130,8 @@
 #warning no noalias
 #endif
 
-/// @def bad_constinit
-/// @brief portable `constinit`
+/// \def bad_constinit
+/// \brief portable `constinit`
 ///
 /// `constinit` requires C++20, but __attribute__((require_constant_initialization)) is available earlier
 #if bad_has_attribute(require_constant_initialization)
@@ -148,8 +148,8 @@
 //#warning no called_once
 //#endif
 
-/// @def bad_const
-/// @brief portable `__attribute__((const))`. NOT `const`
+/// \def bad_const
+/// \brief portable `__attribute__((const))`. NOT `const`
 ///
 /// indicates the result is entirely determined by the arguments
 /// and does not access main memory in any way, including accessing
@@ -163,8 +163,8 @@
 #warning no const
 #endif
 
-/// @def bad_pure
-/// @brief portable `__attribute__((pure))`
+/// \def bad_pure
+/// \brief portable `__attribute__((pure))`
 ///
 /// no side-effects other than return value, may inspect globals
 ///
@@ -176,8 +176,8 @@
 #warning no pure
 #endif
 
-/// @def bad_reinitializes
-/// @brief portable `[[clang::reinitializes]]`
+/// \def bad_reinitializes
+/// \brief portable `[[clang::reinitializes]]`
 ///
 /// indicates to any uninitialised object state sanitizer
 /// that this restores an object to a fresh state independent
@@ -189,8 +189,8 @@
 #warning no reinitializes
 #endif
 
-/// @def bad_assume_aligned(x)
-/// @brief portable `__attribute__((assume_aligned(x)))`
+/// \def bad_assume_aligned(x)
+/// \brief portable `__attribute__((assume_aligned(x)))`
 ///
 /// function returns a pointer with alignment that is at least x
 
@@ -201,8 +201,8 @@
 #warning no assume_aligned
 #endif
 
-/// @def bad_align_value(x)
-/// @brief portable `__attribute__((align_value(x)))`
+/// \def bad_align_value(x)
+/// \brief portable `__attribute__((align_value(x)))`
 ///
 /// the annotated pointer specified has alignment at least x
 
@@ -213,8 +213,8 @@
 #warning no align_value
 #endif
 
-/// @def bad_alloc_align(x)
-/// @brief portable `__attribute__((alloc_align(x)))`
+/// \def bad_alloc_align(x)
+/// \brief portable `__attribute__((alloc_align(x)))`
 ///
 /// Indicates the 1-based argument number of a function that indicates the alignment of the returned result
 #if bad_has_attribute(alloc_align)
@@ -224,8 +224,8 @@
 #warning no alloc_align
 #endif
 
-/// @def bad_alloc_size(x)
-/// @brief portable `__attribute__((alloc_size(x)))`
+/// \def bad_alloc_size(x)
+/// \brief portable `__attribute__((alloc_size(x)))`
 ///
 /// arg # (1-based) of the attribute that tells you the size of the result in bytes
 #if bad_has_attribute(alloc_size)
@@ -235,8 +235,8 @@
 #warning no alloc_size
 #endif
 
-/// @def bad_noescape
-/// @brief portable `__attribute__((noescape))`
+/// \def bad_noescape
+/// \brief portable `__attribute__((noescape))`
 ///
 /// argument is not captured by the function (rust-style borrow)
 
@@ -247,8 +247,8 @@
 #warning no noescape
 #endif
 
-/// @def bad_callback(...)
-/// @brief portable `__attribute__((callback(...)))`
+/// \def bad_callback(...)
+/// \brief portable `__attribute__((callback(...)))`
 ///
 /// indicates the specified argument will be called back with the
 /// other named arguments. complicated, see clang docs.
@@ -262,8 +262,8 @@
 #warning no callback
 #endif
 
-/// @def bad_lifetimebound
-/// @brief portable `__attribute__((lifetimebound))`
+/// \def bad_lifetimebound
+/// \brief portable `__attribute__((lifetimebound))`
 ///
 /// the argument must be kept alive as long as the result of the
 /// function is alive. Should be used for functions that return
@@ -280,8 +280,8 @@
 #warning no lifetimebound
 #endif
 
-/// @def bad_returns_nonnull
-/// @brief portable `__attribute__((returns_nonnnull))`
+/// \def bad_returns_nonnull
+/// \brief portable `__attribute__((returns_nonnnull))`
 ///
 /// The result of this function will be non-null
 
@@ -292,8 +292,8 @@
 #warning no returns_nonnull
 #endif
 
-/// @def bad_nonnull(...)
-/// @brief portable `__attribute__((nonnnull(...)))`
+/// \def bad_nonnull(...)
+/// \brief portable `__attribute__((nonnnull(...)))`
 ///
 /// Indicates the selected (1-based) indexed arguments to this function
 /// must be non-null. Passing a null pointer to such an argument is
@@ -306,18 +306,18 @@
 #warning no gcc-style nonnull
 #endif
 
-/// @def bad_Nonnull
-/// @brief portable `_Nonnull`
+/// \def bad_Nonnull
+/// \brief portable `_Nonnull`
 ///
 /// can be applied to each * in an data type to indicate that argument should never be null.
 ///
-/// @def bad_Nullable
-/// @brief portable `_Nullable`
+/// \def bad_Nullable
+/// \brief portable `_Nullable`
 ///
 /// can be applied to each * in an data type to indicate that argument might be null.
 ///
-/// @def bad_Null_unspecified
-/// @brief portable `_Null_unspecified`
+/// \def bad_Null_unspecified
+/// \brief portable `_Null_unspecified`
 ///
 /// applied to each * in an data type to indicate that the nullability of it is unknown or complicated
 #ifdef __clang__
@@ -331,18 +331,18 @@
 #endif
 
 
-/// @def bad_host
-/// @brief portable `__host__` for cuda
+/// \def bad_host
+/// \brief portable `__host__` for cuda
 //
 /// indicates the function should be available on the host
 //
-/// @def bad_device
-/// @brief portable `__device__` for cuda
+/// \def bad_device
+/// \brief portable `__device__` for cuda
 ///
 /// indicates the function should be available on the device
 //
-/// @def bad_global
-/// @brief portable `__global__` for cuda
+/// \def bad_global
+/// \brief portable `__global__` for cuda
 ///
 /// indicates the function is a global entry point for a
 /// compute kernel
@@ -357,8 +357,8 @@
 #define bad_global
 #endif
 
-/// @def bad_hd
-/// @brief applies both \ref bad_host and \ref bad_device
+/// \def bad_hd
+/// \brief applies both \ref bad_host and \ref bad_device
 ///
 /// most functions in the library should be defined this way
 ///
@@ -366,8 +366,8 @@
 
 #define bad_hd bad_host bad_device
 
-/// @def bad_no_unique_address
-/// @brief portable c++20 `[[no_unique_address]]`
+/// \def bad_no_unique_address
+/// \brief portable c++20 `[[no_unique_address]]`
 ///
 /// clang makes this available slightly earlier
 
@@ -377,9 +377,8 @@
 #define bad_no_unique_address
 #endif
 
-
-/// @def bad_empty_bases
-/// @brief portable __declspec(empty_bases)
+/// \def bad_empty_bases
+/// \brief portable __declspec(empty_bases)
 ///
 /// just for msvc for now.
 
@@ -389,21 +388,21 @@
 #define bad_empty_bases
 #endif
 
-/// @def bad_maybe_unused
-/// @brief argument, member or definition `[[maybe_unused]]`
+/// \def bad_maybe_unused
+/// \brief argument, member or definition `[[maybe_unused]]`
 ///
-/// @since C++17
+/// \since C++17
 #define bad_maybe_unused [[maybe_unused]]
 
-/// @def bad_deprecated
-/// @brief `[[deprecated]]`
+/// \def bad_deprecated
+/// \brief `[[deprecated]]`
 ///
-/// @since C++14
+/// \since C++14
 #define bad_deprecated [[deprecated]]
 
-/// @def bad_nodiscard
-/// @brief C++17 `[[nodiscard]]`.
+/// \def bad_nodiscard
+/// \brief C++17 `[[nodiscard]]`.
 /// The user should explicitly throw away the result rather than let it be silently discarded
 #define bad_nodiscard [[nodiscard]]
 
-/// @}
+/// \}

@@ -1,25 +1,33 @@
 #pragma once
 
-/// @file forward_mode.hh
-/// @brief scalar forward mode
-/// @author Edward Kmett
+/// \file
+/// \brief scalar forward mode
+/// \author Edward Kmett
 
-/// @defgroup forward forward
-/// @brief forward mode
-/// @{
+/// \defgroup forward forward
+/// \brief forward mode
 
+/// \namespace bad
+/// \private
 namespace bad {
-  /// forward mode
+  /// \namespace bad::forward_mode
+  /// \ref forward_mode_group "forward_mode" internals, import bad::forward_mode::api
+  /// \ingroup forward_mode_group
   namespace forward_mode {
-    /// re-exported by \ref bad and \ref bad::forward::api "api"
+    /// \namespace bad::forward_mode::common
+    /// \ingroup forward_mode_group
+    /// re-exported by \ref bad and bad::forward_mode::api
     namespace common {}
-    /// public components
+    /// \namespace bad::forward_mode::api
+    /// \ingroup forward_mode_group
+    /// See \ref forward_mode_group "forward_mode" for a complete listing.
     namespace api { using namespace common; }
-    using namespace api; 
+    using namespace api;
   }
-  using namespace bad::forward::common;
+  using namespace forward_mode::common;
 }
 
+/// \{
 namespace bad::forward_mode::common {
   template <class B, size_t N = 1>
   struct forward_expr {
@@ -274,4 +282,4 @@ namespace bad::forward_mode::common {
   forward(forward_expr<B,N> const &) -> forward<B::value_type,N>;
 }
 
-/// @}
+/// \}
