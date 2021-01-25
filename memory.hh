@@ -16,7 +16,7 @@
 
 /// memory allocation
 namespace bad::memory {
-  /// re-exported by \ref bad and \ref bad::memory::api
+  /// re-exported by \ref bad and \ref bad::memory::api "api"
   namespace common {}
   using namespace common;
   /// public components

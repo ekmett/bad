@@ -11,7 +11,7 @@
 namespace bad {
   /// forward mode
   namespace forward_mode {
-    /// re-exported by \ref bad and \ref bad::forward::api
+    /// re-exported by \ref bad and \ref bad::forward::api "api"
     namespace common {}
     /// public components
     namespace api { using namespace common; }

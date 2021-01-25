@@ -9,15 +9,16 @@
 
 /// @defgroup operators operators
 /// @brief operators and move semantics
-
 /// @{
-
 namespace bad {
-  ///  operators and move semantics
+  /// operators and move semantics
+  /// @ingroup operators
   namespace operators {
-    /// re-exported by \ref bad and \ref bad::operators::api
+    /// re-exported by \ref bad and \ref bad::operators::api "api"
+    /// @ingroup operators
     namespace common {}
     /// public components
+    /// @ingroup operators
     namespace api {
       using namespace common;
     }
@@ -25,7 +26,10 @@ namespace bad {
   }
   using namespace operators::common;
 }
+/// @}
 
+/// @def bad_op(name,op)
+/// @private
 #define bad_op(name,op) \
   /** provides `T op U` given `T op## = U`. @n\
    @param T current type @n\
@@ -54,6 +58,8 @@ namespace bad {
     }\
   }
 
+/// @def bad_op_left(name,op)
+/// @private
 #define bad_op_left(name,op) \
   bad_op(name,op);\
   /** provides `U op T` given both `T(U)` and `T op## = U` @n\
@@ -82,6 +88,7 @@ namespace bad {
     }\
   }
 
+/// @private
 #define bad_op_commutative(name,op) \
   bad_op_left(name,op);\
   /** provides `T op U` and `U op T` given `T op## = U` @n\
@@ -159,6 +166,9 @@ namespace bad {
     }\
   }
 
+/// @ingroup operators
+/// @{
+
 namespace bad::operators::api {
 
   /// @defgroup equality equality
@@ -171,19 +181,19 @@ namespace bad::operators::api {
   /// @param U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) equality_comparable {
-    BAD(hd,nodiscard,inline,flatten) 
+    BAD(hd,nodiscard,inline,flatten)
     friend constexpr bool operator != (T const & lhs,U const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs==rhs))) {
       return !static_cast<bool>(lhs==rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten) 
+    BAD(hd,nodiscard,inline,flatten)
     friend constexpr bool operator == (U const & lhs,T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs==rhs))) {
       return static_cast<bool>(lhs==rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten) 
+    BAD(hd,nodiscard,inline,flatten)
     friend constexpr bool operator != (U const & lhs,T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs!=rhs))) {
       return static_cast<bool>(lhs!=rhs);
@@ -194,7 +204,7 @@ namespace bad::operators::api {
   /// @param T current type
   template <class T>
   struct BAD(empty_bases) equality_comparable<T> {
-    BAD(hd,nodiscard,inline,flatten) 
+    BAD(hd,nodiscard,inline,flatten)
     friend constexpr bool operator != (T const & lhs,T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs==rhs))) {
       return !static_cast<bool>(lhs==rhs);
@@ -202,7 +212,7 @@ namespace bad::operators::api {
   };
 
   /// @}
-  
+
   /// @defgroup ordering ordering
   /// `<`, `>`, `<=`, and `=>`
   /// @ingroup operators
@@ -440,28 +450,27 @@ namespace bad::operators::api {
 
   /// @}
 }
+/// @}
 
 #undef bad_op
 #undef bad_op_left
 #undef bad_op_commutative
 
-/// @}
-
 // The MIT License (MIT)
-// 
+//
 // Copyright (c) 2021 Edward Kmett
 // Copyright (c) 2013-2020 Daniel Frey
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE

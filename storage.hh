@@ -12,7 +12,7 @@
 
 namespace bad {
   namespace storage {
-    /// re-exported by \ref bad and \ref bad::storage::api
+    /// re-exported by \ref bad and \ref bad::storage::api "api"
     namespace common{}
     /// public components
     namespace api { using namespace common; }
