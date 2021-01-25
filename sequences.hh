@@ -9,16 +9,17 @@
 /// @brief type level integer sequences
 /// @author Edward Kmett
 ///
-/// @defgroup sequences sequences
+/// @defgroup sequences_group sequences
 /// @brief type level sequences
 ///
 /// @{
 namespace bad {
-  /// type level integer sequences
+  /// The @ref sequences_group "sequences" module. This namespace holds internals. You should probably import bad::types::api instead.
   namespace sequences {
     /// re-exported by \ref bad and \ref bad::sequences::api "api"
     namespace common {}
-    /// public components
+    /// public components. See the @ref sequences_group "sequences" module for a complete listing
+    /// this listing will fail to show names supplied by \ref bad::errors::common "common"
     namespace api {
       using namespace common;
     }
@@ -30,6 +31,7 @@ namespace bad {
 namespace bad::sequences {
   using namespace errors::api;
 
+
   using std::size_t;
   using std::ptrdiff_t;
 
@@ -38,19 +40,19 @@ namespace bad::sequences {
     template <class T, T... is>
     using seq_t = std::integer_sequence<T, is...>;
   
-    /// std::integer_sequence with type inference, so long as there is at least one argument
+    /// \ref seq_t with type inference, so long as there is at least one argument
     template <auto x, auto... xs>
     using aseq = seq_t<decltype(x), x, xs...>;
   
-    /// A sequence of sizes. used to store dimensions. a.k.a. `std::index_sequence`
+    /// A \ref seq_t "sequence" of `size_t` "sizes". used to store dimensions. a.k.a. `std::index_sequence`
     template <size_t... is>
     using seq = seq_t<size_t, is...>;
   
-    /// A sequence of signed distances. Used to store strides.
+    /// A \ref seq_t "sequence" of `ptrdiff_t` "signed distances". Used to store strides.
     template <ptrdiff_t... is>
     using sseq = seq_t<ptrdiff_t, is...>;
   
-    /// A compile-time string as a type.
+    /// A compile-time string as a type of \ref seq_t "sequence". `char` is an integral type in C++.
     template <char...cs>
     using str = seq_t<char, cs...>;
 
@@ -64,7 +66,7 @@ namespace bad::sequences {
 #pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
 #endif
 
-    /// allows `decltype("foo"_str)` to return the type `str<'f','o','o'>`
+    /// allows `decltype("foo"_str)` to return the type \ref str<'f','o','o'>
     template <class T, T...cs>
     BAD(hd,const)
     str<cs...> operator""_str() noexcept {
@@ -115,7 +117,7 @@ namespace bad::sequences {
 
   namespace api {
     /// apply the type of a sequence and its parameter pack to a template, analogous to `std::apply` for tuples
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <template <class T, T...> class F, class L>
     using seq_apply = typename seq_apply_<F,L>::type;
   }
@@ -134,7 +136,7 @@ namespace bad::sequences {
 
   namespace api {
     /// apply a non-empty sequence to a template that uses auto to infer the sequennce type
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <template <auto x, decltype(x) ...> class F, class L>
     using seq_auto_apply = typename seq_auto_apply_<F,L>::type;
   }
@@ -153,7 +155,7 @@ namespace bad::sequences {
 
   namespace api { 
     /// Apply a sequence of values of known type @p T to a given template.
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class T, template <T...> class F, class L>
     using seq_t_apply = typename seq_t_apply_<T,F,L>::type;
   }
@@ -174,7 +176,7 @@ namespace bad::sequences {
 
   namespace api {
     /// return the range `[x,y)` as a sequence, with type matching the type of `x`
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <auto x, decltype(x) y>
     using seq_range = typename seq_range_<decltype(x),x,make_aseq<y-x>>::type;
   }
@@ -212,7 +214,7 @@ namespace bad::sequences {
   namespace api {
     /// append (possibly several) sequences
     /// @param T the type elements present in all of the sequences, and the type of elements in the result sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class T, class... S>
     using seq_append = typename seq_append_<T,S...>::type;
   }
@@ -242,17 +244,17 @@ namespace bad::sequences {
     ///
     /// This may cause complications if you want to pass it to C library functions as a `const char *`!
     ///
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     constexpr typename reify_<S>::type & reify = reify_<S>::value;
 
     /// the product of a non-empty parameter pack of numbers, with type inference
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <auto... xs>
     constexpr auto prod = (...*xs);
 
     /// the product of a parameter pack of numbers
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class T, T... is>
     constexpr T prod_t = (T(1) * ... * is);
   }
@@ -277,17 +279,17 @@ namespace bad::sequences {
 
   namespace api {
     /// the product of a sequence of numbers.
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     constexpr auto seq_prod = seq_prod_<S>::value;
 
     /// the sum of a non-empty parameter pack of numbers, with type inference
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <auto... xs>
     constexpr auto total = (...+xs);
 
     /// the sum of a typed parameter pack of numbers
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class T, T... xs>
     constexpr T total_t = (T(1)+...+xs);
   }
@@ -312,7 +314,7 @@ namespace bad::sequences {
 
   namespace api {
     /// the sum of a sequence of numbers
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     constexpr auto seq_total = seq_total_<S>::value;
 
@@ -335,17 +337,17 @@ namespace bad::sequences {
 
   namespace api {
     /// head of a sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     constexpr auto seq_head = seq_head_<S>::value;
 
     /// tail of a non-empty parameter pack of numbers, with type inference
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <auto x, decltype(x) ... xs>
     using tail = seq_t<decltype(x), xs...>;
 
     /// tail of a non-empty sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     using seq_tail = seq_auto_apply<tail,S>;
   }
@@ -367,7 +369,7 @@ namespace bad::sequences {
   namespace api {
     /// prepend a value to a sequence
     /// the type of the new argument determines the type of the output sequence, as long as the types are convertible
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <auto i, class S>
     using seq_cons = typename seq_cons_<decltype(i),i,S>::type;
   }
@@ -388,7 +390,7 @@ namespace bad::sequences {
 
   namespace api {
     /// type of elements in a given sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     using seq_element_type = typename seq_element_type_<S>::type;
   }
@@ -409,7 +411,7 @@ namespace bad::sequences {
 
   namespace api {
     /// the length of a sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     constexpr auto seq_length = seq_length_<S>::value;
   }
@@ -444,7 +446,7 @@ namespace bad::sequences {
 
   namespace api {
     /// compute the row-major stride of the nth dimension in a parameter pack of dimensions
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <size_t N, size_t... xs>
     BAD(constinit)
     constexpr ptrdiff_t stride = stride_<N,xs...>::value();
@@ -464,7 +466,7 @@ namespace bad::sequences {
 
   namespace api {
     /// compute the row-major stride of the nth dimension in a sequence of dimensions
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <size_t N, class S>
     constexpr ptrdiff_t seq_stride = seq_stride_<N,S>::value;
   }
@@ -488,7 +490,7 @@ namespace bad::sequences {
     /// the result is returned as a \ref bad::sequences::common::sseq "sseq", so we can play games with
     /// negating strides to flip dimensions over
     ///
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     using row_major = typename row_major_<S, make_seq<seq_length<S>>>::type;
   }
@@ -523,19 +525,19 @@ namespace bad::sequences {
 
   namespace api {
     /// return the nth member of a sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <size_t N, class S>
     constexpr auto seq_nth = seq_nth_<N,S>::value;
 
     /// return the last member of a sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
 
     /// backpermute a sequence with a pack of indices
     ///
     /// `backpermute<seq_t<T,a,b,c,d>,0,3,2,3,1,0> = seq_t<T,a,d,c,d,b,a>`
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S, size_t... is>
     using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
   }
@@ -554,17 +556,17 @@ namespace bad::sequences {
     /// backpermute a sequence with an index sequence of indices
     //
     /// `seq_backpermute<seq_t<T,a,b,c,d>,seq<0,3,2,3,1,0>> = seq_t<T,a,d,c,d,b,a>`
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S, class T>
     using seq_backpermute = typename seq_backpermute_<S,T>::type;
 
     /// returns all but the last entry in the non-empty sequence \p S
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     using seq_init = seq_backpermute<S, make_seq<seq_length<S>-1>>;
 
     /// drop the last \p N entries from a sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <size_t N, class S>
     using seq_drop_last = seq_backpermute<S, make_seq<seq_length<S>-std::max(N, seq_length<S>)>>;
   }
@@ -591,7 +593,7 @@ namespace bad::sequences {
 
   namespace api {
     /// swap the last two dimensions in a parameter pack
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class T, T... is>
     using pack_transpose = typename pack_transpose_<T,is...>::type;
   }
@@ -610,7 +612,7 @@ namespace bad::sequences {
 
   namespace api {
     /// swap the last two entries in a sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <class S>
     using seq_transpose = typename seq_transpose_<S>::type;
   }
@@ -637,7 +639,7 @@ namespace bad::sequences {
 
   namespace api {
     /// skip the `N`th entry in a sequence
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <size_t N, class S>
     using seq_skip_nth = typename seq_skip_nth_<
       N, S, make_seq<N>
@@ -646,7 +648,7 @@ namespace bad::sequences {
     >::type;
   
     /// pull the `N`th entry to the front of the sequence. Useful for algorithms like `einsum` and the like.
-    /// @ingroup sequences
+    /// @ingroup sequences_group
     template <size_t N, class L>
     using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
   }

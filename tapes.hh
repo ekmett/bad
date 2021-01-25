@@ -15,12 +15,12 @@
 /// @brief Wengert lists for reverse-mode automatic differentiation
 /// @author Edward Kmett
 
-/// @defgroup tapes tapes
+/// @defgroup tapes_group tapes
 /// @brief Wengert lists for reverse-mode automatic differentiation
 /// @{
 
 namespace bad {
-  /// Wengert lists for reverse-mode automatic differentiation
+  /// The @ref types_group "tapes" module. This namespace holds internals. You should probably import bad::types::api instead.
   namespace tapes {
     /// re-exported by \ref bad and \ref bad::tapes::api "api"
     namespace common {}
@@ -39,19 +39,19 @@ namespace bad::tapes {
   ///
   /// Describes how to push information backwards through your activations
   /// by using the information stored in the \ref bad::tapes::common::tape.
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct abstract_record;
 
   /// Wengert list
   namespace common {
-    /// @ingroup tapes
+    /// @ingroup tapes_group
     template <class T, class Act = T*,class Allocator = default_allocator>
     struct tape;
   }
 
   /// holds several \ref abstract_record entries in a slab of aligned memory
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct segment {
     using abstract_record_t = abstract_record<T,Act,Allocator>;
@@ -105,7 +105,7 @@ namespace bad::tapes {
     ~segment() noexcept;
   };
 
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act, class Allocator>
   BAD(hd,inline,noalias) void swap(
     BAD(noescape) segment<T, Act, Allocator> & a,
@@ -116,18 +116,18 @@ namespace bad::tapes {
     swap(a.memory, b.memory);
   }
 
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   BAD(hd,inline,const)
   static constexpr size_t pad_to_alignment(size_t i) noexcept {
     return (i + record_alignment - 1) & record_mask;
   }
 
   /// inherits from \ref abstract_record but doxygen is broken and can't figure this out.
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct link;
 
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act, class Allocator>
   struct alignas(record_alignment) abstract_record {
     using tape_t = tape<T,Act,Allocator>;
@@ -194,7 +194,7 @@ namespace bad::tapes {
     BAD(hd) void operator delete[](void *, size_t, std::align_val_t) noexcept = delete;
   };
 
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act, class Allocator>
   inline std::ostream & operator << (
     std::ostream & os,
@@ -255,7 +255,7 @@ namespace bad::tapes {
 
   /// the last segment in a tape. this is the only thing abstract_record that should
   /// return nullptr from next() and propagate()
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct terminator : abstract_record<T, Act, Allocator> {
     using abstract_record_t = abstract_record<T, Act, Allocator>;
@@ -295,7 +295,7 @@ namespace bad::tapes {
   }
 
   /// link to the next \ref segment
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act, class Allocator>
   struct link : abstract_record<T, Act, Allocator> {
     using abstract_record_t = abstract_record<T, Act, Allocator>;
@@ -360,7 +360,7 @@ namespace bad::tapes {
 
   namespace common {
     /// a non-terminal entry designed for allocation in a slab
-    /// @ingroup tapes
+    /// @ingroup tapes_group
     template <class B, class T, class Act = T *, class Allocator = default_allocator>
     struct record : abstract_record<T,Act,Allocator> {
       using abstract_record_t = abstract_record<T,Act,Allocator>;
@@ -391,7 +391,7 @@ namespace bad::tapes {
     };
   
     /// a non-terminal entry designed for allocation in a slab, that produces a fixed number of activation abstract_records
-    /// @ingroup tapes
+    /// @ingroup tapes_group
     template <size_t Acts, class B, class T, class Act = T*, class Allocator = default_allocator>
     struct static_record : record<B,T,Act,Allocator> {
   
@@ -407,7 +407,7 @@ namespace bad::tapes {
     };
   }
 
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act, class Allocator = default_allocator>
   struct const_tape_iterator {
     using iterator_category = std::forward_iterator_tag;
@@ -474,7 +474,7 @@ namespace bad::tapes {
     }
   };
   
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act, class Allocator = default_allocator>
   struct tape_iterator {
     using iterator_category = std::forward_iterator_tag;
@@ -641,7 +641,7 @@ namespace bad::tapes {
       }
     };
   
-    /// @ingroup tapes
+    /// @ingroup tapes_group
     template <class T, class Act, class Allocator>
     BAD(hd,inline,noalias)
     void swap(
@@ -662,7 +662,7 @@ namespace bad::tapes {
     }
   }
 
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T, class Act, class Allocator>
   BAD(hd,inline,noalias)
   void swap (
@@ -673,7 +673,7 @@ namespace bad::tapes {
     swap(a.p,b.p);
   }
 
-  /// @ingroup tapes
+  /// @ingroup tapes_group
   template <class T,class Act,class Allocator>
   BAD(hd,inline,noalias)
   void swap (
