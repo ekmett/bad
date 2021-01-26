@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>bad: bad::sequences::common Namespace Reference</title>
+<title>Bad: bad::sequences::common Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">bad
+   <div id="projectname">Bad
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
   </td>
@@ -77,133 +77,133 @@ $(function() {
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bad::sequences::common Namespace Reference</div>  </div>
+<div class="title">bad::sequences::common Namespace Reference<div class="ingroups"><a class="el" href="group__sequences__group.html">sequences</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>re-exported by <a class="el" href="namespacebad.html">bad</a> and <a class="el" href="namespacebad_1_1sequences_1_1api.html">api</a>  
+<p>re-exported by <a class="el" href="namespacebad.html">bad</a> and <a class="el" href="namespacebad_1_1sequences_1_1api.html" title="See sequences for a complete listing.">bad::sequences::api</a>  
 <a href="namespacebad_1_1sequences_1_1common.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a82a3caf7776f45aa1a0a555ee11f93e2"><td class="memTemplParams" colspan="2">template&lt;class T , T... is&gt; </td></tr>
-<tr class="memitem:a82a3caf7776f45aa1a0a555ee11f93e2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a> = std::integer_sequence&lt; T, is... &gt;</td></tr>
-<tr class="memdesc:a82a3caf7776f45aa1a0a555ee11f93e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">shorthand for <code>std::integer_sequence</code>  <a href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">More...</a><br /></td></tr>
-<tr class="separator:a82a3caf7776f45aa1a0a555ee11f93e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ddc9b8930739f6afbd8a2c8531fd7b4"><td class="memTemplParams" colspan="2">template&lt;auto x, auto... xs&gt; </td></tr>
-<tr class="memitem:a7ddc9b8930739f6afbd8a2c8531fd7b4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a7ddc9b8930739f6afbd8a2c8531fd7b4">aseq</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt; decltype(x), x, xs... &gt;</td></tr>
-<tr class="memdesc:a7ddc9b8930739f6afbd8a2c8531fd7b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">std::integer_sequence with type inference, so long as there is at least one argument  <a href="namespacebad_1_1sequences_1_1common.html#a7ddc9b8930739f6afbd8a2c8531fd7b4">More...</a><br /></td></tr>
-<tr class="separator:a7ddc9b8930739f6afbd8a2c8531fd7b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac62f24337b1c6890fe8b140229c7c435"><td class="memTemplParams" colspan="2">template&lt;size_t... is&gt; </td></tr>
-<tr class="memitem:ac62f24337b1c6890fe8b140229c7c435"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#ac62f24337b1c6890fe8b140229c7c435">seq</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt; size_t, is... &gt;</td></tr>
-<tr class="memdesc:ac62f24337b1c6890fe8b140229c7c435"><td class="mdescLeft">&#160;</td><td class="mdescRight">A sequence of sizes. used to store dimensions. a.k.a. <code>std::index_sequence</code>  <a href="namespacebad_1_1sequences_1_1common.html#ac62f24337b1c6890fe8b140229c7c435">More...</a><br /></td></tr>
-<tr class="separator:ac62f24337b1c6890fe8b140229c7c435"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ec3744494384c02dc11ebfecd843f2a"><td class="memTemplParams" colspan="2">template&lt;ptrdiff_t... is&gt; </td></tr>
-<tr class="memitem:a0ec3744494384c02dc11ebfecd843f2a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a0ec3744494384c02dc11ebfecd843f2a">sseq</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt; ptrdiff_t, is... &gt;</td></tr>
-<tr class="memdesc:a0ec3744494384c02dc11ebfecd843f2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A sequence of signed distances. Used to store strides.  <a href="namespacebad_1_1sequences_1_1common.html#a0ec3744494384c02dc11ebfecd843f2a">More...</a><br /></td></tr>
-<tr class="separator:a0ec3744494384c02dc11ebfecd843f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a74c3a31f0a7041ef9910fae9254ce6"><td class="memTemplParams" colspan="2">template&lt;char... cs&gt; </td></tr>
-<tr class="memitem:a3a74c3a31f0a7041ef9910fae9254ce6"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a3a74c3a31f0a7041ef9910fae9254ce6">str</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt; char, cs... &gt;</td></tr>
-<tr class="memdesc:a3a74c3a31f0a7041ef9910fae9254ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time string as a type.  <a href="namespacebad_1_1sequences_1_1common.html#a3a74c3a31f0a7041ef9910fae9254ce6">More...</a><br /></td></tr>
-<tr class="separator:a3a74c3a31f0a7041ef9910fae9254ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="memTemplParams" colspan="2">template&lt;class T , T... is&gt; </td></tr>
+<tr class="memitem:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> = std::integer_sequence&lt; T, is... &gt;</td></tr>
+<tr class="memdesc:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">shorthand for <code>std::integer_sequence</code>  <a href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">More...</a><br /></td></tr>
+<tr class="separator:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplParams" colspan="2">template&lt;auto x, auto... xs&gt; </td></tr>
+<tr class="memitem:a8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a8b82d2eab50d25809abb52d8910a65c2">aseq</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; decltype(x), x, xs... &gt;</td></tr>
+<tr class="memdesc:a8b82d2eab50d25809abb52d8910a65c2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> with type inference, so long as there is at least one argument  <a href="namespacebad_1_1sequences_1_1common.html#a8b82d2eab50d25809abb52d8910a65c2">More...</a><br /></td></tr>
+<tr class="separator:a8b82d2eab50d25809abb52d8910a65c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04d64ef00355f2a932dc37de35da96cb"><td class="memTemplParams" colspan="2">template&lt;size_t... is&gt; </td></tr>
+<tr class="memitem:a04d64ef00355f2a932dc37de35da96cb"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a04d64ef00355f2a932dc37de35da96cb">seq</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; size_t, is... &gt;</td></tr>
+<tr class="memdesc:a04d64ef00355f2a932dc37de35da96cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>size_t</code> "sizes". used to store dimensions. a.k.a. <code>std::index_sequence</code>  <a href="namespacebad_1_1sequences_1_1common.html#a04d64ef00355f2a932dc37de35da96cb">More...</a><br /></td></tr>
+<tr class="separator:a04d64ef00355f2a932dc37de35da96cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a785f260615e311e98ed21151217d9385"><td class="memTemplParams" colspan="2">template&lt;ptrdiff_t... is&gt; </td></tr>
+<tr class="memitem:a785f260615e311e98ed21151217d9385"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a785f260615e311e98ed21151217d9385">sseq</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; ptrdiff_t, is... &gt;</td></tr>
+<tr class="memdesc:a785f260615e311e98ed21151217d9385"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>ptrdiff_t</code> "signed distances". Used to store strides.  <a href="namespacebad_1_1sequences_1_1common.html#a785f260615e311e98ed21151217d9385">More...</a><br /></td></tr>
+<tr class="separator:a785f260615e311e98ed21151217d9385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplParams" colspan="2">template&lt;char... cs&gt; </td></tr>
+<tr class="memitem:a738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a> = <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; char, cs... &gt;</td></tr>
+<tr class="memdesc:a738b1f0fafc5155e30c800ec5587c5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time string as a type of <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>. <code>char</code> is an integral type in C++.  <a href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">More...</a><br /></td></tr>
+<tr class="separator:a738b1f0fafc5155e30c800ec5587c5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab59ce88241e65f2a18259feaba51d25c"><td class="memTemplParams" colspan="2">template&lt;class T , T... cs&gt; </td></tr>
-<tr class="memitem:ab59ce88241e65f2a18259feaba51d25c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a3a74c3a31f0a7041ef9910fae9254ce6">str</a>&lt; cs... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#ab59ce88241e65f2a18259feaba51d25c">operator&quot;&quot;_str</a> () noexcept</td></tr>
-<tr class="memdesc:ab59ce88241e65f2a18259feaba51d25c"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows <code>decltype("foo"_str)</code> to return the type &lsquo;str&lt;'f&rsquo;,'o','o'&gt;`  <a href="namespacebad_1_1sequences_1_1common.html#ab59ce88241e65f2a18259feaba51d25c">More...</a><br /></td></tr>
+<tr class="memitem:ab59ce88241e65f2a18259feaba51d25c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt; cs... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#ab59ce88241e65f2a18259feaba51d25c">operator&quot;&quot;_str</a> () noexcept</td></tr>
+<tr class="memdesc:ab59ce88241e65f2a18259feaba51d25c"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows <code>decltype("foo"_str)</code> to return the type <a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt;'f','o','o'&gt;  <a href="namespacebad_1_1sequences_1_1common.html#ab59ce88241e65f2a18259feaba51d25c">More...</a><br /></td></tr>
 <tr class="separator:ab59ce88241e65f2a18259feaba51d25c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>re-exported by <a class="el" href="namespacebad.html">bad</a> and <a class="el" href="namespacebad_1_1sequences_1_1api.html">api</a> </p>
+<div class="textblock"><p>re-exported by <a class="el" href="namespacebad.html">bad</a> and <a class="el" href="namespacebad_1_1sequences_1_1api.html" title="See sequences for a complete listing.">bad::sequences::api</a> </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a7ddc9b8930739f6afbd8a2c8531fd7b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ddc9b8930739f6afbd8a2c8531fd7b4">&#9670;&nbsp;</a></span>aseq</h2>
+<a id="a8b82d2eab50d25809abb52d8910a65c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b82d2eab50d25809abb52d8910a65c2">&#9670;&nbsp;</a></span>aseq</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a7ddc9b8930739f6afbd8a2c8531fd7b4">aseq</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt;decltype(x), x, xs...&gt;</td>
+          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a8b82d2eab50d25809abb52d8910a65c2">aseq</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;decltype(x), x, xs...&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>std::integer_sequence with type inference, so long as there is at least one argument </p>
+<p><a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> with type inference, so long as there is at least one argument </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00043">43</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00050">50</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
-<a id="ac62f24337b1c6890fe8b140229c7c435"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac62f24337b1c6890fe8b140229c7c435">&#9670;&nbsp;</a></span>seq</h2>
+<a id="a9c6b3935020833c4cdfe376e9f3c32cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c6b3935020833c4cdfe376e9f3c32cc">&#9670;&nbsp;</a></span>iseq</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#ac62f24337b1c6890fe8b140229c7c435">seq</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt;size_t, is...&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>A sequence of sizes. used to store dimensions. a.k.a. <code>std::index_sequence</code> </p>
-
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00047">47</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
-
-</div>
-</div>
-<a id="a82a3caf7776f45aa1a0a555ee11f93e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82a3caf7776f45aa1a0a555ee11f93e2">&#9670;&nbsp;</a></span>seq_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a> =  std::integer_sequence&lt;T, is...&gt;</td>
+          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> =  std::integer_sequence&lt;T, is...&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>shorthand for <code>std::integer_sequence</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00039">39</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00046">46</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
-<a id="a0ec3744494384c02dc11ebfecd843f2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ec3744494384c02dc11ebfecd843f2a">&#9670;&nbsp;</a></span>sseq</h2>
+<a id="a04d64ef00355f2a932dc37de35da96cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d64ef00355f2a932dc37de35da96cb">&#9670;&nbsp;</a></span>seq</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a0ec3744494384c02dc11ebfecd843f2a">sseq</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt;ptrdiff_t, is...&gt;</td>
+          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a04d64ef00355f2a932dc37de35da96cb">seq</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;size_t, is...&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A sequence of signed distances. Used to store strides. </p>
+<p>A <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>size_t</code> "sizes". used to store dimensions. a.k.a. <code>std::index_sequence</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00051">51</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00054">54</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
-<a id="a3a74c3a31f0a7041ef9910fae9254ce6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a74c3a31f0a7041ef9910fae9254ce6">&#9670;&nbsp;</a></span>str</h2>
+<a id="a785f260615e311e98ed21151217d9385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a785f260615e311e98ed21151217d9385">&#9670;&nbsp;</a></span>sseq</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a3a74c3a31f0a7041ef9910fae9254ce6">str</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a82a3caf7776f45aa1a0a555ee11f93e2">seq_t</a>&lt;char, cs...&gt;</td>
+          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a785f260615e311e98ed21151217d9385">sseq</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;ptrdiff_t, is...&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A compile-time string as a type. </p>
+<p>A <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>ptrdiff_t</code> "signed distances". Used to store strides. </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00055">55</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00058">58</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+
+</div>
+</div>
+<a id="a738b1f0fafc5155e30c800ec5587c5ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a738b1f0fafc5155e30c800ec5587c5ff">&#9670;&nbsp;</a></span>str</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a> =  <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;char, cs...&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A compile-time string as a type of <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>. <code>char</code> is an integral type in C++. </p>
+
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00062">62</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -218,7 +218,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a3a74c3a31f0a7041ef9910fae9254ce6">str</a>&lt;cs...&gt; bad::sequences::common::operator&quot;&quot;_str </td>
+          <td class="memname"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt;cs...&gt; bad::sequences::common::operator&quot;&quot;_str </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -231,9 +231,9 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>allows <code>decltype("foo"_str)</code> to return the type &lsquo;str&lt;'f&rsquo;,'o','o'&gt;` </p>
+<p>allows <code>decltype("foo"_str)</code> to return the type <a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt;'f','o','o'&gt; </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00070">70</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00077">77</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>

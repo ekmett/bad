@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['sequences_679',['sequences',['../group__sequences.html',1,'']]],
-  ['storage_680',['storage',['../group__storage.html',1,'']]]
+  ['sequences_690',['sequences',['../group__sequences__group.html',1,'']]],
+  ['storage_691',['storage',['../group__storage__group.html',1,'']]]
 ];

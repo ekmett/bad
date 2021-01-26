@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>bad: On Namespaces</title>
+<title>Bad: On Namespaces</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">bad
+   <div id="projectname">Bad
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
   </td>
@@ -88,11 +88,8 @@ using namespace foo;
 </pre><p>This is mostly because C++17 lets you quickly bind several namespaces with <code>namespace bad::foo::common {}</code> but it isn't until C++20 that you'll be able to mix in the inline specifiers into that list.</p>
 <p>In practice this amounts to writing a prelude like</p>
 <pre class="fragment">namespace bad {
-  /** &lt;description&gt; */
   namespace foo {
-    /** re-exported by \ref bad and \ref bad::foo::api */
     namespace common {};
-    /** public api */
     namespace api { using namespace common; }
     using namespace api;
   }
@@ -105,7 +102,7 @@ using namespace foo;
 <li><code>namespace bad::foo::api</code> for the public api</li>
 </ul>
 <p>But now internal to the component each of these namespaces can see each other. and bad::foo can freely <code>using namespace</code> other components' <code>api</code> namespaces (or even their internals) and I don't have to fight with namespaces all day long.</p>
-<p>This should probably become a macro.</p>
+<p>This should probably become a macro, but I can't generate doxygen comments for each namespace that way.</p>
 <p>&ndash;Edward </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

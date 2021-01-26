@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['equality_672',['equality',['../group__equality.html',1,'']]],
-  ['errors_673',['errors',['../group__errors.html',1,'']]]
+  ['equality_683',['equality',['../group__equality.html',1,'']]],
+  ['errors_684',['errors',['../group__errors__group.html',1,'']]]
 ];

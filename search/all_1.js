@@ -1,7 +1,7 @@
 var searchData=
 [
   ['api_24',['api',['../namespacebad_1_1errors_1_1api.html',1,'bad::errors::api'],['../namespacebad_1_1lists_1_1api.html',1,'bad::lists::api'],['../namespacebad_1_1memory_1_1api.html',1,'bad::memory::api'],['../namespacebad_1_1operators_1_1api.html',1,'bad::operators::api'],['../namespacebad_1_1sequences_1_1api.html',1,'bad::sequences::api'],['../namespacebad_1_1storage_1_1api.html',1,'bad::storage::api'],['../namespacebad_1_1tapes_1_1api.html',1,'bad::tapes::api'],['../namespacebad_1_1types_1_1api.html',1,'bad::types::api']]],
-  ['backpermute_25',['backpermute',['../group__sequences.html#gad2f257604de1bf92875558f8b7990429',1,'bad::sequences::api']]],
+  ['backpermute_25',['backpermute',['../group__sequences__group.html#ga7aae9cbe3b0e2bcdf78cb09a7a13bada',1,'bad::sequences::api']]],
   ['bad_26',['bad',['../namespacebad.html',1,'bad'],['../group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432',1,'BAD():&#160;attributes.hh']]],
   ['bad_5f_27',['bad_',['../macros_8hh.html#ac47c503787ed26f8b4febd3455f0558f',1,'macros.hh']]],
   ['bad_5falign_5fvalue_28',['bad_align_value',['../group__attributes.html#gac1d3c29b0743dc85d5ca522d920d22ee',1,'attributes.hh']]],
@@ -53,7 +53,7 @@ var searchData=
   ['bad_5fnoalias_74',['bad_noalias',['../group__attributes.html#gad09937f0f1c0917d27765ad0e758b4c0',1,'attributes.hh']]],
   ['bad_5fnodiscard_75',['bad_nodiscard',['../group__attributes.html#ga74e611d371a8a7bd3fa9cb58023e41d6',1,'attributes.hh']]],
   ['bad_5fnoescape_76',['bad_noescape',['../group__attributes.html#ga3b54b1282d3ccf5f5b8ace149e73c2db',1,'attributes.hh']]],
-  ['bad_5fnonnull_77',['bad_Nonnull',['../group__attributes.html#ga71a3df6016376bd2e0937c0b0b061985',1,'bad_Nonnull():&#160;attributes.hh'],['../group__attributes.html#gab655477ddd61037b2c17952a299770c2',1,'bad_nonnull():&#160;attributes.hh']]],
+  ['bad_5fnonnull_77',['bad_nonnull',['../group__attributes.html#gab655477ddd61037b2c17952a299770c2',1,'bad_nonnull():&#160;attributes.hh'],['../group__attributes.html#ga71a3df6016376bd2e0937c0b0b061985',1,'bad_Nonnull():&#160;attributes.hh']]],
   ['bad_5fnull_5funspecified_78',['bad_Null_unspecified',['../group__attributes.html#ga236778912092c3e4a28db0e30bf2f28c',1,'attributes.hh']]],
   ['bad_5fnullable_79',['bad_Nullable',['../group__attributes.html#gaa59172a6f6b978f48a5af337c30a3c70',1,'attributes.hh']]],
   ['bad_5fop_80',['bad_op',['../operators_8hh.html#acf6945d3fb83b9b28cb95dd79430be3c',1,'operators.hh']]],

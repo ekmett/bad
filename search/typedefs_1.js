@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['backpermute_566',['backpermute',['../group__sequences.html#gad2f257604de1bf92875558f8b7990429',1,'bad::sequences::api']]]
+  ['backpermute_576',['backpermute',['../group__sequences__group.html#ga7aae9cbe3b0e2bcdf78cb09a7a13bada',1,'bad::sequences::api']]]
 ];

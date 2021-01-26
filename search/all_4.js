@@ -8,7 +8,7 @@ var searchData=
   ['equality_5fcomparable_3c_20t_2c_20t_20_3e_144',['equality_comparable&lt; T, T &gt;',['../structbad_1_1operators_1_1api_1_1equality__comparable.html',1,'bad::operators::api']]],
   ['equivalent_145',['equivalent',['../structbad_1_1operators_1_1api_1_1equivalent.html',1,'bad::operators::api']]],
   ['equivalent_3c_20t_20_3e_146',['equivalent&lt; T &gt;',['../structbad_1_1operators_1_1api_1_1equivalent_3_01_t_01_4.html',1,'bad::operators::api']]],
-  ['errors_147',['errors',['../group__errors.html',1,'']]],
-  ['errors_2ehh_148',['errors.hh',['../errors_8hh.html',1,'']]],
+  ['errors_2ehh_147',['errors.hh',['../errors_8hh.html',1,'']]],
+  ['errors_148',['errors',['../group__errors__group.html',1,'']]],
   ['expr_149',['expr',['../structbad_1_1storage_1_1api_1_1store__expr.html#a103c3e293b958f41ac792eb3197f1e57',1,'bad::storage::api::store_expr::expr()'],['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a8ee7c7f30582bb19698664de036ba65b',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;::expr()']]]
 ];
