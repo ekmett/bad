@@ -35,7 +35,7 @@ namespace bad::errors {
   ///
   /// \ingroup errors_group
   template <class T>
-  struct no_t : std::false_type {};
+  struct no_ : std::false_type {};
 }
 
 namespace bad::errors::common {
@@ -47,6 +47,6 @@ namespace bad::errors::common {
   ///
   /// \ingroup errors_group
   template <class T>
-  constexpr bool no = no_t<T>::value;
+  constexpr bool no = no_<T>::value;
 }
 /// \}

@@ -640,8 +640,8 @@ namespace bad::storage::common {
   template <class T, class Dim, class Stride = row_major<Dim>>
   struct store {
     // offer slightly more helpful diagnostics first
-    static_assert(std::is_same_v<seq_element_type<Dim>,size_t>, "expected dim to have type seq<...>");
-    static_assert(std::is_same_v<seq_element_type<Stride>,ptrdiff_t>, "expected stride to have type sseq<...>");
+    static_assert(std::is_same_v<typename Dim::value_type,size_t>, "expected dim to have type seq<...>");
+    static_assert(std::is_same_v<typename Stride::value_type,ptrdiff_t>, "expected stride to have type sseq<...>");
     static_assert(seq_length<Dim> == seq_length<Stride>, "dim and stride have mismatched lengths");
     static_assert(no<T>, "only partial specializations are valid");
   };

@@ -132,8 +132,13 @@ namespace bad::tapes {
 
   /// inherits from \ref abstract_record but doxygen is broken and can't figure this out.
   /// \ingroup tapes_group
+#ifdef DOXYGEN
+  template <class T, class Act = T*, class Allocator = default_allocator>
+  struct link : bad::tapes::abstract_record<T, Act, Allocator> {};
+#else
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct link;
+#endif
 
   /// \ingroup tapes_group
   template <class T, class Act, class Allocator>

@@ -42,11 +42,8 @@ In practice this amounts to writing a prelude like
 
 
     namespace bad {
-      /** <description> */
       namespace foo {
-        /** re-exported by \ref bad and \ref bad::foo::api */
         namespace common {};
-        /** public api */
         namespace api { using namespace common; }
         using namespace api;
       }
@@ -63,6 +60,6 @@ But now internal to the component each of these namespaces can see each other. a
 `using namespace` other components' `api` namespaces (or even their internals) and I
 don't have to fight with namespaces all day long.
 
-This should probably become a macro.
+This should probably become a macro, but I can't generate doxygen comments for each namespace that way.
 
 --Edward

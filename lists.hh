@@ -58,8 +58,12 @@ namespace bad::lists {
   namespace common {
     /// heterogeneous lists
     /// \ingroup lists_group
-    template <class...>
-    struct BAD(empty_bases) list {};
+    template <class... Ts>
+    struct BAD(empty_bases) list {
+      static constexpr std::size_t size() noexcept {
+        return sizeof...(Ts);
+      }
+    };
   }
 
   /// \private

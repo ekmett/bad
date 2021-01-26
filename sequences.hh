@@ -379,27 +379,6 @@ namespace bad::sequences {
     using seq_cons = typename seq_cons_<decltype(i),i,S>::type;
   }
 
-  // * element type
-
-  /// \meta
-  template <class S>
-  struct seq_element_type_ {
-    static_assert(no<S>, "seq_element_type: not a sequence");
-  };
-
-  /// \meta
-  template <class T, T ... is>
-  struct seq_element_type_<seq_t<T,is...>> {
-    using type = T;
-  };
-
-  namespace api {
-    /// type of elements in a given sequence
-    /// \ingroup sequences_group
-    template <class S>
-    using seq_element_type = typename seq_element_type_<S>::type;
-  }
-
   // * sequence length
 
   /// \meta
@@ -544,7 +523,7 @@ namespace bad::sequences {
     /// `backpermute<seq_t<T,a,b,c,d>,0,3,2,3,1,0> = seq_t<T,a,d,c,d,b,a>`
     /// \ingroup sequences_group
     template <class S, size_t... is>
-    using backpermute = seq_t<seq_element_type<S>, seq_nth<is,S> ...>;
+    using backpermute = seq_t<typename S::value_type, seq_nth<is,S> ...>;
   }
 
   /// \meta
@@ -638,7 +617,7 @@ namespace bad::sequences {
     /// \meta
     template <size_t... ss>
     struct at<seq<ss...>> {
-      using type = seq_t<seq_element_type<S>, seq_nth<ps,S>..., seq_nth<ss+N,S>...>;
+      using type = seq_t<typename S::value_type, seq_nth<ps,S>..., seq_nth<ss+N,S>...>;
     };
   };
 
@@ -657,6 +636,25 @@ namespace bad::sequences {
     template <size_t N, class L>
     using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
   }
+
+  template<class SA, class SB, template <typename SA::value_type,typename SB::value_type> class>
+  struct seq_zip_ {
+    static_assert(no<SA>,"seq_zip: bad arguments");
+  };
+
+  template<class A, class B, A... as, B... bs, template <A,B> class F>
+  struct seq_zip_<seq_t<A,as...>,seq_t<B,bs...>, F> {
+    using type = seq_t<decltype(F<declval<A>(),declval<B>()>::value), F<as,bs>::value...>;
+  };
+
+  namespace api {
+    /// zip two sequences
+    /// \ingroup sequences_group
+    template <class S, class T, template<typename S::value_type,typename T::value_type> class F>
+    using seq_zip = seq_zip_<S, T, F>;
+  }
+
+  // TODO: use std::common_type
 }
 
 /// \}
