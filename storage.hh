@@ -342,7 +342,7 @@ namespace bad::storage::api {
   /// variadic expression template
   /// \ingroup storage_group
   template <class B, size_t d, size_t... ds>
-  struct store_expr {
+  struct BAD(empty_bases) store_expr {
     using const_iterator = const_store_expr_iterator<B,d>;
     using iterator = store_expr_iterator<B,d>;
     using reverse_iterator = std::reverse_iterator<iterator>;
@@ -514,7 +514,7 @@ namespace bad::storage::api {
 
   /// \ingroup storage_group
   template <class B, size_t d, size_t...ds>
-  struct store_rep_expr : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
+  struct BAD(empty_bases) store_rep_expr : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
     using element = typename B::element;
     using dim = seq<d,ds...>;
     static constexpr size_t arity = 1 + sizeof...(ds);
@@ -551,7 +551,8 @@ namespace bad::storage::api {
 
   /// \ingroup storage_group
   template <class L, class R, size_t d, size_t... ds>
-  struct store_add_expr : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
+  struct BAD(empty_bases) store_add_expr
+  : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
     using dim = seq<d,ds...>;
     using element = decltype(std::declval<typename L::element>() + std::declval<typename R::element>());
 
@@ -653,7 +654,7 @@ namespace bad::storage::common {
   /// scalars
   /// \ingroup storage_group
   template <class T>
-  struct store<T, seq<>, sseq<>> {
+  struct BAD(empty_bases) store<T, seq<>, sseq<>> {
     using element = T;
     using dim = seq<>;
     using stride = sseq<>;
@@ -1036,7 +1037,7 @@ namespace bad::storage::common {
   /// tensors
   /// \ingroup storage_group
   template <class T, size_t d, size_t... ds, ptrdiff_t s, ptrdiff_t... ss>
-  struct store<T, seq<d,ds...>, sseq<s,ss...>>
+  struct BAD(empty_bases) store<T, seq<d,ds...>, sseq<s,ss...>>
   : store_expr<store<T, seq<d,ds...>, sseq<s,ss...>>,d,ds...> {
 
     using element = T;
@@ -1062,22 +1063,20 @@ namespace bad::storage::common {
     using super = expr<store>;
 
     /// \private
-    template <class> struct calc_t;
+    template <class> struct calc_type;
 
     /// \private
     template <size_t... is>
-    struct calc_t<seq<is...>> {
+    struct calc_type<seq<is...>> {
       static constexpr ptrdiff_t max = (0 + ... + std::max<ptrdiff_t>(0,nth_extremum<is>));
       static constexpr ptrdiff_t min = (0 + ... + std::min<ptrdiff_t>(0,nth_extremum<is>));
     };
 
     /// \private
-    using calc = calc_t<make_seq<arity>>;
-    // offset in delta to apply when looking up the nth plane
-    // keep in mind planes can have higher strides than we do here!
+    using calc = calc_type<make_seq<arity>>;
+    /// offset in delta to apply when looking up the nth plane
+    /// keep in mind planes can have higher strides than we do here!
     static constexpr size_t delta = std::max<ptrdiff_t>(0,s*(1-d));
-    //static constexpr size_t offset = - calc::min;
-  public:
     static constexpr size_t size = calc::max - calc::min + 1;
 
     T data[size]; ///< The ONLY data member allowed in this class
@@ -1285,15 +1284,15 @@ namespace bad::storage::common {
     template <size_t N>
     BAD(hd,inline,const)
     auto & rep() const noexcept {
-      using rep_t = store<T,seq_cons<N,dim>,seq_cons<ptrdiff_t(0),stride>>;
-      return reinterpret_cast<rep_t const &>(*this);
+      using rep_type = store<T,seq_cons<N,dim>,seq_cons<ptrdiff_t(0),stride>>;
+      return reinterpret_cast<rep_type const &>(*this);
     }
 
     template <size_t N>
     BAD(hd,inline,const)
     auto & rep() noexcept {
-      using rep_t = store<T,seq_cons<N,dim>,seq_cons<ptrdiff_t(0),stride>>;
-      return reinterpret_cast<rep_t &>(*this);
+      using rep_type = store<T,seq_cons<N,dim>,seq_cons<ptrdiff_t(0),stride>>;
+      return reinterpret_cast<rep_type &>(*this);
     }
 
     BAD(hd,inline,const)
