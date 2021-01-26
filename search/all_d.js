@@ -21,7 +21,7 @@ var searchData=
   ['seq_5frange_292',['seq_range',['../group__sequences__group.html#gab5d325a3113fd2258abf4a54b65c0d45',1,'bad::sequences::api']]],
   ['seq_5fskip_5fnth_293',['seq_skip_nth',['../group__sequences__group.html#gac7ff84f9748c7bc4732c2f80cdfeefa9',1,'bad::sequences::api']]],
   ['seq_5fstride_294',['seq_stride',['../group__sequences__group.html#gacbedf2de4bb1e47160ba7bc2bd689033',1,'bad::sequences::api']]],
-  ['seq_5fzip_295',['seq_zip',['../group__sequences__group.html#ga8f4a49798af8cbaa3875f2c67ff3a57b',1,'bad::sequences::api']]],
+  ['seq_5fzip_295',['seq_zip',['../group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32',1,'bad::sequences::api']]],
   ['seq_5fzip_5f_296',['seq_zip_',['../namespacebad_1_1sequences.html#structbad_1_1sequences_1_1seq__zip__',1,'bad::sequences']]],
   ['seq_5fzip_5f_3c_20iseq_3c_20a_2c_20as_2e_2e_2e_20_3e_2c_20iseq_3c_20b_2c_20bs_2e_2e_2e_20_3e_2c_20f_20_3e_297',['seq_zip_&lt; iseq&lt; A, as... &gt;, iseq&lt; B, bs... &gt;, F &gt;',['../namespacebad_1_1sequences.html#structbad_1_1sequences_1_1seq__zip___3_01iseq_3_01_a_00_01as_8_8_8_01_4_00_01iseq_3_01_b_00_01bs_8_8_8_01_4_00_01_f_01_4',1,'bad::sequences']]],
   ['sequences_2ehh_298',['sequences.hh',['../sequences_8hh.html',1,'']]],

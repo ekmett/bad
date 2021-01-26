@@ -13,7 +13,7 @@ var searchData=
   ['seq_5fpull_625',['seq_pull',['../group__sequences__group.html#ga474e356792a26c8adc6e9c9971aac5e8',1,'bad::sequences::api']]],
   ['seq_5frange_626',['seq_range',['../group__sequences__group.html#gab5d325a3113fd2258abf4a54b65c0d45',1,'bad::sequences::api']]],
   ['seq_5fskip_5fnth_627',['seq_skip_nth',['../group__sequences__group.html#gac7ff84f9748c7bc4732c2f80cdfeefa9',1,'bad::sequences::api']]],
-  ['seq_5fzip_628',['seq_zip',['../group__sequences__group.html#ga8f4a49798af8cbaa3875f2c67ff3a57b',1,'bad::sequences::api']]],
+  ['seq_5fzip_628',['seq_zip',['../group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32',1,'bad::sequences::api']]],
   ['size_5ftype_629',['size_type',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#a8560ac5527cd0ed38d71e0e58acc8021',1,'bad::memory::api::aligned_allocator']]],
   ['sseq_630',['sseq',['../namespacebad_1_1sequences_1_1common.html#a785f260615e311e98ed21151217d9385',1,'bad::sequences::common']]],
   ['store_5fpull_631',['store_pull',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a3e5bf885dfa6e64c14916c856d8b4d6c',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
