@@ -117,7 +117,7 @@ namespace bad::lists {
 
   /// \private
   template <class T, T... is>
-  struct seq_list_<seq_t<T,is...>> {
+  struct seq_list_<iseq<T,is...>> {
     using type = list<int_t<is>...>;
   };
 
@@ -182,7 +182,7 @@ namespace bad::lists {
   /// \private
   template <class T>
   struct list_seq_<T,list<>> {
-    using type = seq_t<T>;
+    using type = iseq<T>;
   };
 
   /// \private

@@ -10,7 +10,7 @@ using namespace bad::lists::api;
 
 TEST_CASE("seq_head works", "[sequences]") {
   REQUIRE(seq_head<seq<1,2,3>> == 1 );
-  REQUIRE(seq_head<seq_t<size_t,4,2,1> > == 4 );
+  REQUIRE(seq_head<iseq<size_t,4,2,1> > == 4 );
 }
 
 TEST_CASE("stride works","[sequences]") {
