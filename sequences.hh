@@ -651,7 +651,7 @@ namespace bad::sequences {
     /// zip two sequences
     /// \ingroup sequences_group
     template <class S, class T, template<typename S::value_type,typename T::value_type> class F>
-    using seq_zip = seq_zip_<S, T, F>;
+    using seq_zip = typename seq_zip_<S, T, F>::type;
   }
 
   // TODO: use std::common_type

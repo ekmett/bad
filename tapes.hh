@@ -717,7 +717,6 @@ namespace bad::tapes {
     assert(result != nullptr);
     return result;
   }
-
 }
 
 /// \}
