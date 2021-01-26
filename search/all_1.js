@@ -71,11 +71,12 @@ var searchData=
   ['bitwise_5fleft_92',['bitwise_left',['../structbad_1_1operators_1_1api_1_1bitwise__left.html',1,'bad::operators::api']]],
   ['common_93',['common',['../namespacebad_1_1errors_1_1common.html',1,'bad::errors::common'],['../namespacebad_1_1lists_1_1common.html',1,'bad::lists::common'],['../namespacebad_1_1memory_1_1common.html',1,'bad::memory::common'],['../namespacebad_1_1operators_1_1common.html',1,'bad::operators::common'],['../namespacebad_1_1sequences_1_1common.html',1,'bad::sequences::common'],['../namespacebad_1_1storage_1_1common.html',1,'bad::storage::common'],['../namespacebad_1_1tapes_1_1common.html',1,'bad::tapes::common'],['../namespacebad_1_1types_1_1common.html',1,'bad::types::common']]],
   ['errors_94',['errors',['../namespacebad_1_1errors.html',1,'bad']]],
-  ['lists_95',['lists',['../namespacebad_1_1lists.html',1,'bad']]],
-  ['memory_96',['memory',['../namespacebad_1_1memory.html',1,'bad']]],
-  ['operators_97',['operators',['../namespacebad_1_1operators.html',1,'bad']]],
-  ['sequences_98',['sequences',['../namespacebad_1_1sequences.html',1,'bad']]],
-  ['storage_99',['storage',['../namespacebad_1_1storage.html',1,'bad']]],
-  ['tapes_100',['tapes',['../namespacebad_1_1tapes.html',1,'bad']]],
-  ['types_101',['types',['../namespacebad_1_1types.html',1,'bad']]]
+  ['bad_95',['bad',['../index.html',1,'']]],
+  ['lists_96',['lists',['../namespacebad_1_1lists.html',1,'bad']]],
+  ['memory_97',['memory',['../namespacebad_1_1memory.html',1,'bad']]],
+  ['operators_98',['operators',['../namespacebad_1_1operators.html',1,'bad']]],
+  ['sequences_99',['sequences',['../namespacebad_1_1sequences.html',1,'bad']]],
+  ['storage_100',['storage',['../namespacebad_1_1storage.html',1,'bad']]],
+  ['tapes_101',['tapes',['../namespacebad_1_1tapes.html',1,'bad']]],
+  ['types_102',['types',['../namespacebad_1_1types.html',1,'bad']]]
 ];
