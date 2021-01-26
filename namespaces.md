@@ -4,11 +4,9 @@ This library uses a fairly strange way to encode namespaces that I've found usef
 
 Consider a component named `foo`. It'll be represented internally with:
 
-```
-    bad::foo
-    bad::foo::common
-    bad::foo::api
-```
+* `namespace bad::foo` for private things
+* `namespace bad::foo::common` for _very_ public things we want to litter `bad` with.
+* `namespace bad::foo::api` for the public api
 
 Most users can probably get away with using the top level `bad` namespace alone. The goal is that
 it should come "batteries included". To that end, `bad` gets cluttered up only with what is in
@@ -28,12 +26,15 @@ treat common and api as `inline namespaces`.
 I don't actually use inline namespaces because they give redefinition warnings when you re-open them as
 non-inline namespaces, so I use the older approximation that was available in C++11 of replacing
 
-    inline namespace foo {}
+~~~~~{.cpp}
+inline namespace foo {}
+~~~~~
 
 with 
-
-    namespace foo {}
-    using namespace foo;
+~~~~~{.cpp}
+namespace foo {}
+using namespace foo;
+~~~~~
 
 This is mostly because C++17 lets you quickly bind several namespaces with `namespace bad::foo::common {}`
 but it isn't until C++20 that you'll be able to mix in the inline specifiers into that list.
@@ -41,22 +42,21 @@ but it isn't until C++20 that you'll be able to mix in the inline specifiers int
 In practice this amounts to writing a prelude like
 
 
-    namespace bad {
-      namespace foo {
-        namespace common {};
-        namespace api { using namespace common; }
-        using namespace api;
-      }
-      using namespace foo::common;
-    }
+~~~~{.cpp}
+namespace bad {
+  namespace foo {
+    namespace common {};
+    namespace api { using namespace common; }
+    using namespace api;
+  }
+  using namespace foo::common;
+}
+~~~~
 
-at the top of each component as boilerplate and then defining things directly into 
+at the top of each component as boilerplate and then defining things directly into their
+respective modules as the using statements and rules for nested scopes ensures it all "just works".
 
-* `namespace bad::foo` for private things
-* `namespace bad::foo::common` for _very_ public things we want to litter `bad` with.
-* `namespace bad::foo::api` for the public api
-
-But now internal to the component each of these namespaces can see each other. and bad::foo can freely
+Now internal to the component each of these namespaces can see each other. and `bad::foo` can freely
 `using namespace` other components' `api` namespaces (or even their internals) and I
 don't have to fight with namespaces all day long.
 
