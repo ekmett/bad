@@ -183,20 +183,20 @@ namespace bad::operators::api {
   /// \tparam U the other type
   template <class T, class U=T>
   struct BAD(empty_bases) equality_comparable {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator != (BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator != (BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs==rhs))) {
       return !static_cast<bool>(lhs==rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator == (BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator == (BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs==rhs))) {
       return static_cast<bool>(lhs==rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator != (BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator != (BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs!=rhs))) {
       return static_cast<bool>(lhs!=rhs);
     }
@@ -206,8 +206,8 @@ namespace bad::operators::api {
   /// \tparam T current type
   template <class T>
   struct BAD(empty_bases) equality_comparable<T> {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator != (BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator != (BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs==rhs))) {
       return !static_cast<bool>(lhs==rhs);
     }
@@ -225,38 +225,38 @@ namespace bad::operators::api {
   /// \tparam U the other type
   template<class T, class U = T>
   struct BAD(empty_bases) less_than_comparable {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs > rhs))) {
       return !static_cast<bool>(lhs > rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs < rhs))) {
       return !static_cast<bool>(lhs < rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs > lhs))) {
       return static_cast<bool>(rhs > lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
       return static_cast<bool>(rhs < lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs >= lhs))) {
       return static_cast<bool>(rhs >= lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs <= lhs))) {
       return static_cast<bool>(rhs <= lhs);
     }
@@ -266,20 +266,20 @@ namespace bad::operators::api {
   /// \tparam T current type
   template<class T>
   struct BAD(empty_bases) less_than_comparable<T> {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
       return static_cast<bool>(rhs < lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
       return !static_cast<bool>(rhs < lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs < rhs))) {
       return !static_cast<bool>(lhs < rhs);
     }
@@ -295,8 +295,8 @@ namespace bad::operators::api {
   /// \tparam U the other type
   template<class T, class U = T>
   struct BAD(empty_bases) equivalent {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator==(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator==(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs < rhs), static_cast<bool>(lhs > rhs))) {
       return !static_cast<bool>(lhs < rhs) && !static_cast<bool>(lhs > rhs);
     }
@@ -306,8 +306,8 @@ namespace bad::operators::api {
   /// \tparam T current type
   template<class T>
   struct BAD(empty_bases) equivalent<T> {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator==(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator==(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs < rhs))) {
       return !static_cast<bool>(lhs < rhs) && !static_cast<bool>(rhs < lhs);
     }
@@ -318,38 +318,38 @@ namespace bad::operators::api {
   /// \tparam U the other type
   template<class T, class U = T>
   struct BAD(empty_bases) partially_ordered {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs < rhs), static_cast<bool>(lhs == rhs))) {
       return static_cast<bool>(lhs < rhs) || static_cast<bool>(lhs == rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) U const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs > rhs), static_cast<bool>(lhs == rhs))) {
       return static_cast<bool>(lhs > rhs) || static_cast<bool>(lhs == rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs > lhs))) {
       return static_cast<bool>(rhs > lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept( noexcept( static_cast<bool>(rhs < lhs))) {
       return static_cast<bool>(rhs < lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs >= lhs))) {
       return static_cast< bool >(rhs >= lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>=(BAD(noescape) U const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs <= lhs))) {
       return static_cast<bool>(rhs <= lhs);
     }
@@ -359,20 +359,20 @@ namespace bad::operators::api {
   /// \tparam T current type
   template<class T>
   struct BAD(empty_bases) partially_ordered<T> {
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs < lhs))) {
       return static_cast<bool>(rhs < lhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator<=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(lhs < rhs), static_cast<bool>(lhs == rhs))) {
       return static_cast<bool>(lhs < rhs) || static_cast<bool>(lhs == rhs);
     }
 
-    BAD(hd,nodiscard,inline,flatten)
-    friend constexpr bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
+    BAD(hd,nodiscard,inline,flatten) constexpr
+    friend bool operator>=(BAD(noescape) T const & lhs, BAD(noescape) T const & rhs)
     noexcept(noexcept(static_cast<bool>(rhs < lhs), static_cast<bool>(lhs == rhs))) {
       return static_cast<bool>(rhs < lhs) || static_cast<bool>(lhs == rhs);
     }
