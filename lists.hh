@@ -104,6 +104,7 @@ namespace bad::lists {
     using list_head = typename list_head_<L>::type;
   }
 
+  /// \private
   template <class>
   struct seq_list_;
 

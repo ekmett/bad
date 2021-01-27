@@ -5,6 +5,7 @@
 #include "attributes.hh"
 #include "common.hh"
 #include "errors.hh"
+#include "functions.hh"
 
 /// \file
 /// \brief type level integer sequences
@@ -590,6 +591,43 @@ namespace bad::sequences {
     using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
   }
 
+  /// \meta
+  template <class S, template <typename S::value_type> class>
+  struct seq_map_ {
+    static_assert(no<S>,"seq_map: bad arguments");
+  };
+
+  /// \meta
+  template <class A, A... as, template <A> class F>
+  struct seq_map_<iseq<A,as...>, F> {
+    using type = iseq<decltype(F<declval<A>()>::value), F<as>::value...>;
+  };
+
+  namespace api {
+    /// apply a unary function to two sequences
+    /// \ingroup sequences_group
+    template <class S, template<typename S::value_type> class F>
+    using seq_map = typename seq_map_<S, F>::type;
+  }
+
+  /// \meta
+  template <class S, class>
+  struct seq_map_at_ {
+    static_assert(no<S>,"seq_map_at: bad arguments");
+  };
+
+  /// \meta
+  template <class A, A... as, class TT>
+  struct seq_map_at_<iseq<A,as...>, TT> {
+    using type = iseq<decltype(TT::template at<declval<A>()>::value), TT::template at<as>::value...>;
+  };
+
+  namespace api {
+    /// \ingroup sequences_group
+    template <class S, class TT>
+    using seq_map_at = typename seq_map_at_<S, TT>::type;
+  };
+
   template <class SA, class SB, template <typename SA::value_type,typename SB::value_type> class>
   struct seq_zip_ {
     static_assert(no<SA>,"seq_zip: bad arguments");
@@ -605,9 +643,44 @@ namespace bad::sequences {
     /// \ingroup sequences_group
     template <class S, class T, template<typename S::value_type,typename T::value_type> class F>
     using seq_zip = typename seq_zip_<S, T, F>::type;
-  }
 
-  // TODO: use std::common_type_t more
+    /// add elements of two sequences, pointwise
+    /// \ingroup sequences_group
+    template <class S, class T>
+    using seq_plus = seq_zip<S,T,functions::plus>;
+
+    template <class S, auto K>
+    using seq_plus_constant = seq_map_at<S,functions::flipb<functions::plus,K>>;
+
+    template <auto K, class S>
+    using seq_constant_plus = seq_map_at<S,functions::papb<functions::plus,K>>;
+
+    /// subtract elements of two sequences, pointwise
+    /// \ingroup sequences_group
+    template <class S, class T>
+    using seq_minus = seq_zip<S,T,functions::minus>;
+
+    /// \ingroup sequences_group
+    template <class S, auto K>
+    using seq_minus_constant = seq_map_at<S,functions::flipb<functions::minus,K>>;
+
+    /// \ingroup sequences_group
+    template <auto K, class S>
+    using seq_constant_minus = seq_map_at<S,functions::papb<functions::minus,K>>;
+
+    /// multiply elements of two sequences, pointwise
+    /// \ingroup sequences_group
+    template <class S, class T>
+    using seq_times = seq_zip<S,T,functions::times>;
+
+    /// \ingroup sequences_group
+    template <class S, auto K>
+    using seq_times_constant = seq_map_at<S,functions::flipb<functions::times,K>>;
+
+    /// \ingroup sequences_group
+    template <auto K, class S>
+    using seq_constant_times = seq_map_at<S,functions::papb<functions::times,K>>;
+  }
 }
 
 /// \}
