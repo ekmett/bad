@@ -180,10 +180,10 @@ namespace bad::sequences {
   };
 
   namespace api {
-    /// return the range `[x,y)` as a sequence, with type matching the type of `x`
+    /// return the range `[x,y)` as a sequence, with type matching the type of the common type of `x` and `y`.
     /// \ingroup sequences_group
-    template <auto x, decltype(x) y>
-    using seq_range = typename seq_range_<decltype(x),x,make_aseq<y-x>>::type;
+    template <auto x, auto y>
+    using seq_range = typename seq_range_<std::common_type_t<decltype(x),decltype(y)>,x,make_aseq<y-x>>::type;
   }
 
   /// \meta
@@ -193,9 +193,9 @@ namespace bad::sequences {
   };
 
   /// \meta
-  template <class T, T... ts, T... ss>
-  struct seq_append__<T,iseq<T,ts...>, iseq<T,ss...>> {
-    using type = iseq<T,ts...,ss...>;
+  template <class T, T... ts, class S, S... ss>
+  struct seq_append__<T,iseq<T,ts...>, iseq<S,ss...>> {
+    using type = iseq<std::common_type_t<T,S>,ts...,ss...>;
   };
 
   /// \meta
@@ -348,35 +348,36 @@ namespace bad::sequences {
 
     /// tail of a non-empty parameter pack of numbers, with type inference
     /// \ingroup sequences_group
-    template <auto x, decltype(x) ... xs>
+    template <auto x,decltype(x) ... xs>
     using tail = iseq<decltype(x), xs...>;
 
     /// tail of a non-empty sequence
     /// \ingroup sequences_group
     template <class S>
-    using iseqail = seq_auto_apply<tail,S>;
+    using seq_tail = seq_auto_apply<tail,S>;
   }
 
   // * cons
 
   /// \meta
-  template <class T, T, class>
+  template <auto i, class S>
   struct seq_cons_ {
-    static_assert(no<T>, "seq_cons: not a sequence");
+    static_assert(no<S>, "seq_cons: not a sequence");
   };
 
   /// \meta
-  template <class T, T i, T ... is>
-  struct seq_cons_<T,i,iseq<T,is...>> {
-    using type = iseq<T,i,is...>;
+  template <auto i, class T, T ... is>
+  struct seq_cons_<i,iseq<T,is...>> {
+    using type = iseq<std::common_type_t<decltype(i),T>,i,is...>;
   };
 
   namespace api {
     /// prepend a value to a sequence
-    /// the type of the new argument determines the type of the output sequence, as long as the types are convertible
+    /// the resulting sequence has whatever common type is large enough to contain both the value being consed and the values
+    /// already in the list (using `std::common_type_t`)
     /// \ingroup sequences_group
     template <auto i, class S>
-    using seq_cons = typename seq_cons_<decltype(i),i,S>::type;
+    using seq_cons = typename seq_cons_<i,S>::type;
   }
 
   // * sequence length
@@ -555,50 +556,52 @@ namespace bad::sequences {
     using seq_drop_last = seq_backpermute<S, make_seq<seq_length<S>-std::max(N, seq_length<S>)>>;
   }
 
-  // * transpose the last two entries in a sequence
-
   /// \meta
-  template <class T, T...>
-  struct pack_transpose_ {
-    static_assert(no<T>,"pack_transpose: not a sequence or not enough dimensions");
+  // have to lump it and take the crappy error in the 0 argument case
+  template <auto...>
+  struct pack_transpose_;
+
+
+  template <auto i> struct pack_transpose_<i> {
+    static_assert(no<decltype(i)>,"pack_transpose: 1 item in the pack, need at least 2");
   };
 
   /// \meta
-  template <class T, T i, T j>
-  struct pack_transpose_<T,i,j> {
-    using type = iseq<T,j,i>;
+  template <auto i, auto j>
+  struct pack_transpose_<i,j> {
+    using type = aseq<j,i>;
   };
 
   /// \meta
-  template <class T, T i, T j, T k, T... ls>
-  struct pack_transpose_<T,i,j,k,ls...> {
-    using type = seq_cons<i,typename pack_transpose_<T,j,k,ls...>::type>;
+  template <auto i, auto j, auto k, auto... ls>
+  struct pack_transpose_<i,j,k,ls...> {
+    using type = seq_cons<i,typename pack_transpose_<j,k,ls...>::type>;
   };
 
   namespace api {
-    /// swap the last two dimensions in a parameter pack
+    /// swap the last two dimensions in a (possibly heteregeneous) parameter pack of integral values
     /// \ingroup sequences_group
-    template <class T, T... is>
-    using pack_transpose = typename pack_transpose_<T,is...>::type;
+    template <auto... is>
+    using pack_transpose = typename pack_transpose_<is...>::type;
   }
 
   /// \meta
   template <class S>
-  struct iseqranspose_ {
-    static_assert(no<S>,"iseqranspose: not a sequence");
+  struct seq_transpose_ {
+    static_assert(no<S>,"seq_transpose: not a sequence, or not long enough");
   };
 
   /// \meta
   template <class T, T i, T j, T ... is>
-  struct iseqranspose_<iseq<T, i, j, is...>> {
-    using type = pack_transpose<T, i, j, is...>;
+  struct seq_transpose_<iseq<T, i, j, is...>> {
+    using type = pack_transpose<i, j, is...>;
   };
 
   namespace api {
     /// swap the last two entries in a sequence
     /// \ingroup sequences_group
     template <class S>
-    using iseqranspose = typename iseqranspose_<S>::type;
+    using seq_transpose = typename seq_transpose_<S>::type;
   }
 
   // * skip the nth element
@@ -654,7 +657,7 @@ namespace bad::sequences {
     using seq_zip = typename seq_zip_<S, T, F>::type;
   }
 
-  // TODO: use std::common_type
+  // TODO: use std::common_type_t more
 }
 
 /// \}
