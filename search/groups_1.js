@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bitwise_746',['bitwise',['../group__bitwise.html',1,'']]]
+  ['bitwise_744',['bitwise',['../group__bitwise.html',1,'']]]
 ];
