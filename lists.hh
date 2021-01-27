@@ -3,8 +3,8 @@
 #include <cstdint>
 #include <utility>
 #include "attributes.hh"
+#include "common.hh"
 #include "errors.hh"
-#include "sequences.hh"
 
 /// \file
 /// \brief type level heterogeneous lists
@@ -104,21 +104,13 @@ namespace bad::lists {
     using list_head = typename list_head_<L>::type;
   }
 
-  namespace common {
-    /// inferrable `std::integral_constant`, used to encode lists as heterogenous lists
-    /// \ingroup lists_group
-    template <auto x>
-    using int_t = std::integral_constant<decltype(x), x>;
-  }
-
-  /// \private
   template <class>
   struct seq_list_;
 
   /// \private
   template <class T, T... is>
   struct seq_list_<iseq<T,is...>> {
-    using type = list<int_t<is>...>;
+    using type = list<constant<is>...>;
   };
 
   namespace api {
@@ -187,7 +179,7 @@ namespace bad::lists {
 
   /// \private
   template <class T, T i, class... xs>
-  struct list_seq_<T,list<int_t<i>,xs...>> {
+  struct list_seq_<T,list<constant<i>,xs...>> {
     using type = seq_cons<i,typename list_seq_<T,list<xs...>>::type>;
   };
 

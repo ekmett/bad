@@ -5,6 +5,7 @@
 #include "lists.hh"
 
 using namespace std;
+using namespace bad;
 using namespace bad::sequences::api;
 using namespace bad::lists::api;
 

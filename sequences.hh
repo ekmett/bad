@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <utility>
 #include "attributes.hh"
+#include "common.hh"
 #include "errors.hh"
 
 /// \file
@@ -37,57 +38,6 @@ namespace bad {
 namespace bad::sequences {
   using namespace errors::api;
 
-  using std::size_t;
-  using std::ptrdiff_t;
-
-  namespace common {
-    /// shorthand for `std::integer_sequence`
-    template <class T, T... is>
-    using iseq = std::integer_sequence<T, is...>;
-  
-    /// \ref iseq with type inference, so long as there is at least one argument
-    template <auto x, auto... xs>
-    using aseq = iseq<decltype(x), x, xs...>;
-  
-    /// A \ref iseq "sequence" of `size_t` "sizes". used to store dimensions. a.k.a. `std::index_sequence`
-    template <size_t... is>
-    using seq = iseq<size_t, is...>;
-  
-    /// A \ref iseq "sequence" of `ptrdiff_t` "signed distances". Used to store strides.
-    template <ptrdiff_t... is>
-    using sseq = iseq<ptrdiff_t, is...>;
-  
-    /// A compile-time string as a type of \ref iseq "sequence". `char` is an integral type in C++.
-    template <char...cs>
-    using str = iseq<char, cs...>;
-
-#ifdef __clang__
-#ifndef ICC // icpc is a lying liar that lies
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu-string-literal-operator-template"
-#endif
-#elif defined __GNUC__
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wgnu-string-literal-operator-template"
-#endif
-
-    /// allows `decltype("foo"_str)` to return the type \ref str<'f','o','o'>
-    template <class T, T...cs>
-    BAD(hd,const)
-    str<cs...> operator""_str() noexcept {
-      return {};
-    }
-
-#ifdef __clang__
-#ifndef ICC
-#pragma clang diagnostic pop
-#endif
-#elif defined __GNUC__
-#pragma GCC diagnostic pop
-#endif
-
-  }
-  
   namespace api {
     /// sequence construction, shorter `std::make_integer_sequence`
     template <class T, T x>
@@ -472,7 +422,7 @@ namespace bad::sequences {
   namespace api {
     /// compute all row-major strides given a set of dimensions
     /// 
-    /// the result is returned as a \ref bad::sequences::common::sseq "sseq", so we can play games with
+    /// the result is returned as a \ref bad::sseq "sseq", so we can play games with
     /// negating strides to flip dimensions over
     ///
     /// \ingroup sequences_group
