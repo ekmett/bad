@@ -109,12 +109,8 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga029e2aeebfca0c556d6b107bbde532df"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__lists__group.html#ga029e2aeebfca0c556d6b107bbde532df">list_head</a> = typename list_head_&lt; L &gt;::type</td></tr>
 <tr class="memdesc:ga029e2aeebfca0c556d6b107bbde532df"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract the head of a heterogeneous list  <a href="group__lists__group.html#ga029e2aeebfca0c556d6b107bbde532df">More...</a><br /></td></tr>
 <tr class="separator:ga029e2aeebfca0c556d6b107bbde532df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5d26a7c49440214b91556260a02a60a5"><td class="memTemplParams" colspan="2">template&lt;auto x&gt; </td></tr>
-<tr class="memitem:ga5d26a7c49440214b91556260a02a60a5"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__lists__group.html#ga5d26a7c49440214b91556260a02a60a5">int_t</a> = std::integral_constant&lt; decltype(x), x &gt;</td></tr>
-<tr class="memdesc:ga5d26a7c49440214b91556260a02a60a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">inferrable <code>std::integral_constant</code>, used to encode lists as heterogenous lists  <a href="group__lists__group.html#ga5d26a7c49440214b91556260a02a60a5">More...</a><br /></td></tr>
-<tr class="separator:ga5d26a7c49440214b91556260a02a60a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1642b5c3288b2f27ee95486107a3d3f0"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
-<tr class="memitem:ga1642b5c3288b2f27ee95486107a3d3f0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__lists__group.html#ga1642b5c3288b2f27ee95486107a3d3f0">seq_list</a> = typename seq_list_&lt; S &gt;::type</td></tr>
+<tr class="memitem:ga1642b5c3288b2f27ee95486107a3d3f0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__lists__group.html#ga1642b5c3288b2f27ee95486107a3d3f0">seq_list</a> = typename <a class="el" href="namespacebad_1_1lists.html#structbad_1_1lists_1_1seq__list__">seq_list_</a>&lt; S &gt;::type</td></tr>
 <tr class="memdesc:ga1642b5c3288b2f27ee95486107a3d3f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert a sequence to a heteregeneous list of integral constants  <a href="group__lists__group.html#ga1642b5c3288b2f27ee95486107a3d3f0">More...</a><br /></td></tr>
 <tr class="separator:ga1642b5c3288b2f27ee95486107a3d3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga16fa0c9583462f0c9f8f4603eb2fc397"><td class="memTemplParams" colspan="2">template&lt;class X , class Y &gt; </td></tr>
@@ -133,24 +129,6 @@ Typedefs</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>type level heterogeneous lists </p>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga5d26a7c49440214b91556260a02a60a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5d26a7c49440214b91556260a02a60a5">&#9670;&nbsp;</a></span>int_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="group__lists__group.html#ga5d26a7c49440214b91556260a02a60a5">int_t</a> =  std::integral_constant&lt;decltype(x), x&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>inferrable <code>std::integral_constant</code>, used to encode lists as heterogenous lists </p>
-
-<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00111">111</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
-
-</div>
-</div>
 <a id="ga349aea43847649c23e64e4068bf647ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga349aea43847649c23e64e4068bf647ae">&#9670;&nbsp;</a></span>list_apply</h2>
 
@@ -165,7 +143,7 @@ Typedefs</h2></td></tr>
 
 <p>pass each type in a heterogeneous list to a given template </p>
 
-<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00217">217</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00209">209</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
 
 </div>
 </div>
@@ -219,7 +197,7 @@ Typedefs</h2></td></tr>
 
 <p>convert a list of integral constants, each of type T to a sequence </p>
 
-<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00198">198</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00190">190</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
 
 </div>
 </div>
@@ -237,7 +215,7 @@ Typedefs</h2></td></tr>
 
 <p>zip two heterogenous lists together to form a heterogeneous list of tuples </p>
 
-<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00173">173</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00165">165</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
 
 </div>
 </div>
@@ -248,14 +226,14 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__lists__group.html#ga1642b5c3288b2f27ee95486107a3d3f0">seq_list</a> =  typename seq_list_&lt;S&gt;::type</td>
+          <td class="memname">using <a class="el" href="group__lists__group.html#ga1642b5c3288b2f27ee95486107a3d3f0">seq_list</a> =  typename <a class="el" href="namespacebad_1_1lists.html#structbad_1_1lists_1_1seq__list__">seq_list_</a>&lt;S&gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>convert a sequence to a heteregeneous list of integral constants </p>
 
-<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00128">128</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lists_8hh_source.html#l00120">120</a> of file <a class="el" href="lists_8hh_source.html">lists.hh</a>.</p>
 
 </div>
 </div>

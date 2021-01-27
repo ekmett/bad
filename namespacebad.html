@@ -70,16 +70,24 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">bad Namespace Reference<div class="ingroups"><a class="el" href="group__operators__group.html">operators</a></div></div>  </div>
+<div class="title">bad Namespace Reference<div class="ingroups"><a class="el" href="group__common__group.html">common</a> &#124; <a class="el" href="group__functions__group.html">functions</a> &#124; <a class="el" href="group__operators__group.html">operators</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>top level namespace  
+<a href="namespacebad.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacebad_1_1errors"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1errors.html">errors</a></td></tr>
 <tr class="memdesc:namespacebad_1_1errors"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__errors__group.html">errors</a> internals, import <a class="el" href="namespacebad_1_1errors_1_1api.html" title="See errors for a complete listing.">bad::errors::api</a> <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacebad_1_1functions"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1functions.html">functions</a></td></tr>
+<tr class="memdesc:namespacebad_1_1functions"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__functions__group.html">functions</a> internals, import <a class="el" href="namespacebad_1_1functions_1_1api.html" title="See functions for a complete listing.">bad::functions::api</a> <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacebad_1_1lists"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1lists.html">lists</a></td></tr>
 <tr class="memdesc:namespacebad_1_1lists"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__lists__group.html">lists</a> internals, import <a class="el" href="namespacebad_1_1lists_1_1api.html" title="See lists for a complete listing.">bad::lists::api</a> <br /></td></tr>
@@ -102,8 +110,44 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacebad_1_1types"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1types.html">types</a></td></tr>
 <tr class="memdesc:namespacebad_1_1types"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__types__group.html">types</a> internals, import <a class="el" href="namespacebad_1_1types_1_1api.html" title="See types for a complete listing.">bad::types::api</a> <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:gab325cb9a11c291fe76cf0373d3ad7878"><td class="memTemplParams" colspan="2">template&lt;auto x&gt; </td></tr>
+<tr class="memitem:gab325cb9a11c291fe76cf0373d3ad7878"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#gab325cb9a11c291fe76cf0373d3ad7878">constant</a> = std::integral_constant&lt; decltype(x), x &gt;</td></tr>
+<tr class="memdesc:gab325cb9a11c291fe76cf0373d3ad7878"><td class="mdescLeft">&#160;</td><td class="mdescRight">inferrable <code>std::integral_constant</code>, used to encode lists as heterogenous lists  <a href="group__common__group.html#gab325cb9a11c291fe76cf0373d3ad7878">More...</a><br /></td></tr>
+<tr class="separator:gab325cb9a11c291fe76cf0373d3ad7878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9c6b3935020833c4cdfe376e9f3c32cc"><td class="memTemplParams" colspan="2">template&lt;class T , T... is&gt; </td></tr>
+<tr class="memitem:ga9c6b3935020833c4cdfe376e9f3c32cc"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> = std::integer_sequence&lt; T, is... &gt;</td></tr>
+<tr class="memdesc:ga9c6b3935020833c4cdfe376e9f3c32cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">shorthand for <code>std::integer_sequence</code>  <a href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">More...</a><br /></td></tr>
+<tr class="separator:ga9c6b3935020833c4cdfe376e9f3c32cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplParams" colspan="2">template&lt;auto x, auto... xs&gt; </td></tr>
+<tr class="memitem:ga8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">aseq</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; decltype(x), x, xs... &gt;</td></tr>
+<tr class="memdesc:ga8b82d2eab50d25809abb52d8910a65c2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> with type inference, so long as there is at least one argument  <a href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">More...</a><br /></td></tr>
+<tr class="separator:ga8b82d2eab50d25809abb52d8910a65c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga04d64ef00355f2a932dc37de35da96cb"><td class="memTemplParams" colspan="2">template&lt;size_t... is&gt; </td></tr>
+<tr class="memitem:ga04d64ef00355f2a932dc37de35da96cb"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; size_t, is... &gt;</td></tr>
+<tr class="memdesc:ga04d64ef00355f2a932dc37de35da96cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>size_t</code> "sizes".  <a href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">More...</a><br /></td></tr>
+<tr class="separator:ga04d64ef00355f2a932dc37de35da96cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga785f260615e311e98ed21151217d9385"><td class="memTemplParams" colspan="2">template&lt;ptrdiff_t... is&gt; </td></tr>
+<tr class="memitem:ga785f260615e311e98ed21151217d9385"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">sseq</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; ptrdiff_t, is... &gt;</td></tr>
+<tr class="memdesc:ga785f260615e311e98ed21151217d9385"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>ptrdiff_t</code> "signed distances".  <a href="group__common__group.html#ga785f260615e311e98ed21151217d9385">More...</a><br /></td></tr>
+<tr class="separator:ga785f260615e311e98ed21151217d9385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplParams" colspan="2">template&lt;char... cs&gt; </td></tr>
+<tr class="memitem:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; char, cs... &gt;</td></tr>
+<tr class="memdesc:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time string as a type of <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>.  <a href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">More...</a><br /></td></tr>
+<tr class="separator:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga3d3cf31723def6c7418400eb7e48748a"><td class="memTemplParams" colspan="2">template&lt;class T , T... cs&gt; </td></tr>
+<tr class="memitem:ga3d3cf31723def6c7418400eb7e48748a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt; cs... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga3d3cf31723def6c7418400eb7e48748a">operator&quot;&quot;_str</a> () noexcept</td></tr>
+<tr class="memdesc:ga3d3cf31723def6c7418400eb7e48748a"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows <code>decltype("foo"_str)</code> to return the type &lsquo;str&lt;'f&rsquo;,'o','o'&gt;`  <a href="group__common__group.html#ga3d3cf31723def6c7418400eb7e48748a">More...</a><br /></td></tr>
+<tr class="separator:ga3d3cf31723def6c7418400eb7e48748a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>top level namespace </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

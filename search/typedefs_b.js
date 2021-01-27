@@ -1,23 +1,8 @@
 var searchData=
 [
-  ['scalar_615',['scalar',['../group__storage__group.html#ga272717a154bad8f71137462a502a6d63',1,'bad::storage::common']]],
-  ['seq_616',['seq',['../namespacebad_1_1sequences_1_1common.html#a04d64ef00355f2a932dc37de35da96cb',1,'bad::sequences::common']]],
-  ['seq_5fappend_617',['seq_append',['../group__sequences__group.html#gaee9acb3776c88098b87c1866d40ae657',1,'bad::sequences::api']]],
-  ['seq_5fapply_618',['seq_apply',['../group__sequences__group.html#ga5788fcd1648ca837f776485fc5d108d0',1,'bad::sequences::api']]],
-  ['seq_5fauto_5fapply_619',['seq_auto_apply',['../group__sequences__group.html#ga50c2430335743fc2a0314b0a56a4c267',1,'bad::sequences::api']]],
-  ['seq_5fbackpermute_620',['seq_backpermute',['../group__sequences__group.html#ga4086a11e8eaefec6bbcef1a0b6e8858e',1,'bad::sequences::api']]],
-  ['seq_5fcons_621',['seq_cons',['../group__sequences__group.html#ga76032e9e6c65cf3e05df3fa442a4a695',1,'bad::sequences::api']]],
-  ['seq_5fdrop_5flast_622',['seq_drop_last',['../group__sequences__group.html#gaef54eb0750d5acc184c6b293f7c29a38',1,'bad::sequences::api']]],
-  ['seq_5finit_623',['seq_init',['../group__sequences__group.html#ga500b00db1d702b4e19e47709a0c5f47c',1,'bad::sequences::api']]],
-  ['seq_5flist_624',['seq_list',['../group__lists__group.html#ga1642b5c3288b2f27ee95486107a3d3f0',1,'bad::lists::api']]],
-  ['seq_5fpull_625',['seq_pull',['../group__sequences__group.html#ga474e356792a26c8adc6e9c9971aac5e8',1,'bad::sequences::api']]],
-  ['seq_5frange_626',['seq_range',['../group__sequences__group.html#gab5d325a3113fd2258abf4a54b65c0d45',1,'bad::sequences::api']]],
-  ['seq_5fskip_5fnth_627',['seq_skip_nth',['../group__sequences__group.html#gac7ff84f9748c7bc4732c2f80cdfeefa9',1,'bad::sequences::api']]],
-  ['seq_5fzip_628',['seq_zip',['../group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32',1,'bad::sequences::api']]],
-  ['size_5ftype_629',['size_type',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#a8560ac5527cd0ed38d71e0e58acc8021',1,'bad::memory::api::aligned_allocator']]],
-  ['sseq_630',['sseq',['../namespacebad_1_1sequences_1_1common.html#a785f260615e311e98ed21151217d9385',1,'bad::sequences::common']]],
-  ['store_5fpull_631',['store_pull',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a3e5bf885dfa6e64c14916c856d8b4d6c',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['str_632',['str',['../namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff',1,'bad::sequences::common']]],
-  ['stride_633',['stride',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_4_00_01sseq_3_4_01_4.html#a58a42faea56f4d5760ec0ba135cb5e0f',1,'bad::storage::common::store&lt; T, seq&lt;&gt;, sseq&lt;&gt; &gt;::stride()'],['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#aefe7e8d2e682710e021bc54e064b02d6',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;::stride()']]],
-  ['super_634',['super',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a09a47340a4d4382345334b1668dbe937',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]]
+  ['pack_5ftranspose_662',['pack_transpose',['../group__sequences__group.html#ga544a5af305debd3e526f6bed96733769',1,'bad::sequences::api']]],
+  ['plane_663',['plane',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a67ebca8dc54ffa9ef207a85d535c3021',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
+  ['plus_664',['plus',['../group__functions__group.html#ga049a40ddd599eeb98473f4e8fce3d899',1,'bad::functions::api']]],
+  ['pointer_665',['pointer',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#ab088798d28525c0befe3c707b95c5bc2',1,'bad::memory::api::aligned_allocator::pointer()'],['../structbad_1_1storage_1_1store__expr__iterator.html#a7ddfe4377bc16d6b760a9290e73f844a',1,'bad::storage::store_expr_iterator::pointer()'],['../structbad_1_1storage_1_1const__store__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::storage::const_store_iterator::pointer()'],['../structbad_1_1storage_1_1store__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::storage::store_iterator::pointer()'],['../structbad_1_1tapes_1_1const__tape__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::tapes::const_tape_iterator::pointer()'],['../structbad_1_1tapes_1_1tape__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::tapes::tape_iterator::pointer()']]],
+  ['pointer_5ftype_666',['pointer_type',['../structbad_1_1storage_1_1const__store__expr__iterator.html#a35a23a0e8e13debc858c585abd0278e3',1,'bad::storage::const_store_expr_iterator']]]
 ];

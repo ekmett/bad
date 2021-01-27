@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['pack_5ftranspose_607',['pack_transpose',['../group__sequences__group.html#gadcc70317d4cc89c3e10decc0eb19a581',1,'bad::sequences::api']]],
-  ['plane_608',['plane',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a67ebca8dc54ffa9ef207a85d535c3021',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['pointer_609',['pointer',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#ab088798d28525c0befe3c707b95c5bc2',1,'bad::memory::api::aligned_allocator::pointer()'],['../structbad_1_1storage_1_1store__expr__iterator.html#a7ddfe4377bc16d6b760a9290e73f844a',1,'bad::storage::store_expr_iterator::pointer()'],['../structbad_1_1storage_1_1const__store__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::storage::const_store_iterator::pointer()'],['../structbad_1_1storage_1_1store__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::storage::store_iterator::pointer()'],['../structbad_1_1tapes_1_1const__tape__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::tapes::const_tape_iterator::pointer()'],['../structbad_1_1tapes_1_1tape__iterator.html#a6fc03915d7633dfe3c2b7a160f410549',1,'bad::tapes::tape_iterator::pointer()']]],
-  ['pointer_5ftype_610',['pointer_type',['../structbad_1_1storage_1_1const__store__expr__iterator.html#a35a23a0e8e13debc858c585abd0278e3',1,'bad::storage::const_store_expr_iterator']]]
+  ['negate_659',['negate',['../group__functions__group.html#ga27894022554e9cb55e5eee649e482595',1,'bad::functions::api']]],
+  ['neq_660',['neq',['../group__functions__group.html#gab84c1d6616513a610b0f46dae3d6c333',1,'bad::functions::api']]]
 ];

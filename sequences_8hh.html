@@ -73,7 +73,6 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">sequences.hh File Reference</div>  </div>
@@ -85,12 +84,15 @@ $(function() {
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &quot;<a class="el" href="attributes_8hh_source.html">attributes.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="common_8hh_source.html">common.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="errors_8hh_source.html">errors.hh</a>&quot;</code><br />
 </div>
 <p><a href="sequences_8hh_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:structbad_1_1sequences_1_1pack__transpose___3_01i_01_4"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences.html#structbad_1_1sequences_1_1pack__transpose___3_01i_01_4">pack_transpose_&lt; i &gt;</a></td></tr>
+<tr class="separator:structbad_1_1sequences_1_1pack__transpose___3_01i_01_4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structbad_1_1sequences_1_1seq__zip__"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences.html#structbad_1_1sequences_1_1seq__zip__">seq_zip_&lt; SA, SB, class &gt;</a></td></tr>
 <tr class="separator:structbad_1_1sequences_1_1seq__zip__"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:structbad_1_1sequences_1_1seq__zip___3_01iseq_3_01_a_00_01as_8_8_8_01_4_00_01iseq_3_01_b_00_01bs_8_8_8_01_4_00_01_f_01_4"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences.html#structbad_1_1sequences_1_1seq__zip___3_01iseq_3_01_a_00_01as_8_8_8_01_4_00_01iseq_3_01_b_00_01bs_8_8_8_01_4_00_01_f_01_4">seq_zip_&lt; iseq&lt; A, as... &gt;, iseq&lt; B, bs... &gt;, F &gt;</a></td></tr>
@@ -99,6 +101,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacebad"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad.html">bad</a></td></tr>
+<tr class="memdesc:namespacebad"><td class="mdescLeft">&#160;</td><td class="mdescRight">top level namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacebad_1_1sequences"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences.html">bad::sequences</a></td></tr>
 <tr class="memdesc:namespacebad_1_1sequences"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__sequences__group.html">sequences</a> internals, import <a class="el" href="namespacebad_1_1sequences_1_1api.html" title="See sequences for a complete listing.">bad::sequences::api</a> <br /></td></tr>
@@ -112,26 +115,6 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="memTemplParams" colspan="2">template&lt;class T , T... is&gt; </td></tr>
-<tr class="memitem:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> = std::integer_sequence&lt; T, is... &gt;</td></tr>
-<tr class="memdesc:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">shorthand for <code>std::integer_sequence</code>  <a href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">More...</a><br /></td></tr>
-<tr class="separator:a9c6b3935020833c4cdfe376e9f3c32cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplParams" colspan="2">template&lt;auto x, auto... xs&gt; </td></tr>
-<tr class="memitem:a8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a8b82d2eab50d25809abb52d8910a65c2">aseq</a> = iseq&lt; decltype(x), x, xs... &gt;</td></tr>
-<tr class="memdesc:a8b82d2eab50d25809abb52d8910a65c2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> with type inference, so long as there is at least one argument  <a href="namespacebad_1_1sequences_1_1common.html#a8b82d2eab50d25809abb52d8910a65c2">More...</a><br /></td></tr>
-<tr class="separator:a8b82d2eab50d25809abb52d8910a65c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04d64ef00355f2a932dc37de35da96cb"><td class="memTemplParams" colspan="2">template&lt;size_t... is&gt; </td></tr>
-<tr class="memitem:a04d64ef00355f2a932dc37de35da96cb"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a04d64ef00355f2a932dc37de35da96cb">seq</a> = iseq&lt; size_t, is... &gt;</td></tr>
-<tr class="memdesc:a04d64ef00355f2a932dc37de35da96cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>size_t</code> "sizes". used to store dimensions. a.k.a. <code>std::index_sequence</code>  <a href="namespacebad_1_1sequences_1_1common.html#a04d64ef00355f2a932dc37de35da96cb">More...</a><br /></td></tr>
-<tr class="separator:a04d64ef00355f2a932dc37de35da96cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a785f260615e311e98ed21151217d9385"><td class="memTemplParams" colspan="2">template&lt;ptrdiff_t... is&gt; </td></tr>
-<tr class="memitem:a785f260615e311e98ed21151217d9385"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a785f260615e311e98ed21151217d9385">sseq</a> = iseq&lt; ptrdiff_t, is... &gt;</td></tr>
-<tr class="memdesc:a785f260615e311e98ed21151217d9385"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>ptrdiff_t</code> "signed distances". Used to store strides.  <a href="namespacebad_1_1sequences_1_1common.html#a785f260615e311e98ed21151217d9385">More...</a><br /></td></tr>
-<tr class="separator:a785f260615e311e98ed21151217d9385"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplParams" colspan="2">template&lt;char... cs&gt; </td></tr>
-<tr class="memitem:a738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a> = iseq&lt; char, cs... &gt;</td></tr>
-<tr class="memdesc:a738b1f0fafc5155e30c800ec5587c5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time string as a type of <a class="el" href="namespacebad_1_1sequences_1_1common.html#a9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>. <code>char</code> is an integral type in C++.  <a href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">More...</a><br /></td></tr>
-<tr class="separator:a738b1f0fafc5155e30c800ec5587c5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a115e80ca80e898ec972ac45b346ca5a0"><td class="memTemplParams" colspan="2">template&lt;class T , T x&gt; </td></tr>
 <tr class="memitem:a115e80ca80e898ec972ac45b346ca5a0"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1api.html#a115e80ca80e898ec972ac45b346ca5a0">make_iseq</a> = std::make_integer_sequence&lt; T, x &gt;</td></tr>
 <tr class="memdesc:a115e80ca80e898ec972ac45b346ca5a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">sequence construction, shorter <code>std::make_integer_sequence</code>  <a href="namespacebad_1_1sequences_1_1api.html#a115e80ca80e898ec972ac45b346ca5a0">More...</a><br /></td></tr>
@@ -160,10 +143,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga45b222af025d06f976786f5ea7c785b1"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga45b222af025d06f976786f5ea7c785b1">iseq_apply</a> = typename iseq_apply_&lt; T, F, L &gt;::type</td></tr>
 <tr class="memdesc:ga45b222af025d06f976786f5ea7c785b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a sequence of values of known type <code>T</code> to a given template.  <a href="group__sequences__group.html#ga45b222af025d06f976786f5ea7c785b1">More...</a><br /></td></tr>
 <tr class="separator:ga45b222af025d06f976786f5ea7c785b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab5d325a3113fd2258abf4a54b65c0d45"><td class="memTemplParams" colspan="2">template&lt;auto x, decltype(x) y&gt; </td></tr>
-<tr class="memitem:gab5d325a3113fd2258abf4a54b65c0d45"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gab5d325a3113fd2258abf4a54b65c0d45">seq_range</a> = typename seq_range_&lt; decltype(x), x, make_aseq&lt; y-x &gt; &gt;::type</td></tr>
-<tr class="memdesc:gab5d325a3113fd2258abf4a54b65c0d45"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the range <code>[x,y)</code> as a sequence, with type matching the type of <code>x</code>  <a href="group__sequences__group.html#gab5d325a3113fd2258abf4a54b65c0d45">More...</a><br /></td></tr>
-<tr class="separator:gab5d325a3113fd2258abf4a54b65c0d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga34c3a93d6896556fb23162730001e4b9"><td class="memTemplParams" colspan="2">template&lt;auto x, auto y&gt; </td></tr>
+<tr class="memitem:ga34c3a93d6896556fb23162730001e4b9"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga34c3a93d6896556fb23162730001e4b9">seq_range</a> = typename seq_range_&lt; std::common_type_t&lt; decltype(x), decltype(y)&gt;, x, make_aseq&lt; y-x &gt; &gt;::type</td></tr>
+<tr class="memdesc:ga34c3a93d6896556fb23162730001e4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the range <code>[x,y)</code> as a sequence, with type matching the type of the common type of <code>x</code> and <code>y</code>.  <a href="group__sequences__group.html#ga34c3a93d6896556fb23162730001e4b9">More...</a><br /></td></tr>
+<tr class="separator:ga34c3a93d6896556fb23162730001e4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaee9acb3776c88098b87c1866d40ae657"><td class="memTemplParams" colspan="2">template&lt;class T , class... S&gt; </td></tr>
 <tr class="memitem:gaee9acb3776c88098b87c1866d40ae657"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaee9acb3776c88098b87c1866d40ae657">seq_append</a> = typename seq_append_&lt; T, S... &gt;::type</td></tr>
 <tr class="memdesc:gaee9acb3776c88098b87c1866d40ae657"><td class="mdescLeft">&#160;</td><td class="mdescRight">append (possibly several) sequences  <a href="group__sequences__group.html#gaee9acb3776c88098b87c1866d40ae657">More...</a><br /></td></tr>
@@ -172,14 +155,14 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaa9c6dad1ce56412868b5a42cda2ad18f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaa9c6dad1ce56412868b5a42cda2ad18f">tail</a> = iseq&lt; decltype(x), xs... &gt;</td></tr>
 <tr class="memdesc:gaa9c6dad1ce56412868b5a42cda2ad18f"><td class="mdescLeft">&#160;</td><td class="mdescRight">tail of a non-empty parameter pack of numbers, with type inference  <a href="group__sequences__group.html#gaa9c6dad1ce56412868b5a42cda2ad18f">More...</a><br /></td></tr>
 <tr class="separator:gaa9c6dad1ce56412868b5a42cda2ad18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga436d80f3ddc1297cd8012a680ca28e8e"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
-<tr class="memitem:ga436d80f3ddc1297cd8012a680ca28e8e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga436d80f3ddc1297cd8012a680ca28e8e">iseqail</a> = seq_auto_apply&lt; tail, S &gt;</td></tr>
-<tr class="memdesc:ga436d80f3ddc1297cd8012a680ca28e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">tail of a non-empty sequence  <a href="group__sequences__group.html#ga436d80f3ddc1297cd8012a680ca28e8e">More...</a><br /></td></tr>
-<tr class="separator:ga436d80f3ddc1297cd8012a680ca28e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga76032e9e6c65cf3e05df3fa442a4a695"><td class="memTemplParams" colspan="2">template&lt;auto i, class S &gt; </td></tr>
-<tr class="memitem:ga76032e9e6c65cf3e05df3fa442a4a695"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga76032e9e6c65cf3e05df3fa442a4a695">seq_cons</a> = typename seq_cons_&lt; decltype(i), i, S &gt;::type</td></tr>
-<tr class="memdesc:ga76032e9e6c65cf3e05df3fa442a4a695"><td class="mdescLeft">&#160;</td><td class="mdescRight">prepend a value to a sequence the type of the new argument determines the type of the output sequence, as long as the types are convertible  <a href="group__sequences__group.html#ga76032e9e6c65cf3e05df3fa442a4a695">More...</a><br /></td></tr>
-<tr class="separator:ga76032e9e6c65cf3e05df3fa442a4a695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
+<tr class="memitem:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga4c8e9a5081f900497f0d1fd7b64a9d0d">seq_tail</a> = seq_auto_apply&lt; tail, S &gt;</td></tr>
+<tr class="memdesc:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">tail of a non-empty sequence  <a href="group__sequences__group.html#ga4c8e9a5081f900497f0d1fd7b64a9d0d">More...</a><br /></td></tr>
+<tr class="separator:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memTemplParams" colspan="2">template&lt;auto i, class S &gt; </td></tr>
+<tr class="memitem:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga9b16f5816b410dcbc944a45a4acdc315">seq_cons</a> = typename seq_cons_&lt; i, S &gt;::type</td></tr>
+<tr class="memdesc:ga9b16f5816b410dcbc944a45a4acdc315"><td class="mdescLeft">&#160;</td><td class="mdescRight">prepend a value to a sequence the resulting sequence has whatever common type is large enough to contain both the value being consed and the values already in the list (using <code>std::common_type_t</code>)  <a href="group__sequences__group.html#ga9b16f5816b410dcbc944a45a4acdc315">More...</a><br /></td></tr>
+<tr class="separator:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaff7d881440bce3ab9f2430513dbb6778"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
 <tr class="memitem:gaff7d881440bce3ab9f2430513dbb6778"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaff7d881440bce3ab9f2430513dbb6778">row_major</a> = typename row_major_&lt; S, make_seq&lt; seq_length&lt; S &gt; &gt;&gt;::type</td></tr>
 <tr class="memdesc:gaff7d881440bce3ab9f2430513dbb6778"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute all row-major strides given a set of dimensions  <a href="group__sequences__group.html#gaff7d881440bce3ab9f2430513dbb6778">More...</a><br /></td></tr>
@@ -200,14 +183,14 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gaef54eb0750d5acc184c6b293f7c29a38"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaef54eb0750d5acc184c6b293f7c29a38">seq_drop_last</a> = seq_backpermute&lt; S, make_seq&lt; seq_length&lt; S &gt; -std::max(N, seq_length&lt; S &gt;)&gt; &gt;</td></tr>
 <tr class="memdesc:gaef54eb0750d5acc184c6b293f7c29a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">drop the last <code>N</code> entries from a sequence  <a href="group__sequences__group.html#gaef54eb0750d5acc184c6b293f7c29a38">More...</a><br /></td></tr>
 <tr class="separator:gaef54eb0750d5acc184c6b293f7c29a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadcc70317d4cc89c3e10decc0eb19a581"><td class="memTemplParams" colspan="2">template&lt;class T , T... is&gt; </td></tr>
-<tr class="memitem:gadcc70317d4cc89c3e10decc0eb19a581"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gadcc70317d4cc89c3e10decc0eb19a581">pack_transpose</a> = typename pack_transpose_&lt; T, is... &gt;::type</td></tr>
-<tr class="memdesc:gadcc70317d4cc89c3e10decc0eb19a581"><td class="mdescLeft">&#160;</td><td class="mdescRight">swap the last two dimensions in a parameter pack  <a href="group__sequences__group.html#gadcc70317d4cc89c3e10decc0eb19a581">More...</a><br /></td></tr>
-<tr class="separator:gadcc70317d4cc89c3e10decc0eb19a581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9b09e062330c156a9f8793627c65036b"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
-<tr class="memitem:ga9b09e062330c156a9f8793627c65036b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga9b09e062330c156a9f8793627c65036b">iseqranspose</a> = typename iseqranspose_&lt; S &gt;::type</td></tr>
-<tr class="memdesc:ga9b09e062330c156a9f8793627c65036b"><td class="mdescLeft">&#160;</td><td class="mdescRight">swap the last two entries in a sequence  <a href="group__sequences__group.html#ga9b09e062330c156a9f8793627c65036b">More...</a><br /></td></tr>
-<tr class="separator:ga9b09e062330c156a9f8793627c65036b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga544a5af305debd3e526f6bed96733769"><td class="memTemplParams" colspan="2">template&lt;auto... is&gt; </td></tr>
+<tr class="memitem:ga544a5af305debd3e526f6bed96733769"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga544a5af305debd3e526f6bed96733769">pack_transpose</a> = typename pack_transpose_&lt; is... &gt;::type</td></tr>
+<tr class="memdesc:ga544a5af305debd3e526f6bed96733769"><td class="mdescLeft">&#160;</td><td class="mdescRight">swap the last two dimensions in a (possibly heteregeneous) parameter pack of integral values  <a href="group__sequences__group.html#ga544a5af305debd3e526f6bed96733769">More...</a><br /></td></tr>
+<tr class="separator:ga544a5af305debd3e526f6bed96733769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga497bfbf62be7c1828f8ff11de8106985"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
+<tr class="memitem:ga497bfbf62be7c1828f8ff11de8106985"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga497bfbf62be7c1828f8ff11de8106985">seq_transpose</a> = typename seq_transpose_&lt; S &gt;::type</td></tr>
+<tr class="memdesc:ga497bfbf62be7c1828f8ff11de8106985"><td class="mdescLeft">&#160;</td><td class="mdescRight">swap the last two entries in a sequence  <a href="group__sequences__group.html#ga497bfbf62be7c1828f8ff11de8106985">More...</a><br /></td></tr>
+<tr class="separator:ga497bfbf62be7c1828f8ff11de8106985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac7ff84f9748c7bc4732c2f80cdfeefa9"><td class="memTemplParams" colspan="2">template&lt;size_t N, class S &gt; </td></tr>
 <tr class="memitem:gac7ff84f9748c7bc4732c2f80cdfeefa9"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gac7ff84f9748c7bc4732c2f80cdfeefa9">seq_skip_nth</a> = typename seq_skip_nth_&lt; N, S, make_seq&lt; N &gt; &gt;::template at&lt; make_seq&lt; seq_length&lt; S &gt; -1-N &gt; &gt;::type</td></tr>
 <tr class="memdesc:gac7ff84f9748c7bc4732c2f80cdfeefa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">skip the <code>N</code>th entry in a sequence  <a href="group__sequences__group.html#gac7ff84f9748c7bc4732c2f80cdfeefa9">More...</a><br /></td></tr>
@@ -220,13 +203,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga7c0a7a1be37fb82f25a5062f64349d32"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32">seq_zip</a> = typename seq_zip_&lt; S, T, F &gt;::type</td></tr>
 <tr class="memdesc:ga7c0a7a1be37fb82f25a5062f64349d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">zip two sequences  <a href="group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32">More...</a><br /></td></tr>
 <tr class="separator:ga7c0a7a1be37fb82f25a5062f64349d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ab59ce88241e65f2a18259feaba51d25c"><td class="memTemplParams" colspan="2">template&lt;class T , T... cs&gt; </td></tr>
-<tr class="memitem:ab59ce88241e65f2a18259feaba51d25c"><td class="memTemplItemLeft" align="right" valign="top">str&lt; cs... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1common.html#ab59ce88241e65f2a18259feaba51d25c">operator&quot;&quot;_str</a> () noexcept</td></tr>
-<tr class="memdesc:ab59ce88241e65f2a18259feaba51d25c"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows <code>decltype("foo"_str)</code> to return the type <a class="el" href="namespacebad_1_1sequences_1_1common.html#a738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt;'f','o','o'&gt;  <a href="namespacebad_1_1sequences_1_1common.html#ab59ce88241e65f2a18259feaba51d25c">More...</a><br /></td></tr>
-<tr class="separator:ab59ce88241e65f2a18259feaba51d25c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -295,6 +271,25 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 </div><hr/><h2 class="groupheader">Class Documentation</h2>
+<a name="structbad_1_1sequences_1_1pack__transpose___3_01i_01_4" id="structbad_1_1sequences_1_1pack__transpose___3_01i_01_4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structbad_1_1sequences_1_1pack__transpose___3_01i_01_4">&#9670;&nbsp;</a></span>bad::sequences::pack_transpose_&lt; i &gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct bad::sequences::pack_transpose_&lt; i &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><h3>template&lt;auto i&gt;<br />
+struct bad::sequences::pack_transpose_&lt; i &gt;</h3>
+
+
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00515">515</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+</div>
+</div>
+</div>
 <a name="structbad_1_1sequences_1_1seq__zip__" id="structbad_1_1sequences_1_1seq__zip__"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#structbad_1_1sequences_1_1seq__zip__">&#9670;&nbsp;</a></span>bad::sequences::seq_zip_</h2>
 
@@ -310,7 +305,7 @@ Variables</h2></td></tr>
 struct bad::sequences::seq_zip_&lt; SA, SB, class &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00641">641</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00594">594</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 </div>
 </div>
 </div>
@@ -329,7 +324,7 @@ struct bad::sequences::seq_zip_&lt; SA, SB, class &gt;</h3>
 struct bad::sequences::seq_zip_&lt; iseq&lt; A, as... &gt;, iseq&lt; B, bs... &gt;, F &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00646">646</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00599">599</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['_7eabstract_5frecord_333',['~abstract_record',['../structbad_1_1tapes_1_1abstract__record.html#a1af5cf7f368c50462125cc9e8d6ef287',1,'bad::tapes::abstract_record']]],
-  ['_7esegment_334',['~segment',['../structbad_1_1tapes_1_1segment.html#a3de7ed0ced9d9cf10f917050c620545c',1,'bad::tapes::segment']]]
+  ['xorable_380',['xorable',['../structbad_1_1operators_1_1api_1_1xorable.html',1,'bad::operators::api']]],
+  ['xorable_3c_20t_2c_20t_20_3e_381',['xorable&lt; T, T &gt;',['../structbad_1_1operators_1_1api_1_1xorable.html',1,'bad::operators::api']]],
+  ['xorable_5fleft_382',['xorable_left',['../structbad_1_1operators_1_1api_1_1xorable__left.html',1,'bad::operators::api']]],
+  ['xorable_5fleft_3c_20t_2c_20t_20_3e_383',['xorable_left&lt; T, T &gt;',['../structbad_1_1operators_1_1api_1_1xorable__left.html',1,'bad::operators::api']]]
 ];

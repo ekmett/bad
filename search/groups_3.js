@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lists_688',['lists',['../group__lists__group.html',1,'']]]
+  ['equality_748',['equality',['../group__equality.html',1,'']]],
+  ['errors_749',['errors',['../group__errors__group.html',1,'']]]
 ];

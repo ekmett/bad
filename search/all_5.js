@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['head_151',['head',['../namespacebad_1_1sequences_1_1api.html#a320dc243e3330a8dd3ed45ec9e7fec67',1,'bad::sequences::api']]]
+  ['functions_2ehh_162',['functions.hh',['../functions_8hh.html',1,'']]],
+  ['functions_163',['functions',['../group__functions__group.html',1,'']]]
 ];

@@ -1,6 +1,27 @@
 var searchData=
 [
-  ['value_5ftype_638',['value_type',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#afb9ded5f49336ae503bb9f2035ea902b',1,'bad::memory::api::aligned_allocator::value_type()'],['../structbad_1_1storage_1_1const__store__expr__iterator.html#a8566f789cc2ebdf785f72c34540a724d',1,'bad::storage::const_store_expr_iterator::value_type()'],['../structbad_1_1storage_1_1store__expr__iterator.html#a2b3300e0df9e638fe05376c169c317aa',1,'bad::storage::store_expr_iterator::value_type()'],['../structbad_1_1storage_1_1const__store__iterator.html#a126843af386cb54d273886e43e6b15c3',1,'bad::storage::const_store_iterator::value_type()'],['../structbad_1_1storage_1_1store__iterator.html#ab248c5fd429f99dec7280d00e620d2ee',1,'bad::storage::store_iterator::value_type()'],['../structbad_1_1tapes_1_1const__tape__iterator.html#a5b5dea856d9acd4d42b0322d09a7d9d1',1,'bad::tapes::const_tape_iterator::value_type()'],['../structbad_1_1tapes_1_1tape__iterator.html#a71a380750067de1e2b77b97fc0c46d53',1,'bad::tapes::tape_iterator::value_type()']]],
-  ['vec_639',['vec',['../group__storage__group.html#gacf0b8ce28d1a6f7a41495c61538a37cf',1,'bad::storage::common']]],
-  ['void_5fpointer_640',['void_pointer',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#a9b3997edaca8cefec4f26b8b331ce87d',1,'bad::memory::api::aligned_allocator']]]
+  ['scalar_671',['scalar',['../group__storage__group.html#ga272717a154bad8f71137462a502a6d63',1,'bad::storage::common']]],
+  ['seq_672',['seq',['../group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb',1,'bad']]],
+  ['seq_5fappend_673',['seq_append',['../group__sequences__group.html#gaee9acb3776c88098b87c1866d40ae657',1,'bad::sequences::api']]],
+  ['seq_5fapply_674',['seq_apply',['../group__sequences__group.html#ga5788fcd1648ca837f776485fc5d108d0',1,'bad::sequences::api']]],
+  ['seq_5fauto_5fapply_675',['seq_auto_apply',['../group__sequences__group.html#ga50c2430335743fc2a0314b0a56a4c267',1,'bad::sequences::api']]],
+  ['seq_5fbackpermute_676',['seq_backpermute',['../group__sequences__group.html#ga4086a11e8eaefec6bbcef1a0b6e8858e',1,'bad::sequences::api']]],
+  ['seq_5fcons_677',['seq_cons',['../group__sequences__group.html#ga9b16f5816b410dcbc944a45a4acdc315',1,'bad::sequences::api']]],
+  ['seq_5fdrop_5flast_678',['seq_drop_last',['../group__sequences__group.html#gaef54eb0750d5acc184c6b293f7c29a38',1,'bad::sequences::api']]],
+  ['seq_5finit_679',['seq_init',['../group__sequences__group.html#ga500b00db1d702b4e19e47709a0c5f47c',1,'bad::sequences::api']]],
+  ['seq_5flist_680',['seq_list',['../group__lists__group.html#ga1642b5c3288b2f27ee95486107a3d3f0',1,'bad::lists::api']]],
+  ['seq_5fpull_681',['seq_pull',['../group__sequences__group.html#ga474e356792a26c8adc6e9c9971aac5e8',1,'bad::sequences::api']]],
+  ['seq_5frange_682',['seq_range',['../group__sequences__group.html#ga34c3a93d6896556fb23162730001e4b9',1,'bad::sequences::api']]],
+  ['seq_5fskip_5fnth_683',['seq_skip_nth',['../group__sequences__group.html#gac7ff84f9748c7bc4732c2f80cdfeefa9',1,'bad::sequences::api']]],
+  ['seq_5ftail_684',['seq_tail',['../group__sequences__group.html#ga4c8e9a5081f900497f0d1fd7b64a9d0d',1,'bad::sequences::api']]],
+  ['seq_5ftranspose_685',['seq_transpose',['../group__sequences__group.html#ga497bfbf62be7c1828f8ff11de8106985',1,'bad::sequences::api']]],
+  ['seq_5fzip_686',['seq_zip',['../group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32',1,'bad::sequences::api']]],
+  ['shift_5fleft_687',['shift_left',['../group__functions__group.html#ga85e985ff3b48af72b63764bc55c5d230',1,'bad::functions::api']]],
+  ['shift_5fright_688',['shift_right',['../group__functions__group.html#gac71397db22abed94a27bfc7098a9f793',1,'bad::functions::api']]],
+  ['size_5ftype_689',['size_type',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#a8560ac5527cd0ed38d71e0e58acc8021',1,'bad::memory::api::aligned_allocator']]],
+  ['sseq_690',['sseq',['../group__common__group.html#ga785f260615e311e98ed21151217d9385',1,'bad']]],
+  ['store_5fpull_691',['store_pull',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a3e5bf885dfa6e64c14916c856d8b4d6c',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
+  ['str_692',['str',['../group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff',1,'bad']]],
+  ['stride_693',['stride',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_4_00_01sseq_3_4_01_4.html#a58a42faea56f4d5760ec0ba135cb5e0f',1,'bad::storage::common::store&lt; T, seq&lt;&gt;, sseq&lt;&gt; &gt;::stride()'],['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#aefe7e8d2e682710e021bc54e064b02d6',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;::stride()']]],
+  ['super_694',['super',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#a09a47340a4d4382345334b1668dbe937',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]]
 ];

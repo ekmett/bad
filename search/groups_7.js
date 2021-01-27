@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['tapes_695',['tapes',['../group__tapes__group.html',1,'']]],
-  ['types_696',['types',['../group__types__group.html',1,'']]]
+  ['operators_754',['operators',['../group__operators__group.html',1,'']]],
+  ['ordering_755',['ordering',['../group__ordering.html',1,'']]]
 ];
