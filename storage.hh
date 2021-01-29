@@ -67,38 +67,38 @@ namespace bad::storage {
     }
 
     // NB: store_expr_iterators are only comparable if they come from the same container
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator ==(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i == rhs.i;
     }
 
     // NB: store_expr_iterators are only comparable if they come from the same container
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator !=(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i != rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator <(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i < rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator >(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i > rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator <=(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i <= rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator >=(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i >= rhs.i;
@@ -126,22 +126,22 @@ namespace bad::storage {
       return { p, i-- };
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend const_store_expr_iterator operator +(const_store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
       return { lhs.p, lhs.i + rhs };
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend const_store_expr_iterator operator +(ptrdiff_t lhs, const_store_expr_iterator rhs) noexcept {
       return { rhs.p, rhs.i + lhs };
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend const_store_expr_iterator operator -(const_store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
       return { lhs.p, lhs.i - rhs };
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend ptrdiff_t operator -(const_store_expr_iterator lhs, const_store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i - rhs.i;
@@ -159,25 +159,25 @@ namespace bad::storage {
       return *this;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     auto & operator *() const noexcept {
       assert(valid());
       return p->at(i);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     auto * operator ->() const noexcept {
       assert(valid());
       return &(p->at(i));
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     auto & operator[](ptrdiff_t di) const noexcept {
       assert(p && 0 <= i + di && i + di < d);
       return p->at(i + di);
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     bool valid() const noexcept {
       return p != nullptr && 0 <= i && i < d;
     }
@@ -222,38 +222,38 @@ namespace bad::storage {
     }
 
     // valid across sources
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator ==(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i == rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator !=(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i != rhs.i;
     }
 
     // valid within a single source
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator <(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i < rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator >(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i > rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator <=(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i <= rhs.i;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend bool operator >=(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i >= rhs.i;
@@ -281,17 +281,17 @@ namespace bad::storage {
       return { p, i-- };
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend store_expr_iterator operator +(store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
       return { lhs.p, lhs.i + rhs };
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend store_expr_iterator operator -(store_expr_iterator lhs, ptrdiff_t rhs) noexcept {
       return { lhs.p, lhs.i - rhs };
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend ptrdiff_t operator -(store_expr_iterator lhs, store_expr_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i - rhs.i;
@@ -309,30 +309,30 @@ namespace bad::storage {
       return *this;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     reference operator *() const noexcept {
       assert(valid());
       return p->at(i);
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     pointer operator ->() const noexcept {
       assert(valid());
       return *(p->at(i));
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     reference operator[](ptrdiff_t di) const noexcept {
       assert(valid());
       return p->at(i + di);
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     bool valid() const noexcept {
       return p != nullptr && 0 <= i && i < d;
     }
 
-    BAD(hd,inline,pure) constexpr
+    BAD(hd,nodiscard,inline,pure) constexpr
     friend store_expr_iterator operator + (ptrdiff_t lhs, store_expr_iterator rhs) noexcept {
       return { rhs.p, rhs.i + lhs };
     }
@@ -343,7 +343,7 @@ namespace bad::storage::api {
   /// variadic expression template
   /// \ingroup storage_group
   template <class B, size_t d, size_t... ds>
-  struct BAD(empty_bases) store_expr {
+  struct BAD(empty_bases,nodiscard) store_expr {
     using const_iterator = const_store_expr_iterator<B,d>;
     using iterator = store_expr_iterator<B,d>;
     using reverse_iterator = std::reverse_iterator<iterator>;
@@ -360,75 +360,75 @@ namespace bad::storage::api {
 
     using actual_type = B;
 
-    BAD(hd,inline,flatten) constexpr
+    BAD(hd,nodiscard,inline,flatten) constexpr
     auto operator[](size_t i) noexcept {
       return at(i);
     }
 
-    BAD(hd,inline,flatten) constexpr
+    BAD(hd,nodiscard,inline,flatten) constexpr
     auto operator[](size_t i) const noexcept {
       return at(i);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     B & at() noexcept {
       return static_cast<B &>(*this);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     B const & at() const noexcept {
       return static_cast<B const &>(*this);
     }
 
-    template <class... ts> constexpr
-    BAD(hd,inline,flatten) // this lifetimebound
+    template <class... ts> 
+    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
     auto at(size_t i) noexcept {
       return at()[i];
     }
 
-    template <class... ts> constexpr
-    BAD(hd,inline,flatten) // this lifetimebound
+    template <class... ts>
+    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
     auto at(size_t i) const noexcept {
       return at()[i];
     }
 
-    template <class... ts> constexpr
-    BAD(hd,inline,flatten) // this lifetimebound
+    template <class... ts>
+    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
     auto at(size_t i, size_t j, ts... ks) noexcept {
       return at()[i](j, ks...);
     }
 
-    template <class... ts> constexpr
-    BAD(hd,inline,flatten) // this lifetimebound
+    template <class... ts>
+    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
     auto at(size_t i, size_t j, ts... ks) const noexcept {
       return at()[i](j, ks...);
     }
 
-    BAD(hd,inline,const) constexpr // this lifetimebound
+    BAD(hd,nodiscard,inline,const) constexpr // this lifetimebound
     B & operator()() noexcept {
       return at();
     }
 
-    BAD(hd,inline,const) constexpr // this lifetimebound
+    BAD(hd,nodiscard,inline,const) constexpr // this lifetimebound
     B const & operator()() const noexcept {
       return at();
     }
 
     template <class... ts>
-    BAD(hd,inline,flatten) constexpr // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
     auto operator()(ts... is) noexcept {
       return at(is...);
     }
 
 
     template <class... ts>
-    BAD(hd,inline,flatten) constexpr // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
     auto operator()(ts... is) const noexcept {
       return at(is...);
     }
 
     template <class C>
-    BAD(hd,inline) constexpr
+    BAD(hd,nodiscard,inline) constexpr
     bool operator==(expr<C> const & r) const noexcept {
       auto l = at();
       for (size_t i=0;i<d;++i) {
@@ -438,7 +438,7 @@ namespace bad::storage::api {
     }
 
     template <class C>
-    BAD(hd,inline) constexpr
+    BAD(hd,nodiscard,inline) constexpr
     bool operator!=(expr<C> const & r) const noexcept {
       auto l = at();
       for (size_t i=0;i<d;++i) {
@@ -452,62 +452,62 @@ namespace bad::storage::api {
       return os << rhs.at();
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     iterator begin() noexcept {
       return iterator(&at(), 0);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     iterator end() noexcept {
       return iterator(&at(), d);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     reverse_iterator rbegin() noexcept {
       return reverse_iterator(iterator(&at(), d-1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     reverse_iterator rend() noexcept {
       return reverse_iterator(iterator(&at(), -1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator begin() const noexcept {
       return const_iterator(&at(), 0);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator end() const noexcept {
       return const_iterator(&at(), d);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator cbegin() const noexcept {
       return const_iterator(&at(), 0);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator cend() const noexcept {
       return const_iterator(&at(), d);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator rbegin() const noexcept {
       return reverse_iterator(const_iterator(&at(), d-1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator rend() const noexcept {
       return reverse_iterator(const_iterator(&at(), -1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator crbegin() const noexcept {
       return reverse_iterator(const_iterator(&at(), d-1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator crend() const noexcept {
       return reverse_iterator(const_iterator(&at(), -1));
     }
@@ -515,20 +515,20 @@ namespace bad::storage::api {
 
   /// \ingroup storage_group
   template <class B, size_t d, size_t...ds>
-  struct BAD(empty_bases) store_rep_expr : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
+  struct BAD(empty_bases,nodiscard) store_rep_expr : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
     using element = typename B::element;
     using dim = seq<d,ds...>;
     static constexpr size_t arity = 1 + sizeof...(ds);
 
     B const & base;
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     auto operator[](BAD(maybe_unused) size_t i) const noexcept {
       return base;
     }
 
     template <size_t N>
-    BAD(hd,inline,flatten)
+    BAD(hd,nodiscard,inline,flatten)
     auto pull(size_t i) const noexcept {
       if constexpr(N == 0) {
         return base;
@@ -539,7 +539,7 @@ namespace bad::storage::api {
 
     // this is lifetimebound, move out of line?
     template <size_t N>
-    BAD(hd,inline,flatten,const)
+    BAD(hd,nodiscard,inline,flatten,const)
     auto rep() const noexcept -> store_rep_expr<store_rep_expr,N,d,ds...> {
       return { *this };
     }
@@ -552,7 +552,7 @@ namespace bad::storage::api {
 
   /// \ingroup storage_group
   template <class L, class R, size_t d, size_t... ds>
-  struct BAD(empty_bases) store_add_expr
+  struct BAD(empty_bases,nodiscard) store_add_expr
   : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
     using dim = seq<d,ds...>;
     using element = decltype(std::declval<typename L::element>() + std::declval<typename R::element>());
@@ -563,19 +563,19 @@ namespace bad::storage::api {
     BAD(hd)
     store_add_expr(store_expr<L,d,ds...> const & l, store_expr<R,d,ds...> const & r) : l(l()), r(r()) {}
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     auto operator[](BAD(maybe_unused) size_t i) const noexcept {
       return l[i] + r[i];
     }
 
     template <size_t N>
-    BAD(hd,inline,flatten)
+    BAD(hd,nodiscard,inline,flatten)
     auto pull(size_t i) const noexcept {
       return l.template pull<N>(i) + r.template pull<N>(i);
     }
 
     template <size_t N>
-    BAD(hd,inline,flatten,const)
+    BAD(hd,nodiscard,inline,flatten,const)
     auto rep() const noexcept -> store_rep_expr<store_add_expr,N,d,ds...> {
       return { *this };
       // return l.template rep<N>(i) + r.template rep<N>(i);
@@ -590,7 +590,7 @@ namespace bad::storage::api {
 
   /// \ingroup storage_group
   template <class L, class R, size_t d, size_t... ds>
-  BAD(hd,inline,const)
+  BAD(hd,nodiscard,inline,const)
   auto operator +(
     BAD(lifetimebound) store_expr<L,d,ds...> const &l,
     BAD(lifetimebound) store_expr<R,d,ds...> const &r
@@ -602,14 +602,14 @@ namespace bad::storage::api {
 namespace bad::storage::common {
   /// \ingroup storage_group
   template <size_t d0, class B, size_t d1, size_t... ds>
-  BAD(hd,inline)
+  BAD(hd,nodiscard,inline)
   auto rep(BAD(lifetimebound) store_expr<B,d1,ds...> const & x) noexcept {
     return x().template rep<d0>();
   }
 
   /// \ingroup storage_group
   template <size_t d0, class B, size_t d1, size_t... ds>
-  BAD(hd,inline)
+  BAD(hd,nodiscard,inline)
   auto rep(BAD(lifetimebound) store_expr<B,d1,ds...> & x) noexcept {
     return x().template rep<d0>();
   }
@@ -617,7 +617,7 @@ namespace bad::storage::common {
   /// pull the `N`th dimension of a storage expression to the front.
   /// \ingroup storage_group
   template <size_t N, class B, size_t d, size_t... ds>
-  BAD(hd,inline)
+  BAD(hd,nodiscard,inline)
   auto pull(
     BAD(lifetimebound) store_expr<B,d,ds...> const & rhs,
     size_t i
@@ -628,7 +628,7 @@ namespace bad::storage::common {
   /// pulls the `N`th dimension of a store to the front.
   /// \ingroup storage_group
   template <size_t N, class B, size_t d, size_t... ds>
-  BAD(hd,inline)
+  BAD(hd,nodiscard,inline)
   auto pull(
     BAD(lifetimebound) store_expr<B,d,ds...> & rhs,
     size_t i
@@ -655,7 +655,7 @@ namespace bad::storage::common {
   /// scalars
   /// \ingroup storage_group
   template <class T>
-  struct BAD(empty_bases) store<T, seq<>, sseq<>> {
+  struct BAD(empty_bases,nodiscard) store<T, seq<>, sseq<>> {
     using element = T;
     using dim = seq<>;
     using stride = sseq<>;
@@ -687,39 +687,39 @@ namespace bad::storage::common {
 
     T value;
 
-    BAD(hd,inline) // const?
+    BAD(hd,nodiscard,inline) // const?
     T & at() noexcept { return value; }
 
-    BAD(hd,inline,pure) // const?
+    BAD(hd,nodiscard,inline,pure) // const?
     const T & at() const noexcept { return value; }
 
     template <typename arg, typename... args>
-    BAD(hd,inline)
+    BAD(hd,nodiscard,inline)
     const T & at(arg i, args... is) const noexcept { return value(i,is...); }
 
     template <typename arg, typename... args>
-    BAD(hd,inline)
+    BAD(hd,nodiscard,inline)
     auto at(arg i, args... is) noexcept { return value(i,is...); }
 
 
-    BAD(hd,inline,pure) // const?
+    BAD(hd,nodiscard,inline,pure) // const?
     T & operator()() noexcept { return value; }
 
-    BAD(hd,inline,pure) // const?
+    BAD(hd,nodiscard,inline,pure) // const?
     const T & operator()() const noexcept { return value; }
 
     template <typename arg, typename... args>
-    BAD(hd,inline)
+    BAD(hd,nodiscard,inline)
     T & operator()(arg i, args... is) noexcept { return value(i,is...); }
 
     template <typename arg, typename... args>
     BAD(hd,inline)
     const T & operator()(arg i, args... is) const noexcept { return value(i,is...); }
 
-    BAD(hd,inline,pure) // const?
+    BAD(hd,nodiscard,inline,pure) // const?
     operator T & () noexcept { return value; }
 
-    BAD(hd,inline,pure) // const?
+    BAD(hd,nodiscard,inline,pure) // const?
     operator T const & () const noexcept { return value; }
   };
 
@@ -775,33 +775,33 @@ namespace bad::storage {
     ptrdiff_t i;
 
     // NB: store_iterators are only comparable if they come from the same container
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator ==(const_store_iterator lhs, const_store_iterator rhs) noexcept {
       return lhs.i == rhs.i;
     }
 
     // NB: store_iterators are only comparable if they come from the same container
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator !=(const_store_iterator lhs, const_store_iterator rhs) noexcept {
       return lhs.i != rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator <(const_store_iterator lhs, const_store_iterator rhs) noexcept {
       return lhs.i < rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator >(const_store_iterator lhs, const_store_iterator rhs) noexcept {
       return lhs.i > rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator <=(const_store_iterator lhs, const_store_iterator rhs) noexcept {
       return lhs.i <= rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator >=(const_store_iterator lhs, const_store_iterator rhs) noexcept {
       return lhs.i >= rhs.i;
     }
@@ -828,21 +828,22 @@ namespace bad::storage {
       return { p, i-- };
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend const_store_iterator operator +(const_store_iterator lhs, ptrdiff_t rhs) noexcept {
       return { lhs.p, lhs.i + rhs };
     }
 
+    BAD(hd,nodiscard,inline,pure)
     friend const_store_iterator operator +(ptrdiff_t lhs, const_store_iterator rhs) noexcept {
       return { rhs.p, rhs.i + lhs };
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend const_store_iterator operator -(const_store_iterator lhs, ptrdiff_t rhs) noexcept {
       return { lhs.p, lhs.i - rhs };
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend ptrdiff_t operator -(const_store_iterator lhs, const_store_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i - rhs.i;
@@ -860,22 +861,22 @@ namespace bad::storage {
       return *this;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     reference operator *() const noexcept {
       return *reinterpret_cast<pointer>(p + i*s);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     pointer operator ->() const noexcept {
       return reinterpret_cast<pointer>(p + i*s);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     reference operator[](ptrdiff_t di) const noexcept {
       return *reinterpret_cast<pointer>(p + (i+di)*s);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     bool valid() const noexcept {
       return p != nullptr && 0 <= i && i < d;
     }
@@ -921,39 +922,39 @@ namespace bad::storage {
     T * p;
     ptrdiff_t i;
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     operator const_store_iterator<d,s,T,plane>() const {
       return const_store_iterator(p, i);
     }
 
     // valid across sources
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator ==(store_iterator lhs, store_iterator rhs) noexcept {
       return lhs.i == rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator !=(store_iterator lhs, store_iterator rhs) noexcept {
       return lhs.i != rhs.i;
     }
 
     // valid within a single source
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator <(store_iterator lhs, store_iterator rhs) noexcept {
       return lhs.i < rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator >(store_iterator lhs, store_iterator rhs) noexcept {
       return lhs.i > rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator <=(store_iterator lhs, store_iterator rhs) noexcept {
       return lhs.i <= rhs.i;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend bool operator >=(store_iterator lhs, store_iterator rhs) noexcept {
       return lhs.i >= rhs.i;
     }
@@ -980,17 +981,17 @@ namespace bad::storage {
       return store_iterator(p, i--);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend store_iterator operator +(store_iterator lhs, ptrdiff_t rhs) noexcept {
       return store_iterator(lhs.p, lhs.i + rhs);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend store_iterator operator -(store_iterator lhs, ptrdiff_t rhs) noexcept {
       return store_iterator(lhs.p, lhs.i - rhs);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     friend ptrdiff_t operator -(store_iterator lhs, store_iterator rhs) noexcept {
       assert(lhs.p == rhs.p);
       return lhs.i - rhs.i;
@@ -1008,26 +1009,27 @@ namespace bad::storage {
       return *this;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     reference operator *() const noexcept {
       return *reinterpret_cast<pointer>(p + i*s);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     pointer operator ->() const noexcept {
       return reinterpret_cast<pointer>(p + i*s);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     reference operator[](ptrdiff_t di) const noexcept {
       return *reinterpret_cast<pointer>(p + (i+di)*s);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,nodiscard,inline,pure)
     bool valid() const noexcept {
       return 0 <= i && i < d;
     }
 
+    BAD(hd,nodiscard,inline,pure)
     friend store_iterator operator + (ptrdiff_t lhs, store_iterator rhs) {
       return store_iterator(rhs.p, rhs.i + lhs);
     }
@@ -1038,7 +1040,7 @@ namespace bad::storage::common {
   /// tensors
   /// \ingroup storage_group
   template <class T, size_t d, size_t... ds, ptrdiff_t s, ptrdiff_t... ss>
-  struct BAD(empty_bases) store<T, seq<d,ds...>, sseq<s,ss...>>
+  struct BAD(empty_bases,nodiscard) store<T, seq<d,ds...>, sseq<s,ss...>>
   : store_expr<store<T, seq<d,ds...>, sseq<s,ss...>>,d,ds...> {
 
     using element = T;
@@ -1121,69 +1123,69 @@ namespace bad::storage::common {
     }
 
     // this should lifetimebound
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     plane & operator[](size_t i) noexcept {
       return reinterpret_cast<plane &>(data[delta + i*s]);
     }
 
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     plane const & operator[](size_t i) const noexcept {
       return reinterpret_cast<plane const &>(data[delta + i*s]);
     }
 
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     store & at() noexcept {
       return *this;
     }
 
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     store const & at() const noexcept {
       return *this;
     }
 
     template <class... ts>
-    BAD(hd,inline,flatten) // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto & at(size_t i) noexcept {
       return at()[i];
     }
 
     template <class... ts>
-    BAD(hd,inline,flatten) // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto & at(size_t i) const noexcept {
       return at()[i];
     }
 
     template <class... ts>
-    BAD(hd,inline,flatten) // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto at(size_t i, size_t j, ts... ks) noexcept {
       return at()[i](j, ks...);
     }
 
     template <class... ts>
-    BAD(hd,inline,flatten) // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto at(size_t i, size_t j, ts... ks) const noexcept {
       return at()[i](j, ks...);
     }
 
-    BAD(hd,inline,const) // this lifetimebound
+    BAD(hd,nodiscard,inline,const) // this lifetimebound
     store & operator()() noexcept {
       return at();
     }
 
-    BAD(hd,inline,const) // this lifetimebound
+    BAD(hd,nodiscard,inline,const) // this lifetimebound
     store const & operator()() const noexcept {
       return at();
     }
 
     template <class... ts>
-    BAD(hd,inline,flatten) // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto operator()(ts... is) noexcept {
       return at(is...);
     }
 
 
     template <class... ts>
-    BAD(hd,inline,flatten) // this lifetimebound
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto operator()(ts... is) const noexcept {
       return at(is...);
     }
@@ -1259,99 +1261,99 @@ namespace bad::storage::common {
     using store_pull = store<T, seq_pull<N,dim>, seq_pull<N,stride>>;
 
     template <size_t N>
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     store_pull<N> & pull() noexcept {
       return reinterpret_cast<store_pull<N>&>(*this);
     };
 
     template <size_t N>
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     const store_pull<N> & pull() const noexcept {
       return reinterpret_cast<store_pull<N> const &>(*this);
     };
 
     template <size_t N>
-    BAD(hd,inline,flatten)
+    BAD(hd,nodiscard,inline,flatten)
     typename store_pull<N>::plane & pull(size_t i) noexcept {
       return pull<N>()[i];
     };
 
     template <size_t N>
-    BAD(hd,inline,flatten)
+    BAD(hd,nodiscard,inline,flatten)
     typename store_pull<N>::plane const & pull(size_t i) const noexcept {
       return pull<N>()[i];
     }
 
     template <size_t N>
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     auto & rep() const noexcept {
       using rep_type = store<T,seq_cons<N,dim>,seq_cons<ptrdiff_t(0),stride>>;
       return reinterpret_cast<rep_type const &>(*this);
     }
 
     template <size_t N>
-    BAD(hd,inline,const)
+    BAD(hd,nodiscard,inline,const)
     auto & rep() noexcept {
       using rep_type = store<T,seq_cons<N,dim>,seq_cons<ptrdiff_t(0),stride>>;
       return reinterpret_cast<rep_type &>(*this);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     iterator begin() noexcept {
       return iterator(data + delta, 0);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     iterator end() noexcept {
       return iterator(data + delta, d);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     reverse_iterator rbegin() noexcept {
       return reverse_iterator(iterator(data + delta, d-1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     reverse_iterator rend() noexcept {
       return reverse_iterator(iterator(data + delta, -1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator begin() const noexcept {
       return const_iterator(data + delta, 0);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator end() const noexcept {
       return const_iterator(data + delta, d);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator cbegin() const noexcept {
       return const_iterator(data + delta, 0);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_iterator cend() const noexcept {
       return const_iterator(data + delta, d);
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator rbegin() const noexcept {
       return reverse_iterator(const_iterator(data + delta, d-1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator rend() const noexcept {
       return reverse_iterator(const_iterator(data + delta, -1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator crbegin() const noexcept {
       return reverse_iterator(const_iterator(data + delta, d-1));
     }
 
-    BAD(hd,inline,const) constexpr
+    BAD(hd,nodiscard,inline,const) constexpr
     const_reverse_iterator crend() const noexcept {
       return reverse_iterator(const_iterator(data + delta, -1));
     }
@@ -1422,7 +1424,7 @@ namespace bad::storage::api {
   /// replicate base data types
   /// \ingroup storage_group
   template <size_t d, class T>
-  BAD(hd,inline) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   auto rep(T t) noexcept -> store<T,seq<d>,sseq<0>> {
     return t;
   }
@@ -1430,7 +1432,7 @@ namespace bad::storage::api {
   /// used to show the values in an expr or fixed array
   /// \ingroup storage_group
   template <size_t d, class T>
-  struct show_values {
+  struct BAD(nodiscard) show_values {
     T const & data;
 
     BAD(hd) constexpr
