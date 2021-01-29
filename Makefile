@@ -35,10 +35,13 @@ doc: build/doc
 	@open build/doc/html/index.html
 
 publish: build/doc
+	# nb this skips .git and .nojekyll
+	@rm -rf doc/*
 	@cp -aRv build/doc/html/* doc
 	# assumes subdir doc check if we're in a git repo
 	@if [ -d doc/.git ]; then \
 		cd doc; \
+		touch .nojekyll; \
 		git add *; \
 		git commit -a -m "doc update"; \
 		git push; \
