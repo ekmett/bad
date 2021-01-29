@@ -1,4 +1,5 @@
 #pragma once
+#include <type_traits>
 #include "attributes.hh"
 #include "common.hh"
 
@@ -8,14 +9,14 @@
 ///
 /// \defgroup modes modes
 /// \brief automatic differentiation modes
-/// 
+///
 /// \defgroup mixed_mode_group mixed
 /// \ingroup modes
-/// \brief mixed-mode AD: forward mode, with opportunistic expression-level reverse 
+/// \brief mixed-mode AD: forward mode, with opportunistic expression-level reverse
 ///
 /// Based on the technique for expression-level reverse mode in
 /// https://www.osti.gov/servlets/purl/1118331
-/// but modified to fall back to forward-mode for small expressions 
+/// but modified to fall back to forward-mode for small expressions
 /// and to use modern language features.
 ///
 /// TODO: replace `N` with a list of types, so we can mix fp16 values, floats, etc.
@@ -48,7 +49,7 @@ namespace bad::mixed_mode::api {
   /// \brief mixed-mode AD expression
   /// \ingroup mixed_mode_group
   template <class B>
-  struct BAD(empty_bases) mixed_expr {
+  struct BAD(empty_bases,nodiscard) mixed_expr {
     BAD(hd,nodiscard,const,inline)
     B const & me() const noexcept {
       return static_cast<B const &>(*this);
@@ -82,8 +83,8 @@ namespace bad::mixed_mode::api {
 
   /// \ingroup mixed_mode_group
   /// TODO: make this policy pluggable? and tune it to compute ideal ratio
-  BAD(hd,nodiscard,inline)
-  constexpr bool prefer_forward(size_t args, size_t size) noexcept {
+  BAD(hd,nodiscard,inline) constexpr
+  bool prefer_forward(size_t args, size_t size) noexcept {
     return size == 0    // for size 0, no point computing partials, we never use them
         || args < size;
   }
@@ -91,7 +92,7 @@ namespace bad::mixed_mode::api {
   /// \brief mixed-mode value/tangent bundle, classic dual numbers generalized to N infinitesimals.
   /// \ingroup mixed_mode_group
   template <class T, size_t N>
-  class BAD(empty_bases) mixed : mixed_expr<mixed<T,N>> {
+  class BAD(empty_bases,nodiscard) mixed : mixed_expr<mixed<T,N>> {
     static constexpr size_t size = N;
     using partials_type = T;
     using element = T;
@@ -198,16 +199,24 @@ namespace bad::mixed_mode::api {
     }
   };
 
+  // copy shape from a mixed expression
+  template <class B>
+  mixed(mixed_expr<B> const &) -> mixed<std::remove_reference_t<decltype(std::declval<B>().primal())>,B::size>;
+
+  // copy shape from another mixed
+  template <class T, size_t N>
+  mixed(mixed<T,N> const &) -> mixed<T,N>;
+
   /// simple lifted scalar
   /// \ingroup mixed_mode_group
   template <class T, size_t N>
-  struct BAD(empty_bases) mixed_lift
+  struct BAD(empty_bases,nodiscard) mixed_lift
   : mixed_expr<mixed_lift<T,N>> {
     static constexpr size_t size = N;
     static constexpr size_t args = 0;
 
     using element_type = T;
-    struct BAD(empty_bases) partials_type {};
+    struct BAD(empty_bases,nodiscard) partials_type {};
 
     T p;
 
@@ -255,7 +264,7 @@ namespace bad::mixed_mode::api {
     BAD(hd,nodiscard,inline)
     T dual(BAD(maybe_unused) size_t i) const noexcept {
       return 0;
-    } 
+    }
 
     BAD(hd,nodiscard,inline)
     partials_type partials(BAD(maybe_unused) T x) const noexcept {
@@ -272,7 +281,7 @@ namespace bad::mixed_mode::api {
   template <class T, size_t N>
   BAD(hd,nodiscard,inline)
   bool operator == (
-    BAD(noescape) mixed_expr<L> const & l, 
+    BAD(noescape) mixed_expr<L> const & l,
     BAD(noescape) mixed_expr<R> const & r
   ) {
     return l.primal() == r.primal();
@@ -282,7 +291,7 @@ namespace bad::mixed_mode::api {
   template <class T, size_t N>
   BAD(hd,nodiscard,inline)
   bool operator != (
-    BAD(noescape) mixed_expr<L> const & l, 
+    BAD(noescape) mixed_expr<L> const & l,
     BAD(noescape) mixed_expr<R> const & r
   ) {
     return l.primal() != r.primal();
@@ -292,7 +301,7 @@ namespace bad::mixed_mode::api {
   template <class T, size_t N>
   BAD(hd,nodiscard,inline)
   bool operator < (
-    BAD(noescape) mixed_expr<L> const & l, 
+    BAD(noescape) mixed_expr<L> const & l,
     BAD(noescape) mixed_expr<R> const & r
   ) {
     return l.primal() < r.primal();
@@ -302,7 +311,7 @@ namespace bad::mixed_mode::api {
   template <class T, size_t N>
   BAD(hd,nodiscard,inline)
   bool operator > (
-    BAD(noescape) mixed_expr<L> const & l, 
+    BAD(noescape) mixed_expr<L> const & l,
     BAD(noescape) mixed_expr<R> const & r
   ) {
     return l.primal() > r.primal();
@@ -312,7 +321,7 @@ namespace bad::mixed_mode::api {
   template <class T, size_t N>
   BAD(hd,nodiscard,inline)
   bool operator <= (
-    BAD(noescape) mixed_expr<L> const & l, 
+    BAD(noescape) mixed_expr<L> const & l,
     BAD(noescape) mixed_expr<R> const & r
   ) {
     return l.primal() <= r.primal();
@@ -322,7 +331,7 @@ namespace bad::mixed_mode::api {
   template <class T, size_t N>
   BAD(hd,nodiscard,inline)
   bool operator >= (
-    BAD(noescape) mixed_expr<L> const & l, 
+    BAD(noescape) mixed_expr<L> const & l,
     BAD(noescape) mixed_expr<R> const & r
   ) {
     return l.primal() >= r.primal();
@@ -332,7 +341,7 @@ namespace bad::mixed_mode::api {
   /// useful when building functions like `diff`
   /// \ingroup mixed_mode_group
   template <class T, size_t N>
-  struct BAD(empty_bases) mixed_arg
+  struct BAD(empty_bases,nodiscard) mixed_arg
   : mixed_expr<mixed_arg<T,N>> {
     static constexpr size_t size = N;
     static constexpr size_t args = 1;
@@ -366,7 +375,7 @@ namespace bad::mixed_mode::api {
 
   /// \ingroup mixed_mode_group
   template <class L, class R>
-  struct BAD(empty_bases) mixed_add_expr
+  struct BAD(empty_bases,nodiscard) mixed_add_expr
   : mixed_expr<mixed_add_expr<L,R>> {
 
     static_assert(L::size == R::size, "tangent size mismatch");
@@ -399,9 +408,9 @@ namespace bad::mixed_mode::api {
     auto dual(size_t i) const noexcept {
       return l.dual(i) + r.dual(i);
     }
-   
+
     BAD(hd,nodiscard,inline,flatten) constexpr
-    partials_type partials(T x) const noexcept { 
+    partials_type partials(T x) const noexcept {
       return { l.partials(x), r.partials(x) };
     }
 
@@ -424,7 +433,7 @@ namespace bad::mixed_mode::api {
 
   /// \ingroup mixed_mode_group
   template <class L, class R>
-  struct BAD(empty_bases) mixed_mul_expr
+  struct BAD(empty_bases,nodiscard) mixed_mul_expr
   : mixed_expr<mixed_mul_expr<L,R>> {
     static_assert(L::size == R::size, "tangent size mismatch");
     static constexpr size_t size = L::size;
@@ -457,9 +466,9 @@ namespace bad::mixed_mode::api {
       return l.dual(i) * r.primal()
            + l.primal() * r.dual(i);
     }
-   
+
     BAD(hd,nodiscard,inline,flatten) constexpr
-    partials_type partials(T bar) const noexcept { 
+    partials_type partials(T bar) const noexcept {
       return {
         l.partials(bar * r.primal()),
         r.partials(l.primal() * bar)
@@ -485,7 +494,7 @@ namespace bad::mixed_mode::api {
   }
 
   /// \ingroup mixed_mode_group
-  template <typename T, typename F>
+  template <class T, class F>
   BAD(hd,nodiscard,inline,flatten) constexpr
   std::tuple<T,T> diff(F f, T a) {
     mixed<T,1> result = f(mixed_arg<T,1>(a,0));
