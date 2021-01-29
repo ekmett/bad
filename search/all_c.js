@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['namespaces_2emd_248',['namespaces.md',['../namespaces_8md.html',1,'']]],
+  ['namespaces_2emd_248',['Namespaces.md',['../_namespaces_8md.html',1,'']]],
   ['negate_249',['negate',['../group__unary__functions__group.html#ga5767738e7fb9b2f59ce551ac7138e741',1,'bad::functions::api']]],
   ['neq_250',['neq',['../group__binary__functions__group.html#ga9118be4aa09961d699c85d2aaf3ba741',1,'bad::functions::api']]],
   ['next_251',['next',['../structbad_1_1tapes_1_1abstract__record.html#a6042a51064e9fcedd248fb6c840e5292',1,'bad::tapes::abstract_record::next() noexcept=0'],['../structbad_1_1tapes_1_1abstract__record.html#a16d2176971640dcccfae913c96d5ffba',1,'bad::tapes::abstract_record::next() const noexcept=0'],['../structbad_1_1tapes_1_1terminator.html#a9baedf6e5cee8cb58a42d01f9e720221',1,'bad::tapes::terminator::next() noexcept override'],['../structbad_1_1tapes_1_1terminator.html#aaf3824b9ffdca5a1151d8c781053af85',1,'bad::tapes::terminator::next() const noexcept override'],['../structbad_1_1tapes_1_1link.html#a9baedf6e5cee8cb58a42d01f9e720221',1,'bad::tapes::link::next() noexcept override'],['../structbad_1_1tapes_1_1link.html#aaf3824b9ffdca5a1151d8c781053af85',1,'bad::tapes::link::next() const noexcept override'],['../structbad_1_1tapes_1_1common_1_1record.html#aaf3824b9ffdca5a1151d8c781053af85',1,'bad::tapes::common::record::next() const noexcept override'],['../structbad_1_1tapes_1_1common_1_1record.html#a9baedf6e5cee8cb58a42d01f9e720221',1,'bad::tapes::common::record::next() noexcept override']]],

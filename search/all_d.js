@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['on_20namespaces_258',['On Namespaces',['../md_namespaces.html',1,'']]],
+  ['on_20namespaces_258',['On Namespaces',['../md__namespaces.html',1,'']]],
   ['operator_20bool_259',['operator bool',['../structbad_1_1tapes_1_1const__tape__iterator.html#a7990d8e87d9eab2383f94c88c23a6488',1,'bad::tapes::const_tape_iterator::operator bool()'],['../structbad_1_1tapes_1_1tape__iterator.html#a7990d8e87d9eab2383f94c88c23a6488',1,'bad::tapes::tape_iterator::operator bool()']]],
   ['operator_20const_5fstore_5fexpr_5fiterator_3c_20b_2c_20d_20_3e_260',['operator const_store_expr_iterator&lt; B, d &gt;',['../structbad_1_1storage_1_1store__expr__iterator.html#a0039b9f83e784ced1c97961cf1cd594e',1,'bad::storage::store_expr_iterator']]],
   ['operator_20const_5fstore_5fiterator_3c_20d_2c_20s_2c_20t_2c_20plane_20_3e_261',['operator const_store_iterator&lt; d, s, T, plane &gt;',['../structbad_1_1storage_1_1store__iterator.html#a7569db08b4f02af0a70ef809dc6a09a7',1,'bad::storage::store_iterator']]],
