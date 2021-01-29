@@ -86,6 +86,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="attributes_8hh_source.html">attributes.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="common_8hh_source.html">common.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="errors_8hh_source.html">errors.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="functions_8hh_source.html">functions.hh</a>&quot;</code><br />
 </div>
 <p><a href="sequences_8hh_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -199,10 +200,47 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga474e356792a26c8adc6e9c9971aac5e8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga474e356792a26c8adc6e9c9971aac5e8">seq_pull</a> = seq_cons&lt; seq_nth&lt; N, L &gt;, seq_skip_nth&lt; N, L &gt; &gt;</td></tr>
 <tr class="memdesc:ga474e356792a26c8adc6e9c9971aac5e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">pull the <code>N</code>th entry to the front of the sequence.  <a href="group__sequences__group.html#ga474e356792a26c8adc6e9c9971aac5e8">More...</a><br /></td></tr>
 <tr class="separator:ga474e356792a26c8adc6e9c9971aac5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gace9f10037b3fbdddc212669daea98988"><td class="memTemplParams" colspan="2">template&lt;class S , template&lt; typename S::value_type &gt; class F&gt; </td></tr>
+<tr class="memitem:gace9f10037b3fbdddc212669daea98988"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gace9f10037b3fbdddc212669daea98988">seq_map</a> = typename seq_map_&lt; S, F &gt;::type</td></tr>
+<tr class="memdesc:gace9f10037b3fbdddc212669daea98988"><td class="mdescLeft">&#160;</td><td class="mdescRight">apply a unary function to two sequences  <a href="group__sequences__group.html#gace9f10037b3fbdddc212669daea98988">More...</a><br /></td></tr>
+<tr class="separator:gace9f10037b3fbdddc212669daea98988"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga39a44899df8a983b3d3a44db55258e19"><td class="memTemplParams" colspan="2">template&lt;class S , class TT &gt; </td></tr>
+<tr class="memitem:ga39a44899df8a983b3d3a44db55258e19"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga39a44899df8a983b3d3a44db55258e19">seq_map_at</a> = typename seq_map_at_&lt; S, TT &gt;::type</td></tr>
+<tr class="separator:ga39a44899df8a983b3d3a44db55258e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7c0a7a1be37fb82f25a5062f64349d32"><td class="memTemplParams" colspan="2">template&lt;class S , class T , template&lt; typename S::value_type, typename T::value_type &gt; class F&gt; </td></tr>
 <tr class="memitem:ga7c0a7a1be37fb82f25a5062f64349d32"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32">seq_zip</a> = typename seq_zip_&lt; S, T, F &gt;::type</td></tr>
 <tr class="memdesc:ga7c0a7a1be37fb82f25a5062f64349d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">zip two sequences  <a href="group__sequences__group.html#ga7c0a7a1be37fb82f25a5062f64349d32">More...</a><br /></td></tr>
 <tr class="separator:ga7c0a7a1be37fb82f25a5062f64349d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7b8e653ffc9938eef3b1782c66686613"><td class="memTemplParams" colspan="2">template&lt;class S , class T &gt; </td></tr>
+<tr class="memitem:ga7b8e653ffc9938eef3b1782c66686613"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga7b8e653ffc9938eef3b1782c66686613">seq_plus</a> = seq_zip&lt; S, T, functions::plus &gt;</td></tr>
+<tr class="memdesc:ga7b8e653ffc9938eef3b1782c66686613"><td class="mdescLeft">&#160;</td><td class="mdescRight">add elements of two sequences, pointwise  <a href="group__sequences__group.html#ga7b8e653ffc9938eef3b1782c66686613">More...</a><br /></td></tr>
+<tr class="separator:ga7b8e653ffc9938eef3b1782c66686613"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5529b671c69d29083b5f85f92f6187e4"><td class="memTemplParams" colspan="2">template&lt;class S , auto K&gt; </td></tr>
+<tr class="memitem:a5529b671c69d29083b5f85f92f6187e4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1api.html#a5529b671c69d29083b5f85f92f6187e4">seq_plus_constant</a> = seq_map_at&lt; S, functions::flipb&lt; functions::plus, K &gt; &gt;</td></tr>
+<tr class="separator:a5529b671c69d29083b5f85f92f6187e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0aaad8c12cca82a63dad40c90670a29"><td class="memTemplParams" colspan="2">template&lt;auto K, class S &gt; </td></tr>
+<tr class="memitem:ac0aaad8c12cca82a63dad40c90670a29"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1api.html#ac0aaad8c12cca82a63dad40c90670a29">seq_constant_plus</a> = seq_map_at&lt; S, functions::papb&lt; functions::plus, K &gt; &gt;</td></tr>
+<tr class="separator:ac0aaad8c12cca82a63dad40c90670a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2325beb3202be24d70ddd5b8aa4e0a7b"><td class="memTemplParams" colspan="2">template&lt;class S , class T &gt; </td></tr>
+<tr class="memitem:ga2325beb3202be24d70ddd5b8aa4e0a7b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga2325beb3202be24d70ddd5b8aa4e0a7b">seq_minus</a> = seq_zip&lt; S, T, functions::minus &gt;</td></tr>
+<tr class="memdesc:ga2325beb3202be24d70ddd5b8aa4e0a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">subtract elements of two sequences, pointwise  <a href="group__sequences__group.html#ga2325beb3202be24d70ddd5b8aa4e0a7b">More...</a><br /></td></tr>
+<tr class="separator:ga2325beb3202be24d70ddd5b8aa4e0a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad523d979f915fabffd55cdec7214a083"><td class="memTemplParams" colspan="2">template&lt;class S , auto K&gt; </td></tr>
+<tr class="memitem:gad523d979f915fabffd55cdec7214a083"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gad523d979f915fabffd55cdec7214a083">seq_minus_constant</a> = seq_map_at&lt; S, functions::flipb&lt; functions::minus, K &gt; &gt;</td></tr>
+<tr class="separator:gad523d979f915fabffd55cdec7214a083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae28a32cd981453ff1736dbaf7792df58"><td class="memTemplParams" colspan="2">template&lt;auto K, class S &gt; </td></tr>
+<tr class="memitem:gae28a32cd981453ff1736dbaf7792df58"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gae28a32cd981453ff1736dbaf7792df58">seq_constant_minus</a> = seq_map_at&lt; S, functions::papb&lt; functions::minus, K &gt; &gt;</td></tr>
+<tr class="separator:gae28a32cd981453ff1736dbaf7792df58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf867e50984422b5d7f0f0b45988fd3f2"><td class="memTemplParams" colspan="2">template&lt;class S , class T &gt; </td></tr>
+<tr class="memitem:gaf867e50984422b5d7f0f0b45988fd3f2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaf867e50984422b5d7f0f0b45988fd3f2">seq_times</a> = seq_zip&lt; S, T, functions::times &gt;</td></tr>
+<tr class="memdesc:gaf867e50984422b5d7f0f0b45988fd3f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">multiply elements of two sequences, pointwise  <a href="group__sequences__group.html#gaf867e50984422b5d7f0f0b45988fd3f2">More...</a><br /></td></tr>
+<tr class="separator:gaf867e50984422b5d7f0f0b45988fd3f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18dfb3ebc59905632f00e823cfb5d317"><td class="memTemplParams" colspan="2">template&lt;class S , auto K&gt; </td></tr>
+<tr class="memitem:ga18dfb3ebc59905632f00e823cfb5d317"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga18dfb3ebc59905632f00e823cfb5d317">seq_times_constant</a> = seq_map_at&lt; S, functions::flipb&lt; functions::times, K &gt; &gt;</td></tr>
+<tr class="separator:ga18dfb3ebc59905632f00e823cfb5d317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a339ca9d990a5fec4820093d1535eb3"><td class="memTemplParams" colspan="2">template&lt;auto K, class S &gt; </td></tr>
+<tr class="memitem:ga9a339ca9d990a5fec4820093d1535eb3"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga9a339ca9d990a5fec4820093d1535eb3">seq_constant_times</a> = seq_map_at&lt; S, functions::papb&lt; functions::times, K &gt; &gt;</td></tr>
+<tr class="separator:ga9a339ca9d990a5fec4820093d1535eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -286,7 +324,7 @@ Variables</h2></td></tr>
 struct bad::sequences::pack_transpose_&lt; i &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00515">515</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00516">516</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 </div>
 </div>
 </div>
@@ -305,7 +343,7 @@ struct bad::sequences::pack_transpose_&lt; i &gt;</h3>
 struct bad::sequences::seq_zip_&lt; SA, SB, class &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00594">594</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00632">632</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 </div>
 </div>
 </div>
@@ -324,7 +362,7 @@ struct bad::sequences::seq_zip_&lt; SA, SB, class &gt;</h3>
 struct bad::sequences::seq_zip_&lt; iseq&lt; A, as... &gt;, iseq&lt; B, bs... &gt;, F &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00599">599</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00637">637</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 </div><table class="fieldtable">
 <tr><th colspan="3">Class Members</th></tr>
 <tr><td class="fieldtype">

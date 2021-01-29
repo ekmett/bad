@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['value_611',['value',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_4_00_01sseq_3_4_01_4.html#a4fc7f59e3113e19697159919a5aad095',1,'bad::storage::common::store&lt; T, seq&lt;&gt;, sseq&lt;&gt; &gt;']]]
+  ['total_708',['total',['../group__sequences__group.html#gae7f8e5f2d1c8597fbfa151403432edd5',1,'bad::sequences::api']]],
+  ['total_5ft_709',['total_t',['../group__sequences__group.html#ga65470f1b28ad401e12173281f008574b',1,'bad::sequences::api']]]
 ];

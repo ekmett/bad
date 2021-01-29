@@ -1,9 +1,13 @@
 var searchData=
 [
-  ['make_5faseq_651',['make_aseq',['../namespacebad_1_1sequences_1_1api.html#a0e43d06afd77082693e18085a76a21c7',1,'bad::sequences::api']]],
-  ['make_5fiseq_652',['make_iseq',['../namespacebad_1_1sequences_1_1api.html#a115e80ca80e898ec972ac45b346ca5a0',1,'bad::sequences::api']]],
-  ['make_5fseq_653',['make_seq',['../namespacebad_1_1sequences_1_1api.html#afcf418632d9a2265b0585bb5bb8b2e6d',1,'bad::sequences::api']]],
-  ['make_5fsseq_654',['make_sseq',['../namespacebad_1_1sequences_1_1api.html#a099549fec7d3c8dd654bcbd6d1dfca79',1,'bad::sequences::api']]],
-  ['minus_655',['minus',['../group__functions__group.html#ga07f73b9ef79e5dfe217f5201d53b4a4f',1,'bad::functions::api']]],
-  ['mod_656',['mod',['../group__functions__group.html#gac8f7dbce64e56e5a02f8536aeb32ca16',1,'bad::functions::api']]]
+  ['le_754',['le',['../group__binary__functions__group.html#gafe3c79ea89fdce5815425c03c3917d38',1,'bad::functions::api']]],
+  ['list_5fapply_755',['list_apply',['../group__lists__group.html#ga349aea43847649c23e64e4068bf647ae',1,'bad::lists::api']]],
+  ['list_5fcons_756',['list_cons',['../group__lists__group.html#gaf399c08c79548daf8c015c670cf95576',1,'bad::lists::api']]],
+  ['list_5fhead_757',['list_head',['../group__lists__group.html#ga029e2aeebfca0c556d6b107bbde532df',1,'bad::lists::api']]],
+  ['list_5fseq_758',['list_seq',['../group__lists__group.html#ga714ca6c00765193f6d6ff4ba55ab546f',1,'bad::lists::api']]],
+  ['list_5fzip_759',['list_zip',['../group__lists__group.html#ga16fa0c9583462f0c9f8f4603eb2fc397',1,'bad::lists::api']]],
+  ['logical_5fand_760',['logical_and',['../group__binary__functions__group.html#ga3db41026e52dbed6a2b4ef7ed7aa5f80',1,'bad::functions::api']]],
+  ['logical_5fnot_761',['logical_not',['../group__unary__functions__group.html#ga7d766b91416663b99edb1940f3900632',1,'bad::functions::api']]],
+  ['logical_5for_762',['logical_or',['../group__binary__functions__group.html#ga4126b598d88f75ce786c38676f877458',1,'bad::functions::api']]],
+  ['lt_763',['lt',['../group__binary__functions__group.html#ga156f70e8a7dff0a1c24bb6e89a07d8d7',1,'bad::functions::api']]]
 ];

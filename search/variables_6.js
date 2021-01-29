@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['l_587',['l',['../structbad_1_1storage_1_1api_1_1store__add__expr.html#a4c8dbe01abc16ba7ec815d46e92a3281',1,'bad::storage::api::store_add_expr']]]
+  ['j_683',['j',['../structbad_1_1mixed__mode_1_1api_1_1mixed__arg.html#abf2d9f657468255c5b9964ea2b6e9e15',1,'bad::mixed_mode::api::mixed_arg']]]
 ];

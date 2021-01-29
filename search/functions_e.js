@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['what_572',['what',['../structbad_1_1tapes_1_1abstract__record.html#a32c78f71668ded15160b5d052d913ca0',1,'bad::tapes::abstract_record::what()'],['../structbad_1_1tapes_1_1terminator.html#a1da591da692ea4b9029fe04cb5991fe5',1,'bad::tapes::terminator::what()'],['../structbad_1_1tapes_1_1link.html#a1da591da692ea4b9029fe04cb5991fe5',1,'bad::tapes::link::what()'],['../structbad_1_1tapes_1_1common_1_1record.html#a1da591da692ea4b9029fe04cb5991fe5',1,'bad::tapes::common::record::what()']]]
+  ['valid_666',['valid',['../structbad_1_1storage_1_1const__store__expr__iterator.html#ab6ead0c02b8c399272d1ceda4fb70cdf',1,'bad::storage::const_store_expr_iterator::valid()'],['../structbad_1_1storage_1_1store__expr__iterator.html#ab6ead0c02b8c399272d1ceda4fb70cdf',1,'bad::storage::store_expr_iterator::valid()'],['../structbad_1_1storage_1_1const__store__iterator.html#a99f77f09f364b20c3a30ab6bffa4c24b',1,'bad::storage::const_store_iterator::valid()'],['../structbad_1_1storage_1_1store__iterator.html#a99f77f09f364b20c3a30ab6bffa4c24b',1,'bad::storage::store_iterator::valid()']]]
 ];

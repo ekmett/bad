@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ge_164',['ge',['../group__functions__group.html#ga72cb789ef8527ef4bea70ad174a9184f',1,'bad::functions::api']]],
-  ['gt_165',['gt',['../group__functions__group.html#ga4e78a98851e6f22f37d57a962fee2809',1,'bad::functions::api']]]
+  ['ge_184',['ge',['../group__binary__functions__group.html#gaa36a78c2c0cb7dd9d0be3f043d84a144',1,'bad::functions::api']]],
+  ['gt_185',['gt',['../group__binary__functions__group.html#ga5a6eec366d012884caee4312d785e23e',1,'bad::functions::api']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['other_659',['other',['../structbad_1_1memory_1_1api_1_1aligned__allocator.html#a675cc7a4563fff8921d519ed53e2bdc3',1,'bad::memory::api::aligned_allocator::rebind']]]
+  ['negate_770',['negate',['../group__unary__functions__group.html#ga5767738e7fb9b2f59ce551ac7138e741',1,'bad::functions::api']]],
+  ['neq_771',['neq',['../group__binary__functions__group.html#ga9118be4aa09961d699c85d2aaf3ba741',1,'bad::functions::api']]]
 ];
