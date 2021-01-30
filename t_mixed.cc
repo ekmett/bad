@@ -1,6 +1,4 @@
-#define CATCH_CONFIG_MAIN
 #include "catch.hh"
-
 #include "mixed_mode.hh"
 
 using namespace bad::mixed_mode::api;

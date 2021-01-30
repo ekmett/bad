@@ -4,8 +4,6 @@
 #include <tuple>
 
 #include "operators.hh"
-
-#define CATCH_CONFIG_MAIN
 #include "catch.hh"
 
 using namespace std;

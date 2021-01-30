@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_MAIN
+#include <iostream>
 #include "catch.hh"
 #include "storage.hh"
 #include "types.hh"

@@ -62,31 +62,36 @@ endif(ASAN)
 include_directories(${CMAKE_SOURCE_DIR})
 
 add_library(bad STATIC
-  attributes.hh catch.hh common.hh errors.hh functions.hh
+  attributes.hh common.hh errors.hh functions.hh
   lists.hh macros.hh memory.hh operators.hh
-  sequences.hh storage.hh tapes.hh types.hh types.cc
-)
-target_precompile_headers(bad PRIVATE
-  [["common.hh"]]
-  [["sequences.hh"]]
-)
+  sequences.hh storage.hh tapes.hh types.hh
 
+  types.cc
+)
+target_precompile_headers(bad PRIVATE [["sequences.hh"]])
 link_libraries(bad)
 
-add_executable(t_sequences t_sequences.cc catch.hh)
+add_library(catch STATIC catch.hh catch.cc)
+
+add_executable(t_sequences t_sequences.cc)
 target_precompile_headers(t_sequences REUSE_FROM bad)
+target_link_libraries(t_sequences PRIVATE catch)
 
-add_executable(t_operators t_operators.cc catch.hh)
-target_precompile_headers(t_operators REUSE_FROM bad)
-
-add_executable(t_mixed mixed_mode.hh t_mixed.cc catch.hh)
-target_precompile_headers(t_mixed REUSE_FROM bad)
-
-add_executable(t_tapes t_tapes.cc catch.hh)
-target_precompile_headers(t_tapes REUSE_FROM bad)
-
-add_executable(t_storage t_storage.cc catch.hh)
+add_executable(t_storage t_storage.cc)
 target_precompile_headers(t_storage REUSE_FROM bad)
+target_link_libraries(t_storage PRIVATE catch)
+
+add_executable(t_tapes t_tapes.cc)
+target_precompile_headers(t_tapes REUSE_FROM bad)
+target_link_libraries(t_tapes PRIVATE catch)
+
+add_executable(t_operators t_operators.cc)
+target_precompile_headers(t_operators REUSE_FROM bad)
+target_link_libraries(t_operators PRIVATE catch)
+
+add_executable(t_mixed t_mixed.cc mixed_mode.hh)
+target_precompile_headers(t_mixed REUSE_FROM bad)
+target_link_libraries(t_mixed PRIVATE catch)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)

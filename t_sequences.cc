@@ -1,4 +1,3 @@
-#define CATCH_CONFIG_MAIN
 #include "catch.hh"
 #include "types.hh"
 #include "sequences.hh"
