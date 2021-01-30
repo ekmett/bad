@@ -41,7 +41,7 @@ namespace bad {
     namespace api { using namespace common; }
     using namespace api;
   }
-  using namespace storage::common;
+  using namespace mixed_mode::common;
 }
 
 /// \{
@@ -94,9 +94,10 @@ namespace bad::mixed_mode::api {
   template <class T, size_t N>
   class BAD(empty_bases,nodiscard) mixed : mixed_expr<mixed<T,N>> {
     static constexpr size_t size = N;
+    static constexpr size_t args = 1;
+
     using partials_type = T;
     using element = T;
-    using args = 1;
 
     T p;
     std::array<T,N> d;
@@ -129,11 +130,11 @@ namespace bad::mixed_mode::api {
     }
 
     template <class B>
-    BAD(hd,inline,flatten,reinitializes)
+    BAD(hd,reinitializes,inline,flatten)
     mixed & operator =(mixed_expr<B> const & rhs) noexcept {
       static_assert(B::size == size);
       p = rhs.primal();
-      if constexpr (prefer_forward(B::args,size) {
+      if constexpr (prefer_forward(B::args,size)) {
         for(size_t i=0;i<size;++i)
           d[i] = rhs.dual(i);
       } else {
@@ -149,7 +150,7 @@ namespace bad::mixed_mode::api {
     mixed & operator +=(mixed_expr<B> const & rhs) noexcept {
       static_assert(B::size == size);
       p += rhs.primal();
-      if constexpr (prefer_forward(B::args,size) {
+      if constexpr (prefer_forward(B::args,size)) {
         for(size_t i=0;i<size;++i)
           d[i] += rhs.dual(i);
       } else {
@@ -273,12 +274,12 @@ namespace bad::mixed_mode::api {
 
     BAD(hd,nodiscard,inline)
     T tangent(BAD(maybe_unused) partials_type, BAD(maybe_unused) size_t i) const noexcept {
-      return 0
+      return 0;
     };
   };
 
   /// \ingroup mixed_mode_group
-  template <class T, size_t N>
+  template <class L, class R>
   BAD(hd,nodiscard,inline)
   bool operator == (
     BAD(noescape) mixed_expr<L> const & l,
@@ -288,7 +289,7 @@ namespace bad::mixed_mode::api {
   }
 
   /// \ingroup mixed_mode_group
-  template <class T, size_t N>
+  template <class L, class R>
   BAD(hd,nodiscard,inline)
   bool operator != (
     BAD(noescape) mixed_expr<L> const & l,
@@ -298,7 +299,7 @@ namespace bad::mixed_mode::api {
   }
 
   /// \ingroup mixed_mode_group
-  template <class T, size_t N>
+  template <class L, class R>
   BAD(hd,nodiscard,inline)
   bool operator < (
     BAD(noescape) mixed_expr<L> const & l,
@@ -308,7 +309,7 @@ namespace bad::mixed_mode::api {
   }
 
   /// \ingroup mixed_mode_group
-  template <class T, size_t N>
+  template <class L, class R>
   BAD(hd,nodiscard,inline)
   bool operator > (
     BAD(noescape) mixed_expr<L> const & l,
@@ -318,7 +319,7 @@ namespace bad::mixed_mode::api {
   }
 
   /// \ingroup mixed_mode_group
-  template <class T, size_t N>
+  template <class L, class R>
   BAD(hd,nodiscard,inline)
   bool operator <= (
     BAD(noescape) mixed_expr<L> const & l,
@@ -328,7 +329,7 @@ namespace bad::mixed_mode::api {
   }
 
   /// \ingroup mixed_mode_group
-  template <class T, size_t N>
+  template <class L, class R>
   BAD(hd,nodiscard,inline)
   bool operator >= (
     BAD(noescape) mixed_expr<L> const & l,
@@ -363,13 +364,13 @@ namespace bad::mixed_mode::api {
     }
 
     BAD(hd,nodiscard,inline)
-    T partials(T bar) const noexcept {
-      return bar;
+    T partials(T dz) const noexcept {
+      return dz;
     }
 
     BAD(hd,nodiscard,inline)
-    T tangent(T bar, size_t i) const noexcept {
-      return i == j ? x : 0
+    T tangent(T dx, size_t i) const noexcept {
+      return i == j ? dx : 0;
     };
   };
 
@@ -381,10 +382,12 @@ namespace bad::mixed_mode::api {
     static_assert(L::size == R::size, "tangent size mismatch");
 
     static constexpr size_t size = L::size;
+    static constexpr size_t args = L::args + R::args;
 
     using element_type = decltype(std::declval<L>().primal() + std::declval<R>().primal());
-    using partials_type = std::tuple<L::partials_type, R::partials_type>;
-    using args = L::args + R::args;
+
+    using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
+
 
     L const & lhs;
     R const & rhs;
@@ -406,18 +409,18 @@ namespace bad::mixed_mode::api {
 
     BAD(hd,nodiscard,inline,flatten) constexpr
     auto dual(size_t i) const noexcept {
-      return l.dual(i) + r.dual(i);
+      return lhs.dual(i) + rhs.dual(i);
     }
 
     BAD(hd,nodiscard,inline,flatten) constexpr
-    partials_type partials(T x) const noexcept {
-      return { l.partials(x), r.partials(x) };
+    partials_type partials(element_type x) const noexcept {
+      return { lhs.partials(x), rhs.partials(x) };
     }
 
     BAD(hd,nodiscard,inline,flatten) constexpr
-    T tangent(partials_type const & ps, i) const noexcept {
+    auto tangent(partials_type const & ps, size_t i) const noexcept {
       using std::get;
-      return l.tangent(get<0>(ps),i) + r.tangent(get<1>(ps),i);
+      return lhs.tangent(get<0>(ps),i) + rhs.tangent(get<1>(ps),i);
     }
   };
 
@@ -435,11 +438,14 @@ namespace bad::mixed_mode::api {
   template <class L, class R>
   struct BAD(empty_bases,nodiscard) mixed_mul_expr
   : mixed_expr<mixed_mul_expr<L,R>> {
+
     static_assert(L::size == R::size, "tangent size mismatch");
+
     static constexpr size_t size = L::size;
+    static constexpr size_t args = L::args + R::args;
+
     using element_type = decltype(std::declval<L>().primal() * std::declval<R>().primal());
-    using partials_type = std::tuple<L::partials_type, R::partials_type>;
-    using args = L::args + R::args;
+    using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
 
     L const & lhs;
     R const & rhs;
@@ -463,23 +469,23 @@ namespace bad::mixed_mode::api {
 
     BAD(hd,nodiscard,inline,flatten) constexpr
     auto dual(size_t i) const noexcept {
-      return l.dual(i) * r.primal()
-           + l.primal() * r.dual(i);
+      return lhs.dual(i) * rhs.primal()
+           + lhs.primal() * rhs.dual(i);
     }
 
     BAD(hd,nodiscard,inline,flatten) constexpr
-    partials_type partials(T bar) const noexcept {
+    partials_type partials(element_type bar) const noexcept {
       return {
-        l.partials(bar * r.primal()),
-        r.partials(l.primal() * bar)
+        lhs.partials(bar * rhs.primal()),
+        rhs.partials(lhs.primal() * bar)
       };
     }
 
     BAD(hd,nodiscard,inline,flatten) constexpr
-    T tangent(partials_type const & ps, i) const noexcept {
+    auto tangent(partials_type const & ps, size_t i) const noexcept {
       using std::get;
-      return l.tangent(get<0>(ps),i)
-           + r.tangent(get<1>(ps),i);
+      return lhs.tangent(get<0>(ps),i)
+           + rhs.tangent(get<1>(ps),i);
     }
   };
 

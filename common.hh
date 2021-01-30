@@ -1,5 +1,9 @@
 #pragma once
 
+#include <algorithm> // std::max
+#include <cstddef>   // std::size_t, std::ptrdiff_t
+#include <utility>   // std::integer_sequence
+
 #include "attributes.hh"
 
 /// \file

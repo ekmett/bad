@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 #include <typeinfo>
+#include "common.hh"
 #include "attributes.hh"
+
 
 /// \file
 /// \brief type names

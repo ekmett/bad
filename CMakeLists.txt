@@ -6,8 +6,6 @@ project(bad VERSION 0.0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
-include_directories(${CMAKE_SOURCE_DIR})
-
 # to trim verbosity a bit
 set(CXX_Clang "$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>")
 set(Link_Clang "$<LINK_LANG_AND_ID:CXX,AppleClang,Clang>")
@@ -61,23 +59,34 @@ endif(ASAN)
 
 # add_compile_options(-O2)
 
-add_library(types STATIC types.cc types.hh macros.hh attributes.hh errors.hh)
-link_libraries(types)
+include_directories(${CMAKE_SOURCE_DIR})
 
-add_executable(t_sequences t_sequences.cc sequences.hh catch.hh)
-target_precompile_headers(t_sequences PRIVATE
-  [["types.hh"]]
+add_library(bad STATIC
+  attributes.hh catch.hh common.hh errors.hh functions.hh
+  lists.hh macros.hh memory.hh operators.hh
+  sequences.hh storage.hh tapes.hh types.hh types.cc
+)
+target_precompile_headers(bad PRIVATE
+  [["common.hh"]]
   [["sequences.hh"]]
-  [["errors.hh"]]
 )
 
-add_executable(t_operators t_operators.cc operators.hh catch.hh)
+link_libraries(bad)
 
-add_executable(t_tapes t_tapes.cc tapes.hh sequences.hh catch.hh)
-target_precompile_headers(t_tapes REUSE_FROM t_sequences)
+add_executable(t_sequences t_sequences.cc catch.hh)
+target_precompile_headers(t_sequences REUSE_FROM bad)
 
-add_executable(t_storage t_storage.cc storage.hh sequences.hh catch.hh)
-target_precompile_headers(t_storage REUSE_FROM t_sequences)
+add_executable(t_operators t_operators.cc catch.hh)
+target_precompile_headers(t_operators REUSE_FROM bad)
+
+add_executable(t_mixed mixed_mode.hh t_mixed.cc catch.hh)
+target_precompile_headers(t_mixed REUSE_FROM bad)
+
+add_executable(t_tapes t_tapes.cc catch.hh)
+target_precompile_headers(t_tapes REUSE_FROM bad)
+
+add_executable(t_storage t_storage.cc catch.hh)
+target_precompile_headers(t_storage REUSE_FROM bad)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
