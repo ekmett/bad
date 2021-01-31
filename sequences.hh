@@ -43,15 +43,15 @@ namespace bad::sequences {
     /// sequence construction, shorter `std::make_integer_sequence`
     template <class T, T x>
     using make_iseq = std::make_integer_sequence<T,x>;
-  
+
     /// make a sequence with type inference
     template <auto x>
     using make_aseq = make_iseq<decltype(x), x>;
-  
+
     /// make an index sequence
     template <size_t x>
     using make_seq = make_iseq<size_t, x>;
-  
+
     /// make a sequence of signed distances
     template <ptrdiff_t x>
     using make_sseq = make_iseq<ptrdiff_t, x>;
@@ -109,7 +109,7 @@ namespace bad::sequences {
     using type = F<xs...>;
   };
 
-  namespace api { 
+  namespace api {
     /// Apply a sequence of values of known type \p T to a given template.
     /// \ingroup sequences_group
     template <class T, template <T...> class F, class L>
@@ -252,19 +252,19 @@ namespace bad::sequences {
 
   /// \meta
   template <class T>
-  struct iseqotal_ {
-    static_assert(no<T>, "iseqotal: not a sequence");
+  struct seq_total_ {
+    static_assert(no<T>, "seq_total: not a sequence");
   };
 
   /// \meta
   template <class T>
-  struct iseqotal_<iseq<T>> {
+  struct seq_total_<iseq<T>> {
     static constexpr T value = 0;
   };
 
   /// \meta
   template <class T, T i, T... is>
-  struct iseqotal_<iseq<T,i,is...>> {
+  struct seq_total_<iseq<T,i,is...>> {
     static constexpr T value = (i + ... + is);
   };
 
@@ -272,7 +272,7 @@ namespace bad::sequences {
     /// the sum of a sequence of numbers
     /// \ingroup sequences_group
     template <class S>
-    constexpr auto iseqotal = iseqotal_<S>::value;
+    constexpr auto seq_total = seq_total_<S>::value;
 
     // * head
     template <auto x, decltype(x) ... xs>
@@ -308,7 +308,28 @@ namespace bad::sequences {
     using seq_tail = seq_auto_apply<tail,S>;
   }
 
-  // * cons
+  /// \meta
+  template <bool b, class T, class E>
+  struct ite_;
+
+  /// \meta
+  template <class T, class E>
+  struct ite_<true,T,E> {
+    using type = T;
+  };
+
+  /// \meta
+  template <class T, class E>
+  struct ite_<false,T,E> {
+    using type = E;
+  };
+
+  namespace api {
+    /// if-then-else
+    /// \ingroup sequences_group
+    template <bool b, class T, class E>
+    using ite = typename ite_<b,T,E>::type;
+  }
 
   /// \meta
   template <auto i, class S>
@@ -329,6 +350,26 @@ namespace bad::sequences {
     /// \ingroup sequences_group
     template <auto i, class S>
     using seq_cons = typename seq_cons_<i,S>::type;
+  }
+
+  /// \meta
+  template <class T, T x, T ... ys> struct filter_ne_;
+
+  /// \meta
+  template <class T, T x> struct filter_ne_<T,x> {
+    using type = iseq<T>;
+  };
+
+  /// \meta
+  template <class T, T x, T y, T ... ys> struct filter_ne_<T,x,y,ys...> {
+    using type = ite<x==y, filter_ne_<T,x,ys...>, seq_cons<y,filter_ne_<T,x,ys...>>>;
+  };
+
+  namespace api {
+    /// remove all occurrences of a specified item from a pack, return result as a sequence
+    /// \ingroup sequences_group
+    template <auto x, decltype(x) ... xs>
+    using filter_ne = typename filter_ne_<decltype(x),x,xs...>::type;
   }
 
   // * sequence length
@@ -422,7 +463,7 @@ namespace bad::sequences {
 
   namespace api {
     /// compute all row-major strides given a set of dimensions
-    /// 
+    ///
     /// the result is returned as a \ref bad::sseq "sseq", so we can play games with
     /// negating strides to flip dimensions over
     ///
@@ -584,7 +625,7 @@ namespace bad::sequences {
     >::template at<
       make_seq<seq_length<S>-1-N>
     >::type;
-  
+
     /// pull the `N`th entry to the front of the sequence. Useful for algorithms like `einsum` and the like.
     /// \ingroup sequences_group
     template <size_t N, class L>

@@ -1056,6 +1056,9 @@ namespace bad::storage::common {
 
     static constexpr size_t arity = 1 + sizeof...(ds);
 
+    static constexpr size_t dim0 = d;
+    static constexpr size_t stride0 = s;
+
     template <size_t i> static constexpr size_t nth_dim = nth<i,d,ds...>;
     template <size_t i> static constexpr ptrdiff_t nth_stride = nth<i,s,ss...>;
     template <size_t i> static constexpr ptrdiff_t nth_extremum = nth_stride<i>*(nth_dim<i>-1);
