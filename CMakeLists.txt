@@ -62,9 +62,24 @@ endif(ASAN)
 include_directories(${CMAKE_SOURCE_DIR})
 
 add_library(bad STATIC
-  attributes.hh common.hh errors.hh functions.hh
-  lists.hh macros.hh memory.hh operators.hh
-  sequences.hh storage.hh tapes.hh types.hh
+  attributes.hh
+  common.hh
+  errors.hh
+  functions.hh
+  lists.hh
+  macros.hh
+  memory.hh
+  operators.hh
+  sequences.hh 
+  storage/namespace.hh
+  storage/show_values.hh
+  storage/store.hh
+  storage/store_expr.hh
+  storage/store_expr_iterator.hh
+  storage/store_iterator.hh
+  storage.hh
+  tapes.hh
+  types.hh
 
   types.cc
 )
