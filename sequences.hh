@@ -353,16 +353,20 @@ namespace bad::sequences {
   }
 
   /// \meta
-  template <class T, T x, T ... ys> struct filter_ne_;
+  template <class T, T x, T ... ys>
+  struct filter_ne_;
 
   /// \meta
-  template <class T, T x> struct filter_ne_<T,x> {
+  template <class T, T x>
+  struct filter_ne_<T,x> {
     using type = iseq<T>;
   };
 
   /// \meta
-  template <class T, T x, T y, T ... ys> struct filter_ne_<T,x,y,ys...> {
-    using type = ite<x==y, filter_ne_<T,x,ys...>, seq_cons<y,filter_ne_<T,x,ys...>>>;
+  template <class T, T x, T y, T ... ys>
+  struct filter_ne_<T,x,y,ys...> {
+    using type = ite<x==y, typename filter_ne_<T,x,ys...>::type, seq_cons<y,typename filter_ne_<T,x,ys...>::type>
+    >;
   };
 
   namespace api {
@@ -370,6 +374,27 @@ namespace bad::sequences {
     /// \ingroup sequences_group
     template <auto x, decltype(x) ... xs>
     using filter_ne = typename filter_ne_<decltype(x),x,xs...>::type;
+  }
+
+  /// \meta
+  template <class T, T x, class S, T ... ys> struct filter_ne_by_;
+
+  /// \meta
+  template <class T, T x, class U> struct filter_ne_by_<T,x,iseq<U>> {
+    using type = iseq<U>;
+  };
+
+  /// \meta
+  template <class T, T x, class U, U u, U... us, T y, T ... ys>
+  struct filter_ne_by_<T,x,iseq<U,u,us...>,y,ys...> {
+    using type = ite<x==y, typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type, seq_cons<y,typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type>>;
+  };
+
+  namespace api {
+    /// remove all occurrences of a specified item from a pack, return result as a sequence
+    /// \ingroup sequences_group
+    template <auto x, class S, decltype(x) ... xs>
+    using filter_ne_by = typename filter_ne_by_<decltype(x),x,S,xs...>::type;
   }
 
   // * sequence length
