@@ -1,5 +1,5 @@
 #pragma once
-#include "namespace.hh"
+#include "storage_namespace.hh"
 
 /// \file
 /// \author Edward Kmett

@@ -71,12 +71,12 @@ add_library(bad STATIC
   memory.hh
   operators.hh
   sequences.hh 
-  storage/namespace.hh
-  storage/show_values.hh
-  storage/store.hh
-  storage/store_expr.hh
-  storage/store_expr_iterator.hh
-  storage/store_iterator.hh
+  storage_namespace.hh
+  storage_show_values.hh
+  storage_store.hh
+  storage_store_expr.hh
+  storage_store_expr_iterator.hh
+  storage_store_iterator.hh
   storage.hh
   tapes.hh
   types.hh
