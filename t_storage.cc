@@ -4,6 +4,7 @@
 #include "types.hh"
 
 using namespace bad;
+using namespace bad::storage::api;
 using namespace std;
 
 TEST_CASE( "store works", "[storage]" ) {
@@ -56,9 +57,16 @@ TEST_CASE( "store works", "[storage]" ) {
   cout << w << endl;
   REQUIRE(type(w) != type(r));
 
-  store<int,seq<4,5>> x;
+  store<int,seq<5,5>> x;
   x.pull<1>() = {1,2,3,4,5};
   x.pull<1>(3)[2] = 100;
   REQUIRE(x[2][3] == 100);
   cout << x << endl;
+
+  auto xd = x.tie<1,1,1>(3);
+  cout << type(xd) << endl;
+
+  store<int,seq<4>> z = {1,2,3,4};
+  //store zdz = einsum<str<>,str<'i'>,str<'i'>>(z,z);
+  //cout << zdz << endl;
 }

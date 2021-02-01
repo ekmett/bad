@@ -8,7 +8,7 @@
 /// \author Edward Kmett
 
 /// \defgroup functions_group functions
-/// \brief functions
+/// \brief templated functions
 
 /// \namespace bad
 /// \private

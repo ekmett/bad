@@ -349,3 +349,5 @@ namespace bad::storage::common {
     return rhs().template pull<N>(i);
   }
 }
+
+/// \}

@@ -1,32 +1,37 @@
 #pragma once
 #include "storage_store_expr.hh"
 
-namespace bad {
+/// \file
+/// \brief storage einsum impl
+
+/// \{
+
+namespace bad::storage::api {
   template <class BS, class CS>
   struct scalar_einsum;
 
   template <class I>
-  struct scalar_einsum<iseq<I>, iseq<>> {
+  struct scalar_einsum<iseq<I>, iseq<I>> {
     template <class B, class C>
     BAD(hd,inline,flatten)
     static auto apply(B b, C c) noexcept {
       return b*c;
     }
-  }
+  };
 
   template <class I, I ci, I...cis>
-  struct scalar_einsum<iseq<I>, iseq<ci,cis...>> {
+  struct scalar_einsum<iseq<I>, iseq<I,ci,cis...>> {
     template <class B, class C>
     BAD(hd,inline,flatten)
     static auto apply(B b, C c) noexcept {
-      using rest = scalar_einsum<iseq<I>,iseq<I,cis...>;
+      using rest = scalar_einsum<iseq<I>,iseq<I,cis...>>;
       using T = decltype(rest::apply(b,c.template tie<ci,ci,cis...>(0)));
-      T t();
+      T t = 0;
       for (size_t i=0;i<C::dim0;++i)
         t += rest::apply(b, c.template tie<ci,ci,cis...>(i));
       return t;
     }
-  }
+  };
 
   template <class I, I bi, I... bis, I... cis>
   struct scalar_einsum<iseq<I,bi,bis...>, iseq<I,cis...>> {
@@ -35,7 +40,7 @@ namespace bad {
     static auto apply(B b, C c) noexcept {
       using rest = scalar_einsum<iseq<I,bis...>,iseq<I,cis...>>;
       using T = decltype(rest::apply(b.template tie<bi,bi,bis...>(0),c.template tie<bi,cis...>(0)));
-      T t();
+      T t = 0;
       for (size_t i=0;i<B::dim0;++i)
         t += rest::apply(b.template tie<bi,bi,bis...>(i),c.template tied<bi,B::dim0,cis...>(i));
       return t;
@@ -51,11 +56,11 @@ namespace bad {
   template <class AS, class BS, class CS,class B, class C, class AD = einsum_dim<AS,BS,CS,B,C>>
   struct store_einsum_expr;
 
-  template <class I, I ai, I... ais, I... bis, I... cis, class B, class C, size_t ad, size_t ads...>
+  template <class I, I ai, I... ais, I... bis, I... cis, class B, class C, size_t ad, size_t... ads>
   struct BAD(empty_bases) store_einsum_expr<iseq<I,ai,ais...>,iseq<I,bis...>,iseq<I,cis...>,B,C,seq<ad,ads...>>
   : store_expr<           store_einsum_expr<iseq<I,ai,ais...>,iseq<I,bis...>,iseq<I,cis...>,B,C,seq<ad,ads...>>,ad,ads...> {
     static_assert(sizeof...(ais) == sizeof...(ads), "store_einsum_expr: bad result arity");
-    static_assert(sizeof...(ais) == sizeof...(filter_ne<ai,ais>), "store_einsum_expr: duplicate result index"); // TODO: kroenecker test these instead?
+    static_assert(sizeof...(ais) == seq_length<filter_ne<ai,ais...>>, "store_einsum_expr: duplicate result index"); // TODO: kroenecker test these instead?
 
     B const & b;
     C const & c;
@@ -65,12 +70,12 @@ namespace bad {
       auto bi = b.template tied<ai,ad,bis...>(i);
       auto ci = c.template tied<ai,ad,cis...>(i);
       return store_einsum_expr<
-        iseq<I,ais>
-        filter_ne<ai,bis>,
-        filter_ne<ai,cis>,
+        iseq<I,ais...>,
+        filter_ne<ai,bis...>,
+        filter_ne<ai,cis...>,
         std::remove_reference_t<decltype(bi)>,
         std::remove_reference_t<decltype(ci)>,
-        ads...
+        seq<ads...>
       >(bi,ci);
     }
     // TODO: implement the rest of the store_expr api
@@ -78,7 +83,7 @@ namespace bad {
 
   template <class I, I... bis, I...cis, class B, class C>
   struct BAD(empty_bases) store_einsum_expr<iseq<I>,iseq<I,bis...>,iseq<I,cis...>,B,C,seq<>> {
-    using scalar_einsum_type = scalar_einsum<iseq<I,bis...>,iseq<I,cis..>>;
+    using scalar_einsum_type = scalar_einsum<iseq<I,bis...>,iseq<I,cis...>>;
     using result_type = decltype(scalar_einsum_type::apply(std::declval<B const &>(),std::declval<C const &>()));
 
     const result_type value;
@@ -92,4 +97,12 @@ namespace bad {
       return value;
     }
   };
+
+  template <class AS, class BS, class CS, class AD = seq<>, class B, class C>
+  BAD(hd,inline)
+  auto einsum(BAD(lifetimebound) B const & l, BAD(lifetimebound) C const & r) noexcept {
+    return store_einsum_expr<AS,BS,CS,B,C,AD>{ l.at() ,r.at() };
+  }
 }
+
+/// \}

@@ -747,6 +747,30 @@ namespace bad::sequences {
     template <auto K, class S>
     using seq_constant_times = seq_map_at<S,functions::papb<functions::times,K>>;
   }
+
+  template <size_t i, auto... xs>
+  static constexpr auto rev_nth = nth<sizeof...(xs)-i-1,xs...>;
+
+  template <class A, class B, class I> 
+  struct seq_compat_ {
+    static_assert(no<A>,"seq_compat: not a sequence, or incompatible sequence types");
+  };
+
+  template <class A, A... as, class B, B... bs, size_t... is>
+  struct BAD(empty_bases) seq_compat_<iseq<A,as...>,iseq<B,bs...>,seq<is...>> {
+    template <size_t i>
+    static constexpr bool compat_at = rev_nth<i,as...> == rev_nth<i,bs...>;
+    using value_type = bool;
+    static constexpr bool value = (compat_at<is> && ... && true);
+  };
+  
+
+  namespace api {
+    /// returns if one list is a suffix of the other
+    /// TODO: use this for automatic dimension extension.
+    template <class L, class R>
+    static constexpr bool seq_compat = seq_compat_<L,R,make_seq<std::min(seq_length<L>,seq_length<R>)>>::value;
+  }
 }
 
 /// \}

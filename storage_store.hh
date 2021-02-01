@@ -3,13 +3,14 @@
 #include "storage_store_iterator.hh"
 
 /// \file
-/// \brief \ref store implementation
+/// \brief store implementation
 /// \author Edward Kmett
 ///
 /// \{
 
 namespace bad::storage::common {
-  /// \private
+
+  /// \ingroup storage_group
   template <class T, class Dim, class Stride = row_major<Dim>>
   struct store {
     // offer slightly more helpful diagnostics first
@@ -504,7 +505,8 @@ namespace bad::storage::common {
     template <auto j, size_t jd, decltype(j)...is>
     BAD(hd,inline,flatten)
     auto tied_begin() noexcept {
-      static_assert(sizeof...(is) <= sizeof...(ds), "fixing more dimensions than you have");
+      // can relax this to <=, but using == for now
+      static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
       return store_iterator<jd,t::step,T,typename t::type>(data + t::bias, 0);
     }
@@ -512,7 +514,7 @@ namespace bad::storage::common {
     template <auto j, size_t jd, decltype(j)...is>
     BAD(hd,inline,flatten)
     auto tied_begin() const noexcept {
-      static_assert(sizeof...(is) <= sizeof...(ds), "fixing more dimensions than you have");
+      static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
       return const_store_iterator<jd,t::step,T,typename t::type>(data + t::bias, 0);
     }
@@ -520,7 +522,7 @@ namespace bad::storage::common {
     template <auto j, size_t jd, decltype(j)...is>
     BAD(hd,inline,flatten)
     auto tied_end() noexcept {
-      static_assert(sizeof...(is) <= sizeof...(ds), "fixing more dimensions than you have");
+      static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
       return store_iterator<jd,t::step,T,typename t::type>(data + t::bias, jd);
     }
@@ -529,7 +531,7 @@ namespace bad::storage::common {
     template <auto j, size_t jd, decltype(j)...is>
     BAD(hd,inline,flatten)
     auto tied_end() const noexcept {
-      static_assert(sizeof...(is) <= sizeof...(ds), "fixing more dimensions than you have");
+      static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
       return const_store_iterator<jd,t::step,T,typename t::type>(data + t::bias, jd);
     }
@@ -561,13 +563,13 @@ namespace bad::storage::common {
       using p = ite<i==j, typename plane::template tied_type<j,d,is...>, typename plane::template tie_type<j,is...>>;
       static constexpr ptrdiff_t step = p::step + ((i==j)?s:0);
       static constexpr size_t bias = p::bias + ((i==j)?delta:0);
-      using type = ite<i == j, typename p::type, typename p::type::template ext<d,s>>;
+      using type = ite<i==j, typename p::type, typename p::type::template ext<d,s>>;
     };
 
     template <auto j, decltype(j)...is>
     BAD(hd,inline,flatten)
     auto tie(size_t k) noexcept {
-      static_assert(sizeof...(is) <= sizeof...(ds), "fixing more dimensions than exist");
+      static_assert(sizeof...(is) == 1 + sizeof...(ds), "fixing more dimensions than exist");
       using t = tie_type<j,is...>;
       return reinterpret_cast<typename t::type &>(data[t::bias + k * t::step]);
     }
@@ -575,11 +577,11 @@ namespace bad::storage::common {
     template <auto j, decltype(j)...is>
     BAD(hd,inline,flatten)
     auto tie(size_t k) const noexcept {
-      static_assert(sizeof...(is) <= sizeof...(ds), "fixing more dimensions than exist");
+      static_assert(sizeof...(is) == 1 + sizeof...(ds), "fixing more dimensions than exist");
       using t = tie_type<j,is...>;
       return reinterpret_cast<typename t::type const &>(data[t::bias + k * t::step]);
     }
-  }; // type
+  }; // store
 
   /// scalar initialization
   /// \ingroup storage_group
