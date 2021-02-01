@@ -130,10 +130,22 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga4c8e9a5081f900497f0d1fd7b64a9d0d">seq_tail</a> = <a class="el" href="group__sequences__group.html#ga50c2430335743fc2a0314b0a56a4c267">seq_auto_apply</a>&lt; <a class="el" href="group__sequences__group.html#gaa9c6dad1ce56412868b5a42cda2ad18f">tail</a>, S &gt;</td></tr>
 <tr class="memdesc:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">tail of a non-empty sequence  <a href="group__sequences__group.html#ga4c8e9a5081f900497f0d1fd7b64a9d0d">More...</a><br /></td></tr>
 <tr class="separator:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="memTemplParams" colspan="2">template&lt;bool b, class T , class E &gt; </td></tr>
+<tr class="memitem:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gabf96e4774a638c7fc83d7d1c7f8c6d89">ite</a> = typename ite_&lt; b, T, E &gt;::type</td></tr>
+<tr class="memdesc:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">if-then-else  <a href="group__sequences__group.html#gabf96e4774a638c7fc83d7d1c7f8c6d89">More...</a><br /></td></tr>
+<tr class="separator:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memTemplParams" colspan="2">template&lt;auto i, class S &gt; </td></tr>
 <tr class="memitem:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga9b16f5816b410dcbc944a45a4acdc315">seq_cons</a> = typename seq_cons_&lt; i, S &gt;::type</td></tr>
 <tr class="memdesc:ga9b16f5816b410dcbc944a45a4acdc315"><td class="mdescLeft">&#160;</td><td class="mdescRight">prepend a value to a sequence the resulting sequence has whatever common type is large enough to contain both the value being consed and the values already in the list (using <code>std::common_type_t</code>)  <a href="group__sequences__group.html#ga9b16f5816b410dcbc944a45a4acdc315">More...</a><br /></td></tr>
 <tr class="separator:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa514611f84c7b52aeec721cc25d2715"><td class="memTemplParams" colspan="2">template&lt;auto x, decltype(x) ... xs&gt; </td></tr>
+<tr class="memitem:gaaa514611f84c7b52aeec721cc25d2715"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaaa514611f84c7b52aeec721cc25d2715">filter_ne</a> = typename filter_ne_&lt; decltype(x), x, xs... &gt;::type</td></tr>
+<tr class="memdesc:gaaa514611f84c7b52aeec721cc25d2715"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all occurrences of a specified item from a pack, return result as a sequence  <a href="group__sequences__group.html#gaaa514611f84c7b52aeec721cc25d2715">More...</a><br /></td></tr>
+<tr class="separator:gaaa514611f84c7b52aeec721cc25d2715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e4e2e88f889ca665ec06482d62ba963"><td class="memTemplParams" colspan="2">template&lt;auto x, class S , decltype(x) ... xs&gt; </td></tr>
+<tr class="memitem:ga7e4e2e88f889ca665ec06482d62ba963"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga7e4e2e88f889ca665ec06482d62ba963">filter_ne_by</a> = typename filter_ne_by_&lt; decltype(x), x, S, xs... &gt;::type</td></tr>
+<tr class="memdesc:ga7e4e2e88f889ca665ec06482d62ba963"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all occurrences of a specified item from a pack, return result as a sequence  <a href="group__sequences__group.html#ga7e4e2e88f889ca665ec06482d62ba963">More...</a><br /></td></tr>
+<tr class="separator:ga7e4e2e88f889ca665ec06482d62ba963"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaff7d881440bce3ab9f2430513dbb6778"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
 <tr class="memitem:gaff7d881440bce3ab9f2430513dbb6778"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaff7d881440bce3ab9f2430513dbb6778">row_major</a> = typename row_major_&lt; S, <a class="el" href="namespacebad_1_1sequences_1_1api.html#afcf418632d9a2265b0585bb5bb8b2e6d">make_seq</a>&lt; <a class="el" href="group__sequences__group.html#ga966cb177e5aaaebcbfc6f72c86356dfa">seq_length</a>&lt; S &gt; &gt;&gt;::type</td></tr>
 <tr class="memdesc:gaff7d881440bce3ab9f2430513dbb6778"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute all row-major strides given a set of dimensions  <a href="group__sequences__group.html#gaff7d881440bce3ab9f2430513dbb6778">More...</a><br /></td></tr>
@@ -238,10 +250,10 @@ Variables</h2></td></tr>
 <tr class="memitem:ga65470f1b28ad401e12173281f008574b"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga65470f1b28ad401e12173281f008574b">total_t</a> = (T(1)+...+xs)</td></tr>
 <tr class="memdesc:ga65470f1b28ad401e12173281f008574b"><td class="mdescLeft">&#160;</td><td class="mdescRight">the sum of a typed parameter pack of numbers  <a href="group__sequences__group.html#ga65470f1b28ad401e12173281f008574b">More...</a><br /></td></tr>
 <tr class="separator:ga65470f1b28ad401e12173281f008574b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga084c4188a96b6db037c1322e6ec6af0f"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
-<tr class="memitem:ga084c4188a96b6db037c1322e6ec6af0f"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga084c4188a96b6db037c1322e6ec6af0f">iseqotal</a> = iseqotal_&lt;S&gt;::value</td></tr>
-<tr class="memdesc:ga084c4188a96b6db037c1322e6ec6af0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">the sum of a sequence of numbers  <a href="group__sequences__group.html#ga084c4188a96b6db037c1322e6ec6af0f">More...</a><br /></td></tr>
-<tr class="separator:ga084c4188a96b6db037c1322e6ec6af0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb490d844b8790e187889c9dfd72ca34"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
+<tr class="memitem:gafb490d844b8790e187889c9dfd72ca34"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gafb490d844b8790e187889c9dfd72ca34">seq_total</a> = seq_total_&lt;S&gt;::value</td></tr>
+<tr class="memdesc:gafb490d844b8790e187889c9dfd72ca34"><td class="mdescLeft">&#160;</td><td class="mdescRight">the sum of a sequence of numbers  <a href="group__sequences__group.html#gafb490d844b8790e187889c9dfd72ca34">More...</a><br /></td></tr>
+<tr class="separator:gafb490d844b8790e187889c9dfd72ca34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a320dc243e3330a8dd3ed45ec9e7fec67"><td class="memTemplParams" colspan="2">template&lt;auto x, decltype(x) ... xs&gt; </td></tr>
 <tr class="memitem:a320dc243e3330a8dd3ed45ec9e7fec67"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1sequences_1_1api.html#a320dc243e3330a8dd3ed45ec9e7fec67">head</a> = x</td></tr>
 <tr class="separator:a320dc243e3330a8dd3ed45ec9e7fec67"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -360,7 +372,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00656">656</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00722">722</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -376,7 +388,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00653">653</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00719">719</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -425,7 +437,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00447">447</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00513">513</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>

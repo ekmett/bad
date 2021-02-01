@@ -123,10 +123,22 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga4c8e9a5081f900497f0d1fd7b64a9d0d">seq_tail</a> = <a class="el" href="group__sequences__group.html#ga50c2430335743fc2a0314b0a56a4c267">seq_auto_apply</a>&lt; <a class="el" href="group__sequences__group.html#gaa9c6dad1ce56412868b5a42cda2ad18f">tail</a>, S &gt;</td></tr>
 <tr class="memdesc:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">tail of a non-empty sequence  <a href="group__sequences__group.html#ga4c8e9a5081f900497f0d1fd7b64a9d0d">More...</a><br /></td></tr>
 <tr class="separator:ga4c8e9a5081f900497f0d1fd7b64a9d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="memTemplParams" colspan="2">template&lt;bool b, class T , class E &gt; </td></tr>
+<tr class="memitem:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gabf96e4774a638c7fc83d7d1c7f8c6d89">ite</a> = typename ite_&lt; b, T, E &gt;::type</td></tr>
+<tr class="memdesc:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">if-then-else  <a href="group__sequences__group.html#gabf96e4774a638c7fc83d7d1c7f8c6d89">More...</a><br /></td></tr>
+<tr class="separator:gabf96e4774a638c7fc83d7d1c7f8c6d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memTemplParams" colspan="2">template&lt;auto i, class S &gt; </td></tr>
 <tr class="memitem:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga9b16f5816b410dcbc944a45a4acdc315">seq_cons</a> = typename seq_cons_&lt; i, S &gt;::type</td></tr>
 <tr class="memdesc:ga9b16f5816b410dcbc944a45a4acdc315"><td class="mdescLeft">&#160;</td><td class="mdescRight">prepend a value to a sequence the resulting sequence has whatever common type is large enough to contain both the value being consed and the values already in the list (using <code>std::common_type_t</code>)  <a href="group__sequences__group.html#ga9b16f5816b410dcbc944a45a4acdc315">More...</a><br /></td></tr>
 <tr class="separator:ga9b16f5816b410dcbc944a45a4acdc315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaa514611f84c7b52aeec721cc25d2715"><td class="memTemplParams" colspan="2">template&lt;auto x, decltype(x) ... xs&gt; </td></tr>
+<tr class="memitem:gaaa514611f84c7b52aeec721cc25d2715"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaaa514611f84c7b52aeec721cc25d2715">filter_ne</a> = typename filter_ne_&lt; decltype(x), x, xs... &gt;::type</td></tr>
+<tr class="memdesc:gaaa514611f84c7b52aeec721cc25d2715"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all occurrences of a specified item from a pack, return result as a sequence  <a href="group__sequences__group.html#gaaa514611f84c7b52aeec721cc25d2715">More...</a><br /></td></tr>
+<tr class="separator:gaaa514611f84c7b52aeec721cc25d2715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e4e2e88f889ca665ec06482d62ba963"><td class="memTemplParams" colspan="2">template&lt;auto x, class S , decltype(x) ... xs&gt; </td></tr>
+<tr class="memitem:ga7e4e2e88f889ca665ec06482d62ba963"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga7e4e2e88f889ca665ec06482d62ba963">filter_ne_by</a> = typename filter_ne_by_&lt; decltype(x), x, S, xs... &gt;::type</td></tr>
+<tr class="memdesc:ga7e4e2e88f889ca665ec06482d62ba963"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove all occurrences of a specified item from a pack, return result as a sequence  <a href="group__sequences__group.html#ga7e4e2e88f889ca665ec06482d62ba963">More...</a><br /></td></tr>
+<tr class="separator:ga7e4e2e88f889ca665ec06482d62ba963"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaff7d881440bce3ab9f2430513dbb6778"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
 <tr class="memitem:gaff7d881440bce3ab9f2430513dbb6778"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gaff7d881440bce3ab9f2430513dbb6778">row_major</a> = typename row_major_&lt; S, <a class="el" href="namespacebad_1_1sequences_1_1api.html#afcf418632d9a2265b0585bb5bb8b2e6d">make_seq</a>&lt; <a class="el" href="group__sequences__group.html#ga966cb177e5aaaebcbfc6f72c86356dfa">seq_length</a>&lt; S &gt; &gt;&gt;::type</td></tr>
 <tr class="memdesc:gaff7d881440bce3ab9f2430513dbb6778"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute all row-major strides given a set of dimensions  <a href="group__sequences__group.html#gaff7d881440bce3ab9f2430513dbb6778">More...</a><br /></td></tr>
@@ -225,10 +237,10 @@ Variables</h2></td></tr>
 <tr class="memitem:ga65470f1b28ad401e12173281f008574b"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga65470f1b28ad401e12173281f008574b">total_t</a> = (T(1)+...+xs)</td></tr>
 <tr class="memdesc:ga65470f1b28ad401e12173281f008574b"><td class="mdescLeft">&#160;</td><td class="mdescRight">the sum of a typed parameter pack of numbers  <a href="group__sequences__group.html#ga65470f1b28ad401e12173281f008574b">More...</a><br /></td></tr>
 <tr class="separator:ga65470f1b28ad401e12173281f008574b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga084c4188a96b6db037c1322e6ec6af0f"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
-<tr class="memitem:ga084c4188a96b6db037c1322e6ec6af0f"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#ga084c4188a96b6db037c1322e6ec6af0f">iseqotal</a> = iseqotal_&lt;S&gt;::value</td></tr>
-<tr class="memdesc:ga084c4188a96b6db037c1322e6ec6af0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">the sum of a sequence of numbers  <a href="group__sequences__group.html#ga084c4188a96b6db037c1322e6ec6af0f">More...</a><br /></td></tr>
-<tr class="separator:ga084c4188a96b6db037c1322e6ec6af0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb490d844b8790e187889c9dfd72ca34"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
+<tr class="memitem:gafb490d844b8790e187889c9dfd72ca34"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gafb490d844b8790e187889c9dfd72ca34">seq_total</a> = seq_total_&lt;S&gt;::value</td></tr>
+<tr class="memdesc:gafb490d844b8790e187889c9dfd72ca34"><td class="mdescLeft">&#160;</td><td class="mdescRight">the sum of a sequence of numbers  <a href="group__sequences__group.html#gafb490d844b8790e187889c9dfd72ca34">More...</a><br /></td></tr>
+<tr class="separator:gafb490d844b8790e187889c9dfd72ca34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae9321012ef4bd34a171d590322eaea42"><td class="memTemplParams" colspan="2">template&lt;class S &gt; </td></tr>
 <tr class="memitem:gae9321012ef4bd34a171d590322eaea42"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__sequences__group.html#gae9321012ef4bd34a171d590322eaea42">seq_head</a> = seq_head_&lt;S&gt;::value</td></tr>
 <tr class="memdesc:gae9321012ef4bd34a171d590322eaea42"><td class="mdescLeft">&#160;</td><td class="mdescRight">head of a sequence  <a href="group__sequences__group.html#gae9321012ef4bd34a171d590322eaea42">More...</a><br /></td></tr>
@@ -272,7 +284,43 @@ Variables</h2></td></tr>
 <p>backpermute a sequence with a pack of indices </p>
 <p><code>backpermute&lt;iseq&lt;T,a,b,c,d&gt;,0,3,2,3,1,0&gt; = iseq&lt;T,a,d,c,d,b,a&gt;</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00478">478</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00544">544</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+
+</div>
+</div>
+<a id="gaaa514611f84c7b52aeec721cc25d2715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaaa514611f84c7b52aeec721cc25d2715">&#9670;&nbsp;</a></span>filter_ne</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__sequences__group.html#gaaa514611f84c7b52aeec721cc25d2715">filter_ne</a> =  typename filter_ne_&lt;decltype(x),x,xs...&gt;::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>remove all occurrences of a specified item from a pack, return result as a sequence </p>
+
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00376">376</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga7e4e2e88f889ca665ec06482d62ba963"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7e4e2e88f889ca665ec06482d62ba963">&#9670;&nbsp;</a></span>filter_ne_by</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__sequences__group.html#ga7e4e2e88f889ca665ec06482d62ba963">filter_ne_by</a> =  typename filter_ne_by_&lt;decltype(x),x,S,xs...&gt;::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>remove all occurrences of a specified item from a pack, return result as a sequence </p>
+
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00397">397</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -294,6 +342,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="gabf96e4774a638c7fc83d7d1c7f8c6d89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabf96e4774a638c7fc83d7d1c7f8c6d89">&#9670;&nbsp;</a></span>ite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__sequences__group.html#gabf96e4774a638c7fc83d7d1c7f8c6d89">ite</a> =  typename ite_&lt;b,T,E&gt;::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>if-then-else </p>
+
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00331">331</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+
+</div>
+</div>
 <a id="ga544a5af305debd3e526f6bed96733769"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga544a5af305debd3e526f6bed96733769">&#9670;&nbsp;</a></span>pack_transpose</h2>
 
@@ -308,7 +374,7 @@ Variables</h2></td></tr>
 
 <p>swap the last two dimensions in a (possibly heteregeneous) parameter pack of integral values </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00536">536</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00602">602</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -327,7 +393,7 @@ Variables</h2></td></tr>
 <p>compute all row-major strides given a set of dimensions </p>
 <p>the result is returned as a <a class="el" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">sseq</a>, so we can play games with negating strides to flip dimensions over </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00431">431</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00497">497</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -406,7 +472,7 @@ Variables</h2></td></tr>
 <p>backpermute a sequence with an index sequence of indices </p>
 <p><code>seq_backpermute&lt;iseq&lt;T,a,b,c,d&gt;,seq&lt;0,3,2,3,1,0&gt;&gt; = iseq&lt;T,a,d,c,d,b,a&gt;</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00497">497</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00563">563</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -424,7 +490,7 @@ Variables</h2></td></tr>
 
 <p>prepend a value to a sequence the resulting sequence has whatever common type is large enough to contain both the value being consed and the values already in the list (using <code>std::common_type_t</code>) </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00331">331</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00352">352</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -440,7 +506,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00669">669</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00735">735</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -456,7 +522,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00682">682</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00748">748</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -474,7 +540,7 @@ Variables</h2></td></tr>
 
 <p>drop the last <code>N</code> entries from a sequence </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00507">507</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00573">573</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -492,7 +558,7 @@ Variables</h2></td></tr>
 
 <p>returns all but the last entry in the non-empty sequence <code>S</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00502">502</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00568">568</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -510,7 +576,7 @@ Variables</h2></td></tr>
 
 <p>apply a unary function to two sequences </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00610">610</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00676">676</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -526,7 +592,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00628">628</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00694">694</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -544,7 +610,7 @@ Variables</h2></td></tr>
 
 <p>subtract elements of two sequences, pointwise </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00661">661</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00727">727</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -560,7 +626,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00665">665</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00731">731</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -578,7 +644,7 @@ Variables</h2></td></tr>
 
 <p>add elements of two sequences, pointwise </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00650">650</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00716">716</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -597,7 +663,7 @@ Variables</h2></td></tr>
 <p>pull the <code>N</code>th entry to the front of the sequence. </p>
 <p>Useful for algorithms like <code>einsum</code> and the like. </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00591">591</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00657">657</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -633,7 +699,7 @@ Variables</h2></td></tr>
 
 <p>skip the <code>N</code>th entry in a sequence </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00582">582</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00648">648</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -669,7 +735,7 @@ Variables</h2></td></tr>
 
 <p>multiply elements of two sequences, pointwise </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00674">674</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00740">740</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -685,7 +751,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00678">678</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00744">744</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -703,7 +769,7 @@ Variables</h2></td></tr>
 
 <p>swap the last two entries in a sequence </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00555">555</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00621">621</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -721,7 +787,7 @@ Variables</h2></td></tr>
 
 <p>zip two sequences </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00645">645</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00711">711</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -744,32 +810,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ga084c4188a96b6db037c1322e6ec6af0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga084c4188a96b6db037c1322e6ec6af0f">&#9670;&nbsp;</a></span>iseqotal</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr auto iseqotal = iseqotal_&lt;S&gt;::value</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>the sum of a sequence of numbers </p>
-
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00275">275</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
-
-</div>
-</div>
 <a id="ga8eee5a233d5d25592f448009c0926ee9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga8eee5a233d5d25592f448009c0926ee9">&#9670;&nbsp;</a></span>prod</h2>
 
@@ -899,7 +939,7 @@ Variables</h2></td></tr>
 
 <p>return the last member of a sequence </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00471">471</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00537">537</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -925,7 +965,7 @@ Variables</h2></td></tr>
 
 <p>the length of a sequence </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00352">352</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00418">418</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -951,7 +991,7 @@ Variables</h2></td></tr>
 
 <p>return the nth member of a sequence </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00466">466</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00532">532</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -1003,7 +1043,33 @@ Variables</h2></td></tr>
 
 <p>compute the row-major stride of the nth dimension in a sequence of dimensions </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00407">407</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00473">473</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+
+</div>
+</div>
+<a id="gafb490d844b8790e187889c9dfd72ca34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafb490d844b8790e187889c9dfd72ca34">&#9670;&nbsp;</a></span>seq_total</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto seq_total = seq_total_&lt;S&gt;::value</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the sum of a sequence of numbers </p>
+
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00275">275</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
@@ -1029,7 +1095,7 @@ Variables</h2></td></tr>
 
 <p>compute the row-major stride of the nth dimension in a parameter pack of dimensions </p>
 
-<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00388">388</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="sequences_8hh_source.html#l00454">454</a> of file <a class="el" href="sequences_8hh_source.html">sequences.hh</a>.</p>
 
 </div>
 </div>
