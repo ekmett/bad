@@ -53,13 +53,16 @@ namespace bad::storage::api {
   // calculate AD from AS, BS, CS, B, and C by default, only needs to be explicitly stated when indices in AS don't occur in B and C
   // TODO: track a mask of boring dimensions such as indices in AS that don't occur in BS and CS so that we could use stride 0 in the backing store?
   // this would let us generate results more efficiently, at the risk of clobbering operations?
+  // on top of that we should be able to use einstein summation notation conventions to fill in AS as well:
+  // any index mentioned 2+ times is being removed. any index mentioned 1 time is not.
+  // https://www.ita.uni-heidelberg.de/~dullemond/lectures/tensor/tensor.pdf
   template <class AS, class BS, class CS,class B, class C, class AD = einsum_dim<AS,BS,CS,B,C>>
   struct store_einsum_expr;
 
   template <class I, I ai, I... ais, I... bis, I... cis, class B, class C, size_t ad, size_t... ads>
   struct BAD(empty_bases) store_einsum_expr<iseq<I,ai,ais...>,iseq<I,bis...>,iseq<I,cis...>,B,C,seq<ad,ads...>>
   : store_expr<           store_einsum_expr<iseq<I,ai,ais...>,iseq<I,bis...>,iseq<I,cis...>,B,C,seq<ad,ads...>>,ad,ads...> {
-    static_assert(sizeof...(ais) == sizeof...(ads), "store_einsum_expr: bad result arity");
+    static_assert(sizeof...(ais) == sizeof...(ads), "store_einsum_expr: bad result rank");
     static_assert(sizeof...(ais) == seq_length<filter_ne<ai,ais...>>, "store_einsum_expr: duplicate result index"); // TODO: kroenecker test these instead?
 
     B const & b;

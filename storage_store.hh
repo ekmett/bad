@@ -31,7 +31,7 @@ namespace bad::storage::common {
     using element = T;
     using dim = seq<>;
     using stride = sseq<>;
-    static constexpr size_t arity = 0;
+    static constexpr size_t rank = 0;
 
     template <size_t d0, ptrdiff_t s0>
     using ext = store<T,seq<d0>,sseq<s0>>;
@@ -166,7 +166,7 @@ namespace bad::storage::common {
 
     static_assert(sizeof...(ss) == sizeof...(ds),"dim and stride do not have the same number of dimension");
 
-    static constexpr size_t arity = 1 + sizeof...(ds);
+    static constexpr size_t rank = 1 + sizeof...(ds);
 
     static constexpr size_t dim0 = d;
     static constexpr size_t stride0 = s;
@@ -191,7 +191,7 @@ namespace bad::storage::common {
     };
 
     /// \private
-    using calc = calc_type<make_seq<arity>>;
+    using calc = calc_type<make_seq<rank>>;
     /// offset in delta to apply when looking up the nth plane
     /// keep in mind planes can have higher strides than we do here!
     static constexpr size_t delta = std::max<ptrdiff_t>(0,s*(1-d));
