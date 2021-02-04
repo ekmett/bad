@@ -9,7 +9,11 @@ using namespace std;
 
 TEST_CASE( "store works", "[storage]" ) {
   REQUIRE(std::is_standard_layout_v<store<int,seq<4,5>>>);
+
   store<int,seq<4,5>> s;
+
+
+
   cout << s << endl;
   s = { 40,30,20,10}; // set rows
   cout << s << endl;

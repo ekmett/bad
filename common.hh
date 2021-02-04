@@ -34,11 +34,11 @@ namespace bad {
   /// \ingroup common_group
   template <class T, T... is>
   using iseq = std::integer_sequence<T, is...>;
-  
+
   /// \ref iseq with type inference, so long as there is at least one argument
   /// \ingroup common_group
-  template <auto x, auto... xs>
-  using aseq = iseq<decltype(x), x, xs...>;
+  template <auto... xs>
+  using aseq = iseq<std::common_type_t<decltype(xs)...>, xs...>;
   
   /// A \ref iseq "sequence" of `size_t` "sizes". used to store dimensions. a.k.a. `std::index_sequence`
   /// \ingroup common_group

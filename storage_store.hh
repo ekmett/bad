@@ -221,7 +221,7 @@ namespace bad::storage::common {
     }
 
     template <class B>
-    BAD(hd,inline)
+    BAD(hd,inline,flatten)
     constexpr store(expr<B> const & rhs) noexcept {
       for (size_t i=0;i<d;++i)
         at(i) = rhs[i];
@@ -538,7 +538,7 @@ namespace bad::storage::common {
 
     template <auto j, size_t jd, decltype(j)...is>
     BAD(hd,inline,flatten)
-    auto tied(size_t k) {
+    auto tied(size_t k) noexcept {
       return tied_begin<j,jd,is...>()[k];
     }
 
@@ -587,6 +587,8 @@ namespace bad::storage::common {
   /// \ingroup storage_group
   template <class T>
   store(const T &) -> store<T,seq<>,sseq<>>;
+
+  // CTAD
 
   /// copy stride if copying from another store
   /// \ingroup storage_group
