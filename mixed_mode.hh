@@ -144,15 +144,16 @@ namespace bad::mixed_mode::api {
     BAD(hd,inline,flatten) constexpr
     mixed(mixed_expr<B> const & rhs) noexcept
     : p(rhs.primal()) {
-      static_assert(B::size == size);
+      using std::get;
+      static_assert(std::is_same_v<tangents, typename B::tangents>);
       if constexpr (prefer_forward(B::args,size)) {
         forN<size> op([&](size_t i) {
-          std::get<i>(d) = rhs.template dual<i>();
+          get<i>(d) = rhs.template dual<i>();
         });
       } else {
         auto parts = rhs.partials(1);
         forN<size> op([&](size_t i) {
-          std::get<i>(d) = rhs.template tangent<i>(parts);
+          get<i>(d) = rhs.template tangent<i>(parts);
         });
       }
     }
@@ -160,16 +161,17 @@ namespace bad::mixed_mode::api {
     template <class B>
     BAD(hd,reinitializes,inline,flatten)
     mixed & operator =(mixed_expr<B> const & rhs) noexcept {
-      static_assert(B::size == size);
+      using std::get;
+      static_assert(std::is_same_v<tangents, typename B::tangents>);
       p = rhs.primal();
       if constexpr (prefer_forward(B::args,size)) {
         forN<size> op([&](size_t i) {
-          std::get<i>(d) = rhs.template dual<i>();
+          get<i>(d) = rhs.template dual<i>();
         });
       } else {
         auto parts = rhs.partials(1);
         forN<size> op([&](size_t i) {
-          std::get<i>(d) = rhs.template tangent<i>(parts);
+          get<i>(d) = rhs.template tangent<i>(parts);
         });
       }
       return *this;
@@ -178,16 +180,17 @@ namespace bad::mixed_mode::api {
     template <class B>
     BAD(hd,inline,flatten)
     mixed & operator +=(mixed_expr<B> const & rhs) noexcept {
-      static_assert(B::size == size);
+      using std::get;
+      static_assert(std::is_same_v<tangents, typename B::tangents>);
       p += rhs.primal();
       if constexpr (prefer_forward(B::args,size)) {
         forN<size> op([&](size_t i) {
-          std::get<i>(d) += rhs.template dual<i>();
+          get<i>(d) += rhs.template dual<i>();
         });
       } else {
         auto parts = rhs.partials(1);
         forN<size> op([&](size_t i) {
-          std::get<i>(d) += rhs.template tangent<i>(parts);
+          get<i>(d) += rhs.template tangent<i>(parts);
         });
       }
       return *this;
@@ -196,16 +199,17 @@ namespace bad::mixed_mode::api {
     template <class B>
     BAD(hd,inline,flatten)
     mixed & operator -=(mixed_expr<B> const & rhs) noexcept {
-      static_assert(B::size == size);
+      using std::get;
+      static_assert(std::is_same_v<tangents, typename B::tangents>);
       p -= rhs.primal();
       if constexpr (prefer_forward(B::args,size)) {
         forN<size> op([&](size_t i) {
-          std::get<i>(d) -= rhs.template dual<i>();
+          get<i>(d) -= rhs.template dual<i>();
         });
       } else {
         auto parts = rhs.partials(1);
         forN<size> op([&](size_t i) {
-          std::get<i>(d) -= rhs.template tangent<i>(parts);
+          get<i>(d) -= rhs.template tangent<i>(parts);
         });
       }
       return *this;
@@ -219,7 +223,8 @@ namespace bad::mixed_mode::api {
     template <size_t i>
     BAD(hd,nodiscard,inline) constexpr
     T dual() const noexcept {
-      return std::get<i>(d);
+      using std::get;
+      return get<i>(d);
     }
 
     BAD(hd,nodiscard,inline) constexpr
@@ -230,7 +235,8 @@ namespace bad::mixed_mode::api {
     template <size_t i>
     BAD(hd,nodiscard,inline) constexpr
     T tangent(T bar) const noexcept {
-      return bar * std::get<i>(d);
+      using std::get;
+      return bar * get<i>(d);
     }
   };
 
