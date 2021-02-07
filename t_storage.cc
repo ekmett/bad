@@ -52,6 +52,9 @@ TEST_CASE( "store works", "[storage]" ) {
 
   REQUIRE(type(t) == type(tprime));
 
+  store j(1,2,3), k(4,5,6);
+  cout << type(std::move(j) + std::move(k)) << endl;
+
   // column major
   store<int,seq<4,5>,sseq<1,4>> r = s + t;
   r.pull<1>(1) = 200;

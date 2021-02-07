@@ -82,4 +82,5 @@ TEST_CASE("einsum sketch", "[sequences]") {
   //cout << "trace: " << type(trace) << endl;
   op(i,j,ij) outer;
   //cout << "outer product: " << type(outer) << endl;
+  //
 }

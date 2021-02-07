@@ -39,6 +39,7 @@ namespace bad {
   /// \ingroup common_group
   template <auto... xs>
   using aseq = iseq<std::common_type_t<decltype(xs)...>, xs...>;
+
   
   /// A \ref iseq "sequence" of `size_t` "sizes". used to store dimensions. a.k.a. `std::index_sequence`
   /// \ingroup common_group

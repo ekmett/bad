@@ -193,14 +193,28 @@ namespace bad::storage::api {
     }
   };
 
+  /// Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates.
+  ///
+  /// This acts as a solution to the temporary capture problem whenever we need to build a combinator that builds temporaries
+  /// safely. (It arises when working with einsum, or in the recursive cases for applying pull to a sum for instance.
+  ///
+  /// This looks at the type passed and if it is T&&, we store a value, otherwise we store a reference.
+  ///
+  /// In this way such combinators can pass in temporaries to the expression template and we should be able to capture them
+  /// automatically, correctly and safely.
+  /// \ingroup storage_group
+  template <class T>
+  using sub_expr = std::conditional_t<std::is_rvalue_reference_v<T>, std::decay_t<T>, std::decay_t<T> const &>;
+
   /// \ingroup storage_group
   template <class B, size_t d, size_t...ds>
   struct BAD(empty_bases,nodiscard) store_rep_expr : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
-    using element = typename B::element;
+    using base_type = std::decay_t<B>;
+    using element = typename base_type::element;
     using dim = seq<d,ds...>;
     static constexpr size_t arity = 1 + sizeof...(ds);
 
-    B const & base;
+    sub_expr<B> base;
 
     BAD(hd,nodiscard,inline,pure)
     auto operator[](BAD(maybe_unused) size_t i) const noexcept {
@@ -208,7 +222,7 @@ namespace bad::storage::api {
     }
 
     template <size_t N>
-    BAD(hd,nodiscard,inline,flatten)
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto pull(size_t i) const noexcept {
       if constexpr(N == 0) {
         return base;
@@ -230,7 +244,7 @@ namespace bad::storage::api {
     }
 
     template <auto j, decltype(j) i, decltype(j)...is>
-    BAD(hd,nodiscard,inline,flatten)
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto tie(size_t k) {
       if constexpr(i == j) {
         return base.template tied<j,d,is...>(k);
@@ -240,7 +254,7 @@ namespace bad::storage::api {
     }
 
     template <auto j, size_t jd, decltype(j) i, decltype(j)...is>
-    BAD(hd,nodiscard,inline,flatten)
+    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto tied(size_t k) {
       if constexpr(i == j) {
         static_assert(d == jd, "tied: known dimension size mismatch");
@@ -256,13 +270,12 @@ namespace bad::storage::api {
   struct BAD(empty_bases,nodiscard) store_add_expr
   : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
     using dim = seq<d,ds...>;
-    using element = decltype(std::declval<typename L::element>() + std::declval<typename R::element>());
+    using left_type = std::decay_t<L>;
+    using right_type = std::decay_t<R>;
+    using element = decltype(std::declval<typename left_type::element>() + std::declval<typename right_type::element>());
 
-    L const & l;
-    R const & r;
-
-    BAD(hd)
-    store_add_expr(store_expr<L,d,ds...> const & l, store_expr<R,d,ds...> const & r) : l(l()), r(r()) {}
+    sub_expr<L> l;
+    sub_expr<R> r;
 
     BAD(hd,nodiscard,inline,pure)
     auto operator[](BAD(maybe_unused) size_t i) const noexcept {
@@ -307,12 +320,44 @@ namespace bad::storage::api {
   auto operator +(
     BAD(lifetimebound) store_expr<L,d,ds...> const &l,
     BAD(lifetimebound) store_expr<R,d,ds...> const &r
-  ) noexcept {
-    return store_add_expr<L,R,d,ds...>(l(),r());
+  ) noexcept -> store_add_expr<L,R,d,ds...> {
+    return { {}, l(), r() };
+  }
+
+  /// \ingroup storage_group
+  template <class L, class R, size_t d, size_t... ds>
+  BAD(hd,nodiscard,inline)
+  auto operator +(
+    BAD(noescape) store_expr<L,d,ds...> && l,
+    BAD(lifetimebound) store_expr<R,d,ds...> const & r
+  ) noexcept -> store_add_expr<L&&,R,d,ds...> {
+    return {{}, std::move(l()), r()};
+  }
+
+  /// \ingroup storage_group
+  template <class L, class R, size_t d, size_t... ds>
+  BAD(hd,nodiscard,inline)
+  auto operator +(
+    BAD(lifetimebound) store_expr<L,d,ds...> const & l,
+    BAD(noescape) store_expr<R,d,ds...> && r
+  ) noexcept -> store_add_expr<L,R&&,d,ds...> {
+    return {{}, l(), std::move(r())};
+  }
+
+  /// \ingroup storage_group
+  template <class L, class R, size_t d, size_t... ds>
+  BAD(hd,nodiscard,inline)
+  auto operator +(
+    BAD(noescape) store_expr<L,d,ds...> && l,
+    BAD(noescape) store_expr<R,d,ds...> && r
+  ) noexcept -> store_add_expr<L&&,R&&,d,ds...> {
+    return {{}, std::move(l()), std::move(r())};
   }
 }
 
 namespace bad::storage::common {
+  // TODO: move to some kind of non-member rep construction mechanism so rep() can take rvalue references
+
   /// \ingroup storage_group
   template <size_t d0, class B, size_t d1, size_t... ds>
   BAD(hd,nodiscard,inline)
@@ -326,6 +371,8 @@ namespace bad::storage::common {
   auto rep(BAD(lifetimebound) store_expr<B,d1,ds...> & x) noexcept {
     return x().template rep<d0>();
   }
+
+  // TODO: move to some kind of non-member pull construction mechanism so pull() can take rvalue references
 
   /// pull the `N`th dimension of a storage expression to the front.
   /// \ingroup storage_group
