@@ -499,7 +499,7 @@ namespace bad::storage::common {
       using p = typename plane::template tied_type<j,jd,is...>;
       static constexpr ptrdiff_t step = p::step + ((i==j)?s:0);
       static constexpr size_t bias = p::bias + ((i==j)?delta:0);
-      using type = ite<i == j, typename p::type, typename p::type::template ext<d,s>>;
+      using type = std::conditional_t<i == j, typename p::type, typename p::type::template ext<d,s>>;
     };
 
     template <auto j, size_t jd, decltype(j)...is>
@@ -560,10 +560,10 @@ namespace bad::storage::common {
 
     template <auto j, decltype(j) i, decltype(j)...is>
     struct tie_type<j,i,is...> {
-      using p = ite<i==j, typename plane::template tied_type<j,d,is...>, typename plane::template tie_type<j,is...>>;
+      using p = std::conditional_t<i==j, typename plane::template tied_type<j,d,is...>, typename plane::template tie_type<j,is...>>;
       static constexpr ptrdiff_t step = p::step + ((i==j)?s:0);
       static constexpr size_t bias = p::bias + ((i==j)?delta:0);
-      using type = ite<i==j, typename p::type, typename p::type::template ext<d,s>>;
+      using type = std::conditional_t<i==j, typename p::type, typename p::type::template ext<d,s>>;
     };
 
     template <auto j, decltype(j)...is>

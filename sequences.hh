@@ -343,7 +343,7 @@ namespace bad::sequences {
   /// \meta
   template <class T, T x, T y, T ... ys>
   struct filter_ne_<T,x,y,ys...> {
-    using type = ite<x==y, typename filter_ne_<T,x,ys...>::type, seq_cons<y,typename filter_ne_<T,x,ys...>::type>
+    using type = std::conditional_t<x==y, typename filter_ne_<T,x,ys...>::type, seq_cons<y,typename filter_ne_<T,x,ys...>::type>
     >;
   };
 
@@ -365,7 +365,7 @@ namespace bad::sequences {
   /// \meta
   template <class T, T x, class U, U u, U... us, T y, T ... ys>
   struct filter_ne_by_<T,x,iseq<U,u,us...>,y,ys...> {
-    using type = ite<x==y, typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type, seq_cons<y,typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type>>;
+    using type = std::conditional_t<x==y, typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type, seq_cons<y,typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type>>;
   };
 
   namespace api {
