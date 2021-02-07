@@ -65,8 +65,10 @@ namespace bad::storage::api {
     static_assert(sizeof...(ais) == sizeof...(ads), "store_einsum_expr: bad result rank");
     static_assert(sizeof...(ais) == seq_length<filter_ne<ai,ais...>>, "store_einsum_expr: duplicate result index"); // TODO: kroenecker test these instead?
 
-    B const & b;
-    C const & c;
+    using b_type = std::decay_t<B>;
+    using c_type = std::decay_t<C>;
+    sub_expr<B> b;
+    sub_expr<C> c;
 
     BAD(hd,inline,flatten)
     auto operator[](size_t i) const noexcept {
@@ -76,8 +78,8 @@ namespace bad::storage::api {
         iseq<I,ais...>,
         filter_ne<ai,bis...>,
         filter_ne<ai,cis...>,
-        std::remove_reference_t<decltype(bi)>,
-        std::remove_reference_t<decltype(ci)>,
+        std::add_rvalue_reference_t<decltype(bi)>,
+        std::add_rvalue_reference_t<decltype(ci)>,
         seq<ads...>
       >(bi,ci);
     }
@@ -89,10 +91,13 @@ namespace bad::storage::api {
     using scalar_einsum_type = scalar_einsum<iseq<I,bis...>,iseq<I,cis...>>;
     using result_type = decltype(scalar_einsum_type::apply(std::declval<B const &>(),std::declval<C const &>()));
 
+    using b_type = std::decay_t<B>;
+    using c_type = std::decay_t<C>;
+
     const result_type value;
 
     BAD(hd,inline,flatten)
-    store_einsum_expr(B const & b, C const & c)
+    store_einsum_expr(b_type const & b, c_type const & c)
     : value(scalar_einsum_type::apply(b,c)) {}
 
     BAD(hd,inline)
@@ -103,8 +108,38 @@ namespace bad::storage::api {
 
   template <class AS, class BS, class CS, class AD = seq<>, class B, class C>
   BAD(hd,inline)
-  auto einsum(BAD(lifetimebound) B const & l, BAD(lifetimebound) C const & r) noexcept {
-    return store_einsum_expr<AS,BS,CS,B,C,AD>{ l.at() ,r.at() };
+  auto einsum(
+    BAD(lifetimebound) B const & l,
+    BAD(lifetimebound) C const & r
+  ) noexcept -> store_einsum_expr<AS,BS,CS,B,C,AD> {
+    return { {}, l.at(), r.at() };
+  }
+
+  template <class AS, class BS, class CS, class AD = seq<>, class B, class C>
+  BAD(hd,inline)
+  auto einsum(
+    BAD(lifetimebound) B const & l,
+    BAD(noescape) C && r
+  ) noexcept -> store_einsum_expr<AS,BS,CS,B,C&&,AD> {
+    return { {}, l.at(), r.at() };
+  }
+
+  template <class AS, class BS, class CS, class AD = seq<>, class B, class C>
+  BAD(hd,inline)
+  auto einsum(
+    BAD(noescape) B && l,
+    BAD(lifetimebound) C const & r
+  ) noexcept -> store_einsum_expr<AS,BS,CS,B&&,C,AD> {
+    return { {}, l.at(), r.at() };
+  }
+
+  template <class AS, class BS, class CS, class AD = seq<>, class B, class C>
+  BAD(hd,inline)
+  auto einsum(
+    BAD(noescape) B && l,
+    BAD(noescape) C && r
+  ) noexcept -> store_einsum_expr<AS,BS,CS,B&&,C&&,AD> {
+    return { {}, l.at(), r.at() };
   }
 }
 
