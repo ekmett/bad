@@ -81,6 +81,11 @@ namespace bad {
 #elif defined __GNUC__
 #pragma GCC diagnostic pop
 #endif
+
+  /// if-then-else
+  /// \ingroup common_group
+  template <bool B, class T, class E>
+  using ite = std::conditional_t<B,T,E>;
 }
 
 /// \}

@@ -308,28 +308,6 @@ namespace bad::sequences {
     using seq_tail = seq_auto_apply<tail,S>;
   }
 
-  /// \meta
-  template <bool b, class T, class E>
-  struct ite_;
-
-  /// \meta
-  template <class T, class E>
-  struct ite_<true,T,E> {
-    using type = T;
-  };
-
-  /// \meta
-  template <class T, class E>
-  struct ite_<false,T,E> {
-    using type = E;
-  };
-
-  namespace api {
-    /// if-then-else
-    /// \ingroup sequences_group
-    template <bool b, class T, class E>
-    using ite = typename ite_<b,T,E>::type;
-  }
 
   /// \meta
   template <auto i, class S>
