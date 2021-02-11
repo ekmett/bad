@@ -1,6 +1,6 @@
 #pragma once
-#include "storage/store_expr.hh"
-#include "storage/store_iterator.hh"
+#include "store_expr.hh"
+#include "store_iterator.hh"
 
 /// \file
 /// \brief store implementation

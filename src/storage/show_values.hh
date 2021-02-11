@@ -1,5 +1,5 @@
 #pragma once
-#include "storage/store_expr.hh"
+#include "store_expr.hh"
 
 /// \file
 /// \author Edward Kmett

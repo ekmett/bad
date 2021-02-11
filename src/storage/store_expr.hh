@@ -1,8 +1,8 @@
 #pragma once
-#include "storage/store_expr_iterator.hh"
+#include "store_expr_iterator.hh"
 
 /// \file
-/// \brief storage expression templates 
+/// \brief storage expression templates
 /// \author Edward Kmett
 ///
 /// \{
@@ -48,18 +48,6 @@ namespace bad::storage::api {
       return static_cast<B const &>(*this);
     }
 
-    template <auto j, decltype(j)...is>
-    BAD(hd,nodiscard,inline,const)
-    auto tie(size_t k) {
-      return at().template tie<j,is...>(k);
-    }
-
-    template <auto j, size_t jd, decltype(j)...is>
-    BAD(hd,nodiscard,inline,const)
-    auto tied(size_t k) {
-      return at().template tied<j,jd,is...>(k);
-    }
-
     template <class... ts>
     BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
     auto at(size_t i) noexcept {
@@ -84,27 +72,43 @@ namespace bad::storage::api {
       return at()[i](j, ks...);
     }
 
-    BAD(hd,nodiscard,inline,const) constexpr // this lifetimebound
-    B & operator()() noexcept {
+    BAD(hd,nodiscard,inline,const)
+    constexpr // this lifetimebound
+    B & operator() () noexcept {
       return at();
     }
 
-    BAD(hd,nodiscard,inline,const) constexpr // this lifetimebound
-    B const & operator()() const noexcept {
+    BAD(hd,nodiscard,inline,const)
+    constexpr // this lifetimebound
+    B const & operator() () const noexcept {
       return at();
     }
 
     template <class... ts>
-    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
-    auto operator()(ts... is) noexcept {
+    BAD(hd,nodiscard,inline,flatten)
+    //constexpr // this lifetimebound
+    auto operator() (ts... is) noexcept {
       return at(is...);
     }
 
 
     template <class... ts>
-    BAD(hd,nodiscard,inline,flatten) constexpr // this lifetimebound
-    auto operator()(ts... is) const noexcept {
+    BAD(hd,nodiscard,inline,flatten)
+    constexpr // this lifetimebound
+    auto operator() (ts... is) const noexcept {
       return at(is...);
+    }
+
+    template <auto j, decltype(j)...is>
+    BAD(hd,nodiscard,inline,const)
+    auto tie(size_t k) {
+      return at().template tie<j,is...>(k);
+    }
+
+    template <auto j, size_t jd, decltype(j)...is>
+    BAD(hd,nodiscard,inline,const)
+    auto tied(size_t k) {
+      return at().template tied<j,jd,is...>(k);
     }
 
     template <class C>
@@ -204,7 +208,11 @@ namespace bad::storage::api {
   /// automatically, correctly and safely.
   /// \ingroup storage_group
   template <class T>
-  using sub_expr = std::conditional_t<std::is_rvalue_reference_v<T>, std::decay_t<T>, std::decay_t<T> const &>;
+  using sub_expr = std::conditional_t<
+    std::is_rvalue_reference_v<T>,
+    std::decay_t<T>,
+    std::decay_t<T> const &
+  >;
 
   /// \ingroup storage_group
   template <class B, size_t d, size_t...ds>
@@ -235,7 +243,7 @@ namespace bad::storage::api {
     // this is lifetimebound, move out of line?
     template <size_t N>
     BAD(hd,nodiscard,inline,flatten,const)
-    auto rep() const noexcept -> store_rep_expr<store_rep_expr,N,d,ds...> {
+    auto rep() const noexcept -> store_rep_expr<store_rep_expr<B,d,ds...>,N,d,ds...> {
       return { *this };
     }
 
@@ -247,7 +255,7 @@ namespace bad::storage::api {
     template <auto j, decltype(j) i, decltype(j)...is>
     BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto tie(size_t k) {
-      if constexpr(i == j) {
+      if constexpr (i == j) {
         return base.template tied<j,d,is...>(k);
       } else {
         return base.template tie<j,is...>(k).template rep<d>();
@@ -257,7 +265,7 @@ namespace bad::storage::api {
     template <auto j, size_t jd, decltype(j) i, decltype(j)...is>
     BAD(hd,nodiscard,inline,flatten) // this lifetimebound
     auto tied(size_t k) {
-      if constexpr(i == j) {
+      if constexpr (i == j) {
         static_assert(d == jd, "tied: known dimension size mismatch");
         return base.template tied<j,jd,is...>(k);
       } else {
@@ -322,7 +330,7 @@ namespace bad::storage::api {
     BAD(lifetimebound) store_expr<L,d,ds...> const &l,
     BAD(lifetimebound) store_expr<R,d,ds...> const &r
   ) noexcept -> store_add_expr<L,R,d,ds...> {
-    return { {}, l(), r() };
+    return { {}, l.at(), r.at() };
   }
 
   /// \ingroup storage_group
@@ -332,7 +340,7 @@ namespace bad::storage::api {
     BAD(noescape) store_expr<L,d,ds...> && l,
     BAD(lifetimebound) store_expr<R,d,ds...> const & r
   ) noexcept -> store_add_expr<L&&,R,d,ds...> {
-    return {{}, std::move(l()), r()};
+    return {{}, std::move(l.at()), r.at()};
   }
 
   /// \ingroup storage_group
@@ -342,7 +350,7 @@ namespace bad::storage::api {
     BAD(lifetimebound) store_expr<L,d,ds...> const & l,
     BAD(noescape) store_expr<R,d,ds...> && r
   ) noexcept -> store_add_expr<L,R&&,d,ds...> {
-    return {{}, l(), std::move(r())};
+    return {{}, l.at(), std::move(r.at())};
   }
 
   /// \ingroup storage_group
@@ -352,7 +360,7 @@ namespace bad::storage::api {
     BAD(noescape) store_expr<L,d,ds...> && l,
     BAD(noescape) store_expr<R,d,ds...> && r
   ) noexcept -> store_add_expr<L&&,R&&,d,ds...> {
-    return {{}, std::move(l()), std::move(r())};
+    return {{}, std::move(l.at()), std::move(r.at())};
   }
 }
 

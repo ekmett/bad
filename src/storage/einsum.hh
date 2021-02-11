@@ -1,5 +1,5 @@
 #pragma once
-#include "storage/store_expr.hh"
+#include "store_expr.hh"
 
 /// \file
 /// \brief storage einsum impl
@@ -35,7 +35,7 @@ namespace bad::storage::api {
 
   template <class I, I bi, I... bis, I... cis>
   struct scalar_einsum<iseq<I,bi,bis...>, iseq<I,cis...>> {
-    template <class B, class C> 
+    template <class B, class C>
     BAD(hd,inline,flatten)
     static auto apply(B b, C c) noexcept {
       using rest = scalar_einsum<iseq<I,bis...>,iseq<I,cis...>>;
