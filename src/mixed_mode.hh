@@ -240,11 +240,65 @@ namespace bad::mixed_mode::api {
     }
   };
 
-  // copy shape from a mixed expression
+  /// \ingroup mixed_mode_group
+  template <size_t i, class B>
+  BAD(hd,nodiscard,inline) constexpr
+  auto get(mixed_expr<B> & t) noexcept {
+    if constexpr (i==0) {
+      return t.primal();
+    } else {
+      return t.template dual<i-1>();
+    }
+  }
+
+  /// \ingroup mixed_mode_group
+  template <size_t i, class B>
+  BAD(hd,nodiscard,inline) constexpr
+  auto get(mixed_expr<B> const & t) noexcept {
+    if constexpr (i==0) {
+      return t.primal();
+    } else {
+      return t.template dual<i-1>();
+    }
+  }
+
+  /// \ingroup mixed_mode_group
+  template <size_t i, class B>
+  BAD(hd,nodiscard,inline) constexpr
+  auto dual(mixed_expr<B> & t) noexcept {
+    return t.template dual<i>();
+  }
+
+  /// \ingroup mixed_mode_group
+  template <size_t i, class B>
+  BAD(hd,nodiscard,inline) constexpr
+  auto dual (mixed_expr<B> const & t) noexcept {
+    return t.template dual<i>();
+  }
+}
+
+namespace std {
+  /// \ingroup mixed_mode_group
+  /// allows destructuring bind of a mixed_expression as
+  /// combined with \ref bad::mixed_mode::api::get "get" above, this allows
+  ///
+  /// ~~~{.cc}
+  /// auto [p,dx,dy,dz] = ...
+  /// ~~~
+  template <class B>
+  struct BAD(empty_bases) tuple_size<bad::mixed_mode::api::mixed_expr<B>>
+  : std::integral_constant<size_t, B::size + 1> {};
+}
+
+
+namespace bad::mixed_mode::api {
+  /// copy shape from a mixed expression
+  /// \ingroup mixed_mode_group
   template <class B>
   mixed(mixed_expr<B> const &) -> mixed<std::remove_reference_t<decltype(std::declval<B>().primal())>,typename B::tangents>;
 
-  // copy shape from another mixed
+  /// copy shape from another mixed
+  /// \ingroup mixed_mode_group
   template <class T, class Tangents>
   mixed(mixed<T,Tangents> const &) -> mixed<T,Tangents>;
 
