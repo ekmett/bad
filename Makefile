@@ -5,8 +5,8 @@
 #
 # Let's puppet cmake from out here.
 
-src := $(wildcard *.cc) $(wildcard *.hh)
-tests := $(basename $(wildcard t_*.cc))
+src := $(wildcard src/*.cc) $(wildcard src/*.hh)
+tests := $(basename $(wildcard t/t_*.cc))
 cmake := $(wildcard cmake/*)
 
 open ?= open
@@ -15,7 +15,7 @@ all: test doc
 
 test: build
 	@ninja -C build -j 10 all
-	@for i in $(tests); do \
+	@for i in $(notdir $(tests)); do \
 		echo build/$$i; \
 		time build/$$i; \
 	done
@@ -25,10 +25,10 @@ build: CMakeLists.txt $(cmake)
 
 # `make t_seq` will run the test
 $(tests): %: build/%
-	time build/$@
+	time build/$(notdir $@)
 
 # `make build/t_seq` will compile it
-$(addprefix build/, $(tests)): %: build $(src)
+$(addprefix build/, $(notdir $(tests))): %: build $(src)
 	@ninja -C build -j 10 $(notdir $@)
 
 doc: build/doc

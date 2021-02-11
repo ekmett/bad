@@ -6,6 +6,9 @@ project(bad VERSION 0.0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
+# place executables in the top level directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 # to trim verbosity a bit
 set(CXX_Clang "$<COMPILE_LANG_AND_ID:CXX,AppleClang,Clang>")
 set(Link_Clang "$<LINK_LANG_AND_ID:CXX,AppleClang,Clang>")
@@ -59,54 +62,8 @@ endif(ASAN)
 
 # add_compile_options(-O2)
 
-include_directories(${CMAKE_SOURCE_DIR})
-
-add_library(bad STATIC
-  attributes.hh
-  common.hh
-  errors.hh
-  functions.hh
-  lists.hh
-  macros.hh
-  memory.hh
-  operators.hh
-  sequences.hh 
-  storage_namespace.hh
-  storage_show_values.hh
-  storage_store.hh
-  storage_store_expr.hh
-  storage_store_expr_iterator.hh
-  storage_store_iterator.hh
-  storage.hh
-  tapes.hh
-  types.hh
-
-  types.cc
-)
-target_precompile_headers(bad PRIVATE [["sequences.hh"]])
-link_libraries(bad)
-
-add_library(catch STATIC catch.hh catch.cc)
-
-add_executable(t_sequences t_sequences.cc)
-target_precompile_headers(t_sequences REUSE_FROM bad)
-target_link_libraries(t_sequences PRIVATE catch)
-
-add_executable(t_storage t_storage.cc)
-target_precompile_headers(t_storage REUSE_FROM bad)
-target_link_libraries(t_storage PRIVATE catch)
-
-add_executable(t_tapes t_tapes.cc)
-target_precompile_headers(t_tapes REUSE_FROM bad)
-target_link_libraries(t_tapes PRIVATE catch)
-
-add_executable(t_operators t_operators.cc)
-target_precompile_headers(t_operators REUSE_FROM bad)
-target_link_libraries(t_operators PRIVATE catch)
-
-add_executable(t_mixed t_mixed.cc mixed_mode.hh)
-target_precompile_headers(t_mixed REUSE_FROM bad)
-target_link_libraries(t_mixed PRIVATE catch)
+add_subdirectory(src)
+add_subdirectory(t)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
