@@ -1,7 +1,7 @@
 #pragma once
-#include "storage/store.hh"
-#include "storage/show_values.hh"
-#include "storage/einsum.hh"
+#include "bad/storage/store.hh"
+#include "bad/storage/show_values.hh"
+#include "bad/storage/einsum.hh"
 
 /// \file
 /// \brief storage api
