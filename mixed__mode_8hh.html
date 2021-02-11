@@ -72,6 +72,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">mixed_mode.hh File Reference</div>  </div>
@@ -82,29 +83,38 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
 <code>#include &quot;<a class="el" href="attributes_8hh_source.html">attributes.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sequences_8hh_source.html">sequences.hh</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="common_8hh_source.html">common.hh</a>&quot;</code><br />
 </div>
 <p><a href="mixed__mode_8hh_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1seq__for_3_01iseq_3_01_t_00_01ts_8_8_8_01_4_01_4.html">seq_for&lt; iseq&lt; T, ts... &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html">mixed_expr&lt; B &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">mixed-mode AD expression  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbad_1_1mixed__mode_1_1api_1_1mixed.html">mixed&lt; T, N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">mixed-mode value/tangent bundle, classic dual numbers generalized to N infinitesimals.  <a href="classbad_1_1mixed__mode_1_1api_1_1mixed.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbad_1_1mixed__mode_1_1api_1_1mixed_3_01_t_00_01std_1_1tuple_3_01_ds_8_8_8_01_4_01_4.html">mixed&lt; T, std::tuple&lt; Ds... &gt; &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__lift.html">mixed_lift&lt; T, N &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1tuple__size_3_01bad_1_1mixed__mode_1_1api_1_1mixed__expr_3_01_b_01_4_01_4.html">tuple_size&lt; bad::mixed_mode::api::mixed_expr&lt; B &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows destructuring bind of a mixed_expression as combined with <a class="el" href="group__mixed__mode__group.html#gaf4d92971c2d49e3c139721c19141dabb">get</a> above, this allows  <a href="structstd_1_1tuple__size_3_01bad_1_1mixed__mode_1_1api_1_1mixed__expr_3_01_b_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__lift.html">mixed_lift&lt; T, Tangents &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">simple lifted scalar  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__lift.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:structbad_1_1mixed__mode_1_1api_1_1mixed__lift_1_1partials__type"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__lift.html#structbad_1_1mixed__mode_1_1api_1_1mixed__lift_1_1partials__type">mixed_lift&lt; T, N &gt;::partials_type</a></td></tr>
+<tr class="memitem:structbad_1_1mixed__mode_1_1api_1_1mixed__lift_1_1partials__type"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__lift.html#structbad_1_1mixed__mode_1_1api_1_1mixed__lift_1_1partials__type">mixed_lift&lt; T, Tangents &gt;::partials_type</a></td></tr>
 <tr class="separator:structbad_1_1mixed__mode_1_1api_1_1mixed__lift_1_1partials__type"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__arg.html">mixed_arg&lt; T, N &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__arg.html">mixed_arg&lt; T, Tangents &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a sparse <a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html" title="mixed-mode AD expression">mixed_expr</a> with just one arg set to 1 useful when building functions like <code>diff</code>  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__arg.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html">mixed_add_expr&lt; L, R &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__mul__expr.html">mixed_mul_expr&lt; L, R &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:structbad_1_1mixed__mode_1_1api_1_1diff__"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1mixed__mode_1_1api.html#structbad_1_1mixed__mode_1_1api_1_1diff__">diff_&lt; S, F, Args &gt;</a></td></tr>
+<tr class="separator:structbad_1_1mixed__mode_1_1api_1_1diff__"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1diff___3_01seq_3_01is_8_8_8_01_4_00_01_f_00_01_args_8_8_8_01_4.html">diff_&lt; seq&lt; is... &gt;, F, Args... &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -122,17 +132,37 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespacebad_1_1mixed__mode_1_1api"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="group__mixed__mode__group.html">mixed-mode</a> for a complete listing. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ad720d3d504a4dadc556a74e82ec687e8"><td class="memTemplParams" colspan="2">template&lt;auto N&gt; </td></tr>
+<tr class="memitem:ad720d3d504a4dadc556a74e82ec687e8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1mixed__mode.html#ad720d3d504a4dadc556a74e82ec687e8">forN</a> = seq_for&lt; make_seq&lt; N &gt; &gt;</td></tr>
+<tr class="separator:ad720d3d504a4dadc556a74e82ec687e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga37c5b99ac190e6df2d2c8a46f1f88fcd"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#ga37c5b99ac190e6df2d2c8a46f1f88fcd">prefer_forward</a> (size_t args, size_t size) noexcept</td></tr>
 <tr class="memdesc:ga37c5b99ac190e6df2d2c8a46f1f88fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO: make this policy pluggable? and tune it to compute ideal ratio.  <a href="group__mixed__mode__group.html#ga37c5b99ac190e6df2d2c8a46f1f88fcd">More...</a><br /></td></tr>
 <tr class="separator:ga37c5b99ac190e6df2d2c8a46f1f88fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dc56fe2310394062a5f7af4afe5f9f1"><td class="memTemplParams" colspan="2">template&lt;class B &gt; </td></tr>
-<tr class="memitem:a2dc56fe2310394062a5f7af4afe5f9f1"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1mixed__mode_1_1api.html#a2dc56fe2310394062a5f7af4afe5f9f1">mixed</a> (mixed_expr&lt; B &gt; const &amp;) -&gt; mixed&lt; std::remove_reference_t&lt; decltype(std::declval&lt; B &gt;().primal())&gt;, B::size &gt;</td></tr>
-<tr class="separator:a2dc56fe2310394062a5f7af4afe5f9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d2000a87b8864df7bd1e55439685fe1"><td class="memTemplParams" colspan="2">template&lt;class T , size_t N&gt; </td></tr>
-<tr class="memitem:a3d2000a87b8864df7bd1e55439685fe1"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1mixed__mode_1_1api.html#a3d2000a87b8864df7bd1e55439685fe1">mixed</a> (mixed&lt; T, N &gt; const &amp;) -&gt; mixed&lt; T, N &gt;</td></tr>
-<tr class="separator:a3d2000a87b8864df7bd1e55439685fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf4d92971c2d49e3c139721c19141dabb"><td class="memTemplParams" colspan="2">template&lt;size_t i, class B &gt; </td></tr>
+<tr class="memitem:gaf4d92971c2d49e3c139721c19141dabb"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#gaf4d92971c2d49e3c139721c19141dabb">get</a> (mixed_expr&lt; B &gt; &amp;t) noexcept</td></tr>
+<tr class="separator:gaf4d92971c2d49e3c139721c19141dabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4eb9cc552a156ad5182641685e124035"><td class="memTemplParams" colspan="2">template&lt;size_t i, class B &gt; </td></tr>
+<tr class="memitem:ga4eb9cc552a156ad5182641685e124035"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#ga4eb9cc552a156ad5182641685e124035">get</a> (mixed_expr&lt; B &gt; const &amp;t) noexcept</td></tr>
+<tr class="separator:ga4eb9cc552a156ad5182641685e124035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa83727962e9581eb65b9f2c22a0765ce"><td class="memTemplParams" colspan="2">template&lt;size_t i, class B &gt; </td></tr>
+<tr class="memitem:gaa83727962e9581eb65b9f2c22a0765ce"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#gaa83727962e9581eb65b9f2c22a0765ce">dual</a> (mixed_expr&lt; B &gt; &amp;t) noexcept</td></tr>
+<tr class="separator:gaa83727962e9581eb65b9f2c22a0765ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06b31690e761ab36be6693562a9e5920"><td class="memTemplParams" colspan="2">template&lt;size_t i, class B &gt; </td></tr>
+<tr class="memitem:ga06b31690e761ab36be6693562a9e5920"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#ga06b31690e761ab36be6693562a9e5920">dual</a> (mixed_expr&lt; B &gt; const &amp;t) noexcept</td></tr>
+<tr class="separator:ga06b31690e761ab36be6693562a9e5920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc51635be04744196a598f8a3a180fff"><td class="memTemplParams" colspan="2">template&lt;class B &gt; </td></tr>
+<tr class="memitem:gabc51635be04744196a598f8a3a180fff"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#gabc51635be04744196a598f8a3a180fff">mixed</a> (mixed_expr&lt; B &gt; const &amp;) -&gt; mixed&lt; std::remove_reference_t&lt; decltype(std::declval&lt; B &gt;().primal())&gt;, typename B::tangents &gt;</td></tr>
+<tr class="memdesc:gabc51635be04744196a598f8a3a180fff"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy shape from a mixed expression  <a href="group__mixed__mode__group.html#gabc51635be04744196a598f8a3a180fff">More...</a><br /></td></tr>
+<tr class="separator:gabc51635be04744196a598f8a3a180fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9fb92df652440d6eaac7216f214d11e0"><td class="memTemplParams" colspan="2">template&lt;class T , class Tangents &gt; </td></tr>
+<tr class="memitem:ga9fb92df652440d6eaac7216f214d11e0"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#ga9fb92df652440d6eaac7216f214d11e0">mixed</a> (mixed&lt; T, Tangents &gt; const &amp;) -&gt; mixed&lt; T, Tangents &gt;</td></tr>
+<tr class="memdesc:ga9fb92df652440d6eaac7216f214d11e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy shape from another mixed  <a href="group__mixed__mode__group.html#ga9fb92df652440d6eaac7216f214d11e0">More...</a><br /></td></tr>
+<tr class="separator:ga9fb92df652440d6eaac7216f214d11e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5efd728bbef6f882a5c41888d70c3d9c"><td class="memTemplParams" colspan="2">template&lt;class L , class R &gt; </td></tr>
 <tr class="memitem:ga5efd728bbef6f882a5c41888d70c3d9c"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#ga5efd728bbef6f882a5c41888d70c3d9c">operator==</a> (mixed_expr&lt; L &gt; const &amp;l, mixed_expr&lt; R &gt; const &amp;r)</td></tr>
 <tr class="separator:ga5efd728bbef6f882a5c41888d70c3d9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,9 +187,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad28984e124b733c2f66c3d5575846683"><td class="memTemplParams" colspan="2">template&lt;class L , class R &gt; </td></tr>
 <tr class="memitem:gad28984e124b733c2f66c3d5575846683"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#gad28984e124b733c2f66c3d5575846683">operator*</a> (mixed_expr&lt; L &gt; const &amp;l, mixed_expr&lt; R &gt; const &amp;r)</td></tr>
 <tr class="separator:gad28984e124b733c2f66c3d5575846683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84145082d54fd98d4d5cffbc6fed7b53"><td class="memTemplParams" colspan="2">template&lt;class T , class F &gt; </td></tr>
-<tr class="memitem:ga84145082d54fd98d4d5cffbc6fed7b53"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::tuple&lt; T, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#ga84145082d54fd98d4d5cffbc6fed7b53">diff</a> (F f, T a)</td></tr>
-<tr class="separator:ga84145082d54fd98d4d5cffbc6fed7b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6a984d60cde53a0f869675e4084f2c0"><td class="memTemplParams" colspan="2">template&lt;class F , class... Args&gt; </td></tr>
+<tr class="memitem:gac6a984d60cde53a0f869675e4084f2c0"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__mixed__mode__group.html#gac6a984d60cde53a0f869675e4084f2c0">diff</a> (F f, Args... args)</td></tr>
+<tr class="separator:gac6a984d60cde53a0f869675e4084f2c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>mixed-mode AD: forward mode, with opportunistic expression-level reverse </p>
@@ -178,11 +208,30 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="textblock"><h3>template&lt;class T, size_t N&gt;<br />
-struct bad::mixed_mode::api::mixed_lift&lt; T, N &gt;::partials_type</h3>
+<div class="textblock"><h3>template&lt;class T, typename Tangents&gt;<br />
+struct bad::mixed_mode::api::mixed_lift&lt; T, Tangents &gt;::partials_type</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00220">220</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00316">316</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+</div>
+</div>
+</div>
+<a name="structbad_1_1mixed__mode_1_1api_1_1diff__" id="structbad_1_1mixed__mode_1_1api_1_1diff__"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#structbad_1_1mixed__mode_1_1api_1_1diff__">&#9670;&nbsp;</a></span>bad::mixed_mode::api::diff_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct bad::mixed_mode::api::diff_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="textblock"><h3>template&lt;class S, class F, class... Args&gt;<br />
+struct bad::mixed_mode::api::diff_&lt; S, F, Args &gt;</h3>
+
+
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00611">611</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 </div>
 </div>
 </div>

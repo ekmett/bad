@@ -93,54 +93,59 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class </span>T, T... is&gt;</div>
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">   36</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> = std::integer_sequence&lt;T, is...&gt;;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">auto</span> x, <span class="keyword">auto</span>... xs&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">   41</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">aseq</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;decltype(x), x, xs...&gt;;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span>... is&gt;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">   46</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;size_t, is...&gt;;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">template</span> &lt;ptrdiff_t... is&gt;</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">   51</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">sseq</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;ptrdiff_t, is...&gt;;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">template</span> &lt;<span class="keywordtype">char</span>...cs&gt;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">   56</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;char, cs...&gt;;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#ifdef __clang__</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#ifndef ICC // icpc is a lying liar that lies</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#pragma clang diagnostic push</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wgnu-string-literal-operator-template&quot;</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#elif defined __GNUC__</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#pragma GCC diagnostic push</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#pragma GCC diagnostic ignored &quot;-Wgnu-string-literal-operator-template&quot;</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class </span>T, T...cs&gt;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">const</span>)</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="group__common__group.html#ga3d3cf31723def6c7418400eb7e48748a">   72</a></span>&#160;  <a class="code" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt;cs...&gt; operator&quot;&quot;_str() noexcept {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#ifdef __clang__</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#ifndef ICC</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#pragma clang diagnostic pop</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#elif defined __GNUC__</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#pragma GCC diagnostic pop</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">auto</span>... xs&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="group__common__group.html#gaeb019821b6101872bb95995e023ee18e">   41</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#gaeb019821b6101872bb95995e023ee18e">aseq</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;std::common_type_t&lt;decltype(xs)...&gt;, xs...&gt;;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">template</span> &lt;<span class="keywordtype">size_t</span>... is&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">   47</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;size_t, is...&gt;;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">template</span> &lt;ptrdiff_t... is&gt;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">   52</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">sseq</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;ptrdiff_t, is...&gt;;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">template</span> &lt;<span class="keywordtype">char</span>...cs&gt;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">   57</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a> = <a class="code" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;char, cs...&gt;;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#ifdef __clang__</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#ifndef ICC // icpc is a lying liar that lies</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#pragma clang diagnostic push</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wgnu-string-literal-operator-template&quot;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#elif defined __GNUC__</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#pragma GCC diagnostic push</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#pragma GCC diagnostic ignored &quot;-Wgnu-string-literal-operator-template&quot;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class </span>T, T...cs&gt;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">const</span>)</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="group__common__group.html#ga3d3cf31723def6c7418400eb7e48748a">   73</a></span>&#160;  <a class="code" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a>&lt;cs...&gt; operator&quot;&quot;_str() noexcept {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#ifdef __clang__</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#ifndef ICC</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#pragma clang diagnostic pop</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#elif defined __GNUC__</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#pragma GCC diagnostic pop</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> B, <span class="keyword">class</span> T, <span class="keyword">class</span> E&gt;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">   88</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">ite</a> = std::conditional_t&lt;B,T,E&gt;;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup__common__group_html_ga785f260615e311e98ed21151217d9385"><div class="ttname"><a href="group__common__group.html#ga785f260615e311e98ed21151217d9385">bad::sseq</a></div><div class="ttdeci">iseq&lt; ptrdiff_t, is... &gt; sseq</div><div class="ttdoc">A sequence of ptrdiff_t &quot;signed distances&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00051">common.hh:51</a></div></div>
+<div class="ttc" id="agroup__common__group_html_ga785f260615e311e98ed21151217d9385"><div class="ttname"><a href="group__common__group.html#ga785f260615e311e98ed21151217d9385">bad::sseq</a></div><div class="ttdeci">iseq&lt; ptrdiff_t, is... &gt; sseq</div><div class="ttdoc">A sequence of ptrdiff_t &quot;signed distances&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00052">common.hh:52</a></div></div>
 <div class="ttc" id="agroup__common__group_html_gab325cb9a11c291fe76cf0373d3ad7878"><div class="ttname"><a href="group__common__group.html#gab325cb9a11c291fe76cf0373d3ad7878">bad::constant</a></div><div class="ttdeci">std::integral_constant&lt; decltype(x), x &gt; constant</div><div class="ttdoc">inferrable std::integral_constant, used to encode lists as heterogenous lists</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00031">common.hh:31</a></div></div>
+<div class="ttc" id="agroup__common__group_html_gaeb019821b6101872bb95995e023ee18e"><div class="ttname"><a href="group__common__group.html#gaeb019821b6101872bb95995e023ee18e">bad::aseq</a></div><div class="ttdeci">iseq&lt; std::common_type_t&lt; decltype(xs)... &gt;, xs... &gt; aseq</div><div class="ttdoc">iseq with type inference, so long as there is at least one argument</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00041">common.hh:41</a></div></div>
 <div class="ttc" id="anamespacebad_html"><div class="ttname"><a href="namespacebad.html">bad</a></div><div class="ttdoc">top level namespace</div></div>
 <div class="ttc" id="agroup__attributes_html_ga921c6d857ac4cc70d02e85d0f3de0432"><div class="ttname"><a href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a></div><div class="ttdeci">#define BAD(...)</div><div class="ttdoc">convenient macro for applying several attributes</div><div class="ttdef"><b>Definition:</b> <a href="attributes_8hh_source.html#l00021">attributes.hh:21</a></div></div>
 <div class="ttc" id="aattributes_8hh_html"><div class="ttname"><a href="attributes_8hh.html">attributes.hh</a></div><div class="ttdoc">macros for applying attributes.</div></div>
-<div class="ttc" id="agroup__common__group_html_ga04d64ef00355f2a932dc37de35da96cb"><div class="ttname"><a href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">bad::seq</a></div><div class="ttdeci">iseq&lt; size_t, is... &gt; seq</div><div class="ttdoc">A sequence of size_t &quot;sizes&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00046">common.hh:46</a></div></div>
+<div class="ttc" id="agroup__common__group_html_ga04d64ef00355f2a932dc37de35da96cb"><div class="ttname"><a href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">bad::seq</a></div><div class="ttdeci">iseq&lt; size_t, is... &gt; seq</div><div class="ttdoc">A sequence of size_t &quot;sizes&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00047">common.hh:47</a></div></div>
 <div class="ttc" id="agroup__common__group_html_ga9c6b3935020833c4cdfe376e9f3c32cc"><div class="ttname"><a href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">bad::iseq</a></div><div class="ttdeci">std::integer_sequence&lt; T, is... &gt; iseq</div><div class="ttdoc">shorthand for std::integer_sequence</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00036">common.hh:36</a></div></div>
-<div class="ttc" id="agroup__common__group_html_ga8b82d2eab50d25809abb52d8910a65c2"><div class="ttname"><a href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">bad::aseq</a></div><div class="ttdeci">iseq&lt; decltype(x), x, xs... &gt; aseq</div><div class="ttdoc">iseq with type inference, so long as there is at least one argument</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00041">common.hh:41</a></div></div>
-<div class="ttc" id="agroup__common__group_html_ga738b1f0fafc5155e30c800ec5587c5ff"><div class="ttname"><a href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">bad::str</a></div><div class="ttdeci">iseq&lt; char, cs... &gt; str</div><div class="ttdoc">A compile-time string as a type of sequence.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00056">common.hh:56</a></div></div>
+<div class="ttc" id="agroup__common__group_html_ga547b940e4bf10dedf229b3405db74f93"><div class="ttname"><a href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">bad::ite</a></div><div class="ttdeci">std::conditional_t&lt; B, T, E &gt; ite</div><div class="ttdoc">if-then-else</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00088">common.hh:88</a></div></div>
+<div class="ttc" id="agroup__common__group_html_ga738b1f0fafc5155e30c800ec5587c5ff"><div class="ttname"><a href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">bad::str</a></div><div class="ttdeci">iseq&lt; char, cs... &gt; str</div><div class="ttdoc">A compile-time string as a type of sequence.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hh_source.html#l00057">common.hh:57</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

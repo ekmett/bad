@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['operators_976',['operators',['../group__operators__group.html',1,'']]],
-  ['ordering_977',['ordering',['../group__ordering.html',1,'']]]
+  ['sequences_984',['sequences',['../group__sequences__group.html',1,'']]],
+  ['storage_985',['storage',['../group__storage__group.html',1,'']]]
 ];

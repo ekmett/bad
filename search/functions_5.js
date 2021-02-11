@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['is_5faligned_677',['is_aligned',['../group__memory__group.html#gaff6c13783e3d9d359bbaab7656debd1e',1,'bad::memory::api']]]
+  ['get_682',['get',['../group__mixed__mode__group.html#gaf4d92971c2d49e3c139721c19141dabb',1,'bad::mixed_mode::api::get(mixed_expr&lt; B &gt; &amp;t) noexcept'],['../group__mixed__mode__group.html#ga4eb9cc552a156ad5182641685e124035',1,'bad::mixed_mode::api::get(mixed_expr&lt; B &gt; const &amp;t) noexcept']]]
 ];

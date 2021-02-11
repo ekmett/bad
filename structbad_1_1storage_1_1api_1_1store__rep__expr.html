@@ -85,7 +85,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for store_rep_expr&lt; B, d, ds &gt;:</div>
 <div class="dyncontent">
@@ -98,8 +98,10 @@ Inheritance diagram for store_rep_expr&lt; B, d, ds &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a32e8ca6d959267f8229eac23b4c5a1b0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#a32e8ca6d959267f8229eac23b4c5a1b0">element</a> = typename B::element</td></tr>
-<tr class="separator:a32e8ca6d959267f8229eac23b4c5a1b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae14499245fa5cc1c25c308842af5d77d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#ae14499245fa5cc1c25c308842af5d77d">base_type</a> = std::decay_t&lt; B &gt;</td></tr>
+<tr class="separator:ae14499245fa5cc1c25c308842af5d77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb2ea113400f80cc55c2138197d12eea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#aeb2ea113400f80cc55c2138197d12eea">element</a> = typename base_type::element</td></tr>
+<tr class="separator:aeb2ea113400f80cc55c2138197d12eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dfc6460c50bc1ae526413b7c4270a25"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#a6dfc6460c50bc1ae526413b7c4270a25">dim</a> = <a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a>&lt; d, ds... &gt;</td></tr>
 <tr class="separator:a6dfc6460c50bc1ae526413b7c4270a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_structbad_1_1storage_1_1api_1_1store__expr"><td colspan="2" onclick="javascript:toggleInherit('pub_types_structbad_1_1storage_1_1api_1_1store__expr')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr&lt; store_rep_expr&lt; B, d, ds... &gt;, d, ds... &gt;</a></td></tr>
@@ -125,9 +127,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a21642dc72eb79420cc822f08e7fbb017"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
 <tr class="memitem:a21642dc72eb79420cc822f08e7fbb017"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#a21642dc72eb79420cc822f08e7fbb017">pull</a> (size_t i) const noexcept</td></tr>
 <tr class="separator:a21642dc72eb79420cc822f08e7fbb017"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2915c8ed21ff189d9ef8941db0f52593"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
-<tr class="memitem:a2915c8ed21ff189d9ef8941db0f52593"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#a2915c8ed21ff189d9ef8941db0f52593">rep</a> () const noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>, N, d, ds... &gt;</td></tr>
-<tr class="separator:a2915c8ed21ff189d9ef8941db0f52593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af59357828a3835a82db05c22e7e48987"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
+<tr class="memitem:af59357828a3835a82db05c22e7e48987"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#af59357828a3835a82db05c22e7e48987">rep</a> () const noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt; B, d, ds... &gt;, N, d, ds... &gt;</td></tr>
+<tr class="separator:af59357828a3835a82db05c22e7e48987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3c93e243ccd9d4c0309c3f01bd0ec77"><td class="memTemplParams" colspan="2">template&lt;auto j, decltype(j) i, decltype(j)... is&gt; </td></tr>
 <tr class="memitem:ae3c93e243ccd9d4c0309c3f01bd0ec77"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#ae3c93e243ccd9d4c0309c3f01bd0ec77">tie</a> (size_t k)</td></tr>
 <tr class="separator:ae3c93e243ccd9d4c0309c3f01bd0ec77"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,18 +153,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae800a643f56faef8143fac968324e424 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac95cc1e3a3743284786144d0dac3431a inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#ac95cc1e3a3743284786144d0dac3431a">at</a> (size_t i, size_t j, ts... ks) const noexcept</td></tr>
 <tr class="separator:ac95cc1e3a3743284786144d0dac3431a inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80fb20fee3795aeba36277d6f49d7a89 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a80fb20fee3795aeba36277d6f49d7a89">tie</a> (size_t k)</td></tr>
-<tr class="separator:a80fb20fee3795aeba36277d6f49d7a89 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92934278994a0074f0d2f4f56d34c82b inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a92934278994a0074f0d2f4f56d34c82b">tied</a> (size_t k)</td></tr>
-<tr class="separator:a92934278994a0074f0d2f4f56d34c82b inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad44f156640c1003d836445ee246d05e6 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt; B, d, ds... &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#ad44f156640c1003d836445ee246d05e6">operator()</a> () noexcept</td></tr>
 <tr class="separator:ad44f156640c1003d836445ee246d05e6 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ca4cfef3cd032f8ce9f81478f5979d7 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt; B, d, ds... &gt; const &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a0ca4cfef3cd032f8ce9f81478f5979d7">operator()</a> () const noexcept</td></tr>
 <tr class="separator:a0ca4cfef3cd032f8ce9f81478f5979d7 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04f26c4c48d4be5b74725fe9d4677fdf inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a04f26c4c48d4be5b74725fe9d4677fdf">operator()</a> (ts... is) noexcept</td></tr>
-<tr class="separator:a04f26c4c48d4be5b74725fe9d4677fdf inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6902d830a6088f358fb725e11d30c9b7 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a6902d830a6088f358fb725e11d30c9b7">operator()</a> (ts... is) noexcept</td></tr>
+<tr class="separator:a6902d830a6088f358fb725e11d30c9b7 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43322079891046f906c2133c250edf7b inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a43322079891046f906c2133c250edf7b">operator()</a> (ts... is) const noexcept</td></tr>
 <tr class="separator:a43322079891046f906c2133c250edf7b inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fb20fee3795aeba36277d6f49d7a89 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a80fb20fee3795aeba36277d6f49d7a89">tie</a> (size_t k)</td></tr>
+<tr class="separator:a80fb20fee3795aeba36277d6f49d7a89 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92934278994a0074f0d2f4f56d34c82b inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a92934278994a0074f0d2f4f56d34c82b">tied</a> (size_t k)</td></tr>
+<tr class="separator:a92934278994a0074f0d2f4f56d34c82b inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f5a3d57ab2c9035e6d57c1b1515d4eb inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a5f5a3d57ab2c9035e6d57c1b1515d4eb">operator==</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a103c3e293b958f41ac792eb3197f1e57">expr</a>&lt; C &gt; const &amp;r) const noexcept</td></tr>
 <tr class="separator:a5f5a3d57ab2c9035e6d57c1b1515d4eb inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a9fbac1534fa64ba14e02c911412a78 inherit pub_methods_structbad_1_1storage_1_1api_1_1store__expr"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a3a9fbac1534fa64ba14e02c911412a78">operator!=</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html#a103c3e293b958f41ac792eb3197f1e57">expr</a>&lt; C &gt; const &amp;r) const noexcept</td></tr>
@@ -194,8 +196,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0cb5be9f2c38f34d19822afc4bf78548"><td class="memItemLeft" align="right" valign="top">B const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#a0cb5be9f2c38f34d19822afc4bf78548">base</a></td></tr>
-<tr class="separator:a0cb5be9f2c38f34d19822afc4bf78548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed593efd08864aa8dbbdcb839d1c3224"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__storage__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a>&lt; B &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#aed593efd08864aa8dbbdcb839d1c3224">base</a></td></tr>
+<tr class="separator:aed593efd08864aa8dbbdcb839d1c3224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -217,8 +219,24 @@ Friends</h2></td></tr>
 struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00198">198</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00219">219</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ae14499245fa5cc1c25c308842af5d77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae14499245fa5cc1c25c308842af5d77d">&#9670;&nbsp;</a></span>base_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#ae14499245fa5cc1c25c308842af5d77d">base_type</a> =  std::decay_t&lt;B&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00221">221</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
+
+</div>
+</div>
 <a id="a6dfc6460c50bc1ae526413b7c4270a25"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6dfc6460c50bc1ae526413b7c4270a25">&#9670;&nbsp;</a></span>dim</h2>
 
@@ -231,23 +249,23 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00200">200</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00223">223</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
-<a id="a32e8ca6d959267f8229eac23b4c5a1b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32e8ca6d959267f8229eac23b4c5a1b0">&#9670;&nbsp;</a></span>element</h2>
+<a id="aeb2ea113400f80cc55c2138197d12eea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb2ea113400f80cc55c2138197d12eea">&#9670;&nbsp;</a></span>element</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#a32e8ca6d959267f8229eac23b4c5a1b0">element</a> =  typename B::element</td>
+          <td class="memname">using <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html#aeb2ea113400f80cc55c2138197d12eea">element</a> =  typename base_type::element</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00199">199</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00222">222</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -276,7 +294,7 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00206">206</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00229">229</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -304,12 +322,12 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00212">212</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00235">235</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
-<a id="a2915c8ed21ff189d9ef8941db0f52593"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2915c8ed21ff189d9ef8941db0f52593">&#9670;&nbsp;</a></span>rep()</h2>
+<a id="af59357828a3835a82db05c22e7e48987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af59357828a3835a82db05c22e7e48987">&#9670;&nbsp;</a></span>rep()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,7 +339,7 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
           <td class="memname">auto rep </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt;<a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>,N,d,ds...&gt; </td>
+          <td> const -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt;<a class="el" href="structbad_1_1storage_1_1api_1_1store__rep__expr.html">store_rep_expr</a>&lt;B,d,ds...&gt;,N,d,ds...&gt; </td>
         </tr>
       </table>
   </td>
@@ -331,7 +349,7 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00223">223</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00246">246</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -359,7 +377,7 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00234">234</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00257">257</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -387,7 +405,7 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00244">244</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00267">267</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -426,7 +444,7 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00228">228</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00251">251</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -451,28 +469,28 @@ struct bad::storage::api::store_rep_expr&lt; B, d, ds &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00201">201</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00224">224</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
-<a id="a0cb5be9f2c38f34d19822afc4bf78548"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cb5be9f2c38f34d19822afc4bf78548">&#9670;&nbsp;</a></span>base</h2>
+<a id="aed593efd08864aa8dbbdcb839d1c3224"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed593efd08864aa8dbbdcb839d1c3224">&#9670;&nbsp;</a></span>base</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">B const&amp; base</td>
+          <td class="memname"><a class="el" href="group__storage__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a>&lt;B&gt; base</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00203">203</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00226">226</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a></li>
+<li>storage/<a class="el" href="store__expr_8hh_source.html">store_expr.hh</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

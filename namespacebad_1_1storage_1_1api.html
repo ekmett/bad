@@ -117,12 +117,25 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a186a61727a7c9d4dd79ccca7b3a81ff5"><td class="memTemplParams" colspan="2">template&lt;class AS , class BS , class CS , class B , class C &gt; </td></tr>
 <tr class="memitem:a186a61727a7c9d4dd79ccca7b3a81ff5"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage_1_1api.html#a186a61727a7c9d4dd79ccca7b3a81ff5">einsum_dim</a> = <a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a>&lt;&gt;</td></tr>
 <tr class="separator:a186a61727a7c9d4dd79ccca7b3a81ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a> = std::conditional_t&lt; std::is_rvalue_reference_v&lt; T &gt;, std::decay_t&lt; T &gt;, std::decay_t&lt; T &gt; const &amp; &gt;</td></tr>
+<tr class="memdesc:gab4141f551bdd29d9134b448aac359899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates.  <a href="group__storage__group.html#gab4141f551bdd29d9134b448aac359899">More...</a><br /></td></tr>
+<tr class="separator:gab4141f551bdd29d9134b448aac359899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a60308694d388fa015d173f636a6d5b36"><td class="memTemplParams" colspan="2">template&lt;class AS , class BS , class CS , class AD  = seq&lt;&gt;, class B , class C &gt; </td></tr>
-<tr class="memitem:a60308694d388fa015d173f636a6d5b36"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage_1_1api.html#a60308694d388fa015d173f636a6d5b36">einsum</a> (B const &amp;l, C const &amp;r) noexcept</td></tr>
-<tr class="separator:a60308694d388fa015d173f636a6d5b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115c56f495f49324798e1653821c0bb3"><td class="memTemplParams" colspan="2">template&lt;class AS , class BS , class CS , class AD  = seq&lt;&gt;, class B , class C &gt; </td></tr>
+<tr class="memitem:a115c56f495f49324798e1653821c0bb3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage_1_1api.html#a115c56f495f49324798e1653821c0bb3">einsum</a> (B const &amp;l, C const &amp;r) noexcept -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt; AS, BS, CS, B, C, AD &gt;</td></tr>
+<tr class="separator:a115c56f495f49324798e1653821c0bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a062c6ee9482a5f71e79fab3fec7cecb8"><td class="memTemplParams" colspan="2">template&lt;class AS , class BS , class CS , class AD  = seq&lt;&gt;, class B , class C &gt; </td></tr>
+<tr class="memitem:a062c6ee9482a5f71e79fab3fec7cecb8"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage_1_1api.html#a062c6ee9482a5f71e79fab3fec7cecb8">einsum</a> (B const &amp;l, C &amp;&amp;r) noexcept -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt; AS, BS, CS, B, C &amp;&amp;, AD &gt;</td></tr>
+<tr class="separator:a062c6ee9482a5f71e79fab3fec7cecb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a759e39fa8739b980a79a2837bd55d024"><td class="memTemplParams" colspan="2">template&lt;class AS , class BS , class CS , class AD  = seq&lt;&gt;, class B , class C &gt; </td></tr>
+<tr class="memitem:a759e39fa8739b980a79a2837bd55d024"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage_1_1api.html#a759e39fa8739b980a79a2837bd55d024">einsum</a> (B &amp;&amp;l, C const &amp;r) noexcept -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt; AS, BS, CS, B &amp;&amp;, C, AD &gt;</td></tr>
+<tr class="separator:a759e39fa8739b980a79a2837bd55d024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c6230e08919243c05eba1bed2d6f0eb"><td class="memTemplParams" colspan="2">template&lt;class AS , class BS , class CS , class AD  = seq&lt;&gt;, class B , class C &gt; </td></tr>
+<tr class="memitem:a7c6230e08919243c05eba1bed2d6f0eb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage_1_1api.html#a7c6230e08919243c05eba1bed2d6f0eb">einsum</a> (B &amp;&amp;l, C &amp;&amp;r) noexcept -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt; AS, BS, CS, B &amp;&amp;, C &amp;&amp;, AD &gt;</td></tr>
+<tr class="separator:a7c6230e08919243c05eba1bed2d6f0eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5615f9c4f3b7231e9b6fdb28f483a99c"><td class="memTemplParams" colspan="2">template&lt;size_t d, class T &gt; </td></tr>
 <tr class="memitem:ga5615f9c4f3b7231e9b6fdb28f483a99c"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga5615f9c4f3b7231e9b6fdb28f483a99c">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="structbad_1_1storage_1_1api_1_1show__values.html">show_values</a>&lt; d, T &gt; &amp;rhs)</td></tr>
 <tr class="separator:ga5615f9c4f3b7231e9b6fdb28f483a99c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,9 +151,18 @@ Functions</h2></td></tr>
 <tr class="memitem:gaef3d1fd4ceb09ff5052ad37df97fd71e"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gaef3d1fd4ceb09ff5052ad37df97fd71e">rep</a> (T t) noexcept -&gt; <a class="el" href="group__storage__group.html#structbad_1_1storage_1_1common_1_1store">store</a>&lt; T, <a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a>&lt; d &gt;, <a class="el" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">sseq</a>&lt; 0 &gt;&gt;</td></tr>
 <tr class="memdesc:gaef3d1fd4ceb09ff5052ad37df97fd71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">replicate base data types  <a href="group__storage__group.html#gaef3d1fd4ceb09ff5052ad37df97fd71e">More...</a><br /></td></tr>
 <tr class="separator:gaef3d1fd4ceb09ff5052ad37df97fd71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac640a4b871c0b52d630f84352d2c9185"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:gac640a4b871c0b52d630f84352d2c9185"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gac640a4b871c0b52d630f84352d2c9185">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept</td></tr>
-<tr class="separator:gac640a4b871c0b52d630f84352d2c9185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga01d272e95bf505e2ddf364299be9e876"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga01d272e95bf505e2ddf364299be9e876"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga01d272e95bf505e2ddf364299be9e876">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L, R, d, ds... &gt;</td></tr>
+<tr class="separator:ga01d272e95bf505e2ddf364299be9e876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76c5c1269f48e124d6b8b4593627e50d"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga76c5c1269f48e124d6b8b4593627e50d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga76c5c1269f48e124d6b8b4593627e50d">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L &amp;&amp;, R, d, ds... &gt;</td></tr>
+<tr class="separator:ga76c5c1269f48e124d6b8b4593627e50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b995273f43ea0407f05c460e8ba44f7"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga9b995273f43ea0407f05c460e8ba44f7"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga9b995273f43ea0407f05c460e8ba44f7">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L, R &amp;&amp;, d, ds... &gt;</td></tr>
+<tr class="separator:ga9b995273f43ea0407f05c460e8ba44f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6da091af8dc62af9458cdfbcb8ad2f80"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga6da091af8dc62af9458cdfbcb8ad2f80"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga6da091af8dc62af9458cdfbcb8ad2f80">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L &amp;&amp;, R &amp;&amp;, d, ds... &gt;</td></tr>
+<tr class="separator:ga6da091af8dc62af9458cdfbcb8ad2f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>See <a class="el" href="group__storage__group.html">storage</a> for a complete listing. </p>
@@ -160,7 +182,7 @@ Functions</h2></td></tr>
 struct bad::storage::api::scalar_einsum&lt; BS, CS &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="storage__einsum_8hh_source.html#l00011">11</a> of file <a class="el" href="storage__einsum_8hh_source.html">storage_einsum.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="einsum_8hh_source.html#l00011">11</a> of file <a class="el" href="einsum_8hh_source.html">einsum.hh</a>.</p>
 </div>
 </div>
 </div>
@@ -179,7 +201,7 @@ struct bad::storage::api::scalar_einsum&lt; BS, CS &gt;</h3>
 struct bad::storage::api::store_einsum_expr&lt; AS, BS, CS, B, C, AD &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="storage__einsum_8hh_source.html#l00057">57</a> of file <a class="el" href="storage__einsum_8hh_source.html">storage_einsum.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="einsum_8hh_source.html#l00060">60</a> of file <a class="el" href="einsum_8hh_source.html">einsum.hh</a>.</p>
 </div>
 </div>
 </div>
@@ -196,13 +218,127 @@ struct bad::storage::api::store_einsum_expr&lt; AS, BS, CS, B, C, AD &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__einsum_8hh_source.html#l00051">51</a> of file <a class="el" href="storage__einsum_8hh_source.html">storage_einsum.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="einsum_8hh_source.html#l00051">51</a> of file <a class="el" href="einsum_8hh_source.html">einsum.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a60308694d388fa015d173f636a6d5b36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60308694d388fa015d173f636a6d5b36">&#9670;&nbsp;</a></span>einsum()</h2>
+<a id="a7c6230e08919243c05eba1bed2d6f0eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c6230e08919243c05eba1bed2d6f0eb">&#9670;&nbsp;</a></span>einsum() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto bad::storage::api::einsum </td>
+          <td>(</td>
+          <td class="paramtype">B &amp;&amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">C &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt;AS,BS,CS,B&amp;&amp;,C&amp;&amp;,AD&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="einsum_8hh_source.html#l00138">138</a> of file <a class="el" href="einsum_8hh_source.html">einsum.hh</a>.</p>
+
+</div>
+</div>
+<a id="a759e39fa8739b980a79a2837bd55d024"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a759e39fa8739b980a79a2837bd55d024">&#9670;&nbsp;</a></span>einsum() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto bad::storage::api::einsum </td>
+          <td>(</td>
+          <td class="paramtype">B &amp;&amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">C const &amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt;AS,BS,CS,B&amp;&amp;,C,AD&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="einsum_8hh_source.html#l00129">129</a> of file <a class="el" href="einsum_8hh_source.html">einsum.hh</a>.</p>
+
+</div>
+</div>
+<a id="a062c6ee9482a5f71e79fab3fec7cecb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a062c6ee9482a5f71e79fab3fec7cecb8">&#9670;&nbsp;</a></span>einsum() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto bad::storage::api::einsum </td>
+          <td>(</td>
+          <td class="paramtype">B const &amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">C &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt;AS,BS,CS,B,C&amp;&amp;,AD&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="einsum_8hh_source.html#l00120">120</a> of file <a class="el" href="einsum_8hh_source.html">einsum.hh</a>.</p>
+
+</div>
+</div>
+<a id="a115c56f495f49324798e1653821c0bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115c56f495f49324798e1653821c0bb3">&#9670;&nbsp;</a></span>einsum() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +361,7 @@ struct bad::storage::api::store_einsum_expr&lt; AS, BS, CS, B, C, AD &gt;</h3>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> -&gt; <a class="el" href="namespacebad_1_1storage_1_1api.html#structbad_1_1storage_1_1api_1_1store__einsum__expr">store_einsum_expr</a>&lt;AS,BS,CS,B,C,AD&gt; </td>
         </tr>
       </table>
   </td>
@@ -235,7 +371,7 @@ struct bad::storage::api::store_einsum_expr&lt; AS, BS, CS, B, C, AD &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__einsum_8hh_source.html#l00103">103</a> of file <a class="el" href="storage__einsum_8hh_source.html">storage_einsum.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="einsum_8hh_source.html#l00111">111</a> of file <a class="el" href="einsum_8hh_source.html">einsum.hh</a>.</p>
 
 </div>
 </div>

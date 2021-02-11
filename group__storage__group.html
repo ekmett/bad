@@ -130,6 +130,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:gacf0b8ce28d1a6f7a41495c61538a37cf"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gacf0b8ce28d1a6f7a41495c61538a37cf">vec</a> = <a class="el" href="group__storage__group.html#structbad_1_1storage_1_1common_1_1store">store</a>&lt; T, <a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a>&lt; N &gt; &gt;</td></tr>
 <tr class="memdesc:gacf0b8ce28d1a6f7a41495c61538a37cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">synonym, even though <a class="el" href="group__storage__group.html">store</a> has better inference  <a href="group__storage__group.html#gacf0b8ce28d1a6f7a41495c61538a37cf">More...</a><br /></td></tr>
 <tr class="separator:gacf0b8ce28d1a6f7a41495c61538a37cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a> = std::conditional_t&lt; std::is_rvalue_reference_v&lt; T &gt;, std::decay_t&lt; T &gt;, std::decay_t&lt; T &gt; const &amp; &gt;</td></tr>
+<tr class="memdesc:gab4141f551bdd29d9134b448aac359899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates.  <a href="group__storage__group.html#gab4141f551bdd29d9134b448aac359899">More...</a><br /></td></tr>
+<tr class="separator:gab4141f551bdd29d9134b448aac359899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -174,9 +178,18 @@ Functions</h2></td></tr>
 <tr class="memitem:gaef3d1fd4ceb09ff5052ad37df97fd71e"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gaef3d1fd4ceb09ff5052ad37df97fd71e">rep</a> (T t) noexcept -&gt; <a class="el" href="group__storage__group.html#structbad_1_1storage_1_1common_1_1store">store</a>&lt; T, <a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a>&lt; d &gt;, <a class="el" href="group__common__group.html#ga785f260615e311e98ed21151217d9385">sseq</a>&lt; 0 &gt;&gt;</td></tr>
 <tr class="memdesc:gaef3d1fd4ceb09ff5052ad37df97fd71e"><td class="mdescLeft">&#160;</td><td class="mdescRight">replicate base data types  <a href="group__storage__group.html#gaef3d1fd4ceb09ff5052ad37df97fd71e">More...</a><br /></td></tr>
 <tr class="separator:gaef3d1fd4ceb09ff5052ad37df97fd71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac640a4b871c0b52d630f84352d2c9185"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:gac640a4b871c0b52d630f84352d2c9185"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gac640a4b871c0b52d630f84352d2c9185">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept</td></tr>
-<tr class="separator:gac640a4b871c0b52d630f84352d2c9185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga01d272e95bf505e2ddf364299be9e876"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga01d272e95bf505e2ddf364299be9e876"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga01d272e95bf505e2ddf364299be9e876">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L, R, d, ds... &gt;</td></tr>
+<tr class="separator:ga01d272e95bf505e2ddf364299be9e876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76c5c1269f48e124d6b8b4593627e50d"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga76c5c1269f48e124d6b8b4593627e50d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga76c5c1269f48e124d6b8b4593627e50d">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L &amp;&amp;, R, d, ds... &gt;</td></tr>
+<tr class="separator:ga76c5c1269f48e124d6b8b4593627e50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9b995273f43ea0407f05c460e8ba44f7"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga9b995273f43ea0407f05c460e8ba44f7"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga9b995273f43ea0407f05c460e8ba44f7">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L, R &amp;&amp;, d, ds... &gt;</td></tr>
+<tr class="separator:ga9b995273f43ea0407f05c460e8ba44f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6da091af8dc62af9458cdfbcb8ad2f80"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga6da091af8dc62af9458cdfbcb8ad2f80"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga6da091af8dc62af9458cdfbcb8ad2f80">operator+</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;l, <a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt; L &amp;&amp;, R &amp;&amp;, d, ds... &gt;</td></tr>
+<tr class="separator:ga6da091af8dc62af9458cdfbcb8ad2f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab9f7dba0444176215a024be4494960fa"><td class="memTemplParams" colspan="2">template&lt;size_t d0, class B , size_t d1, size_t... ds&gt; </td></tr>
 <tr class="memitem:gab9f7dba0444176215a024be4494960fa"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gab9f7dba0444176215a024be4494960fa">rep</a> (<a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; B, d1, ds... &gt; const &amp;x) noexcept</td></tr>
 <tr class="separator:gab9f7dba0444176215a024be4494960fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,7 +223,7 @@ Functions</h2></td></tr>
 struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="storage__store_8hh_source.html#l00015">15</a> of file <a class="el" href="storage__store_8hh_source.html">storage_store.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store_8hh_source.html#l00015">15</a> of file <a class="el" href="store_8hh_source.html">store.hh</a>.</p>
 </div>
 </div>
 </div>
@@ -227,7 +240,28 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store_8hh_source.html#l00025">25</a> of file <a class="el" href="storage__store_8hh_source.html">storage_store.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store_8hh_source.html#l00025">25</a> of file <a class="el" href="store_8hh_source.html">store.hh</a>.</p>
+
+</div>
+</div>
+<a id="gab4141f551bdd29d9134b448aac359899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab4141f551bdd29d9134b448aac359899">&#9670;&nbsp;</a></span>sub_expr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__storage__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a> =  std::conditional_t&lt; std::is_rvalue_reference_v&lt;T&gt;, std::decay_t&lt;T&gt;, std::decay_t&lt;T&gt; const &amp; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates. </p>
+<p>This acts as a solution to the temporary capture problem whenever we need to build a combinator that builds temporaries safely. (It arises when working with einsum, or in the recursive cases for applying pull to a sum for instance.</p>
+<p>This looks at the type passed and if it is T&amp;&amp;, we store a value, otherwise we store a reference.</p>
+<p>In this way such combinators can pass in temporaries to the expression template and we should be able to capture them automatically, correctly and safely. </p>
+
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00211">211</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -245,13 +279,127 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 
 <p>synonym, even though <a class="el" href="group__storage__group.html">store</a> has better inference </p>
 
-<p class="definition">Definition at line <a class="el" href="storage__store_8hh_source.html#l00614">614</a> of file <a class="el" href="storage__store_8hh_source.html">storage_store.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store_8hh_source.html#l00616">616</a> of file <a class="el" href="store_8hh_source.html">store.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gac640a4b871c0b52d630f84352d2c9185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac640a4b871c0b52d630f84352d2c9185">&#9670;&nbsp;</a></span>operator+()</h2>
+<a id="ga6da091af8dc62af9458cdfbcb8ad2f80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6da091af8dc62af9458cdfbcb8ad2f80">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto bad::storage::api::operator+ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt;L&amp;&amp;,R&amp;&amp;,d,ds...&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00359">359</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga76c5c1269f48e124d6b8b4593627e50d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga76c5c1269f48e124d6b8b4593627e50d">&#9670;&nbsp;</a></span>operator+() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto bad::storage::api::operator+ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt;L&amp;&amp;,R,d,ds...&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00339">339</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga9b995273f43ea0407f05c460e8ba44f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9b995273f43ea0407f05c460e8ba44f7">&#9670;&nbsp;</a></span>operator+() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto bad::storage::api::operator+ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structbad_1_1storage_1_1api_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt;L,R&amp;&amp;,d,ds...&gt; </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00349">349</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
+
+</div>
+</div>
+<a id="ga01d272e95bf505e2ddf364299be9e876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga01d272e95bf505e2ddf364299be9e876">&#9670;&nbsp;</a></span>operator+() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,7 +422,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> -&gt; <a class="el" href="structbad_1_1storage_1_1api_1_1store__add__expr.html">store_add_expr</a>&lt;L,R,d,ds...&gt; </td>
         </tr>
       </table>
   </td>
@@ -284,7 +432,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00307">307</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00329">329</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -314,7 +462,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__show__values_8hh_source.html#l00029">29</a> of file <a class="el" href="storage__show__values_8hh_source.html">storage_show_values.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="show__values_8hh_source.html#l00029">29</a> of file <a class="el" href="show__values_8hh_source.html">show_values.hh</a>.</p>
 
 </div>
 </div>
@@ -354,7 +502,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 
 <p>pulls the <code>N</code>th dimension of a store to the front. </p>
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00345">345</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00401">401</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -394,7 +542,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 
 <p>pull the <code>N</code>th dimension of a storage expression to the front. </p>
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00334">334</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00390">390</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -422,7 +570,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00326">326</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00380">380</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -450,7 +598,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store__expr_8hh_source.html#l00319">319</a> of file <a class="el" href="storage__store__expr_8hh_source.html">storage_store_expr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store__expr_8hh_source.html#l00373">373</a> of file <a class="el" href="store__expr_8hh_source.html">store_expr.hh</a>.</p>
 
 </div>
 </div>
@@ -480,7 +628,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 
 <p>replicate base data types </p>
 
-<p class="definition">Definition at line <a class="el" href="storage__store_8hh_source.html#l00642">642</a> of file <a class="el" href="storage__store_8hh_source.html">storage_store.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store_8hh_source.html#l00644">644</a> of file <a class="el" href="store_8hh_source.html">store.hh</a>.</p>
 
 </div>
 </div>
@@ -678,7 +826,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store_8hh_source.html#l00137">137</a> of file <a class="el" href="storage__store_8hh_source.html">storage_store.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store_8hh_source.html#l00137">137</a> of file <a class="el" href="store_8hh_source.html">store.hh</a>.</p>
 
 </div>
 </div>
@@ -716,7 +864,7 @@ struct bad::storage::common::store&lt; T, Dim, Stride &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="storage__store_8hh_source.html#l00627">627</a> of file <a class="el" href="storage__store_8hh_source.html">storage_store.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="store_8hh_source.html#l00629">629</a> of file <a class="el" href="store_8hh_source.html">store.hh</a>.</p>
 
 </div>
 </div>

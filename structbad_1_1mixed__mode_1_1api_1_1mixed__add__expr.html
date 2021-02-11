@@ -97,6 +97,8 @@ Inheritance diagram for mixed_add_expr&lt; L, R &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:ad7bb485f0d2dfc2f7d0e32fb80bb998c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#ad7bb485f0d2dfc2f7d0e32fb80bb998c">tangents</a> = typename L::tangents</td></tr>
+<tr class="separator:ad7bb485f0d2dfc2f7d0e32fb80bb998c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd44a4dbfaf2b6de802d69209b8dfb99"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#afd44a4dbfaf2b6de802d69209b8dfb99">element_type</a> = decltype(std::declval&lt; L &gt;().<a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#aec091e98e682ee0e19358c603c255d7f">primal</a>()+std::declval&lt; R &gt;().<a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#aec091e98e682ee0e19358c603c255d7f">primal</a>())</td></tr>
 <tr class="separator:afd44a4dbfaf2b6de802d69209b8dfb99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38a5c9ca17f33ed11ccc6c1e99be6733"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#a38a5c9ca17f33ed11ccc6c1e99be6733">partials_type</a> = std::tuple&lt; typename L::partials_type, typename R::partials_type &gt;</td></tr>
@@ -108,26 +110,28 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a72c9b434a78a794ca5c2e41ff4e005fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec091e98e682ee0e19358c603c255d7f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#afd44a4dbfaf2b6de802d69209b8dfb99">element_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#aec091e98e682ee0e19358c603c255d7f">primal</a> () const noexcept</td></tr>
 <tr class="separator:aec091e98e682ee0e19358c603c255d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a316c6a6232364032df460a50868810fa"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#a316c6a6232364032df460a50868810fa">dual</a> (size_t i) const noexcept</td></tr>
-<tr class="separator:a316c6a6232364032df460a50868810fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8d5f6fc54edf9d7e1001cc3c4fd1df3"><td class="memTemplParams" colspan="2">template&lt;size_t i&gt; </td></tr>
+<tr class="memitem:af8d5f6fc54edf9d7e1001cc3c4fd1df3"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#af8d5f6fc54edf9d7e1001cc3c4fd1df3">dual</a> () const noexcept</td></tr>
+<tr class="separator:af8d5f6fc54edf9d7e1001cc3c4fd1df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb06330643f0e3d66b9cb9a866ce5583"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#a38a5c9ca17f33ed11ccc6c1e99be6733">partials_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#adb06330643f0e3d66b9cb9a866ce5583">partials</a> (<a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#afd44a4dbfaf2b6de802d69209b8dfb99">element_type</a> x) const noexcept</td></tr>
 <tr class="separator:adb06330643f0e3d66b9cb9a866ce5583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97463eefb8eb5f8ff62cc561d4391832"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#a97463eefb8eb5f8ff62cc561d4391832">tangent</a> (<a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#a38a5c9ca17f33ed11ccc6c1e99be6733">partials_type</a> const &amp;ps, size_t i) const noexcept</td></tr>
-<tr class="separator:a97463eefb8eb5f8ff62cc561d4391832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5c3a562a56e707ee9fb61be759cb694"><td class="memTemplParams" colspan="2">template&lt;size_t i&gt; </td></tr>
+<tr class="memitem:ae5c3a562a56e707ee9fb61be759cb694"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#ae5c3a562a56e707ee9fb61be759cb694">tangent</a> (<a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#a38a5c9ca17f33ed11ccc6c1e99be6733">partials_type</a> const &amp;ps) const noexcept</td></tr>
+<tr class="separator:ae5c3a562a56e707ee9fb61be759cb694"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html">mixed_expr&lt; mixed_add_expr&lt; L, R &gt; &gt;</a></td></tr>
 <tr class="memitem:a0f661651eb9032c0c7dcd38a981badaa inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html">mixed_add_expr</a>&lt; L, R &gt; const &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a0f661651eb9032c0c7dcd38a981badaa">me</a> () const noexcept</td></tr>
 <tr class="separator:a0f661651eb9032c0c7dcd38a981badaa inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">primal</a> () const noexcept</td></tr>
 <tr class="memdesc:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">primal value  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">More...</a><br /></td></tr>
 <tr class="separator:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a797866450775e32d44230334d04a67e3 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a797866450775e32d44230334d04a67e3">dual</a> (size_t i) const noexcept</td></tr>
-<tr class="separator:a797866450775e32d44230334d04a67e3 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a479394fef1029381e5b4572a3b463151 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a479394fef1029381e5b4572a3b463151">dual</a> () const noexcept</td></tr>
+<tr class="separator:a479394fef1029381e5b4572a3b463151 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">partials</a> (T bar) const noexcept</td></tr>
 <tr class="memdesc:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute partials w.r.t. expression arguments  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">More...</a><br /></td></tr>
 <tr class="separator:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5999cf32d1c6ef7ed8089b50ccf60760 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a5999cf32d1c6ef7ed8089b50ccf60760">tangent</a> (T parts, size_t j) const noexcept</td></tr>
-<tr class="memdesc:a5999cf32d1c6ef7ed8089b50ccf60760 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the product of partials and tangents  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a5999cf32d1c6ef7ed8089b50ccf60760">More...</a><br /></td></tr>
-<tr class="separator:a5999cf32d1c6ef7ed8089b50ccf60760 inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">tangent</a> (T parts) const noexcept</td></tr>
+<tr class="memdesc:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the product of partials and tangents  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">More...</a><br /></td></tr>
+<tr class="separator:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__mode_1_1api_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -151,7 +155,7 @@ Static Public Attributes</h2></td></tr>
 struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00379">379</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00480">480</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="afd44a4dbfaf2b6de802d69209b8dfb99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd44a4dbfaf2b6de802d69209b8dfb99">&#9670;&nbsp;</a></span>element_type</h2>
@@ -165,7 +169,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00387">387</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00489">489</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -181,7 +185,23 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00389">389</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00490">490</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+
+</div>
+</div>
+<a id="ad7bb485f0d2dfc2f7d0e32fb80bb998c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7bb485f0d2dfc2f7d0e32fb80bb998c">&#9670;&nbsp;</a></span>tangents</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#ad7bb485f0d2dfc2f7d0e32fb80bb998c">tangents</a> =  typename L::tangents</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00488">488</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -220,13 +240,13 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00398">398</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00498">498</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a316c6a6232364032df460a50868810fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a316c6a6232364032df460a50868810fa">&#9670;&nbsp;</a></span>dual()</h2>
+<a id="af8d5f6fc54edf9d7e1001cc3c4fd1df3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8d5f6fc54edf9d7e1001cc3c4fd1df3">&#9670;&nbsp;</a></span>dual()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,8 +257,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
         <tr>
           <td class="memname">constexpr auto dual </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -249,7 +268,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00411">411</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00512">512</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -277,7 +296,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00416">416</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00517">517</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -304,12 +323,12 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00406">406</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00506">506</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
-<a id="a97463eefb8eb5f8ff62cc561d4391832"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97463eefb8eb5f8ff62cc561d4391832">&#9670;&nbsp;</a></span>tangent()</h2>
+<a id="ae5c3a562a56e707ee9fb61be759cb694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5c3a562a56e707ee9fb61be759cb694">&#9670;&nbsp;</a></span>tangent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,18 +340,8 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
           <td class="memname">constexpr auto tangent </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__add__expr.html#a38a5c9ca17f33ed11ccc6c1e99be6733">partials_type</a> const &amp;&#160;</td>
-          <td class="paramname"><em>ps</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>i</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>ps</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -342,7 +351,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00421">421</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00523">523</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -367,7 +376,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00385">385</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00484">484</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -383,7 +392,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00392">392</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00492">492</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -401,7 +410,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 
 <p>cached primal </p>
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00395">395</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00495">495</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -417,7 +426,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00393">393</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00493">493</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -441,7 +450,7 @@ struct bad::mixed_mode::api::mixed_add_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00384">384</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00483">483</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>

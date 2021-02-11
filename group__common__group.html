@@ -97,10 +97,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga9c6b3935020833c4cdfe376e9f3c32cc"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> = std::integer_sequence&lt; T, is... &gt;</td></tr>
 <tr class="memdesc:ga9c6b3935020833c4cdfe376e9f3c32cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">shorthand for <code>std::integer_sequence</code>  <a href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">More...</a><br /></td></tr>
 <tr class="separator:ga9c6b3935020833c4cdfe376e9f3c32cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplParams" colspan="2">template&lt;auto x, auto... xs&gt; </td></tr>
-<tr class="memitem:ga8b82d2eab50d25809abb52d8910a65c2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">aseq</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; decltype(x), x, xs... &gt;</td></tr>
-<tr class="memdesc:ga8b82d2eab50d25809abb52d8910a65c2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> with type inference, so long as there is at least one argument  <a href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">More...</a><br /></td></tr>
-<tr class="separator:ga8b82d2eab50d25809abb52d8910a65c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeb019821b6101872bb95995e023ee18e"><td class="memTemplParams" colspan="2">template&lt;auto... xs&gt; </td></tr>
+<tr class="memitem:gaeb019821b6101872bb95995e023ee18e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#gaeb019821b6101872bb95995e023ee18e">aseq</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; std::common_type_t&lt; decltype(xs)... &gt;, xs... &gt;</td></tr>
+<tr class="memdesc:gaeb019821b6101872bb95995e023ee18e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> with type inference, so long as there is at least one argument  <a href="group__common__group.html#gaeb019821b6101872bb95995e023ee18e">More...</a><br /></td></tr>
+<tr class="separator:gaeb019821b6101872bb95995e023ee18e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga04d64ef00355f2a932dc37de35da96cb"><td class="memTemplParams" colspan="2">template&lt;size_t... is&gt; </td></tr>
 <tr class="memitem:ga04d64ef00355f2a932dc37de35da96cb"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; size_t, is... &gt;</td></tr>
 <tr class="memdesc:ga04d64ef00355f2a932dc37de35da96cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>size_t</code> "sizes".  <a href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">More...</a><br /></td></tr>
@@ -113,6 +113,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; char, cs... &gt;</td></tr>
 <tr class="memdesc:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time string as a type of <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>.  <a href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">More...</a><br /></td></tr>
 <tr class="separator:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga547b940e4bf10dedf229b3405db74f93"><td class="memTemplParams" colspan="2">template&lt;bool B, class T , class E &gt; </td></tr>
+<tr class="memitem:ga547b940e4bf10dedf229b3405db74f93"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">ite</a> = std::conditional_t&lt; B, T, E &gt;</td></tr>
+<tr class="memdesc:ga547b940e4bf10dedf229b3405db74f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">if-then-else  <a href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">More...</a><br /></td></tr>
+<tr class="separator:ga547b940e4bf10dedf229b3405db74f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -125,14 +129,14 @@ Functions</h2></td></tr>
 <p>common definitions, shared across all modules </p>
 <dl class="section author"><dt>Author</dt><dd>Edward Kmett </dd></dl>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga8b82d2eab50d25809abb52d8910a65c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8b82d2eab50d25809abb52d8910a65c2">&#9670;&nbsp;</a></span>aseq</h2>
+<a id="gaeb019821b6101872bb95995e023ee18e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb019821b6101872bb95995e023ee18e">&#9670;&nbsp;</a></span>aseq</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="group__common__group.html#ga8b82d2eab50d25809abb52d8910a65c2">aseq</a> =  <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;decltype(x), x, xs...&gt;</td>
+          <td class="memname">using <a class="el" href="group__common__group.html#gaeb019821b6101872bb95995e023ee18e">aseq</a> =  <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt;std::common_type_t&lt;decltype(xs)...&gt;, xs...&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -179,6 +183,24 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga547b940e4bf10dedf229b3405db74f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga547b940e4bf10dedf229b3405db74f93">&#9670;&nbsp;</a></span>ite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">ite</a> =  std::conditional_t&lt;B,T,E&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>if-then-else </p>
+
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00088">88</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+
+</div>
+</div>
 <a id="ga04d64ef00355f2a932dc37de35da96cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga04d64ef00355f2a932dc37de35da96cb">&#9670;&nbsp;</a></span>seq</h2>
 
@@ -194,7 +216,7 @@ Functions</h2></td></tr>
 <p>A <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>size_t</code> "sizes". </p>
 <p>used to store dimensions. a.k.a. <code>std::index_sequence</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00046">46</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00047">47</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -213,7 +235,7 @@ Functions</h2></td></tr>
 <p>A <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>ptrdiff_t</code> "signed distances". </p>
 <p>Used to store strides. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00051">51</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00052">52</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -232,7 +254,7 @@ Functions</h2></td></tr>
 <p>A compile-time string as a type of <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>. </p>
 <p><code>char</code> is an integral type in C++. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00056">56</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00057">57</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -262,7 +284,7 @@ Functions</h2></td></tr>
 
 <p>allows <code>decltype("foo"_str)</code> to return the type &lsquo;str&lt;'f&rsquo;,'o','o'&gt;` </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00072">72</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00073">73</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>

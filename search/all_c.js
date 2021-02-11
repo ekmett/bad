@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['namespace_2ehh_260',['namespace.hh',['../namespace_8hh.html',1,'']]],
   ['namespaces_2emd_261',['Namespaces.md',['../_namespaces_8md.html',1,'']]],
   ['negate_262',['negate',['../group__unary__functions__group.html#ga5767738e7fb9b2f59ce551ac7138e741',1,'bad::functions::api']]],
   ['neq_263',['neq',['../group__binary__functions__group.html#ga9118be4aa09961d699c85d2aaf3ba741',1,'bad::functions::api']]],

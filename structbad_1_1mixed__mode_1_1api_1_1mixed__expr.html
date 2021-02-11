@@ -93,16 +93,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7c5c50beb08023ca4fcfbb87d3547e2f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">primal</a> () const noexcept</td></tr>
 <tr class="memdesc:a7c5c50beb08023ca4fcfbb87d3547e2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">primal value  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">More...</a><br /></td></tr>
 <tr class="separator:a7c5c50beb08023ca4fcfbb87d3547e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a797866450775e32d44230334d04a67e3"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a797866450775e32d44230334d04a67e3">dual</a> (size_t i) const noexcept</td></tr>
-<tr class="separator:a797866450775e32d44230334d04a67e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a479394fef1029381e5b4572a3b463151"><td class="memTemplParams" colspan="2">template&lt;size_t i&gt; </td></tr>
+<tr class="memitem:a479394fef1029381e5b4572a3b463151"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a479394fef1029381e5b4572a3b463151">dual</a> () const noexcept</td></tr>
+<tr class="separator:a479394fef1029381e5b4572a3b463151"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24c5deee9eeedee7303a7c33d8c16916"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a24c5deee9eeedee7303a7c33d8c16916"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">partials</a> (T bar) const noexcept</td></tr>
 <tr class="memdesc:a24c5deee9eeedee7303a7c33d8c16916"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute partials w.r.t. expression arguments  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">More...</a><br /></td></tr>
 <tr class="separator:a24c5deee9eeedee7303a7c33d8c16916"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5999cf32d1c6ef7ed8089b50ccf60760"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:a5999cf32d1c6ef7ed8089b50ccf60760"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a5999cf32d1c6ef7ed8089b50ccf60760">tangent</a> (T parts, size_t j) const noexcept</td></tr>
-<tr class="memdesc:a5999cf32d1c6ef7ed8089b50ccf60760"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the product of partials and tangents  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#a5999cf32d1c6ef7ed8089b50ccf60760">More...</a><br /></td></tr>
-<tr class="separator:a5999cf32d1c6ef7ed8089b50ccf60760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae36ca7c10cae29737eba9011e137c8cb"><td class="memTemplParams" colspan="2">template&lt;class T , size_t j&gt; </td></tr>
+<tr class="memitem:ae36ca7c10cae29737eba9011e137c8cb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">tangent</a> (T parts) const noexcept</td></tr>
+<tr class="memdesc:ae36ca7c10cae29737eba9011e137c8cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the product of partials and tangents  <a href="structbad_1_1mixed__mode_1_1api_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">More...</a><br /></td></tr>
+<tr class="separator:ae36ca7c10cae29737eba9011e137c8cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class B&gt;<br />
@@ -110,10 +111,10 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
 
 <p>mixed-mode AD expression </p>
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00052">52</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00071">71</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a797866450775e32d44230334d04a67e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a797866450775e32d44230334d04a67e3">&#9670;&nbsp;</a></span>dual()</h2>
+<a id="a479394fef1029381e5b4572a3b463151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a479394fef1029381e5b4572a3b463151">&#9670;&nbsp;</a></span>dual()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -124,8 +125,7 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
         <tr>
           <td class="memname">auto dual </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -136,7 +136,7 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00065">65</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00085">85</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -163,7 +163,7 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00054">54</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00073">73</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -193,7 +193,7 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
 
 <p>compute partials w.r.t. expression arguments </p>
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00072">72</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00092">92</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -222,12 +222,12 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
 
 <p>primal value </p>
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00060">60</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00079">79</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
-<a id="a5999cf32d1c6ef7ed8089b50ccf60760"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5999cf32d1c6ef7ed8089b50ccf60760">&#9670;&nbsp;</a></span>tangent()</h2>
+<a id="ae36ca7c10cae29737eba9011e137c8cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae36ca7c10cae29737eba9011e137c8cb">&#9670;&nbsp;</a></span>tangent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,18 +239,8 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
           <td class="memname">auto tangent </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>parts</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>j</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>parts</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -262,7 +252,7 @@ struct bad::mixed_mode::api::mixed_expr&lt; B &gt;</h3>
 
 <p>compute the product of partials and tangents </p>
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00079">79</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00099">99</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
