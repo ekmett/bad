@@ -1,12 +1,11 @@
 #include "catch.hh"
 #include "types.hh"
 #include "sequences.hh"
-#include "lists.hh"
+#include <tuple>
 
 using namespace std;
 using namespace bad;
 using namespace bad::sequences::api;
-using namespace bad::lists::api;
 
 TEST_CASE("seq_head works", "[sequences]") {
   REQUIRE(seq_head<seq<1,2,3>> == 1 );
@@ -61,7 +60,7 @@ TEST_CASE("map works","[sequences]") {
   REQUIRE(sizeof(empty) / sizeof(string) == 5);
 }
 
-#define op(...) BAD(maybe_unused) list<BAD_MAP_LIST(S,__VA_ARGS__)>
+#define op(...) BAD(maybe_unused) tuple<BAD_MAP_LIST(S,__VA_ARGS__)>
 
 TEST_CASE("einsum sketch", "[sequences]") {
   op(ij,jk,ik) mul;

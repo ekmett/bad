@@ -1,5 +1,5 @@
 #pragma once
-#include "storage_store_expr_iterator.hh"
+#include "storage/store_expr_iterator.hh"
 
 /// \file
 /// \brief storage expression templates 
@@ -208,7 +208,8 @@ namespace bad::storage::api {
 
   /// \ingroup storage_group
   template <class B, size_t d, size_t...ds>
-  struct BAD(empty_bases,nodiscard) store_rep_expr : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
+  struct BAD(empty_bases,nodiscard) store_rep_expr
+  : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
     using base_type = std::decay_t<B>;
     using element = typename base_type::element;
     using dim = seq<d,ds...>;

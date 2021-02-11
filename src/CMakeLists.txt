@@ -5,19 +5,18 @@ add_library(bad STATIC
   common.hh
   errors.hh
   functions.hh
-  lists.hh
   macros.hh
   memory.hh
   mixed_mode.hh
   operators.hh
   sequences.hh 
-  storage_namespace.hh
-  storage_show_values.hh
-  storage_store.hh
-  storage_store_expr.hh
-  storage_store_expr_iterator.hh
-  storage_store_iterator.hh
   storage.hh
+  storage/namespace.hh
+  storage/show_values.hh
+  storage/store.hh
+  storage/store_expr.hh
+  storage/store_expr_iterator.hh
+  storage/store_iterator.hh
   tapes.hh
   types.hh
 
