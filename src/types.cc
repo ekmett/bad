@@ -1,4 +1,4 @@
-#include "types.hh"
+#include "bad/types.hh"
 
 /// @file types.cc
 /// @brief type names

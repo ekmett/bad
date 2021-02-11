@@ -1,6 +1,6 @@
 #include "catch.hh"
-#include "types.hh"
-#include "sequences.hh"
+#include "bad/types.hh"
+#include "bad/sequences.hh"
 #include <tuple>
 
 using namespace std;

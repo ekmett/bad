@@ -1,7 +1,7 @@
 #include <iostream>
 #include "catch.hh"
-#include "storage.hh"
-#include "types.hh"
+#include "bad/storage.hh"
+#include "bad/types.hh"
 
 using namespace bad;
 using namespace bad::storage::api;

@@ -44,7 +44,8 @@ ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = YES
 STRIP_FROM_PATH        = \
-  "@PROJECT_SOURCE_DIR@/"
+  "@PROJECT_SOURCE_DIR@/include" \
+  "@PROJECT_SOURCE_DIR@/src"
 
 # The STRIP_FROM_INC_PATH tag can be used to strip a user-defined part of the
 # path mentioned in the documentation of a class, which tells the reader which
@@ -156,7 +157,10 @@ WARN_NO_PARAMDOC       = NO
 WARN_AS_ERROR          = NO
 WARN_FORMAT            = "$file:$line: $text"
 WARN_LOGFILE           =
-INPUT                  = "@PROJECT_SOURCE_DIR@/src" "@PROJECT_SOURCE_DIR@/Namespaces.md"
+INPUT                  = \
+  "@PROJECT_SOURCE_DIR@/src" \
+  "@PROJECT_SOURCE_DIR@/include" \
+  "@PROJECT_SOURCE_DIR@/Namespaces.md"
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.cc *.hh *.md
 RECURSIVE              = YES
@@ -336,7 +340,7 @@ ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = YES
 EXPAND_ONLY_PREDEF     = NO
 SEARCH_INCLUDES        = YES
-INCLUDE_PATH           = "@PROJECT_SOURCE_DIR@/src"
+INCLUDE_PATH           = "@PROJECT_SOURCE_DIR@/include"
 INCLUDE_FILE_PATTERNS  =
 PREDEFINED             = DOXYGEN=1
 EXPAND_AS_DEFINED      =

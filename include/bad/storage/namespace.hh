@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
-#include "attributes.hh"
-#include "sequences.hh"
+#include "bad/attributes.hh"
+#include "bad/sequences.hh"
 
 /// \file storage.hh
 /// \brief tensor storage

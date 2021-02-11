@@ -1,5 +1,5 @@
 #include "catch.hh"
-#include "mixed_mode.hh"
+#include "bad/mixed_mode.hh"
 
 using namespace bad::mixed_mode::api;
 using namespace std;

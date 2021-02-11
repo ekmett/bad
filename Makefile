@@ -5,7 +5,7 @@
 #
 # Let's puppet cmake from out here.
 
-src := $(wildcard src/*.cc) $(wildcard src/*.hh)
+src := $(wildcard src/*.cc src/**/*.cc include/*.hh include/**/*.hh)
 tests := $(basename $(wildcard t/t_*.cc))
 cmake := $(wildcard cmake/*)
 
