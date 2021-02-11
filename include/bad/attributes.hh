@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BAD_ATTRIBUTES_HH
+#define BAD_ATTRIBUTES_HH
+
 #include "macros.hh"
 
 /// \file
@@ -406,3 +408,5 @@
 #define bad_nodiscard [[nodiscard]]
 
 /// \}
+//
+#endif

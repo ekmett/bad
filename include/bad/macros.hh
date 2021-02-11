@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAD_MACROS_HH
+#define BAD_MACROS_HH
 
 /// \file
 /// \brief variadic macro utilities
@@ -74,3 +75,5 @@
  * promote the sale, use or other dealings in this Software without
  * prior written authorization from the authors.
  */
+
+#endif

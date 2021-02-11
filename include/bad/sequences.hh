@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAD_SEQUENCES_HH
+#define BAD_SEQUENCES_HH
 
 #include <cstdint>
 #include <utility>
@@ -752,3 +753,4 @@ namespace bad::sequences {
 }
 
 /// \}
+#endif

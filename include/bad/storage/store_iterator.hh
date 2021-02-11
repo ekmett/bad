@@ -1,5 +1,7 @@
-#pragma once
-#include "namespace.hh"
+#ifndef BAD_STORAGE_STORE_ITERATOR_HH
+#define BAD_STORAGE_STORE_ITERATOR_HH
+
+#include "bad/storage/namespace.hh"
 
 /// \file
 /// \author Edward Kmett
@@ -346,3 +348,5 @@ namespace bad::storage {
     }
   };
 }
+
+#endif

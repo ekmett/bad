@@ -1,11 +1,11 @@
-#pragma once
-#include "namespace.hh"
+#ifndef BAD_STORAGE_STORE_EXPR_ITERATOR_HH
+#define BAD_STORAGE_STORE_EXPR_ITERATOR_HH
+
+#include "bad/storage/namespace.hh"
 
 /// \file
 /// \author Edward Kmett
 /// \brief store_expr_iterator and const_store_expr_iterator implementations
-
-/// \{
 
 namespace bad::storage {
   /// \ingroup storage_group
@@ -308,4 +308,4 @@ namespace bad::storage {
   };
 }
 
-/// \}
+#endif

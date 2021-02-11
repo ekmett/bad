@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAD_FUNCTIONS_HH
+#define BAD_FUNCTIONS_HH
 
 #include "attributes.hh"
 #include "common.hh"
@@ -254,3 +255,5 @@ namespace bad::functions {
 }
 
 /// \}
+
+#endif

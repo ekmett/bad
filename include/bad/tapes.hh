@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BAD_TAPES_HH
+#define BAD_TAPES_HH
+
 #include <tuple>
 #include <cstdint>
 #include <limits>
@@ -8,8 +10,9 @@
 #include <dlfcn.h>
 #include <cstddef>
 #include <iostream>
-#include "types.hh"
-#include "memory.hh"
+
+#include "bad/types.hh"
+#include "bad/memory.hh"
 
 /// \file
 /// \brief Wengert lists for reverse-mode automatic differentiation
@@ -721,3 +724,5 @@ namespace bad::tapes {
 }
 
 /// \}
+
+#endif

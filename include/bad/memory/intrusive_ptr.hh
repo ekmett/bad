@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAD_MEMORY_INTRUSIVE_PTR_HH
+#define BAD_MEMORY_INTRUSIVE_PTR_HH
 
 #include <iosfwd>
 
@@ -18,7 +19,7 @@ namespace bad::memory::api {
     template <class U>
     friend class intrusive_ptr;
 
-    BAD(hd,inline,noalias)
+    BAD(hd,inline,noalias) constexpr
     intrusive_ptr() noexcept
     : p() {}
 
@@ -60,12 +61,12 @@ namespace bad::memory::api {
 
     BAD(hd,inline)
     intrusive_ptr & operator = (intrusive_ptr const & rhs) noexcept {
-      intrusive_ptr(r).swap(*this);
+      intrusive_ptr(rhs).swap(*this);
       return *this;
     }
 
-    BAD(hd,inline)
     template <class Y>
+    BAD(hd,inline)
     intrusive_ptr & operator = (intrusive_ptr<Y> const & rhs) noexcept {
       intrusive_ptr(rhs).swap(*this);
       return *this;
@@ -77,34 +78,34 @@ namespace bad::memory::api {
       return *this;
     }
 
-    BAD(hd,inline,reinitializes)
+    BAD(reinitializes,hd,inline)
     void reset() noexcept {
       intrusive_ptr().swap(*this); 
     }
 
-    BAD(hd,inline,reinitializes)
+    BAD(reinitializes,hd,inline)
     void reset(T * rhs) noexcept {
       intrusive_ptr(rhs).swap(*this);
     }
 
-    BAD(hd,inline,reinitializes)
+    BAD(reinitializes,hd,inline)
     void reset(T * rhs, bool add_ref) noexcept {
       intrusive_ptr(rhs, add_ref).swap(*this);
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,inline,pure) constexpr
     T & operator*() const noexcept {
       assert(p != nullptr);
       return *p;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,inline,pure) constexpr
     T * operator->() const noexcept {
       assert(p != nullptr);
       return p;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,inline,pure) constexpr
     T * get() const noexcept {
       return p;
     }
@@ -132,7 +133,7 @@ namespace bad::memory::api {
   };
 
   template <class T, class U>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator==(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) intrusive_ptr<U> const & b
@@ -141,7 +142,7 @@ namespace bad::memory::api {
   }
 
   template <class T, class U>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator!=(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) intrusive_ptr<U> const & b
@@ -150,7 +151,7 @@ namespace bad::memory::api {
   }
 
   template <class T>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator==(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) T * b
@@ -159,7 +160,7 @@ namespace bad::memory::api {
   }
 
   template <class T>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator!=(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) T * b
@@ -168,7 +169,7 @@ namespace bad::memory::api {
   }
 
   template <class T>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator==(
     BAD(noescape) T * a,
     BAD(noescape) intrusive_ptr<T> const & b
@@ -177,7 +178,7 @@ namespace bad::memory::api {
   }
 
   template <class T>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator!=(
     BAD(noescape) T * a,
     BAD(noescape) intrusive_ptr<T> const & b
@@ -186,7 +187,7 @@ namespace bad::memory::api {
   }
 
   template <class T, class U>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator<(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) intrusive_ptr<U> const & b
@@ -195,7 +196,7 @@ namespace bad::memory::api {
   }
 
   template <class T, class U>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator>(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) intrusive_ptr<U> const & b
@@ -204,7 +205,7 @@ namespace bad::memory::api {
   }
 
   template <class T, class U>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator<=(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) intrusive_ptr<U> const & b
@@ -213,7 +214,7 @@ namespace bad::memory::api {
   }
 
   template <class T, class U>
-  BAD(hd,inline,nodiscard) constexpr
+  BAD(hd,nodiscard,inline) constexpr
   bool operator>=(
     BAD(noescape) intrusive_ptr<T> const & a,
     BAD(noescape) intrusive_ptr<U> const & b
@@ -231,13 +232,13 @@ namespace bad::memory::api {
   }
 
   template <class T>
-  BAD(hd,nodiscard,inline)
+  BAD(hd,nodiscard,inline) constexpr
   T * get_pointer(intrusive_ptr<T> const & p) noexcept {
     return p.get();
   }
 
   template <class T, class U>
-  BAD(hd,nodiscard,inline)
+  BAD(hd,nodiscard,inline) constexpr
   intrusive_ptr<T> static_pointer_cast(
     intrusive_ptr<U> const & p
   ) noexcept {
@@ -245,7 +246,7 @@ namespace bad::memory::api {
   }
 
   template <class T, class U>
-  BAD(hd,nodiscard,inline)
+  BAD(hd,nodiscard,inline) constexpr
   intrusive_ptr<T> const_pointer_cast(
     intrusive_ptr<U> const & p
   ) noexcept {
@@ -273,7 +274,7 @@ namespace bad::memory::api {
 namespace std {
   template <class T>
   struct BAD(empty_bases) hash<bad::memory::api::intrusive_ptr<T>> {
-    BAD(hd,inline,nodiscard)
+    BAD(hd,nodiscard,inline)
     std::size_t operator()(
       BAD(noescape) bad::memory::api::intrusive_ptr<T> const & p
     ) const noexcept {
@@ -281,3 +282,5 @@ namespace std {
     }
   };
 }
+
+#endif

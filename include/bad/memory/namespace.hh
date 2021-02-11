@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAD_MEMORY_NAMESPACE_HH
+#define BAD_MEMORY_NAMESPACE_HH
 
 /// \file
 /// \brief memory allocation namespace
@@ -26,3 +27,5 @@ namespace bad {
   }
   using namespace memory::common;
 }
+
+#endif

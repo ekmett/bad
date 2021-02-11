@@ -1,12 +1,12 @@
-#pragma once
-#include "store_expr.hh"
-#include "store_iterator.hh"
+#ifndef BAD_STORAGE_STORE_HH
+#define BAD_STORAGE_STORE_HH
+
+#include "bad/storage/store_expr.hh"
+#include "bad/storage/store_iterator.hh"
 
 /// \file
 /// \brief store implementation
 /// \author Edward Kmett
-///
-/// \{
 
 namespace bad::storage::common {
 
@@ -646,4 +646,4 @@ namespace bad::storage::api {
   }
 }
 
-/// \}
+#endif

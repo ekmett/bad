@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BAD_MIXED_MODE_HH
+#define BAD_MIXED_MODE_HH
+
 #include <type_traits>
 #include "attributes.hh"
 #include "sequences.hh"
@@ -634,3 +636,4 @@ namespace bad::mixed_mode::api {
 }
 
 /// \}
+#endif

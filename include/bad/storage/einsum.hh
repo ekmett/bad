@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BAD_STORAGE_EINSUM_HH
+#define BAD_STORAGE_EINSUM_HH
+
 #include "store_expr.hh"
 
 /// \file
@@ -144,3 +146,5 @@ namespace bad::storage::api {
 }
 
 /// \}
+
+#endif

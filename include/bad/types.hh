@@ -1,9 +1,10 @@
-#pragma once
+#ifndef BAD_TYPES_HH
+#define BAD_TYPES_HH
+
 #include <string>
 #include <typeinfo>
-#include "common.hh"
-#include "attributes.hh"
-
+#include "bad/common.hh"
+#include "bad/attributes.hh"
 
 /// \file
 /// \brief type names
@@ -60,3 +61,5 @@ namespace bad::types::common {
 }
 
 /// \}
+
+#endif

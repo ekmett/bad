@@ -1,10 +1,10 @@
-#pragma once
-#include "store_expr.hh"
+#ifndef BAD_STORAGE_SHOW_VALUES_HH
+#define BAD_STORAGE_SHOW_VALUES_HH
+
+#include "bad/storage/store_expr.hh"
 
 /// \file
 /// \author Edward Kmett
-///
-/// \{
 
 namespace bad::storage::api {
 
@@ -48,4 +48,4 @@ namespace bad::storage::api {
     -> show_values<d,T*>;
 }
 
-/// \}
+#endif

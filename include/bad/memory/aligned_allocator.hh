@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BAD_MEMORY_ALIGNED_ALLOCATOR_HH
+#define BAD_MEMORY_ALIGNED_ALLOCATOR_HH
+
 #include <cstdint>
 #include <limits>
 #include <type_traits>
@@ -89,3 +91,4 @@ namespace bad::memory::api {
   /// \ingroup memory_group
   using default_allocator = aligned_allocator<std::byte, record_alignment>;
 }
+#endif

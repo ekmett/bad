@@ -1,11 +1,11 @@
-#pragma once
-#include "store_expr_iterator.hh"
+#ifndef BAD_STORAGE_STORE_EXPR_HH
+#define BAD_STORAGE_STORE_EXPR_HH
+
+#include "bad/storage/store_expr_iterator.hh"
 
 /// \file
 /// \brief storage expression templates
 /// \author Edward Kmett
-///
-/// \{
 
 namespace bad::storage::api {
   /// variadic expression template
@@ -406,4 +406,4 @@ namespace bad::storage::common {
   }
 }
 
-/// \}
+#endif

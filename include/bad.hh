@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BAD_HH
+#define BAD_HH
+
 #include "bad/attributes.hh"
 #include "bad/common.hh"
 #include "bad/errors.hh"
@@ -11,3 +13,5 @@
 #include "bad/storage.hh"
 #include "bad/tapes.hh"
 #include "bad/types.hh"
+
+#endif

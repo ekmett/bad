@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAD_COMMON_HH
+#define BAD_COMMON_HH
 
 #include <algorithm> // std::max
 #include <cstddef>   // std::size_t, std::ptrdiff_t
@@ -89,3 +90,5 @@ namespace bad {
 }
 
 /// \}
+
+#endif

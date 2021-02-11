@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BAD_STORAGE_NAMESPACE_HH
+#define BAD_STORAGE_NAMESPACE_HH
+
 #include <array>
 #include "bad/attributes.hh"
 #include "bad/sequences.hh"
@@ -42,3 +44,4 @@ namespace bad::storage {
 }
 
 /// \}
+#endif

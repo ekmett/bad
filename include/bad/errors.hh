@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAD_ERRORS_HH
+#define BAD_ERRORS_HH
 
 #include <type_traits>
 
@@ -50,3 +51,5 @@ namespace bad::errors::common {
   constexpr bool no = no_<T>::value;
 }
 /// \}
+
+#endif
