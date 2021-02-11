@@ -122,6 +122,11 @@ namespace bad::memory::api {
       return p != nullptr;
     }
 
+    BAD(hd,inline,pure)
+    bool operator ! () const noexcept {
+      return p == nullptr;
+    }
+
     BAD(hd,inline,noalias)
     void swap(
       BAD(noescape) intrusive_ptr & rhs
@@ -131,6 +136,11 @@ namespace bad::memory::api {
       rhs.p = t;
     }
   };
+
+  // CTAD guides
+  template <class T> intrusive_ptr(T * p) -> intrusive_ptr<T>;
+  template <class T> intrusive_ptr(intrusive_ptr<T> const & p) -> intrusive_ptr<T>;
+  template <class T> intrusive_ptr(intrusive_ptr<T> && p) -> intrusive_ptr<T>;
 
   template <class T, class U>
   BAD(hd,nodiscard,inline) constexpr
