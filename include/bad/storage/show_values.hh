@@ -6,7 +6,7 @@
 /// \file
 /// \author Edward Kmett
 
-namespace bad {
+namespace bad::storage {
 
   /// used to show the values in an expr or fixed array
   /// \ingroup storage_group
@@ -46,6 +46,11 @@ namespace bad {
   template <size_t d, class T>
   show_values(T(&)[d])
     -> show_values<d,T*>;
+}
+
+namespace bad {
+  using namespace bad::storage;
+
 }
 
 #endif

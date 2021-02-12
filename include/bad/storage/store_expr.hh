@@ -7,7 +7,7 @@
 /// \brief storage expression templates
 /// \author Edward Kmett
 
-namespace bad {
+namespace bad::storage {
   /// variadic expression template
   /// \ingroup storage_group
   template <class B, size_t d, size_t... ds>
@@ -402,6 +402,10 @@ namespace bad {
   ) noexcept {
     return rhs().template pull<N>(i);
   }
+}
+
+namespace bad {
+  using namespace bad::storage;
 }
 
 #endif

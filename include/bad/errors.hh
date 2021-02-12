@@ -10,7 +10,7 @@
 /// \ingroup internals_group
 /// better errors for users
 
-namespace bad {
+namespace bad::errors {
   namespace detail {
     /// undetectable `false`, traditional template form.
     /// After all, the user _could_ at least theoretically partially specialize this template
@@ -30,6 +30,10 @@ namespace bad {
   /// \ingroup errors_group
   template <class T>
   constexpr bool no = detail::no_<T>::value;
+}
+
+namespace bad {
+  using namespace bad::errors;
 }
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "bad/common.hh"
 
-namespace bad {
+namespace bad::memory {
 
   // TODO: incorporate an allocator into the policy so we can free on the gpu, etc.
 
@@ -107,6 +107,11 @@ namespace bad {
     assert(rhs != nullptr);
     rhs->release();
   }
+}
+
+namespace bad {
+  using namespace bad::memory;
+
 }
 
 #endif

@@ -12,7 +12,7 @@
 /// \file
 /// \brief aligned memory allocation
 
-namespace bad {
+namespace bad::memory {
   /// \ingroup memory_group
   static constexpr size_t record_alignment = 16;
   /// \ingroup memory_group
@@ -89,6 +89,10 @@ namespace bad {
 
   /// \ingroup memory_group
   using default_allocator = aligned_allocator<std::byte, record_alignment>;
+}
+
+namespace bad {
+  using namespace bad::memory;
 }
 
 #endif

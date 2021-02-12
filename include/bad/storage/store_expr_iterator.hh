@@ -8,7 +8,7 @@
 /// \author Edward Kmett
 /// \brief store_expr_iterator and const_store_expr_iterator implementations
 
-namespace bad::detail {
+namespace bad::storage::detail {
   /// \ingroup storage_group
   template <class B, size_t d>
   struct const_store_expr_iterator {

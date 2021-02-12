@@ -87,8 +87,8 @@ TAB_SIZE               = 8
 # commands \{ and \} for these it is advised to use the version @{ and @} or use
 # a double escape (\\{ and \\})
 
-# ALIASES = "meta=@private^^"
-ALIASES = "meta="
+ALIASES = "meta=@private^^"
+# ALIASES = "meta="
 
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO

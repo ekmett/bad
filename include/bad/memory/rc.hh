@@ -5,7 +5,7 @@
 
 #include "bad/attributes.hh"
 
-namespace bad {
+namespace bad::memory {
 
   // reference counted intrusive pointers
   template <class T>
@@ -291,6 +291,10 @@ namespace std {
       return std::hash<T*>{}(p.get());
     }
   };
+}
+
+namespace bad {
+  using namespace bad::memory;
 }
 
 #endif

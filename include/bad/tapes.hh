@@ -21,13 +21,13 @@
 /// \defgroup tapes_group tapes
 /// \brief Wengert lists for reverse-mode automatic differentiation
 
-namespace bad {
+namespace bad::tapes {
   static constexpr size_t no_index = static_cast<size_t>(-1);
 
   /// \brief Tape sensitivities. Constructed with tape::push.
   ///
   /// Describes how to push information backwards through your activations
-  /// by using the information stored in the \ref bad::tape "tape".
+  /// by using the information stored in the \ref bad::tapes::tape "tape".
   /// \ingroup tapes_group
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct abstract_record;
@@ -161,11 +161,11 @@ namespace bad {
     BAD(hd,assume_aligned(record_alignment),noalias)
     virtual link<T,Act,Allocator> * as_link() noexcept { return nullptr; }
 
-    /// unlike usual, the result can be reached through the \ref bad::tape "tape".
+    /// unlike usual, the result can be reached through the \ref bad::tapes::tape "tape".
     BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
     void * operator new(size_t size, BAD(noescape) tape_t & tape) noexcept;
 
-    /// used internally. returns nullptr if the \ref bad::segment "segment" is out of room.
+    /// used internally. returns nullptr if the \ref bad::tapes::segment "segment" is out of room.
     BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
     void * operator new(size_t size, BAD(noescape) segment<T, Act, Allocator> & segment) noexcept;
 
@@ -693,6 +693,10 @@ namespace bad {
     assert(result != nullptr);
     return result;
   }
+}
+
+namespace bad {
+  using namespace bad::tapes;
 }
 
 #endif

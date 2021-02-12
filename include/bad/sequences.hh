@@ -15,7 +15,7 @@
 /// \defgroup sequences_group sequences
 /// \brief type level sequences
 
-namespace bad {
+namespace bad::sequences {
 
   /// sequence construction, shorter `std::make_integer_sequence`
   template <class T, T x>
@@ -711,6 +711,10 @@ namespace bad {
   /// \ingroup sequences_group
   template <auto N>
   using forN = detail::seq_for<make_seq<N>>;
+}
+
+namespace bad {
+  using namespace bad::sequences;
 }
 
 #endif

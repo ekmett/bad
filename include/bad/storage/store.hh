@@ -9,7 +9,7 @@
 /// \brief store implementation
 /// \author Edward Kmett
 
-namespace bad {
+namespace bad::storage {
 
   /// \ingroup storage_group
   template <class T, class Dim, class Stride = row_major<Dim>>
@@ -37,6 +37,7 @@ namespace bad {
     template <size_t d0, ptrdiff_t s0>
     using ext = store<T,seq<d0>,sseq<s0>>;
 
+    /// \meta
     template <auto j>
     struct tie_type {
       static constexpr ptrdiff_t step = 0;
@@ -44,6 +45,7 @@ namespace bad {
       using type = store;
     };
 
+    /// \meta
     template <auto j, size_t jd>
     using tied_type = tie_type<j>;
 
@@ -482,9 +484,11 @@ namespace bad {
       return os << "}";
     }
 
+    /// \meta
     template <auto j, size_t jd, decltype(j)...is>
     struct tied_type ;
 
+    /// \meta
     template <auto j, size_t jd>
     struct tied_type<j,jd> {
       static constexpr ptrdiff_t step = 0;
@@ -492,6 +496,7 @@ namespace bad {
       using type = store;
     };
 
+    /// \meta
     template <auto j, size_t jd, decltype(j) i, decltype(j)...is>
     struct tied_type<j,jd,i,is...> {
       static_assert((i != j) || (jd == d), "dimension mismatch");
@@ -547,9 +552,11 @@ namespace bad {
       return tied_begin<j,jd,is...>()[k];
     }
 
+    /// \meta
     template <auto j, decltype(j)...is>
     struct tie_type;
 
+    /// \meta
     template <auto j>
     struct tie_type<j> {
       static constexpr ptrdiff_t step = 0;
@@ -557,6 +564,7 @@ namespace bad {
       using type = store;
     };
 
+    /// \meta
     template <auto j, decltype(j) i, decltype(j)...is>
     struct tie_type<j,i,is...> {
       using p = std::conditional_t<i==j, typename plane::template tied_type<j,d,is...>, typename plane::template tie_type<j,is...>>;
@@ -641,6 +649,10 @@ namespace bad {
   auto rep(T t) noexcept -> store<T,seq<d>,sseq<0>> {
     return t;
   }
+}
+
+namespace bad {
+  using namespace bad::storage;
 }
 
 #endif

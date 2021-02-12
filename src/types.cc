@@ -8,7 +8,7 @@
 #include <memory>
 #include <cxxabi.h>
 
-std::string bad::demangle(char const * name) {
+std::string bad::types::demangle(char const * name) {
   int status = -4;
   std::unique_ptr<char, void(*)(void*)> res {
     abi::__cxa_demangle(name, NULL, NULL, &status),
@@ -19,7 +19,7 @@ std::string bad::demangle(char const * name) {
 
 #else
 
-std::string bad::demangle(char const * name) {
+std::string bad::types::demangle(char const * name) {
   return name;
 }
 

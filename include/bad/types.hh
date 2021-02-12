@@ -14,7 +14,7 @@
 /// \brief type names
 /// \ingroup internals_group
 
-namespace bad {
+namespace bad::types {
   /// demangle a type name with the C++ ABI if available
   /// \ingroup types_group
   /// \private
@@ -36,6 +36,10 @@ namespace bad {
   std::string type_name() noexcept {
     return demangle(typeid(T).name());
   }
+}
+
+namespace bad {
+  using namespace bad::types;
 }
 
 #endif

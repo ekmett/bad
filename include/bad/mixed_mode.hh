@@ -24,11 +24,16 @@
 /// and to use modern language features.
 ///
 /// TODO: replace `N` with a list of types, so we can mix fp16 values, floats, etc.
-/// this will allow a much more general \ref bad::diff "diff"
+/// this will allow a much more general \ref bad::mixed_mode::diff "diff"
 ///
 /// TODO: struct BAD(nodiscard) mixed_expr
 
 namespace bad {
+  namespace mixed_mode {}
+  using namespace bad::mixed_mode;
+}
+
+namespace bad::mixed_mode {
   /// \brief mixed-mode AD expression
   /// \ingroup mixed_mode_group
   template <class B>
@@ -244,7 +249,7 @@ namespace bad {
 namespace std {
   /// \ingroup mixed_mode_group
   /// allows destructuring bind of a mixed_expression as
-  /// combined with \ref bad::get "get", this allows
+  /// combined with \ref bad::mixed_mode::get "get", this allows
   ///
   /// ~~~{.cc}
   /// auto [p,dx,dy,dz] = ...
@@ -254,7 +259,7 @@ namespace std {
   : std::integral_constant<size_t, B::size + 1> {};
 }
 
-namespace bad {
+namespace bad::mixed_mode {
   /// copy shape from a mixed expression
   /// \ingroup mixed_mode_group
   template <class B>

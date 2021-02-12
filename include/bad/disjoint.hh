@@ -16,7 +16,7 @@
 /// \defgroup disjoint_sets_group disjoint sets
 /// disjoint set forests
 
-namespace bad {
+namespace bad::disjoint_sets {
   namespace detail {
     /// \private
     /// \ingroup disjoint_sets_group
@@ -264,6 +264,10 @@ namespace bad {
   auto merge(Args...args) noexcept {
     return (args | ...);
   }
+}
+
+namespace bad {
+  using namespace bad::disjoint_sets;
 }
 
 #endif
