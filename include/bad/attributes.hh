@@ -7,6 +7,7 @@
 /// macros for applying attributes.
 ///
 /// \defgroup attributes attributes
+/// \ingroup internals_group
 /// macros for applying attributes to functions, members, arguments, etc.
 /// \{
 ///

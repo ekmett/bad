@@ -7,6 +7,7 @@
 /// better errors for users
 ///
 /// \defgroup errors_group errors
+/// \ingroup internals_group
 /// better errors for users
 
 namespace bad {

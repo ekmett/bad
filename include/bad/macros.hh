@@ -8,6 +8,7 @@
 
 /// \defgroup macros macros
 /// \brief variadic macro utilities
+/// \ingroup internals_group
 
 #define BAD_EVAL0_(...) __VA_ARGS__
 #define BAD_EVAL1_(...) BAD_EVAL0_(BAD_EVAL0_(BAD_EVAL0_(__VA_ARGS__)))

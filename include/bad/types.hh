@@ -12,6 +12,7 @@
 
 /// \defgroup types_group types
 /// \brief type names
+/// \ingroup internals_group
 
 namespace bad {
   /// demangle a type name with the C++ ABI if available
