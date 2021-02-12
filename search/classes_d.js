@@ -1,14 +1,6 @@
 var searchData=
 [
-  ['tape_609',['tape',['../structbad_1_1tapes_1_1common_1_1tape.html',1,'bad::tapes::common']]],
-  ['tape_5fiterator_610',['tape_iterator',['../structbad_1_1tapes_1_1tape__iterator.html',1,'bad::tapes']]],
-  ['terminator_611',['terminator',['../structbad_1_1tapes_1_1terminator.html',1,'bad::tapes']]],
-  ['tie_5ftype_612',['tie_type',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s75965eda08d2fa87a4ee798a38bf6d94',1,'store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;::tie_type&lt; j, is &gt;'],['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_4_00_01sseq_3_4_01_4_1_1tie__type.html',1,'store&lt; T, seq&lt;&gt;, sseq&lt;&gt; &gt;::tie_type&lt; j &gt;']]],
-  ['tie_5ftype_3c_20j_20_3e_613',['tie_type&lt; j &gt;',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01sb1b8b1a27c0b3571a67b21f49a6b7922.html',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tie_5ftype_3c_20j_2c_20i_2c_20is_2e_2e_2e_20_3e_614',['tie_type&lt; j, i, is... &gt;',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01sf0a3dcbb6ecdd1fea989fd4ecc285e47.html',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tied_5ftype_615',['tied_type',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s121c0277d58e5143766a95038c3e18d8',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tied_5ftype_3c_20j_2c_20jd_20_3e_616',['tied_type&lt; j, jd &gt;',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01se94760ba33da30b736d28aaedb332bf5.html',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tied_5ftype_3c_20j_2c_20jd_2c_20i_2c_20is_2e_2e_2e_20_3e_617',['tied_type&lt; j, jd, i, is... &gt;',['../structbad_1_1storage_1_1common_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s52be457a0ae62d6abb2d2b7e680f972e.html',1,'bad::storage::common::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['totally_5fordered_618',['totally_ordered',['../structbad_1_1operators_1_1api_1_1totally__ordered.html',1,'bad::operators::api']]],
-  ['tuple_5fsize_3c_20bad_3a_3amixed_5fmode_3a_3aapi_3a_3amixed_5fexpr_3c_20b_20_3e_20_3e_619',['tuple_size&lt; bad::mixed_mode::api::mixed_expr&lt; B &gt; &gt;',['../structstd_1_1tuple__size_3_01bad_1_1mixed__mode_1_1api_1_1mixed__expr_3_01_b_01_4_01_4.html',1,'std']]]
+  ['v2b_500',['v2b',['../group__functions__group.html#structbad_1_1v2b',1,'bad']]],
+  ['v2u_501',['v2u',['../group__functions__group.html#structbad_1_1v2u',1,'bad']]],
+  ['v2v_502',['v2v',['../group__functions__group.html#structbad_1_1v2v',1,'bad']]]
 ];

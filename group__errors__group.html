@@ -70,39 +70,20 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">errors</div>  </div>
+<div class="title">errors<div class="ingroups"><a class="el" href="group__internals__group.html">internals</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>better errors for users  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacebad_1_1errors"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1errors.html">bad::errors</a></td></tr>
-<tr class="memdesc:namespacebad_1_1errors"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__errors__group.html">errors</a> internals, import <a class="el" href="namespacebad_1_1errors_1_1api.html" title="See errors for a complete listing.">bad::errors::api</a> <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebad_1_1errors_1_1common"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1errors_1_1common.html">bad::errors::common</a></td></tr>
-<tr class="memdesc:namespacebad_1_1errors_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">re-exported by <a class="el" href="namespacebad.html">bad</a> and <a class="el" href="namespacebad_1_1errors_1_1api.html" title="See errors for a complete listing.">bad::errors::api</a> <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebad_1_1errors_1_1api"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1errors_1_1api.html">bad::errors::api</a></td></tr>
-<tr class="memdesc:namespacebad_1_1errors_1_1api"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="group__errors__group.html">errors</a> for a complete listing. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1errors_1_1no__.html">no_&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">undetectable <code>false</code>, traditional template form.  <a href="structbad_1_1errors_1_1no__.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ga2dbb46006bfca9d0091c83e1f4f70410"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:ga2dbb46006bfca9d0091c83e1f4f70410"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__errors__group.html#ga2dbb46006bfca9d0091c83e1f4f70410">no</a> = <a class="el" href="structbad_1_1errors_1_1no__.html">no_</a>&lt;T&gt;::value</td></tr>
+<tr class="memitem:ga2dbb46006bfca9d0091c83e1f4f70410"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__errors__group.html#ga2dbb46006bfca9d0091c83e1f4f70410">no</a> = detail::no_&lt;T&gt;::value</td></tr>
 <tr class="memdesc:ga2dbb46006bfca9d0091c83e1f4f70410"><td class="mdescLeft">&#160;</td><td class="mdescRight">an undetectable <code>false</code> as a variable template.  <a href="group__errors__group.html#ga2dbb46006bfca9d0091c83e1f4f70410">More...</a><br /></td></tr>
 <tr class="separator:ga2dbb46006bfca9d0091c83e1f4f70410"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -119,7 +100,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool no = <a class="el" href="structbad_1_1errors_1_1no__.html">no_</a>&lt;T&gt;::value</td>
+          <td class="memname">constexpr bool no = detail::no_&lt;T&gt;::value</td>
         </tr>
       </table>
   </td>
@@ -132,7 +113,7 @@ Variables</h2></td></tr>
 <p>an undetectable <code>false</code> as a variable template. </p>
 <p>For use with <code>static_assert</code> to allow me to rule out the unspecialized case when partial template specialization is required. This allows us to give the user informative error messaages, rather than just say the template isn't instantiated. </p>
 
-<p class="definition">Definition at line <a class="el" href="errors_8hh_source.html#l00050">50</a> of file <a class="el" href="errors_8hh_source.html">errors.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="errors_8hh_source.html#l00032">32</a> of file <a class="el" href="errors_8hh_source.html">errors.hh</a>.</p>
 
 </div>
 </div>

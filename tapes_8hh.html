@@ -89,39 +89,40 @@ $(function() {
 <code>#include &lt;dlfcn.h&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
-<code>#include &quot;<a class="el" href="types_8hh_source.html">types.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="memory_8hh_source.html">memory.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="types_8hh_source.html">bad/types.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="memory_8hh_source.html">bad/memory.hh</a>&quot;</code><br />
 </div>
 <p><a href="tapes_8hh_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1segment.html">segment&lt; T, Act, Allocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">holds several <a class="el" href="structbad_1_1tapes_1_1abstract__record.html">abstract_record</a> entries in a slab of aligned memory  <a href="structbad_1_1tapes_1_1segment.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1segment.html">segment&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">holds several <a class="el" href="structbad_1_1abstract__record.html">abstract_record</a> entries in a slab of aligned memory  <a href="structbad_1_1segment.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1link.html">link&lt; T, Act, Allocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">inherits from <a class="el" href="structbad_1_1tapes_1_1abstract__record.html">abstract_record</a> but doxygen is broken and can't figure this out.  <a href="structbad_1_1tapes_1_1link.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1link.html">link&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">inherits from <a class="el" href="structbad_1_1abstract__record.html">abstract_record</a> but doxygen is broken and can't figure this out.  <a href="structbad_1_1link.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1abstract__record.html">abstract_record&lt; T, Act, Allocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tape sensitivities.  <a href="structbad_1_1tapes_1_1abstract__record.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1abstract__record.html">abstract_record&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tape sensitivities.  <a href="structbad_1_1abstract__record.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1terminator.html">terminator&lt; T, Act, Allocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the last segment in a tape.  <a href="structbad_1_1tapes_1_1terminator.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1terminator.html">terminator&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">the last segment in a tape.  <a href="structbad_1_1terminator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1link.html">link&lt; T, Act, Allocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">inherits from <a class="el" href="structbad_1_1tapes_1_1abstract__record.html">abstract_record</a> but doxygen is broken and can't figure this out.  <a href="structbad_1_1tapes_1_1link.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1link.html">link&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">inherits from <a class="el" href="structbad_1_1abstract__record.html">abstract_record</a> but doxygen is broken and can't figure this out.  <a href="structbad_1_1link.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1common_1_1record.html">record&lt; B, T, Act, Allocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a non-terminal entry designed for allocation in a slab  <a href="structbad_1_1tapes_1_1common_1_1record.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1record.html">record&lt; B, T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a non-terminal entry designed for allocation in a slab  <a href="structbad_1_1record.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1common_1_1static__record.html">static_record&lt; Acts, B, T, Act, Allocator &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a non-terminal entry designed for allocation in a slab, that produces a fixed number of activation abstract_records  <a href="structbad_1_1tapes_1_1common_1_1static__record.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1static__record.html">static_record&lt; Acts, B, T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a non-terminal entry designed for allocation in a slab, that produces a fixed number of activation abstract_records  <a href="structbad_1_1static__record.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1const__tape__iterator.html">const_tape_iterator&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1const__tape__iterator.html">const_tape_iterator&lt; T, Act, Allocator &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1tape__iterator.html">tape_iterator&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tape__iterator.html">tape_iterator&lt; T, Act, Allocator &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tapes_1_1common_1_1tape.html">tape&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1tape.html">tape&lt; T, Act, Allocator &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wengert list.  <a href="structbad_1_1tape.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -129,33 +130,24 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacebad"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad.html">bad</a></td></tr>
 <tr class="memdesc:namespacebad"><td class="mdescLeft">&#160;</td><td class="mdescRight">top level namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebad_1_1tapes"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1tapes.html">bad::tapes</a></td></tr>
-<tr class="memdesc:namespacebad_1_1tapes"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="group__tapes__group.html">tapes</a> internals, import <a class="el" href="namespacebad_1_1tapes_1_1api.html" title="See tapes for a complete listing.">bad::tapes::api</a> <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebad_1_1tapes_1_1common"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1tapes_1_1common.html">bad::tapes::common</a></td></tr>
-<tr class="memdesc:namespacebad_1_1tapes_1_1common"><td class="mdescLeft">&#160;</td><td class="mdescRight">re-exported by <a class="el" href="namespacebad.html">bad</a> and <a class="el" href="namespacebad_1_1tapes_1_1api.html" title="See tapes for a complete listing.">bad::tapes::api</a> <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebad_1_1tapes_1_1api"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1tapes_1_1api.html">bad::tapes::api</a></td></tr>
-<tr class="memdesc:namespacebad_1_1tapes_1_1api"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="group__tapes__group.html">tapes</a> for a complete listing. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga37b6d8dd3f31e3f1ae615aa39e014571"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
-<tr class="memitem:ga37b6d8dd3f31e3f1ae615aa39e014571"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#ga37b6d8dd3f31e3f1ae615aa39e014571">swap</a> (segment&lt; T, Act, Allocator &gt; &amp;a, segment&lt; T, Act, Allocator &gt; &amp;b) noexcept</td></tr>
-<tr class="separator:ga37b6d8dd3f31e3f1ae615aa39e014571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8aff933d50cf7ad5af903ce039ee8641"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
-<tr class="memitem:ga8aff933d50cf7ad5af903ce039ee8641"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#ga8aff933d50cf7ad5af903ce039ee8641">operator&lt;&lt;</a> (std::ostream &amp;os, const abstract_record&lt; T, Act, Allocator &gt; &amp;d) noexcept</td></tr>
-<tr class="separator:ga8aff933d50cf7ad5af903ce039ee8641"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7dd82ce52b3b6679acca863241157224"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
-<tr class="memitem:ga7dd82ce52b3b6679acca863241157224"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#ga7dd82ce52b3b6679acca863241157224">swap</a> (tape&lt; T, Act, Allocator &gt; &amp;a, tape&lt; T, Act, Allocator &gt; &amp;b) noexcept</td></tr>
-<tr class="separator:ga7dd82ce52b3b6679acca863241157224"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae3246185e62a137914a59be108cafc36"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
-<tr class="memitem:gae3246185e62a137914a59be108cafc36"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#gae3246185e62a137914a59be108cafc36">swap</a> (tape_iterator&lt; T, Act, Allocator &gt; &amp;a, tape_iterator&lt; T, Act, Allocator &gt; &amp;b)</td></tr>
-<tr class="separator:gae3246185e62a137914a59be108cafc36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga169070ab7ffbabf38f4808a7a585415e"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
-<tr class="memitem:ga169070ab7ffbabf38f4808a7a585415e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#ga169070ab7ffbabf38f4808a7a585415e">swap</a> (const_tape_iterator&lt; T, Act, Allocator &gt; &amp;a, const_tape_iterator&lt; T, Act, Allocator &gt; &amp;b)</td></tr>
-<tr class="separator:ga169070ab7ffbabf38f4808a7a585415e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8435991dc37317672648cb925f7b90d"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
+<tr class="memitem:gaa8435991dc37317672648cb925f7b90d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#gaa8435991dc37317672648cb925f7b90d">swap</a> (segment&lt; T, Act, Allocator &gt; &amp;a, segment&lt; T, Act, Allocator &gt; &amp;b) noexcept</td></tr>
+<tr class="separator:gaa8435991dc37317672648cb925f7b90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4dd5e5c20fdcee5ce6ab59039fb8ade4"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
+<tr class="memitem:ga4dd5e5c20fdcee5ce6ab59039fb8ade4"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#ga4dd5e5c20fdcee5ce6ab59039fb8ade4">operator&lt;&lt;</a> (std::ostream &amp;os, const abstract_record&lt; T, Act, Allocator &gt; &amp;d) noexcept</td></tr>
+<tr class="separator:ga4dd5e5c20fdcee5ce6ab59039fb8ade4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3db5add827a72972dcee4db81f2709a1"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
+<tr class="memitem:ga3db5add827a72972dcee4db81f2709a1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#ga3db5add827a72972dcee4db81f2709a1">swap</a> (tape&lt; T, Act, Allocator &gt; &amp;a, tape&lt; T, Act, Allocator &gt; &amp;b) noexcept</td></tr>
+<tr class="separator:ga3db5add827a72972dcee4db81f2709a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf5e08b21a05ff226601a25cf640328c"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
+<tr class="memitem:gabf5e08b21a05ff226601a25cf640328c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#gabf5e08b21a05ff226601a25cf640328c">swap</a> (tape_iterator&lt; T, Act, Allocator &gt; &amp;a, tape_iterator&lt; T, Act, Allocator &gt; &amp;b)</td></tr>
+<tr class="separator:gabf5e08b21a05ff226601a25cf640328c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga33dea6bd50674030f6750455daa5dced"><td class="memTemplParams" colspan="2">template&lt;class T , class Act , class Allocator &gt; </td></tr>
+<tr class="memitem:ga33dea6bd50674030f6750455daa5dced"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__tapes__group.html#ga33dea6bd50674030f6750455daa5dced">swap</a> (const_tape_iterator&lt; T, Act, Allocator &gt; &amp;a, const_tape_iterator&lt; T, Act, Allocator &gt; &amp;b)</td></tr>
+<tr class="separator:ga33dea6bd50674030f6750455daa5dced"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Wengert lists for reverse-mode automatic differentiation. </p>

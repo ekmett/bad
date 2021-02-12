@@ -73,32 +73,35 @@ $(function() {
 <div class="title">bad.hh</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="bad_8hh.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="attributes_8hh.html">bad/attributes.hh</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="common_8hh.html">bad/common.hh</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="errors_8hh.html">bad/errors.hh</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="functions_8hh.html">bad/functions.hh</a>&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="macros_8hh.html">bad/macros.hh</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="memory_8hh.html">bad/memory.hh</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mixed__mode_8hh.html">bad/mixed_mode.hh</a>&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="operators_8hh.html">bad/operators.hh</a>&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="sequences_8hh.html">bad/sequences.hh</a>&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="storage_8hh.html">bad/storage.hh</a>&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tapes_8hh.html">bad/tapes.hh</a>&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="types_8hh.html">bad/types.hh</a>&quot;</span></div>
+<a href="bad_8hh.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef BAD_HH</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define BAD_HH</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="attributes_8hh.html">bad/attributes.hh</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="common_8hh.html">bad/common.hh</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="disjoint_8hh.html">bad/disjoint.hh</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="errors_8hh.html">bad/errors.hh</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="macros_8hh.html">bad/macros.hh</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="memory_8hh.html">bad/memory.hh</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mixed__mode_8hh.html">bad/mixed_mode.hh</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="sequences_8hh.html">bad/sequences.hh</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="storage_8hh.html">bad/storage.hh</a>&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tapes_8hh.html">bad/tapes.hh</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="types_8hh.html">bad/types.hh</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="atypes_8hh_html"><div class="ttname"><a href="types_8hh.html">types.hh</a></div><div class="ttdoc">type names</div></div>
 <div class="ttc" id="acommon_8hh_html"><div class="ttname"><a href="common_8hh.html">common.hh</a></div><div class="ttdoc">common definitions, shared across all modules</div></div>
-<div class="ttc" id="afunctions_8hh_html"><div class="ttname"><a href="functions_8hh.html">functions.hh</a></div><div class="ttdoc">for use with seq_zip and the like</div></div>
-<div class="ttc" id="astorage_8hh_html"><div class="ttname"><a href="storage_8hh.html">storage.hh</a></div><div class="ttdoc">tensor storage</div></div>
+<div class="ttc" id="adisjoint_8hh_html"><div class="ttname"><a href="disjoint_8hh.html">disjoint.hh</a></div><div class="ttdoc">disjoint set forests</div></div>
+<div class="ttc" id="astorage_8hh_html"><div class="ttname"><a href="storage_8hh.html">storage.hh</a></div><div class="ttdoc">storage api</div></div>
 <div class="ttc" id="amixed__mode_8hh_html"><div class="ttname"><a href="mixed__mode_8hh.html">mixed_mode.hh</a></div><div class="ttdoc">mixed-mode AD: forward mode, with opportunistic expression-level reverse</div></div>
 <div class="ttc" id="aerrors_8hh_html"><div class="ttname"><a href="errors_8hh.html">errors.hh</a></div><div class="ttdoc">better errors for users</div></div>
 <div class="ttc" id="aattributes_8hh_html"><div class="ttname"><a href="attributes_8hh.html">attributes.hh</a></div><div class="ttdoc">macros for applying attributes.</div></div>
 <div class="ttc" id="asequences_8hh_html"><div class="ttname"><a href="sequences_8hh.html">sequences.hh</a></div><div class="ttdoc">type level integer sequences</div></div>
 <div class="ttc" id="atapes_8hh_html"><div class="ttname"><a href="tapes_8hh.html">tapes.hh</a></div><div class="ttdoc">Wengert lists for reverse-mode automatic differentiation.</div></div>
-<div class="ttc" id="aoperators_8hh_html"><div class="ttname"><a href="operators_8hh.html">operators.hh</a></div><div class="ttdoc">operators and move semantics</div></div>
 <div class="ttc" id="amacros_8hh_html"><div class="ttname"><a href="macros_8hh.html">macros.hh</a></div><div class="ttdoc">variadic macro utilities</div></div>
-<div class="ttc" id="amemory_8hh_html"><div class="ttname"><a href="memory_8hh.html">memory.hh</a></div><div class="ttdoc">memory allocation</div></div>
+<div class="ttc" id="amemory_8hh_html"><div class="ttname"><a href="memory_8hh.html">memory.hh</a></div><div class="ttdoc">memory api</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

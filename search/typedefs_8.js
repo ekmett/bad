@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['le_854',['le',['../group__binary__functions__group.html#gafe3c79ea89fdce5815425c03c3917d38',1,'bad::functions::api']]],
-  ['left_5ftype_855',['left_type',['../structbad_1_1storage_1_1api_1_1store__add__expr.html#a29286905eb6757005a51a0a75a790818',1,'bad::storage::api::store_add_expr']]],
-  ['logical_5fand_856',['logical_and',['../group__binary__functions__group.html#ga3db41026e52dbed6a2b4ef7ed7aa5f80',1,'bad::functions::api']]],
-  ['logical_5fnot_857',['logical_not',['../group__unary__functions__group.html#ga7d766b91416663b99edb1940f3900632',1,'bad::functions::api']]],
-  ['logical_5for_858',['logical_or',['../group__binary__functions__group.html#ga4126b598d88f75ce786c38676f877458',1,'bad::functions::api']]],
-  ['lt_859',['lt',['../group__binary__functions__group.html#ga156f70e8a7dff0a1c24bb6e89a07d8d7',1,'bad::functions::api']]]
+  ['make_5faseq_653',['make_aseq',['../namespacebad.html#a0e43d06afd77082693e18085a76a21c7',1,'bad']]],
+  ['make_5fiseq_654',['make_iseq',['../namespacebad.html#a115e80ca80e898ec972ac45b346ca5a0',1,'bad']]],
+  ['make_5fseq_655',['make_seq',['../namespacebad.html#afcf418632d9a2265b0585bb5bb8b2e6d',1,'bad']]],
+  ['make_5fsseq_656',['make_sseq',['../namespacebad.html#a099549fec7d3c8dd654bcbd6d1dfca79',1,'bad']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['common_973',['common',['../group__common__group.html',1,'']]]
+  ['disjoint_20sets_739',['disjoint sets',['../group__disjoint__sets__group.html',1,'']]]
 ];
