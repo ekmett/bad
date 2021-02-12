@@ -11,10 +11,10 @@
 // TODO: atomics or locks for better safety in concurrent situations
 
 /// \file
-/// better disjoint set forests
+/// disjoint set forests
 ///
 /// \defgroup disjoint_sets_group disjoint sets
-/// better disjoint set forests
+/// disjoint set forests
 
 /// \namespace bad
 /// \private
@@ -27,9 +27,9 @@ namespace bad {
     /// \ingroup disjoint_sets_group
     /// re-exported by \ref bad and bad::disjoint_sets::api
     namespace common {}
-    /// \namespace bad::errors::api
-    /// \ingroup errors_group
-    /// See \ref errors_group "errors" for a complete listing.
+    /// \namespace bad::disjoint_sets::api
+    /// \ingroup disjoint_sets_group
+    /// See \ref disjoint_sets_group "disjoint_sets" for a complete listing.
     namespace api { using namespace common; }
     using namespace api;
   }
@@ -57,54 +57,57 @@ namespace bad::disjoint_sets {
 
   namespace common {
 
+    /// \ingroup disjoint_sets_group
     template <class T>
-    struct ds {
+    struct disjoint {
+    private:
       mutable rc<dso<T>> p;
 
+    public:
+      /// constructs a fresh disjoint set initialized with T's default constructor
       BAD(hd,inline)
-      ds() noexcept;
+      disjoint() noexcept;
 
       BAD(hd,inline)
-      ds(ds const & rhs) noexcept
+      disjoint(disjoint const & rhs) noexcept
       : p(rhs.p) {}
 
       BAD(hd,inline)
-      ds(ds && rhs) noexcept
+      disjoint(disjoint && rhs) noexcept
       : p(std::move(rhs.p)) {}
 
-      // protected
+    private:
       BAD(hd,inline)
-      ds(dso<T> * rhs) noexcept
+      disjoint(dso<T> * rhs) noexcept
       : p(rhs) {
         assert(rhs != nullptr);
       }
 
-      // template <class...Args>
-      // BAD(hd,inline)
-      // ds(Args&&...) noexcept;
+      friend dso<T>;
+
+    public:
+      BAD(hd,inline)
+      disjoint(T const &) noexcept;
 
       BAD(hd,inline)
-      ds(T const &) noexcept;
-
-      BAD(hd,inline)
-      ds & operator = (ds const & rhs) noexcept {
+      disjoint & operator = (disjoint const & rhs) noexcept {
         p = rhs.p;
         return *this;
       }
 
       BAD(hd,inline)
-      ds & operator = (ds && rhs) noexcept {
+      disjoint & operator = (disjoint && rhs) noexcept {
         p = rhs.p;
         return *this;
       }
 
-    // protected:
+    private:
       BAD(hd,inline)
       root<T> & find() const noexcept;
 
-    // public:
+    public:
       BAD(hd,inline)
-      ds & operator | (ds &) noexcept;
+      disjoint & operator | (disjoint &) noexcept;
 
       BAD(hd,inline)
       T & value() noexcept {
@@ -118,20 +121,21 @@ namespace bad::disjoint_sets {
 
       BAD(hd,inline)
       friend bool operator == (
-        BAD(noescape) ds const & lhs,
-        BAD(noescape) ds const & rhs
+        BAD(noescape) disjoint const & lhs,
+        BAD(noescape) disjoint const & rhs
       ) noexcept {
         return &lhs.find() == &rhs.find();
       }
 
       BAD(hd,inline)
       friend bool operator != (
-        BAD(noescape) ds const & lhs,
-        BAD(noescape) ds const & rhs
+        BAD(noescape) disjoint const & lhs,
+        BAD(noescape) disjoint const & rhs
       ) noexcept {
         return &lhs.find() != &rhs.find();
       }
 
+    private:
       BAD(hd,inline)
       dso<T> * operator ->() const noexcept {
         auto result = p.get();
@@ -146,27 +150,26 @@ namespace bad::disjoint_sets {
         return *result;
       }
 
-    // protected
       BAD(hd,inline)
-      ds<T> parent() const noexcept;
+      disjoint<T> parent() const noexcept;
 
       BAD(hd,inline)
-      void set_parent(ds<T> const &) const noexcept;
+      void set_parent(disjoint<T> const &) const noexcept;
     };
 
     template <class T>
-    ds(ds<T> const &) -> ds<T>;
+    disjoint(disjoint<T> const &) -> disjoint<T>;
 
     template <class T>
-    ds(ds<T> &&) -> ds<T>;
+    disjoint(disjoint<T> &&) -> disjoint<T>;
 
     template <class T>
-    ds(T) -> ds<T>;
+    disjoint(T) -> disjoint<T>;
   }
 
   template <class T>
   struct link {
-    mutable ds<T> parent; // may be mutably forwarded by find, not user visible as such
+    mutable disjoint<T> parent; // may be mutably forwarded by find, not user visible as such
 
     template <typename... Args>
     BAD(hd,inline)
@@ -176,7 +179,7 @@ namespace bad::disjoint_sets {
 
   template <class T>
   struct dso : counted<dso<T>> {
-    friend ds<T>;
+    friend disjoint<T>;
 
     using entry_type = std::variant<root<T>,link<T>>;
     entry_type entry;
@@ -188,14 +191,14 @@ namespace bad::disjoint_sets {
     , entry(std::forward<Args>(args)...) {}
 
     BAD(hd,inline,flatten)
-    ds<T> parent() noexcept {
+    disjoint<T> parent() noexcept {
       dso * self = this;
       assert(self != nullptr);
-      return std::visit([self](auto root_or_link) {
-        if constexpr (std::is_same_v<decltype(root_or_link),link<T>>) {
-          return root_or_link.parent;
+      return std::visit([self](auto v) {
+        if constexpr (std::is_same_v<decltype(v),link<T>>) {
+          return v.parent;
         } else {
-          return ds<T>(self);
+          return disjoint<T>(self);
         }
       },entry);
     }
@@ -208,30 +211,25 @@ namespace bad::disjoint_sets {
   };
 
   template <class T>
-  common::ds<T> common::ds<T>::parent() const noexcept {
-    return ds(p->parent());
+  common::disjoint<T> common::disjoint<T>::parent() const noexcept {
+    return disjoint(p->parent());
   }
 
   template <class T>
-  void common::ds<T>::set_parent(ds<T> const & rhs) const noexcept {
+  void common::disjoint<T>::set_parent(disjoint<T> const & rhs) const noexcept {
     p->set_parent(rhs);
   }
 
   template <class T>
-  common::ds<T>::ds() noexcept : p(new dso<T>()) {}
-
-  // template <class T>
-  // template <class...Args>
-  // common::ds<T>::ds(Args&&...args) noexcept
-  // : p (new dso<T>(std::in_place_index_t<0>(),std::forward<Args>(args)...)) {}
+  common::disjoint<T>::disjoint() noexcept : p(new dso<T>()) {}
 
   template <class T>
-  common::ds<T>::ds(T const & t) noexcept
+  common::disjoint<T>::disjoint(T const & t) noexcept
   : p (new dso<T>(std::in_place_index_t<0>(),t)) {}
 
 
   template <class T>
-  root<T> & common::ds<T>::find() const noexcept {
+  root<T> & common::disjoint<T>::find() const noexcept {
     while (p != parent().p) {
        set_parent(parent()->parent());
        p = parent().p;
@@ -240,7 +238,7 @@ namespace bad::disjoint_sets {
   }
 
   template <class T>
-  ds<T> & common::ds<T>::operator |(ds<T> & rhs) noexcept {
+  disjoint<T> & common::disjoint<T>::operator |(disjoint<T> & rhs) noexcept {
     auto & xr = find();
     auto & yr = rhs.find();
 
@@ -260,14 +258,16 @@ namespace bad::disjoint_sets {
   }
 
   namespace common {
+    /// \ingroup disjoint_sets_group
     template <class T, class... Args>
-    ds<T> & merge(ds<T> arg, Args...args) {
+    disjoint<T> & merge(disjoint<T> arg, Args...args) {
       return (arg | ... | args);
     }
 
+    /// \ingroup disjoint_sets_group
     template <class T>
-    ds<T> & merge() {
-      return ds<T>();
+    disjoint<T> & merge() {
+      return disjoint<T>();
     }
   }
 }
