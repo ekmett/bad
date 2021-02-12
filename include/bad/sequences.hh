@@ -7,7 +7,6 @@
 #include "bad/attributes.hh"
 #include "bad/common.hh"
 #include "bad/errors.hh"
-#include "bad/functions.hh"
 
 /// \file
 /// \brief type level integer sequences
@@ -665,43 +664,6 @@ namespace bad {
   template <class S, class T, template<typename S::value_type,typename T::value_type> class F>
   using seq_zip = typename detail::seq_zip_<S, T, F>::type;
 
-  /// add elements of two sequences, pointwise
-  /// \ingroup sequences_group
-  template <class S, class T>
-  using seq_plus = seq_zip<S,T,bad::plus>;
-
-  template <class S, auto K>
-  using seq_plus_constant = seq_map_at<S,bad::flipb<bad::plus,K>>;
-
-  template <auto K, class S>
-  using seq_constant_plus = seq_map_at<S,bad::papb<bad::plus,K>>;
-
-  /// subtract elements of two sequences, pointwise
-  /// \ingroup sequences_group
-  template <class S, class T>
-  using seq_minus = seq_zip<S,T,bad::minus>;
-
-  /// \ingroup sequences_group
-  template <class S, auto K>
-  using seq_minus_constant = seq_map_at<S,bad::flipb<bad::minus,K>>;
-
-  /// \ingroup sequences_group
-  template <auto K, class S>
-  using seq_constant_minus = seq_map_at<S,bad::papb<bad::minus,K>>;
-
-  /// multiply elements of two sequences, pointwise
-  /// \ingroup sequences_group
-  template <class S, class T>
-  using seq_times = seq_zip<S,T,bad::times>;
-
-  /// \ingroup sequences_group
-  template <class S, auto K>
-  using seq_times_constant = seq_map_at<S,bad::flipb<bad::times,K>>;
-
-  /// \ingroup sequences_group
-  template <auto K, class S>
-  using seq_constant_times = seq_map_at<S,bad::papb<bad::times,K>>;
-
   template <size_t i, auto... xs>
   static constexpr auto rev_nth = nth<sizeof...(xs)-i-1,xs...>;
 
@@ -721,7 +683,6 @@ namespace bad {
       static constexpr bool value = (compat_at<is> && ... && true);
     };
   }
-
 
   /// returns if one list is a suffix of the other
   /// TODO: use this for automatic dimension extension.

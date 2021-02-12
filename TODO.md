@@ -15,3 +15,5 @@
 * Autolifting when tensors only share common tails
 
 * Named tensor operations? i'd have to pass str<> based names of each dimension as an optional 4th parameter, and add some template magic for the decltype noise.
+
+* Am I using functions.hh at all?

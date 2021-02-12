@@ -5,7 +5,6 @@
 #include "bad/common.hh"
 #include "bad/disjoint.hh"
 #include "bad/errors.hh"
-#include "bad/functions.hh"
 #include "bad/macros.hh"
 #include "bad/memory.hh"
 #include "bad/mixed_mode.hh"
