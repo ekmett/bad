@@ -7,7 +7,7 @@
 /// \author Edward Kmett
 /// \brief const_store_expr_iterator and store_expr_iterator implementations
 
-namespace bad {
+namespace bad::detail {
   template <size_t d, size_t s, class T, class plane>
   struct const_store_iterator {
     using value_type = plane const;

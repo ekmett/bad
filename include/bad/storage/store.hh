@@ -155,8 +155,8 @@ namespace bad {
     using dim = seq<d,ds...>;
     using stride = sseq<s,ss...>;
     using plane = store<T,seq<ds...>,sseq<ss...>>;
-    using iterator = store_iterator<d,s,T,plane>;
-    using const_iterator = store_iterator<d,s,T,plane>;
+    using iterator = detail::store_iterator<d,s,T,plane>;
+    using const_iterator = detail::store_iterator<d,s,T,plane>;
     using reverse_iterator = std::reverse_iterator<iterator>;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
@@ -507,7 +507,7 @@ namespace bad {
       // can relax this to <=, but using == for now
       static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
-      return store_iterator<jd,t::step,T,typename t::type>(data + t::bias, 0);
+      return detail::store_iterator<jd,t::step,T,typename t::type>(data + t::bias, 0);
     }
 
     template <auto j, size_t jd, decltype(j)...is>
@@ -515,7 +515,7 @@ namespace bad {
     auto tied_begin() const noexcept {
       static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
-      return const_store_iterator<jd,t::step,T,typename t::type>(data + t::bias, 0);
+      return detail::const_store_iterator<jd,t::step,T,typename t::type>(data + t::bias, 0);
     }
 
     template <auto j, size_t jd, decltype(j)...is>
@@ -523,7 +523,7 @@ namespace bad {
     auto tied_end() noexcept {
       static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
-      return store_iterator<jd,t::step,T,typename t::type>(data + t::bias, jd);
+      return detail::store_iterator<jd,t::step,T,typename t::type>(data + t::bias, jd);
     }
 
 
@@ -532,7 +532,7 @@ namespace bad {
     auto tied_end() const noexcept {
       static_assert(sizeof...(is) == sizeof...(ds), "fixing more dimensions than you have");
       using t = tied_type<j,jd,is...>;
-      return const_store_iterator<jd,t::step,T,typename t::type>(data + t::bias, jd);
+      return detail::const_store_iterator<jd,t::step,T,typename t::type>(data + t::bias, jd);
     }
 
     template <auto j, size_t jd, decltype(j)...is>

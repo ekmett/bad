@@ -260,15 +260,9 @@ namespace bad {
   }
 
   /// \ingroup disjoint_sets_group
-  template <class T, class... Args>
-  disjoint<T> & merge(disjoint<T> arg, Args...args) noexcept {
-    return (arg | ... | args);
-  }
-
-  /// \ingroup disjoint_sets_group
-  template <class T>
-  disjoint<T> & merge() noexcept {
-    return disjoint<T>();
+  template <class... Args>
+  auto merge(Args...args) noexcept {
+    return (args | ...);
   }
 }
 

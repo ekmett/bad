@@ -12,8 +12,8 @@ namespace bad {
   /// \ingroup storage_group
   template <class B, size_t d, size_t... ds>
   struct BAD(empty_bases,nodiscard) store_expr {
-    using const_iterator = const_store_expr_iterator<B,d>;
-    using iterator = store_expr_iterator<B,d>;
+    using const_iterator = detail::const_store_expr_iterator<B,d>;
+    using iterator = detail::store_expr_iterator<B,d>;
     using reverse_iterator = std::reverse_iterator<iterator>;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
