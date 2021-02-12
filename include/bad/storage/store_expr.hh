@@ -7,7 +7,7 @@
 /// \brief storage expression templates
 /// \author Edward Kmett
 
-namespace bad::storage::api {
+namespace bad {
   /// variadic expression template
   /// \ingroup storage_group
   template <class B, size_t d, size_t... ds>
@@ -362,9 +362,7 @@ namespace bad::storage::api {
   ) noexcept -> store_add_expr<L&&,R&&,d,ds...> {
     return {{}, std::move(l.at()), std::move(r.at())};
   }
-}
 
-namespace bad::storage::common {
   // TODO: move to some kind of non-member rep construction mechanism so rep() can take rvalue references
 
   /// \ingroup storage_group

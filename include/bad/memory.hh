@@ -9,4 +9,7 @@
 /// \brief memory api
 /// \author Edward Kmett
 
+/// \defgroup memory_group memory
+/// \brief memory allocation
+
 #endif

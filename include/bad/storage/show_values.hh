@@ -6,7 +6,7 @@
 /// \file
 /// \author Edward Kmett
 
-namespace bad::storage::api {
+namespace bad {
 
   /// used to show the values in an expr or fixed array
   /// \ingroup storage_group

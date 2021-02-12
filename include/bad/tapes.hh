@@ -21,45 +21,21 @@
 /// \defgroup tapes_group tapes
 /// \brief Wengert lists for reverse-mode automatic differentiation
 
-/// \namespace bad
-/// \private
 namespace bad {
-  /// \namespace bad::tapes
-  /// \ref tapes_group "tapes" internals, import bad::tapes::api
-  /// \ingroup tapes_group
-  namespace tapes {
-    /// \namespace bad::tapes::common
-    /// \ingroup tapes_group
-    /// re-exported by \ref bad and bad::tapes::api
-    namespace common {}
-    /// \namespace bad::tapes::api
-    /// \ingroup tapes_group
-    /// See \ref tapes_group "tapes" for a complete listing.
-    namespace api { using namespace common; }
-    using namespace api;
-  }
-  using namespace tapes::common;
-}
-
-/// \{
-namespace bad::tapes {
-  using namespace memory::api;
   static constexpr size_t no_index = static_cast<size_t>(-1);
 
   /// \brief Tape sensitivities. Constructed with tape::push.
   ///
   /// Describes how to push information backwards through your activations
-  /// by using the information stored in the \ref bad::tapes::common::tape.
+  /// by using the information stored in the \ref tape.
   /// \ingroup tapes_group
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct abstract_record;
 
   /// Wengert list
-  namespace common {
-    /// \ingroup tapes_group
-    template <class T, class Act = T*,class Allocator = default_allocator>
-    struct tape;
-  }
+  /// \ingroup tapes_group
+  template <class T, class Act = T*,class Allocator = default_allocator>
+  struct tape;
 
   /// holds several \ref abstract_record entries in a slab of aligned memory
   /// \ingroup tapes_group
@@ -137,7 +113,7 @@ namespace bad::tapes {
   /// \ingroup tapes_group
 #ifdef DOXYGEN
   template <class T, class Act = T*, class Allocator = default_allocator>
-  struct link : bad::tapes::abstract_record<T, Act, Allocator> {};
+  struct link : abstract_record<T, Act, Allocator> {};
 #else
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct link;
@@ -185,11 +161,11 @@ namespace bad::tapes {
     BAD(hd,assume_aligned(record_alignment),noalias)
     virtual link<T,Act,Allocator> * as_link() noexcept { return nullptr; }
 
-    /// unlike usual, the result can be reached through the \ref bad::tapes::common::tape.
+    /// unlike usual, the result can be reached through the \ref tape.
     BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
     void * operator new(size_t size, BAD(noescape) tape_t & tape) noexcept;
 
-    /// used internally. returns nullptr if the \ref bad::tapes::segment is out of room.
+    /// used internally. returns nullptr if the \ref segment is out of room.
     BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
     void * operator new(size_t size, BAD(noescape) segment<T, Act, Allocator> & segment) noexcept;
 
@@ -374,55 +350,53 @@ namespace bad::tapes {
     }
   }
 
-  namespace common {
-    /// a non-terminal entry designed for allocation in a slab
-    /// \ingroup tapes_group
-    template <class B, class T, class Act = T *, class Allocator = default_allocator>
-    struct record : abstract_record<T,Act,Allocator> {
-      using abstract_record_type = abstract_record<T,Act,Allocator>;
-  
-      BAD(hd,inline,noalias) constexpr
-      record() noexcept : abstract_record<T,Act,Allocator>() {}
-  
-      BAD(hd,inline,flatten,const,assume_aligned(record_alignment))
-      abstract_record_type const * next() const noexcept override {
-        return reinterpret_cast<abstract_record_type const *>(reinterpret_cast<std::byte const*>(this) + pad_to_alignment(sizeof(B)));
-        // if it wasn't for alignment we could just static_cast<abstract_record_type>(this+1) and be constexpr?
-      }
-  
-      BAD(hd,inline,flatten,const,assume_aligned(record_alignment))
-      abstract_record_type * next() noexcept override {
-        return reinterpret_cast<abstract_record_type *>(reinterpret_cast<std::byte*>(this) + pad_to_alignment(sizeof(B)));
-      }
-  
-      BAD(hd,flatten)
-      void what(BAD(noescape) std::ostream & os) const noexcept override {
-        os << type(*static_cast<B const *>(this));
-      }
-  
-      BAD(hd,inline,flatten,assume_aligned(record_alignment))
-      const abstract_record_type * propagate(Act act, BAD(noescape) size_t & i) const noexcept override {
-        reinterpret_cast<B const *>(this)->prop(act, i);
-        return next(); // this shares the virtual function call dispatch, because here it isn't virtual.
-      }
-    };
-  
-    /// a non-terminal entry designed for allocation in a slab, that produces a fixed number of activation abstract_records
-    /// \ingroup tapes_group
-    template <size_t Acts, class B, class T, class Act = T*, class Allocator = default_allocator>
-    struct static_record : record<B,T,Act,Allocator> {
-  
-      BAD(hd,inline,noalias) constexpr
-      static_record() noexcept : record<B,T,Act,Allocator>() {}
-  
-      static constexpr size_t acts = Acts;
-  
-      BAD(hd,inline,const) constexpr
-      size_t activations() const noexcept override {
-        return acts;
-      }
-    };
-  }
+  /// a non-terminal entry designed for allocation in a slab
+  /// \ingroup tapes_group
+  template <class B, class T, class Act = T *, class Allocator = default_allocator>
+  struct record : abstract_record<T,Act,Allocator> {
+    using abstract_record_type = abstract_record<T,Act,Allocator>;
+
+    BAD(hd,inline,noalias) constexpr
+    record() noexcept : abstract_record<T,Act,Allocator>() {}
+
+    BAD(hd,inline,flatten,const,assume_aligned(record_alignment))
+    abstract_record_type const * next() const noexcept override {
+      return reinterpret_cast<abstract_record_type const *>(reinterpret_cast<std::byte const*>(this) + pad_to_alignment(sizeof(B)));
+      // if it wasn't for alignment we could just static_cast<abstract_record_type>(this+1) and be constexpr?
+    }
+
+    BAD(hd,inline,flatten,const,assume_aligned(record_alignment))
+    abstract_record_type * next() noexcept override {
+      return reinterpret_cast<abstract_record_type *>(reinterpret_cast<std::byte*>(this) + pad_to_alignment(sizeof(B)));
+    }
+
+    BAD(hd,flatten)
+    void what(BAD(noescape) std::ostream & os) const noexcept override {
+      os << type(*static_cast<B const *>(this));
+    }
+
+    BAD(hd,inline,flatten,assume_aligned(record_alignment))
+    const abstract_record_type * propagate(Act act, BAD(noescape) size_t & i) const noexcept override {
+      reinterpret_cast<B const *>(this)->prop(act, i);
+      return next(); // this shares the virtual function call dispatch, because here it isn't virtual.
+    }
+  };
+
+  /// a non-terminal entry designed for allocation in a slab, that produces a fixed number of activation abstract_records
+  /// \ingroup tapes_group
+  template <size_t Acts, class B, class T, class Act = T*, class Allocator = default_allocator>
+  struct static_record : record<B,T,Act,Allocator> {
+
+    BAD(hd,inline,noalias) constexpr
+    static_record() noexcept : record<B,T,Act,Allocator>() {}
+
+    static constexpr size_t acts = Acts;
+
+    BAD(hd,inline,const) constexpr
+    size_t activations() const noexcept override {
+      return acts;
+    }
+  };
 
   /// \ingroup tapes_group
   template <class T, class Act, class Allocator = default_allocator>
@@ -571,112 +545,110 @@ namespace bad::tapes {
     }
   };
 
-  namespace common {
-    template <class T, class Act, class Allocator>
-    struct tape {
-    protected:
-      using abstract_record_type = abstract_record<T,Act,Allocator>;
-    public:
-      using iterator = tape_iterator<T,Act,Allocator>;
-      using const_iterator = const_tape_iterator<T,Act,Allocator>;
+  template <class T, class Act, class Allocator>
+  struct tape {
+  protected:
+    using abstract_record_type = abstract_record<T,Act,Allocator>;
+  public:
+    using iterator = tape_iterator<T,Act,Allocator>;
+    using const_iterator = const_tape_iterator<T,Act,Allocator>;
 
-      segment<T, Act, Allocator> segment;  ///< current segment
-      size_t activations; ///< number of records required to propagate activations
-  
-      BAD(hd,noalias) constexpr
-      tape() noexcept
-      : segment(), activations() {}
-  
-      BAD(hd,noalias)
-      tape(tape<T, Act, Allocator> && rhs) noexcept
-      : segment(std::move(rhs.segment)), activations(std::move(rhs.activations)) {}
-  
-      BAD(hd)
-      tape(tape<T, Act, Allocator> const &) = delete;
-  
-      BAD(maybe_unused,hd)
-      tape<T, Act, Allocator> & operator=(tape<T, Act, Allocator> const &) = delete;
-      
-      BAD(reinitializes,maybe_unused,hd,noalias)
-      tape<T, Act, Allocator> & operator=(tape<T, Act, Allocator> && rhs) noexcept;
-  
-    private:
-      template <class>
-      struct is_record_t : std::false_type {};
+    segment<T, Act, Allocator> segment;  ///< current segment
+    size_t activations; ///< number of records required to propagate activations
 
-      template <class B>
-      struct is_record_t<record<B,Act,Allocator>> : std::true_type {};
+    BAD(hd,noalias) constexpr
+    tape() noexcept
+    : segment(), activations() {}
 
-      template <class B>
-      static constexpr bool is_record = is_record_t<B>::value;
+    BAD(hd,noalias)
+    tape(tape<T, Act, Allocator> && rhs) noexcept
+    : segment(std::move(rhs.segment)), activations(std::move(rhs.activations)) {}
 
-    public:
-      // put more stuff in here
-      template <class U, class ... Args>
-      BAD(maybe_unused,hd,flatten,noalias)
-      U & push(Args ... args) noexcept {
-        static_assert(std::is_base_of_v<abstract_record_type, U>, "only push records");
-        static_assert(!std::is_same_v<U, link<T,Act,Allocator>>,"links should not be pushed");
-        static_assert(!std::is_same_v<U, terminator<T,Act,Allocator>>,"terminators should not be pushed");
-        static_assert(alignof(U) <= record_alignment, "alignment requirement is too strict for the tape");
-        // deliberately excludes link and terminator
+    BAD(hd)
+    tape(tape<T, Act, Allocator> const &) = delete;
 
-        U * result BAD(align_value(record_alignment)) = new (*this) U(std::forward<Args>(args)...);
-        activations += result->activations();
-        return *result;
-      }
-  
-  
-      BAD(hd,pure) constexpr
-      iterator begin() noexcept {
-        return segment.current;
-      }
-  
-      BAD(hd,const) constexpr
-      iterator end() noexcept {
-        return iterator();
-      }
-  
-      BAD(hd,pure) constexpr
-      const_iterator begin() const noexcept {
-        return segment.current;
-      }
-  
-      BAD(hd,const) constexpr
-      const_iterator end() const noexcept {
-        return const_iterator();
-      }
-  
-      BAD(hd,pure) constexpr
-      const_iterator cbegin() const noexcept {
-        return segment.current;
-      }
-  
-      BAD(hd,const) constexpr
-      const_iterator cend() noexcept {
-        return const_iterator();
-      }
-    };
-  
-    /// \ingroup tapes_group
-    template <class T, class Act, class Allocator>
-    BAD(hd,inline,noalias)
-    void swap(
-      BAD(noescape) tape<T,Act,Allocator> & a,
-      BAD(noescape) tape<T,Act,Allocator> & b
-    ) noexcept {
-      using std::swap;
-      swap(a.segment, b.segment);
-      swap(a.activations, b.activations);
+    BAD(maybe_unused,hd)
+    tape<T, Act, Allocator> & operator=(tape<T, Act, Allocator> const &) = delete;
+    
+    BAD(reinitializes,maybe_unused,hd,noalias)
+    tape<T, Act, Allocator> & operator=(tape<T, Act, Allocator> && rhs) noexcept;
+
+  private:
+    template <class>
+    struct is_record_t : std::false_type {};
+
+    template <class B>
+    struct is_record_t<record<B,Act,Allocator>> : std::true_type {};
+
+    template <class B>
+    static constexpr bool is_record = is_record_t<B>::value;
+
+  public:
+    // put more stuff in here
+    template <class U, class ... Args>
+    BAD(maybe_unused,hd,flatten,noalias)
+    U & push(Args ... args) noexcept {
+      static_assert(std::is_base_of_v<abstract_record_type, U>, "only push records");
+      static_assert(!std::is_same_v<U, link<T,Act,Allocator>>,"links should not be pushed");
+      static_assert(!std::is_same_v<U, terminator<T,Act,Allocator>>,"terminators should not be pushed");
+      static_assert(alignof(U) <= record_alignment, "alignment requirement is too strict for the tape");
+      // deliberately excludes link and terminator
+
+      U * result BAD(align_value(record_alignment)) = new (*this) U(std::forward<Args>(args)...);
+      activations += result->activations();
+      return *result;
     }
-  
-    template <class T, class Act,class Allocator>
-    inline tape<T,Act,Allocator> & tape<T,Act,Allocator>::operator=(
-      tape<T,Act,Allocator> && rhs
-    ) noexcept {
-      swap(*this,rhs);
-      return *this;
+
+
+    BAD(hd,pure) constexpr
+    iterator begin() noexcept {
+      return segment.current;
     }
+
+    BAD(hd,const) constexpr
+    iterator end() noexcept {
+      return iterator();
+    }
+
+    BAD(hd,pure) constexpr
+    const_iterator begin() const noexcept {
+      return segment.current;
+    }
+
+    BAD(hd,const) constexpr
+    const_iterator end() const noexcept {
+      return const_iterator();
+    }
+
+    BAD(hd,pure) constexpr
+    const_iterator cbegin() const noexcept {
+      return segment.current;
+    }
+
+    BAD(hd,const) constexpr
+    const_iterator cend() noexcept {
+      return const_iterator();
+    }
+  };
+
+  /// \ingroup tapes_group
+  template <class T, class Act, class Allocator>
+  BAD(hd,inline,noalias)
+  void swap(
+    BAD(noescape) tape<T,Act,Allocator> & a,
+    BAD(noescape) tape<T,Act,Allocator> & b
+  ) noexcept {
+    using std::swap;
+    swap(a.segment, b.segment);
+    swap(a.activations, b.activations);
+  }
+
+  template <class T, class Act,class Allocator>
+  inline tape<T,Act,Allocator> & tape<T,Act,Allocator>::operator=(
+    tape<T,Act,Allocator> && rhs
+  ) noexcept {
+    swap(*this,rhs);
+    return *this;
   }
 
   /// \ingroup tapes_group
@@ -722,7 +694,5 @@ namespace bad::tapes {
     return result;
   }
 }
-
-/// \}
 
 #endif

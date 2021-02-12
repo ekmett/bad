@@ -2,9 +2,9 @@
 #define BAD_MIXED_MODE_HH
 
 #include <type_traits>
-#include "attributes.hh"
-#include "sequences.hh"
-#include "common.hh"
+#include "bad/attributes.hh"
+#include "bad/sequences.hh"
+#include "bad/common.hh"
 
 /// \file
 /// \brief mixed-mode AD: forward mode, with opportunistic expression-level reverse
@@ -23,32 +23,11 @@
 /// and to use modern language features.
 ///
 /// TODO: replace `N` with a list of types, so we can mix fp16 values, floats, etc.
-/// this will allow a much more general \ref bad::mixed_mode::api::diff "diff"
+/// this will allow a much more general \ref bad::diff "diff"
 ///
 /// TODO: struct BAD(nodiscard) mixed_expr
 
-/// \namespace bad
-/// \private
 namespace bad {
-  /// \namespace bad::mixed_mode
-  /// \ref mixed_mode_group "mixed-mode" internals, import bad::mixed_mode::api
-  /// \ingroup mixed_mode_group
-  namespace mixed_mode {
-    /// \namespace bad::mixed_mode::common
-    /// \ingroup mixed_mode_group
-    /// re-exported by \ref bad and bad::mixed_mode::api
-    namespace common {}
-    /// \namespace bad::mixed_mode::api
-    /// \ingroup mixed_mode_group
-    /// See \ref mixed_mode_group "mixed-mode" for a complete listing.
-    namespace api { using namespace common; }
-    using namespace api;
-  }
-  using namespace mixed_mode::common;
-}
-
-namespace bad::mixed_mode {
-  using namespace sequences::api;
   template <class S>
   struct seq_for;
 
@@ -63,10 +42,7 @@ namespace bad::mixed_mode {
 
   template <auto N>
   using forN = seq_for<make_seq<N>>;
-}
 
-/// \{
-namespace bad::mixed_mode::api {
   /// \brief mixed-mode AD expression
   /// \ingroup mixed_mode_group
   template <class B>
@@ -282,18 +258,18 @@ namespace bad::mixed_mode::api {
 namespace std {
   /// \ingroup mixed_mode_group
   /// allows destructuring bind of a mixed_expression as
-  /// combined with \ref bad::mixed_mode::api::get "get" above, this allows
+  /// combined with \ref bad::get "get", this allows
   ///
   /// ~~~{.cc}
   /// auto [p,dx,dy,dz] = ...
   /// ~~~
   template <class B>
-  struct BAD(empty_bases) tuple_size<bad::mixed_mode::api::mixed_expr<B>>
+  struct BAD(empty_bases) tuple_size<bad::mixed_expr<B>>
   : std::integral_constant<size_t, B::size + 1> {};
 }
 
 
-namespace bad::mixed_mode::api {
+namespace bad {
   /// copy shape from a mixed expression
   /// \ingroup mixed_mode_group
   template <class B>
@@ -609,6 +585,7 @@ namespace bad::mixed_mode::api {
     return mixed_mul_expr<L,R>(l.me(),r.me());
   }
 
+  /// \meta
   template <class S, class F, class... Args>
   struct diff_ {
     static_assert(no<S>,"diff: not a sequence");
@@ -635,5 +612,4 @@ namespace bad::mixed_mode::api {
   }
 }
 
-/// \}
 #endif

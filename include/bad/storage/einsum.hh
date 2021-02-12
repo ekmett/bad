@@ -6,9 +6,7 @@
 /// \file
 /// \brief storage einsum impl
 
-/// \{
-
-namespace bad::storage::api {
+namespace bad {
   template <class BS, class CS>
   struct scalar_einsum;
 
@@ -144,7 +142,5 @@ namespace bad::storage::api {
     return { {}, l.at(), r.at() };
   }
 }
-
-/// \}
 
 #endif

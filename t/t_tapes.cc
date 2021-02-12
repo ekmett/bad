@@ -9,7 +9,7 @@
 #include "catch.hh"
 
 using namespace std;
-using namespace bad::tapes;
+using namespace bad;
 
 struct simp : static_record<5, simp, int> {
   inline void prop(act_t, size_t &) const noexcept {}

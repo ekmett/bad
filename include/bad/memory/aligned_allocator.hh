@@ -8,12 +8,11 @@
 #include <memory>
 
 #include "bad/attributes.hh"
-#include "bad/memory/namespace.hh"
 
 /// \file
 /// \brief aligned memory allocation
 
-namespace bad::memory::api {
+namespace bad {
   /// \ingroup memory_group
   static constexpr size_t record_alignment = 16;
   /// \ingroup memory_group
@@ -91,4 +90,5 @@ namespace bad::memory::api {
   /// \ingroup memory_group
   using default_allocator = aligned_allocator<std::byte, record_alignment>;
 }
+
 #endif

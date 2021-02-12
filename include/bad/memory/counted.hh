@@ -2,9 +2,8 @@
 #define BAD_MEMORY_COUNTED_HH
 
 #include "bad/common.hh"
-#include "bad/memory/namespace.hh"
 
-namespace bad::memory::api {
+namespace bad {
 
   // TODO: incorporate an allocator into the policy so we can free on the gpu, etc.
 
@@ -54,9 +53,6 @@ namespace bad::memory::api {
       return --s;
     }
   };
-}
-
-namespace bad::memory::common {
 
   template <class B, class Policy = thread_unsafe_policy>
   struct counted {
@@ -80,7 +76,6 @@ namespace bad::memory::common {
     size_t reference_count() noexcept {
       return policy::load(ref_count);
     }
-
   };
 
   template <class B>

@@ -5,7 +5,6 @@
 
 using namespace std;
 using namespace bad;
-using namespace bad::sequences::api;
 
 TEST_CASE("seq_head works", "[sequences]") {
   REQUIRE(seq_head<seq<1,2,3>> == 1 );

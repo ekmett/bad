@@ -9,4 +9,7 @@
 /// \brief storage api
 /// \author Edward Kmett
 
+/// \defgroup storage_group storage
+/// \brief tensor storage and expressions
+
 #endif

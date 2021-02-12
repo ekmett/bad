@@ -1,13 +1,13 @@
 #ifndef BAD_STORAGE_STORE_ITERATOR_HH
 #define BAD_STORAGE_STORE_ITERATOR_HH
 
-#include "bad/storage/namespace.hh"
+#include "bad/common.hh"
 
 /// \file
 /// \author Edward Kmett
 /// \brief const_store_expr_iterator and store_expr_iterator implementations
 
-namespace bad::storage {
+namespace bad {
   template <size_t d, size_t s, class T, class plane>
   struct const_store_iterator {
     using value_type = plane const;

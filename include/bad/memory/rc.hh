@@ -4,9 +4,8 @@
 #include <iosfwd>
 
 #include "bad/attributes.hh"
-#include "bad/memory/namespace.hh"
 
-namespace bad::memory::api {
+namespace bad {
 
   // reference counted intrusive pointers
   template <class T>
@@ -284,10 +283,10 @@ namespace bad::memory::api {
 
 namespace std {
   template <class T>
-  struct BAD(empty_bases) hash<bad::memory::api::rc<T>> {
+  struct BAD(empty_bases) hash<bad::rc<T>> {
     BAD(hd,nodiscard,inline)
     std::size_t operator()(
-      BAD(noescape) bad::memory::api::rc<T> const & p
+      BAD(noescape) bad::rc<T> const & p
     ) const noexcept {
       return std::hash<T*>{}(p.get());
     }

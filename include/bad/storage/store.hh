@@ -1,6 +1,7 @@
 #ifndef BAD_STORAGE_STORE_HH
 #define BAD_STORAGE_STORE_HH
 
+#include "bad/sequences.hh"
 #include "bad/storage/store_expr.hh"
 #include "bad/storage/store_iterator.hh"
 
@@ -8,7 +9,7 @@
 /// \brief store implementation
 /// \author Edward Kmett
 
-namespace bad::storage::common {
+namespace bad {
 
   /// \ingroup storage_group
   template <class T, class Dim, class Stride = row_major<Dim>>
@@ -141,9 +142,7 @@ namespace bad::storage::common {
     using std::swap;
     swap(l.value,r.value);
   }
-}
 
-namespace bad::storage::common {
   /// tensors
   /// TODO: constructors and assignment should check for stride overlap (or at least 0 stride!)
   /// and static_assert if their are multiple indices that point to the same index.
@@ -634,9 +633,7 @@ namespace bad::storage::common {
     for (size_t i=0;i<d;++i)
       swap(l[i],r[i]);
   }
-} // namespace bad::storage::common
 
-namespace bad::storage::api {
   /// replicate base data types
   /// \ingroup storage_group
   template <size_t d, class T>

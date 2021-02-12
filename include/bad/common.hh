@@ -5,7 +5,7 @@
 #include <cstddef>   // std::size_t, std::ptrdiff_t
 #include <utility>   // std::integer_sequence
 
-#include "attributes.hh"
+#include "bad/attributes.hh"
 
 /// \file
 /// \brief common definitions, shared across all modules
@@ -18,7 +18,6 @@
 
 /// \defgroup common_group common
 /// \brief common definitions, shared across all modules
-/// \{
 
 /// \namespace bad
 /// \brief top level namespace
@@ -88,7 +87,5 @@ namespace bad {
   template <bool B, class T, class E>
   using ite = std::conditional_t<B,T,E>;
 }
-
-/// \}
 
 #endif

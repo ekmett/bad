@@ -1,13 +1,14 @@
 #ifndef BAD_STORAGE_STORE_EXPR_ITERATOR_HH
 #define BAD_STORAGE_STORE_EXPR_ITERATOR_HH
 
-#include "bad/storage/namespace.hh"
+#include "bad/attributes.hh"
+#include "bad/sequences.hh"
 
 /// \file
 /// \author Edward Kmett
 /// \brief store_expr_iterator and const_store_expr_iterator implementations
 
-namespace bad::storage {
+namespace bad {
   /// \ingroup storage_group
   template <class B, size_t d>
   struct const_store_expr_iterator {

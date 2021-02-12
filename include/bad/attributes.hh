@@ -1,7 +1,7 @@
 #ifndef BAD_ATTRIBUTES_HH
 #define BAD_ATTRIBUTES_HH
 
-#include "macros.hh"
+#include "bad/macros.hh"
 
 /// \file
 /// macros for applying attributes.

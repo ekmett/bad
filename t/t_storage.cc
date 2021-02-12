@@ -4,7 +4,6 @@
 #include "bad/types.hh"
 
 using namespace bad;
-using namespace bad::storage::api;
 using namespace std;
 
 TEST_CASE( "store works", "[storage]" ) {

@@ -7,7 +7,7 @@
 #include "catch.hh"
 
 using namespace std;
-using namespace bad::operators;
+using namespace bad;
 
 TEST_CASE("operators compiles","[operators]") {
 }

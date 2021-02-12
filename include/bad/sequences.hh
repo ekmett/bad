@@ -3,10 +3,11 @@
 
 #include <cstdint>
 #include <utility>
-#include "attributes.hh"
-#include "common.hh"
-#include "errors.hh"
-#include "functions.hh"
+
+#include "bad/attributes.hh"
+#include "bad/common.hh"
+#include "bad/errors.hh"
+#include "bad/functions.hh"
 
 /// \file
 /// \brief type level integer sequences
@@ -15,48 +16,23 @@
 /// \defgroup sequences_group sequences
 /// \brief type level sequences
 
-/// \namespace bad
-/// \meta
 namespace bad {
-  /// \namespace bad::sequences
-  /// \ref sequences_group "sequences" internals, import bad::sequences::api
-  /// \ingroup sequences_group
-  namespace sequences {
-    /// \namespace bad::sequences::common
-    /// \ingroup sequences_group
-    /// re-exported by \ref bad and bad::sequences::api
-    namespace common {}
-    /// \namespace bad::sequences::api
-    /// \ingroup sequences_group
-    /// See \ref sequences_group "sequences" for a complete listing.
-    namespace api { using namespace common; }
-    using namespace api;
-  }
-  using namespace sequences::common;
-}
 
-/// \{
+  /// sequence construction, shorter `std::make_integer_sequence`
+  template <class T, T x>
+  using make_iseq = std::make_integer_sequence<T,x>;
 
-namespace bad::sequences {
-  using namespace errors::api;
+  /// make a sequence with type inference
+  template <auto x>
+  using make_aseq = make_iseq<decltype(x), x>;
 
-  namespace api {
-    /// sequence construction, shorter `std::make_integer_sequence`
-    template <class T, T x>
-    using make_iseq = std::make_integer_sequence<T,x>;
+  /// make an index sequence
+  template <size_t x>
+  using make_seq = make_iseq<size_t, x>;
 
-    /// make a sequence with type inference
-    template <auto x>
-    using make_aseq = make_iseq<decltype(x), x>;
-
-    /// make an index sequence
-    template <size_t x>
-    using make_seq = make_iseq<size_t, x>;
-
-    /// make a sequence of signed distances
-    template <ptrdiff_t x>
-    using make_sseq = make_iseq<ptrdiff_t, x>;
-  };
+  /// make a sequence of signed distances
+  template <ptrdiff_t x>
+  using make_sseq = make_iseq<ptrdiff_t, x>;
 
   // * application
 
@@ -72,12 +48,10 @@ namespace bad::sequences {
     using type = F<X,xs...>;
   };
 
-  namespace api {
-    /// apply the type of a sequence and its parameter pack to a template, analogous to `std::apply` for tuples
-    /// \ingroup sequences_group
-    template <template <class T, T...> class F, class L>
-    using seq_apply = typename seq_apply_<F,L>::type;
-  }
+  /// apply the type of a sequence and its parameter pack to a template, analogous to `std::apply` for tuples
+  /// \ingroup sequences_group
+  template <template <class T, T...> class F, class L>
+  using seq_apply = typename seq_apply_<F,L>::type;
 
   /// \meta
   template <template <auto x, decltype(x) ...> class, class X>
@@ -91,12 +65,10 @@ namespace bad::sequences {
     using type = F<x,xs...>;
   };
 
-  namespace api {
-    /// apply a non-empty sequence to a template that uses auto to infer the sequennce type
-    /// \ingroup sequences_group
-    template <template <auto x, decltype(x) ...> class F, class L>
-    using seq_auto_apply = typename seq_auto_apply_<F,L>::type;
-  }
+  /// apply a non-empty sequence to a template that uses auto to infer the sequennce type
+  /// \ingroup sequences_group
+  template <template <auto x, decltype(x) ...> class F, class L>
+  using seq_auto_apply = typename seq_auto_apply_<F,L>::type;
 
   /// \meta
   template <class T, template <T...> class, class>
@@ -110,12 +82,10 @@ namespace bad::sequences {
     using type = F<xs...>;
   };
 
-  namespace api {
-    /// Apply a sequence of values of known type \p T to a given template.
-    /// \ingroup sequences_group
-    template <class T, template <T...> class F, class L>
-    using iseq_apply = typename iseq_apply_<T,F,L>::type;
-  }
+  /// Apply a sequence of values of known type \p T to a given template.
+  /// \ingroup sequences_group
+  template <class T, template <T...> class F, class L>
+  using iseq_apply = typename iseq_apply_<T,F,L>::type;
 
   // * ranges
 
@@ -131,12 +101,10 @@ namespace bad::sequences {
     using type = iseq<decltype(x),(x+ys)...>;
   };
 
-  namespace api {
-    /// return the range `[x,y)` as a sequence, with type matching the type of the common type of `x` and `y`.
-    /// \ingroup sequences_group
-    template <auto x, auto y>
-    using seq_range = typename seq_range_<std::common_type_t<decltype(x),decltype(y)>,x,make_aseq<y-x>>::type;
-  }
+  /// return the range `[x,y)` as a sequence, with type matching the type of the common type of `x` and `y`.
+  /// \ingroup sequences_group
+  template <auto x, auto y>
+  using seq_range = typename seq_range_<std::common_type_t<decltype(x),decltype(y)>,x,make_aseq<y-x>>::type;
 
   /// \meta
   template <class T, class, class>
@@ -168,13 +136,11 @@ namespace bad::sequences {
     using type = typename seq_append__<T,iseq<T,ts...>,typename seq_append_<T,ss...>::type>::type;
   };
 
-  namespace api {
-    /// append (possibly several) sequences
-    /// \param T the type elements present in all of the sequences, and the type of elements in the result sequence
-    /// \ingroup sequences_group
-    template <class T, class... S>
-    using seq_append = typename seq_append_<T,S...>::type;
-  }
+  /// append (possibly several) sequences
+  /// \param T the type elements present in all of the sequences, and the type of elements in the result sequence
+  /// \ingroup sequences_group
+  template <class T, class... S>
+  using seq_append = typename seq_append_<T,S...>::type;
 
   // * reify
 
@@ -193,28 +159,26 @@ namespace bad::sequences {
     static constexpr T const value[sizeof...(xs)] = { xs ... };
   };
 
-  namespace api {
-    /// extract a runtime array of elements for a given sequence.
-    /// This array is explicitly NOT null terminated so that
-    ///
-    /// `sizeof(reify<iseq<T,xs...>>)/sizeof(T)` == `sizeof...(xs)`;
-    ///
-    /// This may cause complications if you want to pass it to C library functions as a `const char *`!
-    ///
-    /// \ingroup sequences_group
-    template <class S>
-    constexpr typename reify_<S>::type & reify = reify_<S>::value;
+  /// extract a runtime array of elements for a given sequence.
+  /// This array is explicitly NOT null terminated so that
+  ///
+  /// `sizeof(reify<iseq<T,xs...>>)/sizeof(T)` == `sizeof...(xs)`;
+  ///
+  /// This may cause complications if you want to pass it to C library functions as a `const char *`!
+  ///
+  /// \ingroup sequences_group
+  template <class S>
+  constexpr typename reify_<S>::type & reify = reify_<S>::value;
 
-    /// the product of a non-empty parameter pack of numbers, with type inference
-    /// \ingroup sequences_group
-    template <auto... xs>
-    constexpr auto prod = (...*xs);
+  /// the product of a non-empty parameter pack of numbers, with type inference
+  /// \ingroup sequences_group
+  template <auto... xs>
+  constexpr auto prod = (...*xs);
 
-    /// the product of a parameter pack of numbers
-    /// \ingroup sequences_group
-    template <class T, T... is>
-    constexpr T prod_t = (T(1) * ... * is);
-  }
+  /// the product of a parameter pack of numbers
+  /// \ingroup sequences_group
+  template <class T, T... is>
+  constexpr T prod_t = (T(1) * ... * is);
 
   /// \meta
   template <class T>
@@ -234,22 +198,20 @@ namespace bad::sequences {
     static constexpr T value = (i * ... * is);
   };
 
-  namespace api {
-    /// the product of a sequence of numbers.
-    /// \ingroup sequences_group
-    template <class S>
-    constexpr auto seq_prod = seq_prod_<S>::value;
+  /// the product of a sequence of numbers.
+  /// \ingroup sequences_group
+  template <class S>
+  constexpr auto seq_prod = seq_prod_<S>::value;
 
-    /// the sum of a non-empty parameter pack of numbers, with type inference
-    /// \ingroup sequences_group
-    template <auto... xs>
-    constexpr auto total = (...+xs);
+  /// the sum of a non-empty parameter pack of numbers, with type inference
+  /// \ingroup sequences_group
+  template <auto... xs>
+  constexpr auto total = (...+xs);
 
-    /// the sum of a typed parameter pack of numbers
-    /// \ingroup sequences_group
-    template <class T, T... xs>
-    constexpr T total_t = (T(1)+...+xs);
-  }
+  /// the sum of a typed parameter pack of numbers
+  /// \ingroup sequences_group
+  template <class T, T... xs>
+  constexpr T total_t = (T(1)+...+xs);
 
   /// \meta
   template <class T>
@@ -269,16 +231,14 @@ namespace bad::sequences {
     static constexpr T value = (i + ... + is);
   };
 
-  namespace api {
-    /// the sum of a sequence of numbers
-    /// \ingroup sequences_group
-    template <class S>
-    constexpr auto seq_total = seq_total_<S>::value;
+  /// the sum of a sequence of numbers
+  /// \ingroup sequences_group
+  template <class S>
+  constexpr auto seq_total = seq_total_<S>::value;
 
-    // * head
-    template <auto x, decltype(x) ... xs>
-    constexpr auto head = x;
-  }
+  // * head
+  template <auto x, decltype(x) ... xs>
+  constexpr auto head = x;
 
   /// \meta
   template <class S>
@@ -292,23 +252,20 @@ namespace bad::sequences {
     constexpr static T value = head<is...>;
   };
 
-  namespace api {
-    /// head of a sequence
-    /// \ingroup sequences_group
-    template <class S>
-    constexpr auto seq_head = seq_head_<S>::value;
+  /// head of a sequence
+  /// \ingroup sequences_group
+  template <class S>
+  constexpr auto seq_head = seq_head_<S>::value;
 
-    /// tail of a non-empty parameter pack of numbers, with type inference
-    /// \ingroup sequences_group
-    template <auto x,decltype(x) ... xs>
-    using tail = iseq<decltype(x), xs...>;
+  /// tail of a non-empty parameter pack of numbers, with type inference
+  /// \ingroup sequences_group
+  template <auto x,decltype(x) ... xs>
+  using tail = iseq<decltype(x), xs...>;
 
-    /// tail of a non-empty sequence
-    /// \ingroup sequences_group
-    template <class S>
-    using seq_tail = seq_auto_apply<tail,S>;
-  }
-
+  /// tail of a non-empty sequence
+  /// \ingroup sequences_group
+  template <class S>
+  using seq_tail = seq_auto_apply<tail,S>;
 
   /// \meta
   template <auto i, class S>
@@ -322,14 +279,12 @@ namespace bad::sequences {
     using type = iseq<std::common_type_t<decltype(i),T>,i,is...>;
   };
 
-  namespace api {
-    /// prepend a value to a sequence
-    /// the resulting sequence has whatever common type is large enough to contain both the value being consed and the values
-    /// already in the list (using `std::common_type_t`)
-    /// \ingroup sequences_group
-    template <auto i, class S>
-    using seq_cons = typename seq_cons_<i,S>::type;
-  }
+  /// prepend a value to a sequence
+  /// the resulting sequence has whatever common type is large enough to contain both the value being consed and the values
+  /// already in the list (using `std::common_type_t`)
+  /// \ingroup sequences_group
+  template <auto i, class S>
+  using seq_cons = typename seq_cons_<i,S>::type;
 
   /// \meta
   template <class T, T x, T ... ys>
@@ -348,12 +303,10 @@ namespace bad::sequences {
     >;
   };
 
-  namespace api {
-    /// remove all occurrences of a specified item from a pack, return result as a sequence
-    /// \ingroup sequences_group
-    template <auto x, decltype(x) ... xs>
-    using filter_ne = typename filter_ne_<decltype(x),x,xs...>::type;
-  }
+  /// remove all occurrences of a specified item from a pack, return result as a sequence
+  /// \ingroup sequences_group
+  template <auto x, decltype(x) ... xs>
+  using filter_ne = typename filter_ne_<decltype(x),x,xs...>::type;
 
   /// \meta
   template <class T, T x, class S, T ... ys> struct filter_ne_by_;
@@ -369,12 +322,10 @@ namespace bad::sequences {
     using type = std::conditional_t<x==y, typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type, seq_cons<y,typename filter_ne_by_<T,x,iseq<U,us...>,ys...>::type>>;
   };
 
-  namespace api {
-    /// remove all occurrences of a specified item from a pack, return result as a sequence
-    /// \ingroup sequences_group
-    template <auto x, class S, decltype(x) ... xs>
-    using filter_ne_by = typename filter_ne_by_<decltype(x),x,S,xs...>::type;
-  }
+  /// remove all occurrences of a specified item from a pack, return result as a sequence
+  /// \ingroup sequences_group
+  template <auto x, class S, decltype(x) ... xs>
+  using filter_ne_by = typename filter_ne_by_<decltype(x),x,S,xs...>::type;
 
   // * sequence length
 
@@ -390,12 +341,10 @@ namespace bad::sequences {
     static constexpr auto value = sizeof...(is);
   };
 
-  namespace api {
-    /// the length of a sequence
-    /// \ingroup sequences_group
-    template <class S>
-    constexpr auto seq_length = seq_length_<S>::value;
-  }
+  /// the length of a sequence
+  /// \ingroup sequences_group
+  template <class S>
+  constexpr auto seq_length = seq_length_<S>::value;
 
   // * row-major stride calculation
 
@@ -425,13 +374,11 @@ namespace bad::sequences {
     }
   };
 
-  namespace api {
-    /// compute the row-major stride of the nth dimension in a parameter pack of dimensions
-    /// \ingroup sequences_group
-    template <size_t N, size_t... xs>
-    BAD(constinit)
-    constexpr ptrdiff_t stride = stride_<N,xs...>::value();
-  }
+  /// compute the row-major stride of the nth dimension in a parameter pack of dimensions
+  /// \ingroup sequences_group
+  template <size_t N, size_t... xs>
+  BAD(constinit)
+  constexpr ptrdiff_t stride = stride_<N,xs...>::value();
 
   /// \meta
   template <size_t, class T>
@@ -445,12 +392,10 @@ namespace bad::sequences {
     static constexpr ptrdiff_t value = stride<N,is...>;
   };
 
-  namespace api {
-    /// compute the row-major stride of the nth dimension in a sequence of dimensions
-    /// \ingroup sequences_group
-    template <size_t N, class S>
-    constexpr ptrdiff_t seq_stride = seq_stride_<N,S>::value;
-  }
+  /// compute the row-major stride of the nth dimension in a sequence of dimensions
+  /// \ingroup sequences_group
+  template <size_t N, class S>
+  constexpr ptrdiff_t seq_stride = seq_stride_<N,S>::value;
 
   /// \meta
   template <class, class U>
@@ -465,16 +410,14 @@ namespace bad::sequences {
   };
 
 
-  namespace api {
-    /// compute all row-major strides given a set of dimensions
-    ///
-    /// the result is returned as a \ref bad::sseq "sseq", so we can play games with
-    /// negating strides to flip dimensions over
-    ///
-    /// \ingroup sequences_group
-    template <class S>
-    using row_major = typename row_major_<S, make_seq<seq_length<S>>>::type;
-  }
+  /// compute all row-major strides given a set of dimensions
+  ///
+  /// the result is returned as a \ref bad::sseq "sseq", so we can play games with
+  /// negating strides to flip dimensions over
+  ///
+  /// \ingroup sequences_group
+  template <class S>
+  using row_major = typename row_major_<S, make_seq<seq_length<S>>>::type;
 
   // * indexing
 
@@ -487,10 +430,8 @@ namespace bad::sequences {
     return args[N];
   }
 
-  namespace api {
-    template <size_t N, auto... xs>
-    constexpr auto nth = nth_<N,xs...>();
-  }
+  template <size_t N, auto... xs>
+  constexpr auto nth = nth_<N,xs...>();
 
   /// \meta
   template <size_t, class S>
@@ -504,24 +445,22 @@ namespace bad::sequences {
     static constexpr auto value = nth<N,xs...>;
   };
 
-  namespace api {
-    /// return the nth member of a sequence
-    /// \ingroup sequences_group
-    template <size_t N, class S>
-    constexpr auto seq_nth = seq_nth_<N,S>::value;
+  /// return the nth member of a sequence
+  /// \ingroup sequences_group
+  template <size_t N, class S>
+  constexpr auto seq_nth = seq_nth_<N,S>::value;
 
-    /// return the last member of a sequence
-    /// \ingroup sequences_group
-    template <class S>
-    constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
+  /// return the last member of a sequence
+  /// \ingroup sequences_group
+  template <class S>
+  constexpr auto seq_last = seq_nth<seq_length<S>-1,S>;
 
-    /// backpermute a sequence with a pack of indices
-    ///
-    /// `backpermute<iseq<T,a,b,c,d>,0,3,2,3,1,0> = iseq<T,a,d,c,d,b,a>`
-    /// \ingroup sequences_group
-    template <class S, size_t... is>
-    using backpermute = iseq<typename S::value_type, seq_nth<is,S> ...>;
-  }
+  /// backpermute a sequence with a pack of indices
+  ///
+  /// `backpermute<iseq<T,a,b,c,d>,0,3,2,3,1,0> = iseq<T,a,d,c,d,b,a>`
+  /// \ingroup sequences_group
+  template <class S, size_t... is>
+  using backpermute = iseq<typename S::value_type, seq_nth<is,S> ...>;
 
   /// \meta
   template <class, class>
@@ -533,30 +472,27 @@ namespace bad::sequences {
     using type = backpermute<S, is...>;
   };
 
-  namespace api {
-    /// backpermute a sequence with an index sequence of indices
-    //
-    /// `seq_backpermute<iseq<T,a,b,c,d>,seq<0,3,2,3,1,0>> = iseq<T,a,d,c,d,b,a>`
-    /// \ingroup sequences_group
-    template <class S, class T>
-    using seq_backpermute = typename seq_backpermute_<S,T>::type;
+  /// backpermute a sequence with an index sequence of indices
+  //
+  /// `seq_backpermute<iseq<T,a,b,c,d>,seq<0,3,2,3,1,0>> = iseq<T,a,d,c,d,b,a>`
+  /// \ingroup sequences_group
+  template <class S, class T>
+  using seq_backpermute = typename seq_backpermute_<S,T>::type;
 
-    /// returns all but the last entry in the non-empty sequence \p S
-    /// \ingroup sequences_group
-    template <class S>
-    using seq_init = seq_backpermute<S, make_seq<seq_length<S>-1>>;
+  /// returns all but the last entry in the non-empty sequence \p S
+  /// \ingroup sequences_group
+  template <class S>
+  using seq_init = seq_backpermute<S, make_seq<seq_length<S>-1>>;
 
-    /// drop the last \p N entries from a sequence
-    /// \ingroup sequences_group
-    template <size_t N, class S>
-    using seq_drop_last = seq_backpermute<S, make_seq<seq_length<S>-std::max(N, seq_length<S>)>>;
-  }
+  /// drop the last \p N entries from a sequence
+  /// \ingroup sequences_group
+  template <size_t N, class S>
+  using seq_drop_last = seq_backpermute<S, make_seq<seq_length<S>-std::max(N, seq_length<S>)>>;
 
   /// \meta
   // have to lump it and take the crappy error in the 0 argument case
   template <auto...>
   struct pack_transpose_;
-
 
   template <auto i> struct pack_transpose_<i> {
     static_assert(no<decltype(i)>,"pack_transpose: 1 item in the pack, need at least 2");
@@ -574,12 +510,10 @@ namespace bad::sequences {
     using type = seq_cons<i,typename pack_transpose_<j,k,ls...>::type>;
   };
 
-  namespace api {
-    /// swap the last two dimensions in a (possibly heteregeneous) parameter pack of integral values
-    /// \ingroup sequences_group
-    template <auto... is>
-    using pack_transpose = typename pack_transpose_<is...>::type;
-  }
+  /// swap the last two dimensions in a (possibly heteregeneous) parameter pack of integral values
+  /// \ingroup sequences_group
+  template <auto... is>
+  using pack_transpose = typename pack_transpose_<is...>::type;
 
   /// \meta
   template <class S>
@@ -593,12 +527,10 @@ namespace bad::sequences {
     using type = pack_transpose<i, j, is...>;
   };
 
-  namespace api {
-    /// swap the last two entries in a sequence
-    /// \ingroup sequences_group
-    template <class S>
-    using seq_transpose = typename seq_transpose_<S>::type;
-  }
+  /// swap the last two entries in a sequence
+  /// \ingroup sequences_group
+  template <class S>
+  using seq_transpose = typename seq_transpose_<S>::type;
 
   // * skip the nth element
 
@@ -620,21 +552,19 @@ namespace bad::sequences {
     };
   };
 
-  namespace api {
-    /// skip the `N`th entry in a sequence
-    /// \ingroup sequences_group
-    template <size_t N, class S>
-    using seq_skip_nth = typename seq_skip_nth_<
-      N, S, make_seq<N>
-    >::template at<
-      make_seq<seq_length<S>-1-N>
-    >::type;
+  /// skip the `N`th entry in a sequence
+  /// \ingroup sequences_group
+  template <size_t N, class S>
+  using seq_skip_nth = typename seq_skip_nth_<
+    N, S, make_seq<N>
+  >::template at<
+    make_seq<seq_length<S>-1-N>
+  >::type;
 
-    /// pull the `N`th entry to the front of the sequence. Useful for algorithms like `einsum` and the like.
-    /// \ingroup sequences_group
-    template <size_t N, class L>
-    using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
-  }
+  /// pull the `N`th entry to the front of the sequence. Useful for algorithms like `einsum` and the like.
+  /// \ingroup sequences_group
+  template <size_t N, class L>
+  using seq_pull = seq_cons<seq_nth<N,L>,seq_skip_nth<N,L>>;
 
   /// \meta
   template <class S, template <typename S::value_type> class>
@@ -648,12 +578,10 @@ namespace bad::sequences {
     using type = iseq<decltype(F<declval<A>()>::value), F<as>::value...>;
   };
 
-  namespace api {
-    /// apply a unary function to two sequences
-    /// \ingroup sequences_group
-    template <class S, template<typename S::value_type> class F>
-    using seq_map = typename seq_map_<S, F>::type;
-  }
+  /// apply a unary function to two sequences
+  /// \ingroup sequences_group
+  template <class S, template<typename S::value_type> class F>
+  using seq_map = typename seq_map_<S, F>::type;
 
   /// \meta
   template <class S, class>
@@ -667,11 +595,9 @@ namespace bad::sequences {
     using type = iseq<decltype(TT::template at<declval<A>()>::value), TT::template at<as>::value...>;
   };
 
-  namespace api {
-    /// \ingroup sequences_group
-    template <class S, class TT>
-    using seq_map_at = typename seq_map_at_<S, TT>::type;
-  };
+  /// \ingroup sequences_group
+  template <class S, class TT>
+  using seq_map_at = typename seq_map_at_<S, TT>::type;
 
   template <class SA, class SB, template <typename SA::value_type,typename SB::value_type> class>
   struct seq_zip_ {
@@ -683,49 +609,47 @@ namespace bad::sequences {
     using type = iseq<decltype(F<declval<A>(),declval<B>()>::value), F<as,bs>::value...>;
   };
 
-  namespace api {
-    /// zip two sequences
-    /// \ingroup sequences_group
-    template <class S, class T, template<typename S::value_type,typename T::value_type> class F>
-    using seq_zip = typename seq_zip_<S, T, F>::type;
+  /// zip two sequences
+  /// \ingroup sequences_group
+  template <class S, class T, template<typename S::value_type,typename T::value_type> class F>
+  using seq_zip = typename seq_zip_<S, T, F>::type;
 
-    /// add elements of two sequences, pointwise
-    /// \ingroup sequences_group
-    template <class S, class T>
-    using seq_plus = seq_zip<S,T,functions::plus>;
+  /// add elements of two sequences, pointwise
+  /// \ingroup sequences_group
+  template <class S, class T>
+  using seq_plus = seq_zip<S,T,bad::plus>;
 
-    template <class S, auto K>
-    using seq_plus_constant = seq_map_at<S,functions::flipb<functions::plus,K>>;
+  template <class S, auto K>
+  using seq_plus_constant = seq_map_at<S,bad::flipb<bad::plus,K>>;
 
-    template <auto K, class S>
-    using seq_constant_plus = seq_map_at<S,functions::papb<functions::plus,K>>;
+  template <auto K, class S>
+  using seq_constant_plus = seq_map_at<S,bad::papb<bad::plus,K>>;
 
-    /// subtract elements of two sequences, pointwise
-    /// \ingroup sequences_group
-    template <class S, class T>
-    using seq_minus = seq_zip<S,T,functions::minus>;
+  /// subtract elements of two sequences, pointwise
+  /// \ingroup sequences_group
+  template <class S, class T>
+  using seq_minus = seq_zip<S,T,bad::minus>;
 
-    /// \ingroup sequences_group
-    template <class S, auto K>
-    using seq_minus_constant = seq_map_at<S,functions::flipb<functions::minus,K>>;
+  /// \ingroup sequences_group
+  template <class S, auto K>
+  using seq_minus_constant = seq_map_at<S,bad::flipb<bad::minus,K>>;
 
-    /// \ingroup sequences_group
-    template <auto K, class S>
-    using seq_constant_minus = seq_map_at<S,functions::papb<functions::minus,K>>;
+  /// \ingroup sequences_group
+  template <auto K, class S>
+  using seq_constant_minus = seq_map_at<S,bad::papb<bad::minus,K>>;
 
-    /// multiply elements of two sequences, pointwise
-    /// \ingroup sequences_group
-    template <class S, class T>
-    using seq_times = seq_zip<S,T,functions::times>;
+  /// multiply elements of two sequences, pointwise
+  /// \ingroup sequences_group
+  template <class S, class T>
+  using seq_times = seq_zip<S,T,bad::times>;
 
-    /// \ingroup sequences_group
-    template <class S, auto K>
-    using seq_times_constant = seq_map_at<S,functions::flipb<functions::times,K>>;
+  /// \ingroup sequences_group
+  template <class S, auto K>
+  using seq_times_constant = seq_map_at<S,bad::flipb<bad::times,K>>;
 
-    /// \ingroup sequences_group
-    template <auto K, class S>
-    using seq_constant_times = seq_map_at<S,functions::papb<functions::times,K>>;
-  }
+  /// \ingroup sequences_group
+  template <auto K, class S>
+  using seq_constant_times = seq_map_at<S,bad::papb<bad::times,K>>;
 
   template <size_t i, auto... xs>
   static constexpr auto rev_nth = nth<sizeof...(xs)-i-1,xs...>;
@@ -744,13 +668,10 @@ namespace bad::sequences {
   };
   
 
-  namespace api {
-    /// returns if one list is a suffix of the other
-    /// TODO: use this for automatic dimension extension.
-    template <class L, class R>
-    static constexpr bool seq_compat = seq_compat_<L,R,make_seq<std::min(seq_length<L>,seq_length<R>)>>::value;
-  }
+  /// returns if one list is a suffix of the other
+  /// TODO: use this for automatic dimension extension.
+  template <class L, class R>
+  static constexpr bool seq_compat = seq_compat_<L,R,make_seq<std::min(seq_length<L>,seq_length<R>)>>::value;
 }
 
-/// \}
 #endif

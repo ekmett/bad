@@ -1,7 +1,7 @@
 #ifndef BAD_OPERATORS_HH
 #define BAD_OPERATORS_HH
 
-#include "attributes.hh"
+#include "bad/attributes.hh"
 
 /// \file
 /// \brief operators and move semantics
@@ -10,26 +10,6 @@
 
 /// \defgroup operators_group operators
 /// \brief operators and move semantics
-
-/// \namespace bad
-/// \private
-namespace bad {
-  /// \namespace bad::operators
-  /// \ref operators_group "operators" internals, import bad::operators::api
-  /// \ingroup operators_group
-  namespace operators {
-    /// \namespace bad::operators::common
-    /// \ingroup operators_group
-    /// re-exported by \ref bad and bad::operators::api
-    namespace common {}
-    /// \namespace bad::operators::api
-    /// \ingroup operators_group
-    /// See \ref operators_group "operators" for a complete listing.
-    namespace api { using namespace common; }
-    using namespace api;
-  }
-  using namespace operators::common;
-}
 
 /// \def bad_op(name,op)
 /// \private
@@ -172,7 +152,7 @@ namespace bad {
 /// \ingroup operators_group
 /// \{
 
-namespace bad::operators::api {
+namespace bad {
 
   /// \defgroup equality equality
   /// `!=` and `==`
