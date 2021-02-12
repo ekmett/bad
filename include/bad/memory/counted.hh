@@ -62,14 +62,6 @@ namespace bad {
     using ref_count_type = typename policy::type;
     mutable ref_count_type ref_count;
 
-    /// \private
-    template <class C, class Q>
-    friend void acquire(counted<C,Q> const * rhs) noexcept;
-
-    /// \private
-    template <class C, class Q>
-    friend void release(counted<C,Q> const * rhs) noexcept;
-
   public:
     BAD(hd,inline)
     counted() noexcept : ref_count(0) {}
@@ -86,6 +78,17 @@ namespace bad {
     size_t reference_count() noexcept {
       return policy::load(ref_count);
     }
+
+    BAD(hd,inline)
+    void acquire() const noexcept {
+      policy::inc(ref_count);
+    }
+
+    BAD(hd,inline)
+    void release() const noexcept {
+      if (policy::dec(ref_count) == 0)
+        delete static_cast<B const *>(this);
+    }
   };
 
   template <class B>
@@ -94,14 +97,15 @@ namespace bad {
   template <class B, class Policy>
   BAD(hd,inline)
   void acquire(counted<B,Policy> const * rhs) noexcept {
-    Policy::inc(rhs->ref_count);
+    assert(rhs != nullptr);
+    rhs->acquire();
   }
 
   template <class B, class Policy>
   BAD(hd,inline)
   void release(counted<B,Policy> const * rhs) noexcept {
-    if (Policy::dec(rhs->ref_count) == 0)
-      delete static_cast<B const *>(rhs);
+    assert(rhs != nullptr);
+    rhs->release();
   }
 }
 
