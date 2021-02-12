@@ -57,15 +57,13 @@ namespace bad::memory::api {
 }
 
 namespace bad::memory::common {
+
   template <class B, class Policy = thread_unsafe_policy>
   struct counted {
     using policy = Policy;
     using ref_count_type = typename policy::type;
 
-  private:
     mutable ref_count_type ref_count;
-
-  public:
 
     BAD(hd,inline)
     counted() noexcept : ref_count(0) {}
@@ -82,6 +80,7 @@ namespace bad::memory::common {
     size_t reference_count() noexcept {
       return policy::load(ref_count);
     }
+
   };
 
   template <class B>
@@ -97,7 +96,7 @@ namespace bad::memory::common {
   BAD(hd,inline)
   void release(counted<B,Policy> const * rhs) noexcept {
     if (Policy::dec(rhs->ref_count) == 0)
-      delete static_cast<B*>(rhs);
+      delete static_cast<B const *>(rhs);
   }
 }
 

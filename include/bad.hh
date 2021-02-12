@@ -13,5 +13,6 @@
 #include "bad/storage.hh"
 #include "bad/tapes.hh"
 #include "bad/types.hh"
+#include "bad/disjoint_sets.hh"
 
 #endif

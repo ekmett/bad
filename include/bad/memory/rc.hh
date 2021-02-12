@@ -81,7 +81,7 @@ namespace bad::memory::api {
 
     BAD(reinitializes,hd,inline)
     void reset() noexcept {
-      rc().swap(*this); 
+      rc().swap(*this);
     }
 
     BAD(reinitializes,hd,inline)
@@ -118,12 +118,12 @@ namespace bad::memory::api {
       return r;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,inline,pure) constexpr
     operator bool () const noexcept {
       return p != nullptr;
     }
 
-    BAD(hd,inline,pure)
+    BAD(hd,inline,pure) constexpr
     bool operator ! () const noexcept {
       return p == nullptr;
     }

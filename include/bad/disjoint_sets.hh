@@ -1,6 +1,9 @@
 #ifndef BAD_DISJOINT_SETS_HH
 #define BAD_DISJOINT_SETS_HH
 
+#include <variant>
+#include <utility>
+
 #include "bad/common.hh"
 #include "bad/attributes.hh"
 #include "bad/memory.hh"
@@ -39,11 +42,6 @@ namespace bad::disjoint_sets {
   template <class T>
   struct dso;
 
-  namespace common {
-    template <class T>
-    using ds = rc<dso<T>>;
-  }
-
   // T should support T += T
   template <class T>
   struct root {
@@ -52,9 +50,119 @@ namespace bad::disjoint_sets {
 
     template <typename... Args>
     BAD(hd,inline)
-    explicit root(Args...args)
-    : data(std::forward(args)...), rank(0) {}
+    explicit root(T const & rhs)
+    : data(rhs)
+    , rank(0) {}
   };
+
+  namespace common {
+
+    template <class T>
+    struct ds {
+      mutable rc<dso<T>> p;
+
+      BAD(hd,inline)
+      ds() noexcept;
+
+      BAD(hd,inline)
+      ds(ds const & rhs) noexcept
+      : p(rhs.p) {}
+
+      BAD(hd,inline)
+      ds(ds && rhs) noexcept
+      : p(std::move(rhs.p)) {}
+
+      // protected
+      BAD(hd,inline)
+      ds(dso<T> * rhs) noexcept
+      : p(rhs) {
+        assert(rhs != nullptr);
+      }
+
+      // template <class...Args>
+      // BAD(hd,inline)
+      // ds(Args&&...) noexcept;
+
+      BAD(hd,inline)
+      ds(T const &) noexcept;
+
+      BAD(hd,inline)
+      ds & operator = (ds const & rhs) noexcept {
+        p = rhs.p;
+        return *this;
+      }
+
+      BAD(hd,inline)
+      ds & operator = (ds && rhs) noexcept {
+        p = rhs.p;
+        return *this;
+      }
+
+    // protected:
+      BAD(hd,inline)
+      root<T> & find() const noexcept;
+
+    // public:
+      BAD(hd,inline)
+      ds & operator | (ds &) noexcept;
+
+      BAD(hd,inline)
+      T & value() noexcept {
+        return find().data;
+      }
+
+      BAD(hd,inline)
+      T const & value() const noexcept {
+        return find().data;
+      }
+
+      BAD(hd,inline)
+      friend bool operator == (
+        BAD(noescape) ds const & lhs,
+        BAD(noescape) ds const & rhs
+      ) noexcept {
+        return &lhs.find() == &rhs.find();
+      }
+
+      BAD(hd,inline)
+      friend bool operator != (
+        BAD(noescape) ds const & lhs,
+        BAD(noescape) ds const & rhs
+      ) noexcept {
+        return &lhs.find() != &rhs.find();
+      }
+
+      BAD(hd,inline)
+      dso<T> * operator ->() const noexcept {
+        auto result = p.get();
+        assert(result != nullptr);
+        return result;
+      }
+
+      BAD(hd,inline)
+      dso<T> & operator *() const noexcept {
+        auto result = p.get();
+        assert(result != nullptr);
+        return *result;
+      }
+
+    // protected
+      BAD(hd,inline)
+      ds<T> parent() const noexcept;
+
+      BAD(hd,inline)
+      void set_parent(ds<T> const &) const noexcept;
+    };
+
+    template <class T>
+    ds(ds<T> const &) -> ds<T>;
+
+    template <class T>
+    ds(ds<T> &&) -> ds<T>;
+
+    template <class T>
+    ds(T) -> ds<T>;
+  }
 
   template <class T>
   struct link {
@@ -63,85 +171,104 @@ namespace bad::disjoint_sets {
     template <typename... Args>
     BAD(hd,inline)
     explicit link(Args...args)
-    : parent(std::forward(args)...) {}
+    : parent(std::forward<Args>(args)...) {}
   };
 
   template <class T>
   struct dso : counted<dso<T>> {
+    friend ds<T>;
+
     using entry_type = std::variant<root<T>,link<T>>;
     entry_type entry;
 
-    template <typename... Args>
+    template <class... Args>
     BAD(hd,inline)
-    explicit dso(Args...args)
+    explicit dso(Args&&... args)
     : counted<dso<T>>()
-    , entry(std::forward(args)...) {}
+    , entry(std::forward<Args>(args)...) {}
 
     BAD(hd,inline,flatten)
     ds<T> parent() noexcept {
-      return std::visit([](auto x) {
-        if constexpr (std::is_same_v<decltype(x),link<T>>) {
-          return x.parent;
+      dso * self = this;
+      assert(self != nullptr);
+      return std::visit([self](auto root_or_link) {
+        if constexpr (std::is_same_v<decltype(root_or_link),link<T>>) {
+          return root_or_link.parent;
         } else {
-          return *this;
+          return ds<T>(self);
         }
       },entry);
     }
 
-  protected:
     template <class ... Args>
     BAD(hd,inline,flatten)
-    void set_parent(Args ... args) noexcept {
-      entry.emplace<link<T>>(args...);
+    void set_parent(Args&& ... args) noexcept {
+      entry.template emplace<link<T>>(std::forward<Args>(args)...);
     }
   };
 
-  template <class T, class...Args>
-  BAD(hd,inline,flatten)
-  ds<T> make_set(Args... args) noexcept {
-    // allocate a fresh root
-    return new dso<T>(std::in_place_index<0>, std::forward(args)...);
+  template <class T>
+  common::ds<T> common::ds<T>::parent() const noexcept {
+    return ds(p->parent());
   }
 
-  // with (mutable) path-halving
   template <class T>
-  BAD(hd,inline,flatten)
-  ds<T> find(ds<T> const & start) noexcept const {
-    ds<T> x = start;
-    while (x->parent() != x) {
-      x->set_parent(x->parent()->parent());
-      x = x->parent();
+  void common::ds<T>::set_parent(ds<T> const & rhs) const noexcept {
+    p->set_parent(rhs);
+  }
+
+  template <class T>
+  common::ds<T>::ds() noexcept : p(new dso<T>()) {}
+
+  // template <class T>
+  // template <class...Args>
+  // common::ds<T>::ds(Args&&...args) noexcept
+  // : p (new dso<T>(std::in_place_index_t<0>(),std::forward<Args>(args)...)) {}
+
+  template <class T>
+  common::ds<T>::ds(T const & t) noexcept
+  : p (new dso<T>(std::in_place_index_t<0>(),t)) {}
+
+
+  template <class T>
+  root<T> & common::ds<T>::find() const noexcept {
+    while (p != parent().p) {
+       set_parent(parent()->parent());
+       p = parent().p;
     }
-    return x;
+    return std::get<0>(p->entry);
   }
 
   template <class T>
-  BAD(hd,inline,flatten)
-  ds<T> union(ds<T> const & x, ds<T> const & y) {
-    auto xp = find(x);
-    auto yp = find(y);
-    auto xr = std::get<0>(xp.entry);
-    auto yr = std::get<0>(yp.entry);
+  ds<T> & common::ds<T>::operator |(ds<T> & rhs) noexcept {
+    auto & xr = find();
+    auto & yr = rhs.find();
 
-    int dr = xr.rank - yr.rank;
+    ptrdiff_t dr = xr.rank - yr.rank;
 
-    if (dr <= 0) {
+    if (dr >= 0) {
       xr.data += yr.data;
-      yp.set_parent(xp);
+      rhs.p->set_parent(*this);
+      // yr is now invalid
       if (dr == 0) ++xr.rank;
-      return xp;
+      return *this;
     } else {
       yr.data += xr.data;
-      xp.set_parent(yp);
-      return yp;
+      p->set_parent(rhs);
+      return rhs;
     }
   }
 
-  // result is valid until you do another union
-  template <class T>
-  BAD(hd,inline,flatten)
-  T & measure(ds<T> const & x) {
-    return std::get<0>(find(x)->entry).data;
+  namespace common {
+    template <class T, class... Args>
+    ds<T> & merge(ds<T> arg, Args...args) {
+      return (arg | ... | args);
+    }
+
+    template <class T>
+    ds<T> & merge() {
+      return ds<T>();
+    }
   }
 }
 
