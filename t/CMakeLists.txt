@@ -13,9 +13,6 @@ target_precompile_headers(t_storage REUSE_FROM bad)
 add_executable(t_tapes t_tapes.cc)
 target_precompile_headers(t_tapes REUSE_FROM bad)
 
-add_executable(t_operators t_operators.cc)
-target_precompile_headers(t_operators REUSE_FROM bad)
-
 add_executable(t_mixed t_mixed.cc)
 target_precompile_headers(t_mixed REUSE_FROM bad)
 
