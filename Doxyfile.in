@@ -160,7 +160,8 @@ WARN_FORMAT            = "$file:$line: $text"
 WARN_LOGFILE           =
 INPUT                  = \
   "@PROJECT_SOURCE_DIR@/src" \
-  "@PROJECT_SOURCE_DIR@/include"
+  "@PROJECT_SOURCE_DIR@/include" \
+  "@PROJECT_SOURCE_DIR@/README.md"
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.cc *.hh *.md
 RECURSIVE              = YES

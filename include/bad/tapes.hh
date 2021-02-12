@@ -27,7 +27,7 @@ namespace bad {
   /// \brief Tape sensitivities. Constructed with tape::push.
   ///
   /// Describes how to push information backwards through your activations
-  /// by using the information stored in the \ref tape.
+  /// by using the information stored in the \ref bad::tape "tape".
   /// \ingroup tapes_group
   template <class T, class Act = T*, class Allocator = default_allocator>
   struct abstract_record;
@@ -161,11 +161,11 @@ namespace bad {
     BAD(hd,assume_aligned(record_alignment),noalias)
     virtual link<T,Act,Allocator> * as_link() noexcept { return nullptr; }
 
-    /// unlike usual, the result can be reached through the \ref tape.
+    /// unlike usual, the result can be reached through the \ref bad::tape "tape".
     BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
     void * operator new(size_t size, BAD(noescape) tape_t & tape) noexcept;
 
-    /// used internally. returns nullptr if the \ref segment is out of room.
+    /// used internally. returns nullptr if the \ref bad::segment "segment" is out of room.
     BAD(maybe_unused,hd,alloc_size(1),malloc,assume_aligned(record_alignment))
     void * operator new(size_t size, BAD(noescape) segment<T, Act, Allocator> & segment) noexcept;
 
