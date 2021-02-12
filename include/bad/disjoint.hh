@@ -8,7 +8,7 @@
 #include "bad/attributes.hh"
 #include "bad/memory.hh"
 
-// TODO: atomics or locks for better safety in concurrent situations
+// TODO: atomics and locks for better safety in concurrent situations
 
 /// \file
 /// disjoint set forests
@@ -181,6 +181,7 @@ namespace bad {
     template <class T>
     struct dso : counted<dso<T>> {
       friend disjoint<T>;
+      /// TODO: eventually carry a shared mutex to control access to entry
   
       using entry_type = std::variant<root<T>,link<T>>;
       entry_type entry;

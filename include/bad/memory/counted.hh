@@ -57,10 +57,20 @@ namespace bad {
   template <class B, class Policy = thread_unsafe_policy>
   struct counted {
     using policy = Policy;
-    using ref_count_type = typename policy::type;
 
+  private:
+    using ref_count_type = typename policy::type;
     mutable ref_count_type ref_count;
 
+    /// \private
+    template <class C, class Q>
+    friend void acquire(counted<C,Q> const * rhs) noexcept;
+
+    /// \private
+    template <class C, class Q>
+    friend void release(counted<C,Q> const * rhs) noexcept;
+
+  public:
     BAD(hd,inline)
     counted() noexcept : ref_count(0) {}
 
