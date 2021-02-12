@@ -2,6 +2,7 @@
 #define BAD_MIXED_MODE_HH
 
 #include <type_traits>
+
 #include "bad/attributes.hh"
 #include "bad/sequences.hh"
 #include "bad/common.hh"
@@ -28,21 +29,6 @@
 /// TODO: struct BAD(nodiscard) mixed_expr
 
 namespace bad {
-  template <class S>
-  struct seq_for;
-
-  template <class T, T... ts>
-  struct seq_for<iseq<T,ts...>> {
-    template <class F>
-    BAD(hd,inline,flatten)
-    seq_for(F f) {
-       (f(ts),...,void());
-    }
-  };
-
-  template <auto N>
-  using forN = seq_for<make_seq<N>>;
-
   /// \brief mixed-mode AD expression
   /// \ingroup mixed_mode_group
   template <class B>
@@ -268,7 +254,6 @@ namespace std {
   : std::integral_constant<size_t, B::size + 1> {};
 }
 
-
 namespace bad {
   /// copy shape from a mixed expression
   /// \ingroup mixed_mode_group
@@ -453,57 +438,60 @@ namespace bad {
     };
   };
 
-  /// \ingroup mixed_mode_group
-  template <class L, class R>
-  struct BAD(empty_bases,nodiscard) mixed_add_expr
-  : mixed_expr<mixed_add_expr<L,R>> {
+  namespace detail {
 
-    static constexpr size_t size = L::size;
-    static constexpr size_t args = L::args + R::args;
+    /// \ingroup mixed_mode_group
+    template <class L, class R>
+    struct BAD(empty_bases,nodiscard) mixed_add_expr
+    : mixed_expr<mixed_add_expr<L,R>> {
 
-    static_assert(std::is_same_v<typename L::tangents,typename R::tangents>,"tangent type mismatch");
+      static constexpr size_t size = L::size;
+      static constexpr size_t args = L::args + R::args;
 
-    using tangents = typename L::tangents;
-    using element_type = decltype(std::declval<L>().primal() + std::declval<R>().primal());
-    using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
+      static_assert(std::is_same_v<typename L::tangents,typename R::tangents>,"tangent type mismatch");
 
-    L const & lhs;
-    R const & rhs;
+      using tangents = typename L::tangents;
+      using element_type = decltype(std::declval<L>().primal() + std::declval<R>().primal());
+      using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
 
-    element_type p; ///< cached primal
+      L const & lhs;
+      R const & rhs;
 
-    BAD(hd,inline) constexpr
-    mixed_add_expr(
-      BAD(lifetimebound) L const & l,
-      BAD(lifetimebound) R const & r
-    ) noexcept
-    : lhs(l),rhs(r), p(lhs.primal() + rhs.primal()) {}
+      element_type p; ///< cached primal
 
-    // cached primals
-    BAD(hd,nodiscard,inline) constexpr
-    element_type primal() const noexcept {
-      return p;
-    }
+      BAD(hd,inline) constexpr
+      mixed_add_expr(
+        BAD(lifetimebound) L const & l,
+        BAD(lifetimebound) R const & r
+      ) noexcept
+      : lhs(l),rhs(r), p(lhs.primal() + rhs.primal()) {}
 
-    template <size_t i>
-    BAD(hd,nodiscard,inline,flatten) constexpr
-    auto dual() const noexcept {
-      return lhs.template dual<i>() + rhs.template dual<i>();
-    }
+      // cached primals
+      BAD(hd,nodiscard,inline) constexpr
+      element_type primal() const noexcept {
+        return p;
+      }
 
-    BAD(hd,nodiscard,inline,flatten) constexpr
-    partials_type partials(element_type x) const noexcept {
-      return { lhs.partials(x), rhs.partials(x) };
-    }
+      template <size_t i>
+      BAD(hd,nodiscard,inline,flatten) constexpr
+      auto dual() const noexcept {
+        return lhs.template dual<i>() + rhs.template dual<i>();
+      }
 
-    template <size_t i>
-    BAD(hd,nodiscard,inline,flatten) constexpr
-    auto tangent(partials_type const & ps) const noexcept {
-      using std::get;
-      return lhs.template tangent<i>(get<0>(ps))
-           + rhs.template tangent<i>(get<1>(ps));
-    }
-  };
+      BAD(hd,nodiscard,inline,flatten) constexpr
+      partials_type partials(element_type x) const noexcept {
+        return { lhs.partials(x), rhs.partials(x) };
+      }
+
+      template <size_t i>
+      BAD(hd,nodiscard,inline,flatten) constexpr
+      auto tangent(partials_type const & ps) const noexcept {
+        using std::get;
+        return lhs.template tangent<i>(get<0>(ps))
+             + rhs.template tangent<i>(get<1>(ps));
+      }
+    };
+  }
 
   /// \ingroup mixed_mode_group
   template <class L, class R>
@@ -512,68 +500,70 @@ namespace bad {
     BAD(lifetimebound) mixed_expr<L> const & l,
     BAD(lifetimebound) mixed_expr<R> const & r
   ) {
-    return mixed_add_expr<L,R>(l.me(),r.me());
+    return detail::mixed_add_expr<L,R>(l.me(),r.me());
   }
 
-  /// \ingroup mixed_mode_group
-  template <class L, class R>
-  struct BAD(empty_bases,nodiscard) mixed_mul_expr
-  : mixed_expr<mixed_mul_expr<L,R>> {
+  namespace detail {
+    /// \ingroup mixed_mode_group
+    template <class L, class R>
+    struct BAD(empty_bases,nodiscard) mixed_mul_expr
+    : mixed_expr<mixed_mul_expr<L,R>> {
 
-    static_assert(std::is_same_v<L::tangents,R::tangents>,"tangent type mismatch");
+      static_assert(std::is_same_v<L::tangents,R::tangents>,"tangent type mismatch");
 
-    static_assert(L::size == R::size, "tangent size mismatch");
+      static_assert(L::size == R::size, "tangent size mismatch");
 
-    static constexpr size_t size = L::size;
-    static constexpr size_t args = L::args + R::args;
+      static constexpr size_t size = L::size;
+      static constexpr size_t args = L::args + R::args;
 
-    using tangents = typename L::tangents;
-    using element_type = decltype(std::declval<L>().primal() * std::declval<R>().primal());
-    using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
+      using tangents = typename L::tangents;
+      using element_type = decltype(std::declval<L>().primal() * std::declval<R>().primal());
+      using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
 
-    L const & lhs;
-    R const & rhs;
+      L const & lhs;
+      R const & rhs;
 
-    element_type p; ///< cached primal
+      element_type p; ///< cached primal
 
-    BAD(hd,inline) constexpr
-    mixed_mul_expr(
-      BAD(lifetimebound) L const & l,
-      BAD(lifetimebound) R const & r
-    ) noexcept
-    : lhs(l)
-    , rhs(r)
-    , p(lhs.primal()*rhs.primal()) {}
+      BAD(hd,inline) constexpr
+      mixed_mul_expr(
+        BAD(lifetimebound) L const & l,
+        BAD(lifetimebound) R const & r
+      ) noexcept
+      : lhs(l)
+      , rhs(r)
+      , p(lhs.primal()*rhs.primal()) {}
 
-    // cached primals
-    BAD(hd,nodiscard,inline) constexpr
-    element_type primal() const noexcept {
-      return p;
-    }
+      // cached primals
+      BAD(hd,nodiscard,inline) constexpr
+      element_type primal() const noexcept {
+        return p;
+      }
 
-    template <size_t i>
-    BAD(hd,nodiscard,inline,flatten) constexpr
-    auto dual() const noexcept {
-      return lhs.template dual<i>() * rhs.primal()
-           + lhs.primal() * rhs.template dual<i>();
-    }
+      template <size_t i>
+      BAD(hd,nodiscard,inline,flatten) constexpr
+      auto dual() const noexcept {
+        return lhs.template dual<i>() * rhs.primal()
+             + lhs.primal() * rhs.template dual<i>();
+      }
 
-    BAD(hd,nodiscard,inline,flatten) constexpr
-    partials_type partials(element_type bar) const noexcept {
-      return {
-        lhs.partials(bar * rhs.primal()),
-        rhs.partials(lhs.primal() * bar)
-      };
-    }
+      BAD(hd,nodiscard,inline,flatten) constexpr
+      partials_type partials(element_type bar) const noexcept {
+        return {
+          lhs.partials(bar * rhs.primal()),
+          rhs.partials(lhs.primal() * bar)
+        };
+      }
 
-    template <size_t i>
-    BAD(hd,nodiscard,inline,flatten) constexpr
-    auto tangent(partials_type const & ps) const noexcept {
-      using std::get;
-      return lhs.template tangent<i>(get<0>(ps))
-           + rhs.template tangent<i>(get<1>(ps));
-    }
-  };
+      template <size_t i>
+      BAD(hd,nodiscard,inline,flatten) constexpr
+      auto tangent(partials_type const & ps) const noexcept {
+        using std::get;
+        return lhs.template tangent<i>(get<0>(ps))
+             + rhs.template tangent<i>(get<1>(ps));
+      }
+    };
+  }
 
   /// \ingroup mixed_mode_group
   template <class L, class R>
@@ -582,32 +572,35 @@ namespace bad {
     BAD(lifetimebound) mixed_expr<L> const & l,
     BAD(lifetimebound) mixed_expr<R> const & r
   ) {
-    return mixed_mul_expr<L,R>(l.me(),r.me());
+    return detail::mixed_mul_expr<L,R>(l.me(),r.me());
   }
 
-  /// \meta
-  template <class S, class F, class... Args>
-  struct diff_ {
-    static_assert(no<S>,"diff: not a sequence");
-  };
+  namespace detail {
+    /// \meta
+    template <class S, class F, class... Args>
+    struct diff_ {
+      static_assert(no<S>,"diff: not a sequence");
+    };
 
-  template <size_t... is, class F, class... Args>
-  struct BAD(empty_bases,nodiscard) diff_<seq<is...>, F, Args...> {
-    BAD(hd,nodiscard,inline,flatten)
-    auto operator ()(F f, Args... args) {
-      using Tangents = std::tuple<Args...>;
-      std::tuple<Args...> t(std::forward(args)...);
-      mixed result = f((mixed_arg<decltype(std::get<is>(t)),Tangents>(std::get<is>(t)),is)...);
-      return std::tuple(result.primal(), result.template dual<is>()...);
-    }
-  };
+    /// \meta
+    template <size_t... is, class F, class... Args>
+    struct BAD(empty_bases,nodiscard) diff_<seq<is...>, F, Args...> {
+      BAD(hd,nodiscard,inline,flatten)
+      auto operator ()(F f, Args... args) {
+        using Tangents = std::tuple<Args...>;
+        std::tuple<Args...> t(std::forward(args)...);
+        mixed result = f((mixed_arg<decltype(std::get<is>(t)),Tangents>(std::get<is>(t)),is)...);
+        return std::tuple(result.primal(), result.template dual<is>()...);
+      }
+    };
+  }
 
 
   /// \ingroup mixed_mode_group
   template <class F, class... Args>
   BAD(hd,nodiscard,inline,flatten) constexpr
   auto diff(F f, Args... args) {
-    diff_<make_seq<sizeof...(args)>, Args...> op;
+    detail::diff_<make_seq<sizeof...(args)>, Args...> op;
     return op(f,std::forward(args)...);
   }
 }

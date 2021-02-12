@@ -94,21 +94,23 @@ namespace bad {
     root & find() const noexcept;
 
   public:
+    /// merge two disjoint sets
     BAD(hd,inline)
     disjoint & operator | (disjoint &) noexcept;
 
-    // the returned reference remains valid at least until a `merge` involves this disjoint set.
+    /// the returned reference remains valid at least until a `merge` involves this disjoint set.
     BAD(hd,inline)
     T & value() noexcept {
       return find().data;
     }
 
-    // the returned reference remains valid at least until a `merge` involves this disjoint set.
+    /// the returned reference remains valid at least until a `merge` involves this disjoint set.
     BAD(hd,inline)
     T const & value() const noexcept {
       return find().data;
     }
 
+    /// do these two disjoint sets share the same root?
     BAD(hd,inline)
     friend bool operator == (
       BAD(noescape) disjoint const & lhs,
@@ -117,6 +119,7 @@ namespace bad {
       return &lhs.find() == &rhs.find();
     }
 
+    /// do these two disjoint sets not share the same root?
     BAD(hd,inline)
     friend bool operator != (
       BAD(noescape) disjoint const & lhs,
