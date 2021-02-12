@@ -81,7 +81,7 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;cxxabi.h&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;std::string bad::demangle(<span class="keywordtype">char</span> <span class="keyword">const</span> * name) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;std::string bad::types::demangle(<span class="keywordtype">char</span> <span class="keyword">const</span> * name) {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordtype">int</span> status = -4;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  std::unique_ptr&lt;char, void(*)(<span class="keywordtype">void</span>*)&gt; res {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    abi::__cxa_demangle(name, NULL, NULL, &amp;status),</div>
@@ -92,7 +92,7 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;std::string bad::demangle(<span class="keywordtype">char</span> <span class="keyword">const</span> * name) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;std::string bad::types::demangle(<span class="keywordtype">char</span> <span class="keyword">const</span> * name) {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordflow">return</span> name;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>

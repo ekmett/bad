@@ -1,14 +1,8 @@
 var searchData=
 [
-  ['tape_426',['tape',['../structbad_1_1tape.html',1,'bad']]],
-  ['tape_5fiterator_427',['tape_iterator',['../structbad_1_1tape__iterator.html',1,'bad']]],
-  ['terminator_428',['terminator',['../structbad_1_1terminator.html',1,'bad']]],
-  ['thread_5funsafe_5fpolicy_429',['thread_unsafe_policy',['../structbad_1_1thread__unsafe__policy.html',1,'bad']]],
-  ['tie_5ftype_430',['tie_type',['../structbad_1_1store_3_01_t_00_01seq_3_4_00_01sseq_3_4_01_4_1_1tie__type.html',1,'store&lt; T, seq&lt;&gt;, sseq&lt;&gt; &gt;::tie_type&lt; j &gt;'],['../structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4_1_1tie__type',1,'store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;::tie_type&lt; j, is &gt;']]],
-  ['tie_5ftype_3c_20j_20_3e_431',['tie_type&lt; j &gt;',['../structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4_1_1tie__type_3_01j_01_4.html',1,'bad::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tie_5ftype_3c_20j_2c_20i_2c_20is_2e_2e_2e_20_3e_432',['tie_type&lt; j, i, is... &gt;',['../structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01c7bd6db62fa5ecac6e53356588d00e1.html',1,'bad::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tied_5ftype_433',['tied_type',['../structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4.html#structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_01_4_1_1tied__type',1,'bad::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tied_5ftype_3c_20j_2c_20jd_20_3e_434',['tied_type&lt; j, jd &gt;',['../structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_0c96020532d3eb722ff0fca63497eacf7.html',1,'bad::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tied_5ftype_3c_20j_2c_20jd_2c_20i_2c_20is_2e_2e_2e_20_3e_435',['tied_type&lt; j, jd, i, is... &gt;',['../structbad_1_1store_3_01_t_00_01seq_3_01d_00_01ds_8_8_8_01_4_00_01sseq_3_01s_00_01ss_8_8_8_01_4_0f670cd37e337874a9c62f3c73f77ade2.html',1,'bad::store&lt; T, seq&lt; d, ds... &gt;, sseq&lt; s, ss... &gt; &gt;']]],
-  ['tuple_5fsize_3c_20bad_3a_3amixed_5fexpr_3c_20b_20_3e_20_3e_436',['tuple_size&lt; bad::mixed_expr&lt; B &gt; &gt;',['../structstd_1_1tuple__size_3_01bad_1_1mixed__expr_3_01_b_01_4_01_4.html',1,'std']]]
+  ['tape_420',['tape',['../structbad_1_1tapes_1_1tape.html',1,'bad::tapes']]],
+  ['tape_5fiterator_421',['tape_iterator',['../structbad_1_1tapes_1_1detail_1_1tape__iterator.html',1,'bad::tapes::detail']]],
+  ['terminator_422',['terminator',['../structbad_1_1tapes_1_1detail_1_1terminator.html',1,'bad::tapes::detail']]],
+  ['thread_5funsafe_5fpolicy_423',['thread_unsafe_policy',['../structbad_1_1memory_1_1thread__unsafe__policy.html',1,'bad::memory']]],
+  ['tuple_5fsize_3c_20bad_3a_3amixed_5fexpr_3c_20b_20_3e_20_3e_424',['tuple_size&lt; bad::mixed_expr&lt; B &gt; &gt;',['../structstd_1_1tuple__size_3_01bad_1_1mixed__expr_3_01_b_01_4_01_4.html',1,'std']]]
 ];

@@ -91,18 +91,22 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html">store_expr&lt; B, d, ds &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">variadic expression template  <a href="structbad_1_1store__expr.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr&lt; B, d, ds &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">variadic expression template  <a href="structbad_1_1storage_1_1store__expr.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__rep__expr.html">store_rep_expr&lt; B, d, ds &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1detail_1_1store__rep__expr.html">store_rep_expr&lt; B, d, ds &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__add__expr.html">store_add_expr&lt; L, R, d, ds &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html">store_add_expr&lt; L, R, d, ds &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacebad"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad.html">bad</a></td></tr>
 <tr class="memdesc:namespacebad"><td class="mdescLeft">&#160;</td><td class="mdescRight">top level namespace <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacebad_1_1storage"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage.html">bad::storage</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacebad_1_1storage_1_1detail"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage_1_1detail.html">bad::storage::detail</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -114,32 +118,32 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gab7ecc5b7b164227706721f2ee4b83d47"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:gab7ecc5b7b164227706721f2ee4b83d47"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gab7ecc5b7b164227706721f2ee4b83d47">operator+</a> (store_expr&lt; L, d, ds... &gt; const &amp;l, store_expr&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; store_add_expr&lt; L, R, d, ds... &gt;</td></tr>
-<tr class="separator:gab7ecc5b7b164227706721f2ee4b83d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf2bccb41d81c137b672b4c45929ab816"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:gaf2bccb41d81c137b672b4c45929ab816"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gaf2bccb41d81c137b672b4c45929ab816">operator+</a> (store_expr&lt; L, d, ds... &gt; &amp;&amp;l, store_expr&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; store_add_expr&lt; L &amp;&amp;, R, d, ds... &gt;</td></tr>
-<tr class="separator:gaf2bccb41d81c137b672b4c45929ab816"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacef8b2cefa2749d48e2b73ce1a7919d0"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:gacef8b2cefa2749d48e2b73ce1a7919d0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gacef8b2cefa2749d48e2b73ce1a7919d0">operator+</a> (store_expr&lt; L, d, ds... &gt; const &amp;l, store_expr&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; store_add_expr&lt; L, R &amp;&amp;, d, ds... &gt;</td></tr>
-<tr class="separator:gacef8b2cefa2749d48e2b73ce1a7919d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7b626fcc8395c5b8f660c21997c20e54"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:ga7b626fcc8395c5b8f660c21997c20e54"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga7b626fcc8395c5b8f660c21997c20e54">operator+</a> (store_expr&lt; L, d, ds... &gt; &amp;&amp;l, store_expr&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; store_add_expr&lt; L &amp;&amp;, R &amp;&amp;, d, ds... &gt;</td></tr>
-<tr class="separator:ga7b626fcc8395c5b8f660c21997c20e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8a6015214b6dd5f77644e80e229f7a66"><td class="memTemplParams" colspan="2">template&lt;size_t d0, class B , size_t d1, size_t... ds&gt; </td></tr>
-<tr class="memitem:ga8a6015214b6dd5f77644e80e229f7a66"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga8a6015214b6dd5f77644e80e229f7a66">rep</a> (store_expr&lt; B, d1, ds... &gt; const &amp;x) noexcept</td></tr>
-<tr class="separator:ga8a6015214b6dd5f77644e80e229f7a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3aa1a42d3db9788d5137cc36b9c1758f"><td class="memTemplParams" colspan="2">template&lt;size_t d0, class B , size_t d1, size_t... ds&gt; </td></tr>
-<tr class="memitem:ga3aa1a42d3db9788d5137cc36b9c1758f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga3aa1a42d3db9788d5137cc36b9c1758f">rep</a> (store_expr&lt; B, d1, ds... &gt; &amp;x) noexcept</td></tr>
-<tr class="separator:ga3aa1a42d3db9788d5137cc36b9c1758f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9bdb06d90dfa5c6c14bbd4c785667a17"><td class="memTemplParams" colspan="2">template&lt;size_t N, class B , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:ga9bdb06d90dfa5c6c14bbd4c785667a17"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga9bdb06d90dfa5c6c14bbd4c785667a17">pull</a> (store_expr&lt; B, d, ds... &gt; const &amp;rhs, size_t i) noexcept</td></tr>
-<tr class="memdesc:ga9bdb06d90dfa5c6c14bbd4c785667a17"><td class="mdescLeft">&#160;</td><td class="mdescRight">pull the <code>N</code>th dimension of a storage expression to the front.  <a href="group__storage__group.html#ga9bdb06d90dfa5c6c14bbd4c785667a17">More...</a><br /></td></tr>
-<tr class="separator:ga9bdb06d90dfa5c6c14bbd4c785667a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae4b39974ee4fcc9f3cb4a0f2bf5766ca"><td class="memTemplParams" colspan="2">template&lt;size_t N, class B , size_t d, size_t... ds&gt; </td></tr>
-<tr class="memitem:gae4b39974ee4fcc9f3cb4a0f2bf5766ca"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gae4b39974ee4fcc9f3cb4a0f2bf5766ca">pull</a> (store_expr&lt; B, d, ds... &gt; &amp;rhs, size_t i) noexcept</td></tr>
-<tr class="memdesc:gae4b39974ee4fcc9f3cb4a0f2bf5766ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">pulls the <code>N</code>th dimension of a store to the front.  <a href="group__storage__group.html#gae4b39974ee4fcc9f3cb4a0f2bf5766ca">More...</a><br /></td></tr>
-<tr class="separator:gae4b39974ee4fcc9f3cb4a0f2bf5766ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad2b0b041f867b2a1a3a55b839ec23273"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:gad2b0b041f867b2a1a3a55b839ec23273"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gad2b0b041f867b2a1a3a55b839ec23273">operator+</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html">detail::store_add_expr</a>&lt; L, R, d, ds... &gt;</td></tr>
+<tr class="separator:gad2b0b041f867b2a1a3a55b839ec23273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4314565b4157142665c29a67e1aaf76c"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga4314565b4157142665c29a67e1aaf76c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga4314565b4157142665c29a67e1aaf76c">operator+</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;l, <a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; const &amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html">detail::store_add_expr</a>&lt; L &amp;&amp;, R, d, ds... &gt;</td></tr>
+<tr class="separator:ga4314565b4157142665c29a67e1aaf76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13a9a0a276ca0bb0b0b2f91825560422"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga13a9a0a276ca0bb0b0b2f91825560422"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga13a9a0a276ca0bb0b0b2f91825560422">operator+</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; const &amp;l, <a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html">detail::store_add_expr</a>&lt; L, R &amp;&amp;, d, ds... &gt;</td></tr>
+<tr class="separator:ga13a9a0a276ca0bb0b0b2f91825560422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae8fb1bca144f5ae92353ca8895609117"><td class="memTemplParams" colspan="2">template&lt;class L , class R , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:gae8fb1bca144f5ae92353ca8895609117"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#gae8fb1bca144f5ae92353ca8895609117">operator+</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; L, d, ds... &gt; &amp;&amp;l, <a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; R, d, ds... &gt; &amp;&amp;r) noexcept -&gt; <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html">detail::store_add_expr</a>&lt; L &amp;&amp;, R &amp;&amp;, d, ds... &gt;</td></tr>
+<tr class="separator:gae8fb1bca144f5ae92353ca8895609117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8afd16461c14181e7c277d3e3fc3ade0"><td class="memTemplParams" colspan="2">template&lt;size_t d0, class B , size_t d1, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga8afd16461c14181e7c277d3e3fc3ade0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga8afd16461c14181e7c277d3e3fc3ade0">rep</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; B, d1, ds... &gt; const &amp;x) noexcept</td></tr>
+<tr class="separator:ga8afd16461c14181e7c277d3e3fc3ade0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59b2f1a7cf1e4691e0a23685849aa885"><td class="memTemplParams" colspan="2">template&lt;size_t d0, class B , size_t d1, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga59b2f1a7cf1e4691e0a23685849aa885"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga59b2f1a7cf1e4691e0a23685849aa885">rep</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; B, d1, ds... &gt; &amp;x) noexcept</td></tr>
+<tr class="separator:ga59b2f1a7cf1e4691e0a23685849aa885"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0eac8c9f3178e41a0437d4595e7ff2eb"><td class="memTemplParams" colspan="2">template&lt;size_t N, class B , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga0eac8c9f3178e41a0437d4595e7ff2eb"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga0eac8c9f3178e41a0437d4595e7ff2eb">pull</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; B, d, ds... &gt; const &amp;rhs, size_t i) noexcept</td></tr>
+<tr class="memdesc:ga0eac8c9f3178e41a0437d4595e7ff2eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">pull the <code>N</code>th dimension of a storage expression to the front.  <a href="group__storage__group.html#ga0eac8c9f3178e41a0437d4595e7ff2eb">More...</a><br /></td></tr>
+<tr class="separator:ga0eac8c9f3178e41a0437d4595e7ff2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c1641523bb0016be2f729e63a97fb7d"><td class="memTemplParams" colspan="2">template&lt;size_t N, class B , size_t d, size_t... ds&gt; </td></tr>
+<tr class="memitem:ga3c1641523bb0016be2f729e63a97fb7d"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__storage__group.html#ga3c1641523bb0016be2f729e63a97fb7d">pull</a> (<a class="el" href="structbad_1_1storage_1_1store__expr.html">store_expr</a>&lt; B, d, ds... &gt; &amp;rhs, size_t i) noexcept</td></tr>
+<tr class="memdesc:ga3c1641523bb0016be2f729e63a97fb7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">pulls the <code>N</code>th dimension of a store to the front.  <a href="group__storage__group.html#ga3c1641523bb0016be2f729e63a97fb7d">More...</a><br /></td></tr>
+<tr class="separator:ga3c1641523bb0016be2f729e63a97fb7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>storage expression templates </p>

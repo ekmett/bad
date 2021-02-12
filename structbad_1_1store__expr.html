@@ -91,13 +91,13 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a9bad195bf6a6b0b4b7f71f3e04466471"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a> = <a class="el" href="structbad_1_1const__store__expr__iterator.html">const_store_expr_iterator</a>&lt; B, d &gt;</td></tr>
-<tr class="separator:a9bad195bf6a6b0b4b7f71f3e04466471"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a767b723f858f9b83c3807fb7452daa95"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a> = <a class="el" href="structbad_1_1store__expr__iterator.html">store_expr_iterator</a>&lt; B, d &gt;</td></tr>
-<tr class="separator:a767b723f858f9b83c3807fb7452daa95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb9a673a4271b497ef05158e05170942"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#adb9a673a4271b497ef05158e05170942">reverse_iterator</a> = std::reverse_iterator&lt; <a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a> &gt;</td></tr>
+<tr class="memitem:a863744dbe7acdb2e6cc8d5c8cfc5fe31"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a> = <a class="el" href="structbad_1_1detail_1_1const__store__expr__iterator.html">detail::const_store_expr_iterator</a>&lt; B, d &gt;</td></tr>
+<tr class="separator:a863744dbe7acdb2e6cc8d5c8cfc5fe31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bcb0482eee1bb6f72768af37d4d7d03"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a> = <a class="el" href="structbad_1_1detail_1_1store__expr__iterator.html">detail::store_expr_iterator</a>&lt; B, d &gt;</td></tr>
+<tr class="separator:a5bcb0482eee1bb6f72768af37d4d7d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb9a673a4271b497ef05158e05170942"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#adb9a673a4271b497ef05158e05170942">reverse_iterator</a> = std::reverse_iterator&lt; <a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a> &gt;</td></tr>
 <tr class="separator:adb9a673a4271b497ef05158e05170942"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0af7cd2cb131805b96d2b01cae24bf1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#af0af7cd2cb131805b96d2b01cae24bf1">const_reverse_iterator</a> = std::reverse_iterator&lt; <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a> &gt;</td></tr>
+<tr class="memitem:af0af7cd2cb131805b96d2b01cae24bf1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#af0af7cd2cb131805b96d2b01cae24bf1">const_reverse_iterator</a> = std::reverse_iterator&lt; <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a> &gt;</td></tr>
 <tr class="separator:af0af7cd2cb131805b96d2b01cae24bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dfc6460c50bc1ae526413b7c4270a25"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a6dfc6460c50bc1ae526413b7c4270a25">dim</a> = <a class="el" href="group__common__group.html#ga04d64ef00355f2a932dc37de35da96cb">seq</a>&lt; d, ds... &gt;</td></tr>
 <tr class="separator:a6dfc6460c50bc1ae526413b7c4270a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,21 +151,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3a9fbac1534fa64ba14e02c911412a78"><td class="memTemplParams" colspan="2">template&lt;class C &gt; </td></tr>
 <tr class="memitem:a3a9fbac1534fa64ba14e02c911412a78"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a3a9fbac1534fa64ba14e02c911412a78">operator!=</a> (<a class="el" href="structbad_1_1store__expr.html#a103c3e293b958f41ac792eb3197f1e57">expr</a>&lt; C &gt; const &amp;r) const noexcept</td></tr>
 <tr class="separator:a3a9fbac1534fa64ba14e02c911412a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94d8943b6a7771efdc58db62091a3a19"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a94d8943b6a7771efdc58db62091a3a19">begin</a> () noexcept</td></tr>
+<tr class="memitem:a94d8943b6a7771efdc58db62091a3a19"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a94d8943b6a7771efdc58db62091a3a19">begin</a> () noexcept</td></tr>
 <tr class="separator:a94d8943b6a7771efdc58db62091a3a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaece97f344fd19c43ebc6c45d74e37ec"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#aaece97f344fd19c43ebc6c45d74e37ec">end</a> () noexcept</td></tr>
+<tr class="memitem:aaece97f344fd19c43ebc6c45d74e37ec"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#aaece97f344fd19c43ebc6c45d74e37ec">end</a> () noexcept</td></tr>
 <tr class="separator:aaece97f344fd19c43ebc6c45d74e37ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cf152bc9b651fed8f5100c4dca8c4ac"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#adb9a673a4271b497ef05158e05170942">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a4cf152bc9b651fed8f5100c4dca8c4ac">rbegin</a> () noexcept</td></tr>
 <tr class="separator:a4cf152bc9b651fed8f5100c4dca8c4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b916231923ad6476bd5db2ce34f81f6"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#adb9a673a4271b497ef05158e05170942">reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a9b916231923ad6476bd5db2ce34f81f6">rend</a> () noexcept</td></tr>
 <tr class="separator:a9b916231923ad6476bd5db2ce34f81f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a794d38955cd03023ce91647c0b4d01"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a0a794d38955cd03023ce91647c0b4d01">begin</a> () const noexcept</td></tr>
+<tr class="memitem:a0a794d38955cd03023ce91647c0b4d01"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a0a794d38955cd03023ce91647c0b4d01">begin</a> () const noexcept</td></tr>
 <tr class="separator:a0a794d38955cd03023ce91647c0b4d01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e258f78385663a2be805d76b8907eba"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a2e258f78385663a2be805d76b8907eba">end</a> () const noexcept</td></tr>
+<tr class="memitem:a2e258f78385663a2be805d76b8907eba"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a2e258f78385663a2be805d76b8907eba">end</a> () const noexcept</td></tr>
 <tr class="separator:a2e258f78385663a2be805d76b8907eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a9444041ed6ad2aba591540a549845d"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a8a9444041ed6ad2aba591540a549845d">cbegin</a> () const noexcept</td></tr>
+<tr class="memitem:a8a9444041ed6ad2aba591540a549845d"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a8a9444041ed6ad2aba591540a549845d">cbegin</a> () const noexcept</td></tr>
 <tr class="separator:a8a9444041ed6ad2aba591540a549845d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d896bad4831e854fd222088e5fc221e"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a9d896bad4831e854fd222088e5fc221e">cend</a> () const noexcept</td></tr>
+<tr class="memitem:a9d896bad4831e854fd222088e5fc221e"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a9d896bad4831e854fd222088e5fc221e">cend</a> () const noexcept</td></tr>
 <tr class="separator:a9d896bad4831e854fd222088e5fc221e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4841e34a368a6edcc1079f7c06814abf"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1store__expr.html#af0af7cd2cb131805b96d2b01cae24bf1">const_reverse_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1store__expr.html#a4841e34a368a6edcc1079f7c06814abf">rbegin</a> () const noexcept</td></tr>
 <tr class="separator:a4841e34a368a6edcc1079f7c06814abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,14 +213,14 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
 
 </div>
 </div>
-<a id="a9bad195bf6a6b0b4b7f71f3e04466471"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bad195bf6a6b0b4b7f71f3e04466471">&#9670;&nbsp;</a></span>const_iterator</h2>
+<a id="a863744dbe7acdb2e6cc8d5c8cfc5fe31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a863744dbe7acdb2e6cc8d5c8cfc5fe31">&#9670;&nbsp;</a></span>const_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a> =  <a class="el" href="structbad_1_1const__store__expr__iterator.html">const_store_expr_iterator</a>&lt;B,d&gt;</td>
+          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a> =  <a class="el" href="structbad_1_1detail_1_1const__store__expr__iterator.html">detail::const_store_expr_iterator</a>&lt;B,d&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -236,7 +236,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#af0af7cd2cb131805b96d2b01cae24bf1">const_reverse_iterator</a> =  std::reverse_iterator&lt;<a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a>&gt;</td>
+          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#af0af7cd2cb131805b96d2b01cae24bf1">const_reverse_iterator</a> =  std::reverse_iterator&lt;<a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -277,14 +277,14 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
 
 </div>
 </div>
-<a id="a767b723f858f9b83c3807fb7452daa95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a767b723f858f9b83c3807fb7452daa95">&#9670;&nbsp;</a></span>iterator</h2>
+<a id="a5bcb0482eee1bb6f72768af37d4d7d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bcb0482eee1bb6f72768af37d4d7d03">&#9670;&nbsp;</a></span>iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a> =  <a class="el" href="structbad_1_1store__expr__iterator.html">store_expr_iterator</a>&lt;B,d&gt;</td>
+          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a> =  <a class="el" href="structbad_1_1detail_1_1store__expr__iterator.html">detail::store_expr_iterator</a>&lt;B,d&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -300,7 +300,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#adb9a673a4271b497ef05158e05170942">reverse_iterator</a> =  std::reverse_iterator&lt;<a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a>&gt;</td>
+          <td class="memname">using <a class="el" href="structbad_1_1store__expr.html#adb9a673a4271b497ef05158e05170942">reverse_iterator</a> =  std::reverse_iterator&lt;<a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -518,7 +518,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a> begin </td>
+          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a> begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -545,7 +545,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a> begin </td>
+          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a> begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -572,7 +572,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a> cbegin </td>
+          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a> cbegin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -599,7 +599,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a> cend </td>
+          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a> cend </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -680,7 +680,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a9bad195bf6a6b0b4b7f71f3e04466471">const_iterator</a> end </td>
+          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a863744dbe7acdb2e6cc8d5c8cfc5fe31">const_iterator</a> end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -707,7 +707,7 @@ struct bad::store_expr&lt; B, d, ds &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a767b723f858f9b83c3807fb7452daa95">iterator</a> end </td>
+          <td class="memname">constexpr <a class="el" href="structbad_1_1store__expr.html#a5bcb0482eee1bb6f72768af37d4d7d03">iterator</a> end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

@@ -83,28 +83,33 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad.html">bad</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespacebad_1_1types.html">   17</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad_1_1types.html">bad::types</a> {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  std::string demangle(<span class="keywordtype">char</span> <span class="keyword">const</span> * name);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="group__types__group.html#ga33c1fa0b8ce37b6a492972a602f86b5b">   28</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#ga33c1fa0b8ce37b6a492972a602f86b5b">type</a>(T const &amp; t) noexcept {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">   28</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">type</a>(T const &amp; t) noexcept {</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> demangle(<span class="keyword">typeid</span>(t).name());</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  }</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="group__types__group.html#ga7d2cee44f8ba039df1b52e2d15dbfaed">   36</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#ga7d2cee44f8ba039df1b52e2d15dbfaed">type_name</a>() noexcept {</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">   36</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">type_name</a>() noexcept {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> demangle(<span class="keyword">typeid</span>(T).name());</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  }</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad.html">bad</a> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacebad_1_1types.html">bad::types</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="agroup__types__group_html_gac8074582938bf6e8f13624178d3f2a63"><div class="ttname"><a href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">bad::types::type_name</a></div><div class="ttdeci">std::string type_name() noexcept</div><div class="ttdoc">return the name of a given type without passing a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00036">types.hh:36</a></div></div>
 <div class="ttc" id="acommon_8hh_html"><div class="ttname"><a href="common_8hh.html">common.hh</a></div><div class="ttdoc">common definitions, shared across all modules</div></div>
-<div class="ttc" id="agroup__types__group_html_ga33c1fa0b8ce37b6a492972a602f86b5b"><div class="ttname"><a href="group__types__group.html#ga33c1fa0b8ce37b6a492972a602f86b5b">bad::type</a></div><div class="ttdeci">std::string type(T const &amp;t) noexcept</div><div class="ttdoc">return the name of a given type given a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00028">types.hh:28</a></div></div>
-<div class="ttc" id="agroup__types__group_html_ga7d2cee44f8ba039df1b52e2d15dbfaed"><div class="ttname"><a href="group__types__group.html#ga7d2cee44f8ba039df1b52e2d15dbfaed">bad::type_name</a></div><div class="ttdeci">std::string type_name() noexcept</div><div class="ttdoc">return the name of a given type without passing a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00036">types.hh:36</a></div></div>
+<div class="ttc" id="agroup__types__group_html_ga5d8154bb23491f85830116b0f79417d6"><div class="ttname"><a href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">bad::types::type</a></div><div class="ttdeci">std::string type(T const &amp;t) noexcept</div><div class="ttdoc">return the name of a given type given a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00028">types.hh:28</a></div></div>
+<div class="ttc" id="anamespacebad_1_1types_html"><div class="ttname"><a href="namespacebad_1_1types.html">bad::types</a></div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00017">types.hh:17</a></div></div>
 <div class="ttc" id="anamespacebad_html"><div class="ttname"><a href="namespacebad.html">bad</a></div><div class="ttdoc">top level namespace</div></div>
 <div class="ttc" id="agroup__attributes_html_ga921c6d857ac4cc70d02e85d0f3de0432"><div class="ttname"><a href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a></div><div class="ttdeci">#define BAD(...)</div><div class="ttdoc">convenient macro for applying several attributes</div><div class="ttdef"><b>Definition:</b> <a href="attributes_8hh_source.html#l00024">attributes.hh:24</a></div></div>
 <div class="ttc" id="aattributes_8hh_html"><div class="ttname"><a href="attributes_8hh.html">attributes.hh</a></div><div class="ttdoc">macros for applying attributes.</div></div>

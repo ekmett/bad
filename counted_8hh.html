@@ -88,11 +88,11 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1thread__unsafe__policy.html">thread_unsafe_policy</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html">thread_unsafe_policy</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1atomic__policy.html">atomic_policy</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html">atomic_policy</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1counted.html">counted&lt; B, Policy &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1counted.html">counted&lt; B, Policy &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -100,21 +100,23 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacebad"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad.html">bad</a></td></tr>
 <tr class="memdesc:namespacebad"><td class="mdescLeft">&#160;</td><td class="mdescRight">top level namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacebad_1_1memory"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html">bad::memory</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a4762ed92baa8ea147be3032c7f4dbd96"><td class="memTemplParams" colspan="2">template&lt;class B &gt; </td></tr>
-<tr class="memitem:a4762ed92baa8ea147be3032c7f4dbd96"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad.html#a4762ed92baa8ea147be3032c7f4dbd96">atomically_counted</a> = counted&lt; B, atomic_policy &gt;</td></tr>
+<tr class="memitem:a4762ed92baa8ea147be3032c7f4dbd96"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html#a4762ed92baa8ea147be3032c7f4dbd96">atomically_counted</a> = <a class="el" href="structbad_1_1memory_1_1counted.html">counted</a>&lt; B, <a class="el" href="structbad_1_1memory_1_1atomic__policy.html">atomic_policy</a> &gt;</td></tr>
 <tr class="separator:a4762ed92baa8ea147be3032c7f4dbd96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1e92c69aad40234e5fa9507b8a40a6b0"><td class="memTemplParams" colspan="2">template&lt;class B , class Policy &gt; </td></tr>
-<tr class="memitem:a1e92c69aad40234e5fa9507b8a40a6b0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad.html#a1e92c69aad40234e5fa9507b8a40a6b0">acquire</a> (counted&lt; B, Policy &gt; const *rhs) noexcept</td></tr>
-<tr class="separator:a1e92c69aad40234e5fa9507b8a40a6b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af17e638a1ae677d5b84934a9f6b153a7"><td class="memTemplParams" colspan="2">template&lt;class B , class Policy &gt; </td></tr>
-<tr class="memitem:af17e638a1ae677d5b84934a9f6b153a7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad.html#af17e638a1ae677d5b84934a9f6b153a7">release</a> (counted&lt; B, Policy &gt; const *rhs) noexcept</td></tr>
-<tr class="separator:af17e638a1ae677d5b84934a9f6b153a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36eeeed0e0ce2934bd6e484b2afa1522"><td class="memTemplParams" colspan="2">template&lt;class B , class Policy &gt; </td></tr>
+<tr class="memitem:a36eeeed0e0ce2934bd6e484b2afa1522"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html#a36eeeed0e0ce2934bd6e484b2afa1522">acquire</a> (<a class="el" href="structbad_1_1memory_1_1counted.html">counted</a>&lt; B, Policy &gt; const *rhs) noexcept</td></tr>
+<tr class="separator:a36eeeed0e0ce2934bd6e484b2afa1522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa413cbe6834cb2b592c73486c7b43c6a"><td class="memTemplParams" colspan="2">template&lt;class B , class Policy &gt; </td></tr>
+<tr class="memitem:aa413cbe6834cb2b592c73486c7b43c6a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html#aa413cbe6834cb2b592c73486c7b43c6a">release</a> (<a class="el" href="structbad_1_1memory_1_1counted.html">counted</a>&lt; B, Policy &gt; const *rhs) noexcept</td></tr>
+<tr class="separator:aa413cbe6834cb2b592c73486c7b43c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

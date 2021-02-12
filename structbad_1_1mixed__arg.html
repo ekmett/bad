@@ -84,7 +84,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>a sparse <a class="el" href="structbad_1_1mixed__expr.html" title="mixed-mode AD expression">mixed_expr</a> with just one arg set to 1 useful when building functions like <code>diff</code>  
+<p>a sparse mixed_expr with just one arg set to 1 useful when building functions like <code>diff</code>  
  <a href="structbad_1_1mixed__arg.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>&gt;</code></p>
@@ -94,7 +94,7 @@ Inheritance diagram for mixed_arg&lt; T, Tangents &gt;:</div>
  <div class="center">
   <img src="structbad_1_1mixed__arg.png" usemap="#mixed_5Farg_3C_20T_2C_20Tangents_20_3E_map" alt=""/>
   <map id="mixed_5Farg_3C_20T_2C_20Tangents_20_3E_map" name="mixed_5Farg_3C_20T_2C_20Tangents_20_3E_map">
-<area href="structbad_1_1mixed__expr.html" alt="mixed_expr&lt; mixed_arg&lt; T, std::tuple&lt; T &gt; &gt; &gt;" shape="rect" coords="0,0,278,24"/>
+<area href="structbad_1_1mixed__mode_1_1mixed__expr.html" alt="mixed_expr&lt; mixed_arg&lt; T, std::tuple&lt; T &gt; &gt; &gt;" shape="rect" coords="0,0,278,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -119,20 +119,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae082aff55cb5b59f8e22869fe877b6c8"><td class="memTemplParams" colspan="2">template&lt;size_t i&gt; </td></tr>
 <tr class="memitem:ae082aff55cb5b59f8e22869fe877b6c8"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__arg.html#ae082aff55cb5b59f8e22869fe877b6c8">tangent</a> (T dx) const noexcept</td></tr>
 <tr class="separator:ae082aff55cb5b59f8e22869fe877b6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_structbad_1_1mixed__expr"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structbad_1_1mixed__expr')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structbad_1_1mixed__expr.html">mixed_expr&lt; mixed_arg&lt; T, std::tuple&lt; T &gt; &gt; &gt;</a></td></tr>
-<tr class="memitem:a0f661651eb9032c0c7dcd38a981badaa inherit pub_methods_structbad_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbad_1_1mixed__arg.html">mixed_arg</a>&lt; T, std::tuple&lt; T &gt; &gt; const &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__expr.html#a0f661651eb9032c0c7dcd38a981badaa">me</a> () const noexcept</td></tr>
-<tr class="separator:a0f661651eb9032c0c7dcd38a981badaa inherit pub_methods_structbad_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">primal</a> () const noexcept</td></tr>
-<tr class="memdesc:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">primal value  <a href="structbad_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">More...</a><br /></td></tr>
-<tr class="separator:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a479394fef1029381e5b4572a3b463151 inherit pub_methods_structbad_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__expr.html#a479394fef1029381e5b4572a3b463151">dual</a> () const noexcept</td></tr>
-<tr class="separator:a479394fef1029381e5b4572a3b463151 inherit pub_methods_structbad_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">partials</a> (T bar) const noexcept</td></tr>
-<tr class="memdesc:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute partials w.r.t. expression arguments  <a href="structbad_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">More...</a><br /></td></tr>
-<tr class="separator:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">tangent</a> (T parts) const noexcept</td></tr>
-<tr class="memdesc:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the product of partials and tangents  <a href="structbad_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">More...</a><br /></td></tr>
-<tr class="separator:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structbad_1_1mixed__mode_1_1mixed__expr')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structbad_1_1mixed__mode_1_1mixed__expr.html">mixed_expr&lt; mixed_arg&lt; T, std::tuple&lt; T &gt; &gt; &gt;</a></td></tr>
+<tr class="memitem:a0f661651eb9032c0c7dcd38a981badaa inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbad_1_1mixed__arg.html">mixed_arg</a>&lt; T, std::tuple&lt; T &gt; &gt; const &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1mixed__expr.html#a0f661651eb9032c0c7dcd38a981badaa">me</a> () const noexcept</td></tr>
+<tr class="separator:a0f661651eb9032c0c7dcd38a981badaa inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">primal</a> () const noexcept</td></tr>
+<tr class="memdesc:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">primal value  <a href="structbad_1_1mixed__mode_1_1mixed__expr.html#a7c5c50beb08023ca4fcfbb87d3547e2f">More...</a><br /></td></tr>
+<tr class="separator:a7c5c50beb08023ca4fcfbb87d3547e2f inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a479394fef1029381e5b4572a3b463151 inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1mixed__expr.html#a479394fef1029381e5b4572a3b463151">dual</a> () const noexcept</td></tr>
+<tr class="separator:a479394fef1029381e5b4572a3b463151 inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">partials</a> (T bar) const noexcept</td></tr>
+<tr class="memdesc:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute partials w.r.t. expression arguments  <a href="structbad_1_1mixed__mode_1_1mixed__expr.html#a24c5deee9eeedee7303a7c33d8c16916">More...</a><br /></td></tr>
+<tr class="separator:a24c5deee9eeedee7303a7c33d8c16916 inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">tangent</a> (T parts) const noexcept</td></tr>
+<tr class="memdesc:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute the product of partials and tangents  <a href="structbad_1_1mixed__mode_1_1mixed__expr.html#ae36ca7c10cae29737eba9011e137c8cb">More...</a><br /></td></tr>
+<tr class="separator:ae36ca7c10cae29737eba9011e137c8cb inherit pub_methods_structbad_1_1mixed__mode_1_1mixed__expr"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -152,7 +152,7 @@ Static Public Attributes</h2></td></tr>
 <div class="textblock"><h3>template&lt;class T, class Tangents = std::tuple&lt;T&gt;&gt;<br />
 struct bad::mixed_arg&lt; T, Tangents &gt;</h3>
 
-<p>a sparse <a class="el" href="structbad_1_1mixed__expr.html" title="mixed-mode AD expression">mixed_expr</a> with just one arg set to 1 useful when building functions like <code>diff</code> </p>
+<p>a sparse mixed_expr with just one arg set to 1 useful when building functions like <code>diff</code> </p>
 
 <p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00406">406</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
