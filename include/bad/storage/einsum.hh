@@ -6,7 +6,7 @@
 /// \file
 /// \brief storage einsum impl
 
-namespace bad::storage {
+namespace bad::storage::detail {
   template <class BS, class CS>
   struct scalar_einsum;
 
@@ -105,13 +105,16 @@ namespace bad::storage {
       return value;
     }
   };
+}
+
+namespace bad::storage {
 
   template <class AS, class BS, class CS, class AD = seq<>, class B, class C>
   BAD(hd,inline)
   auto einsum(
     BAD(lifetimebound) B const & l,
     BAD(lifetimebound) C const & r
-  ) noexcept -> store_einsum_expr<AS,BS,CS,B,C,AD> {
+  ) noexcept -> detail::store_einsum_expr<AS,BS,CS,B,C,AD> {
     return { {}, l.at(), r.at() };
   }
 
@@ -120,7 +123,7 @@ namespace bad::storage {
   auto einsum(
     BAD(lifetimebound) B const & l,
     BAD(noescape) C && r
-  ) noexcept -> store_einsum_expr<AS,BS,CS,B,C&&,AD> {
+  ) noexcept -> detail::store_einsum_expr<AS,BS,CS,B,C&&,AD> {
     return { {}, l.at(), r.at() };
   }
 
@@ -129,7 +132,7 @@ namespace bad::storage {
   auto einsum(
     BAD(noescape) B && l,
     BAD(lifetimebound) C const & r
-  ) noexcept -> store_einsum_expr<AS,BS,CS,B&&,C,AD> {
+  ) noexcept -> detail::store_einsum_expr<AS,BS,CS,B&&,C,AD> {
     return { {}, l.at(), r.at() };
   }
 
@@ -138,14 +141,13 @@ namespace bad::storage {
   auto einsum(
     BAD(noescape) B && l,
     BAD(noescape) C && r
-  ) noexcept -> store_einsum_expr<AS,BS,CS,B&&,C&&,AD> {
+  ) noexcept -> detail::store_einsum_expr<AS,BS,CS,B&&,C&&,AD> {
     return { {}, l.at(), r.at() };
   }
 }
 
 namespace bad {
   using namespace bad::storage;
-
 }
 
 #endif

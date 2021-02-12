@@ -214,114 +214,117 @@ namespace bad::storage {
     std::decay_t<T> const &
   >;
 
-  /// \ingroup storage_group
-  template <class B, size_t d, size_t...ds>
-  struct BAD(empty_bases,nodiscard) store_rep_expr
-  : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
-    using base_type = std::decay_t<B>;
-    using element = typename base_type::element;
-    using dim = seq<d,ds...>;
-    static constexpr size_t arity = 1 + sizeof...(ds);
+  namespace detail {
 
-    sub_expr<B> base;
+    /// \ingroup storage_group
+    template <class B, size_t d, size_t...ds>
+    struct BAD(empty_bases,nodiscard) store_rep_expr
+    : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
+      using base_type = std::decay_t<B>;
+      using element = typename base_type::element;
+      using dim = seq<d,ds...>;
+      static constexpr size_t arity = 1 + sizeof...(ds);
 
-    BAD(hd,nodiscard,inline,pure)
-    auto operator[](BAD(maybe_unused) size_t i) const noexcept {
-      return base;
-    }
+      sub_expr<B> base;
 
-    template <size_t N>
-    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
-    auto pull(size_t i) const noexcept {
-      if constexpr(N == 0) {
+      BAD(hd,nodiscard,inline,pure)
+      auto operator[](BAD(maybe_unused) size_t i) const noexcept {
         return base;
-      } else {
-        return base.template pull<N-1>(i).template rep<d>();
       }
-    }
 
-    // this is lifetimebound, move out of line?
-    template <size_t N>
-    BAD(hd,nodiscard,inline,flatten,const)
-    auto rep() const noexcept -> store_rep_expr<store_rep_expr<B,d,ds...>,N,d,ds...> {
-      return { *this };
-    }
-
-    BAD(hd)
-    friend std::ostream & operator<<(std::ostream & os, store_rep_expr const & rhs) {
-      return os << "rep<" << d << ">(" << rhs << ")";
-    }
-
-    template <auto j, decltype(j) i, decltype(j)...is>
-    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
-    auto tie(size_t k) {
-      if constexpr (i == j) {
-        return base.template tied<j,d,is...>(k);
-      } else {
-        return base.template tie<j,is...>(k).template rep<d>();
+      template <size_t N>
+      BAD(hd,nodiscard,inline,flatten) // this lifetimebound
+      auto pull(size_t i) const noexcept {
+        if constexpr(N == 0) {
+          return base;
+        } else {
+          return base.template pull<N-1>(i).template rep<d>();
+        }
       }
-    }
 
-    template <auto j, size_t jd, decltype(j) i, decltype(j)...is>
-    BAD(hd,nodiscard,inline,flatten) // this lifetimebound
-    auto tied(size_t k) {
-      if constexpr (i == j) {
-        static_assert(d == jd, "tied: known dimension size mismatch");
-        return base.template tied<j,jd,is...>(k);
-      } else {
-        return base.template tied<j,jd,is...>(k).template rep<d>();
+      // this is lifetimebound, move out of line?
+      template <size_t N>
+      BAD(hd,nodiscard,inline,flatten,const)
+      auto rep() const noexcept -> store_rep_expr<store_rep_expr<B,d,ds...>,N,d,ds...> {
+        return { *this };
       }
-    }
-  };
 
-  /// \ingroup storage_group
-  template <class L, class R, size_t d, size_t... ds>
-  struct BAD(empty_bases,nodiscard) store_add_expr
-  : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
-    using dim = seq<d,ds...>;
-    using left_type = std::decay_t<L>;
-    using right_type = std::decay_t<R>;
-    using element = decltype(std::declval<typename left_type::element>() + std::declval<typename right_type::element>());
+      BAD(hd)
+      friend std::ostream & operator<<(std::ostream & os, store_rep_expr const & rhs) {
+        return os << "rep<" << d << ">(" << rhs << ")";
+      }
 
-    sub_expr<L> l;
-    sub_expr<R> r;
+      template <auto j, decltype(j) i, decltype(j)...is>
+      BAD(hd,nodiscard,inline,flatten) // this lifetimebound
+      auto tie(size_t k) {
+        if constexpr (i == j) {
+          return base.template tied<j,d,is...>(k);
+        } else {
+          return base.template tie<j,is...>(k).template rep<d>();
+        }
+      }
 
-    BAD(hd,nodiscard,inline,pure)
-    auto operator[](BAD(maybe_unused) size_t i) const noexcept {
-      return l[i] + r[i];
-    }
+      template <auto j, size_t jd, decltype(j) i, decltype(j)...is>
+      BAD(hd,nodiscard,inline,flatten) // this lifetimebound
+      auto tied(size_t k) {
+        if constexpr (i == j) {
+          static_assert(d == jd, "tied: known dimension size mismatch");
+          return base.template tied<j,jd,is...>(k);
+        } else {
+          return base.template tied<j,jd,is...>(k).template rep<d>();
+        }
+      }
+    };
 
-    template <size_t N>
-    BAD(hd,nodiscard,inline,flatten)
-    auto pull(size_t i) const noexcept {
-      return l.template pull<N>(i) + r.template pull<N>(i);
-    }
+    /// \ingroup storage_group
+    template <class L, class R, size_t d, size_t... ds>
+    struct BAD(empty_bases,nodiscard) store_add_expr
+    : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
+      using dim = seq<d,ds...>;
+      using left_type = std::decay_t<L>;
+      using right_type = std::decay_t<R>;
+      using element = decltype(std::declval<typename left_type::element>() + std::declval<typename right_type::element>());
 
-    template <auto j, decltype(j) i, decltype(j)...is>
-    BAD(hd,nodiscard,inline,flatten)
-    auto tie(size_t k) {
-      return l.template tie<j,is...>(k) + r.template tie<j,is...>(k);
-    }
+      sub_expr<L> l;
+      sub_expr<R> r;
 
-    template <auto j, size_t jd, decltype(j) i, decltype(j)...is>
-    BAD(hd,nodiscard,inline,flatten)
-    auto tied(size_t k) {
-      return l.template tied<j,jd,is...>(k) + r.template tied<j,jd,is...>(k);
-    }
+      BAD(hd,nodiscard,inline,pure)
+      auto operator[](BAD(maybe_unused) size_t i) const noexcept {
+        return l[i] + r[i];
+      }
 
-    template <size_t N>
-    BAD(hd,nodiscard,inline,flatten,const)
-    auto rep() const noexcept -> store_rep_expr<store_add_expr,N,d,ds...> {
-      return { *this };
-      // return l.template rep<N>(i) + r.template rep<N>(i);
-    }
+      template <size_t N>
+      BAD(hd,nodiscard,inline,flatten)
+      auto pull(size_t i) const noexcept {
+        return l.template pull<N>(i) + r.template pull<N>(i);
+      }
 
-    // TODO: precedence pretty printing
-    BAD(hd)
-    friend std::ostream & operator<<(std::ostream & os, store_add_expr const & rhs) {
-      return os << "(" << rhs.l << ") + (" << rhs.r << ")";
-    }
-  };
+      template <auto j, decltype(j) i, decltype(j)...is>
+      BAD(hd,nodiscard,inline,flatten)
+      auto tie(size_t k) {
+        return l.template tie<j,is...>(k) + r.template tie<j,is...>(k);
+      }
+
+      template <auto j, size_t jd, decltype(j) i, decltype(j)...is>
+      BAD(hd,nodiscard,inline,flatten)
+      auto tied(size_t k) {
+        return l.template tied<j,jd,is...>(k) + r.template tied<j,jd,is...>(k);
+      }
+
+      template <size_t N>
+      BAD(hd,nodiscard,inline,flatten,const)
+      auto rep() const noexcept -> store_rep_expr<store_add_expr,N,d,ds...> {
+        return { *this };
+        // return l.template rep<N>(i) + r.template rep<N>(i);
+      }
+
+      // TODO: precedence pretty printing
+      BAD(hd)
+      friend std::ostream & operator<<(std::ostream & os, store_add_expr const & rhs) {
+        return os << "(" << rhs.l << ") + (" << rhs.r << ")";
+      }
+    };
+  }
 
   /// \ingroup storage_group
   template <class L, class R, size_t d, size_t... ds>
@@ -329,7 +332,7 @@ namespace bad::storage {
   auto operator +(
     BAD(lifetimebound) store_expr<L,d,ds...> const &l,
     BAD(lifetimebound) store_expr<R,d,ds...> const &r
-  ) noexcept -> store_add_expr<L,R,d,ds...> {
+  ) noexcept -> detail::store_add_expr<L,R,d,ds...> {
     return { {}, l.at(), r.at() };
   }
 
@@ -339,7 +342,7 @@ namespace bad::storage {
   auto operator +(
     BAD(noescape) store_expr<L,d,ds...> && l,
     BAD(lifetimebound) store_expr<R,d,ds...> const & r
-  ) noexcept -> store_add_expr<L&&,R,d,ds...> {
+  ) noexcept -> detail::store_add_expr<L&&,R,d,ds...> {
     return {{}, std::move(l.at()), r.at()};
   }
 
@@ -349,7 +352,7 @@ namespace bad::storage {
   auto operator +(
     BAD(lifetimebound) store_expr<L,d,ds...> const & l,
     BAD(noescape) store_expr<R,d,ds...> && r
-  ) noexcept -> store_add_expr<L,R&&,d,ds...> {
+  ) noexcept -> detail::store_add_expr<L,R&&,d,ds...> {
     return {{}, l.at(), std::move(r.at())};
   }
 
@@ -359,7 +362,7 @@ namespace bad::storage {
   auto operator +(
     BAD(noescape) store_expr<L,d,ds...> && l,
     BAD(noescape) store_expr<R,d,ds...> && r
-  ) noexcept -> store_add_expr<L&&,R&&,d,ds...> {
+  ) noexcept -> detail::store_add_expr<L&&,R&&,d,ds...> {
     return {{}, std::move(l.at()), std::move(r.at())};
   }
 
