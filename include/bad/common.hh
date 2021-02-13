@@ -90,6 +90,23 @@ namespace bad {
 #pragma GCC diagnostic pop
 #endif
 
+  /// Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates.
+  ///
+  /// This acts as a solution to the temporary capture problem whenever we need to build a combinator that builds temporaries
+  /// safely. (It arises when working with einsum, or in the recursive cases for applying pull to a sum for instance.
+  ///
+  /// This looks at the type passed and if it is T&&, we store a value, otherwise we store a reference.
+  ///
+  /// In this way such combinators can pass in temporaries to the expression template and we should be able to capture them
+  /// automatically, correctly and safely.
+  /// \ingroup common_group
+  template <class T>
+  using sub_expr = std::conditional_t<
+    std::is_rvalue_reference_v<T>,
+    std::decay_t<T>,
+    std::decay_t<T> const &
+  >;
+
   /// if-then-else
   /// \ingroup common_group
   template <bool B, class T, class E>

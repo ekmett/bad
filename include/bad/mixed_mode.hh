@@ -450,6 +450,9 @@ namespace bad::mixed_mode {
     struct BAD(empty_bases,nodiscard) mixed_add_expr final
     : mixed_expr<mixed_add_expr<L,R>> {
 
+      using left_type = std::decay_t<L>;
+      using right_type = std::decay_t<R>;
+
       static constexpr size_t size = L::size;
       static constexpr size_t args = L::args + R::args;
 
@@ -459,8 +462,8 @@ namespace bad::mixed_mode {
       using element_type = decltype(std::declval<L>().primal() + std::declval<R>().primal());
       using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
 
-      L const & lhs;
-      R const & rhs;
+      sub_expr<L> lhs;
+      sub_expr<R> rhs;
 
       element_type p; ///< cached primal
 
@@ -504,8 +507,38 @@ namespace bad::mixed_mode {
   auto operator + (
     BAD(lifetimebound) mixed_expr<L> const & l,
     BAD(lifetimebound) mixed_expr<R> const & r
-  ) {
-    return detail::mixed_add_expr<L,R>(l.me(),r.me());
+  ) -> detail::mixed_add_expr<L,R> {
+    return { {}, l.me(), r.me(), l.primal() + r.primal() };
+  }
+
+  /// \ingroup mixed_mode_group
+  template <class L, class R>
+  BAD(hd,nodiscard,inline,flatten) constexpr
+  auto operator + (
+    BAD(noescape) mixed_expr<L> && l,
+    BAD(lifetimebound) mixed_expr<R> const & r
+  ) -> detail::mixed_add_expr<L&&,R> {
+    return { {}, l.me(), r.me(), l.primal() + r.primal() };
+  }
+
+  /// \ingroup mixed_mode_group
+  template <class L, class R>
+  BAD(hd,nodiscard,inline,flatten) constexpr
+  auto operator + (
+    BAD(lifetimebound) mixed_expr<L> const & l,
+    BAD(noescape) mixed_expr<R> && r
+  ) -> detail::mixed_add_expr<L,R&&> {
+    return { {}, l.me(), r.me(), l.primal() + r.primal() };
+  }
+
+  /// \ingroup mixed_mode_group
+  template <class L, class R>
+  BAD(hd,nodiscard,inline,flatten) constexpr
+  auto operator + (
+    BAD(noescape) mixed_expr<L> const & l,
+    BAD(noescape) mixed_expr<R> const & r
+  ) -> detail::mixed_add_expr<L&&,R&&> {
+    return { {}, l.me(), r.me(), l.primal() + r.primal() };
   }
 
   namespace detail {
@@ -513,6 +546,9 @@ namespace bad::mixed_mode {
     template <class L, class R>
     struct BAD(empty_bases,nodiscard) mixed_mul_expr final
     : mixed_expr<mixed_mul_expr<L,R>> {
+
+      using left_type = std::decay_t<L>;
+      using right_type = std::decay_t<R>;
 
       static_assert(std::is_same_v<L::tangents,R::tangents>,"tangent type mismatch");
 
@@ -525,19 +561,10 @@ namespace bad::mixed_mode {
       using element_type = decltype(std::declval<L>().primal() * std::declval<R>().primal());
       using partials_type = std::tuple<typename L::partials_type, typename R::partials_type>;
 
-      L const & lhs;
-      R const & rhs;
+      sub_expr<L> lhs;
+      sub_expr<R> rhs;
 
       element_type p; ///< cached primal
-
-      BAD(hd,inline) constexpr
-      mixed_mul_expr(
-        BAD(lifetimebound) L const & l,
-        BAD(lifetimebound) R const & r
-      ) noexcept
-      : lhs(l)
-      , rhs(r)
-      , p(lhs.primal()*rhs.primal()) {}
 
       // cached primals
       BAD(hd,nodiscard,inline) constexpr
@@ -576,8 +603,38 @@ namespace bad::mixed_mode {
   auto operator * (
     BAD(lifetimebound) mixed_expr<L> const & l,
     BAD(lifetimebound) mixed_expr<R> const & r
-  ) {
-    return detail::mixed_mul_expr<L,R>(l.me(),r.me());
+  ) -> detail::mixed_mul_expr<L,R> {
+    return { {}, l.me(), r.me(), l.primal() * r.primal() } ;
+  }
+
+  /// \ingroup mixed_mode_group
+  template <class L, class R>
+  BAD(hd,nodiscard,inline,flatten) constexpr
+  auto operator * (
+    BAD(noescape) mixed_expr<L> && l,
+    BAD(lifetimebound) mixed_expr<R> const & r
+  ) -> detail::mixed_mul_expr<L&&,R> {
+    return { {}, l.me(), r.me(), l.primal() * r.primal() } ;
+  }
+
+  /// \ingroup mixed_mode_group
+  template <class L, class R>
+  BAD(hd,nodiscard,inline,flatten) constexpr
+  auto operator * (
+    BAD(lifetimebound) mixed_expr<L> const & l,
+    BAD(noescape) mixed_expr<R> && r
+  ) -> detail::mixed_mul_expr<L,R&&> {
+    return { {}, l.me(), r.me(), l.primal() * r.primal() } ;
+  }
+
+  /// \ingroup mixed_mode_group
+  template <class L, class R>
+  BAD(hd,nodiscard,inline,flatten) constexpr
+  auto operator * (
+    BAD(noescape) mixed_expr<L> && l,
+    BAD(noescape) mixed_expr<R> && r
+  ) -> detail::mixed_mul_expr<L&&,R&&> {
+    return { {}, l.me(), r.me(), l.primal() * r.primal() } ;
   }
 
   namespace detail {
