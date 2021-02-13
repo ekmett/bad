@@ -18,3 +18,6 @@ target_precompile_headers(t_mixed REUSE_FROM bad)
 
 add_executable(t_disjoint t_disjoint.cc)
 target_precompile_headers(t_disjoint REUSE_FROM bad)
+
+add_executable(t_links t_links.cc)
+target_precompile_headers(t_links REUSE_FROM bad)

@@ -12,6 +12,7 @@
 #include "bad/storage.hh"
 #include "bad/tapes.hh"
 #include "bad/types.hh"
+#include "bad/links.hh"
 
 /// \defgroup internals_group internals
 /// stuff the user shouldn't need to care much about
