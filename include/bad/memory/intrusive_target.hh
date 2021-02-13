@@ -62,6 +62,10 @@ namespace bad::memory {
     using ref_count_type = typename policy::type;
     mutable ref_count_type ref_count;
 
+  protected:
+    // delete via release()
+    ~intrusive_target() {}
+
   public:
     BAD(hd,inline)
     intrusive_target() noexcept : ref_count(0) {}

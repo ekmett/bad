@@ -191,7 +191,7 @@ namespace bad::trees {
       explicit dso(Args&&... args) noexcept
       : intrusive_target<dso<T>>()
       , entry(std::forward<Args>(args)...) {}
-  
+
       BAD(hd,inline,flatten)
       disjoint<T> parent() noexcept {
         dso * self = this;
