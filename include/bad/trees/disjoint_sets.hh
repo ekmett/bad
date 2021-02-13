@@ -50,7 +50,7 @@ namespace bad::trees {
   private:
     using dso = detail::dso<T>;
     using root = detail::root<T>;
-    mutable rc<dso> p;
+    mutable intrusive_ptr<dso> p;
 
   public:
     /// constructs a fresh disjoint set initialized with T's default constructor
@@ -178,9 +178,9 @@ namespace bad::trees {
     /// \private
     /// \ingroup disjoint_sets_group
     ///
-    /// The selected policy for counted<dso<T>> means that these are _not_ thread safe.
+    /// The selected policy for intrusive_target<dso<T>> means that these are _not_ thread safe.
     template <class T>
-    struct dso : counted<dso<T>> {
+    struct dso : intrusive_target<dso<T>> {
       friend disjoint<T>;
       /// TODO: eventually carry a shared mutex to control access to entry
   
@@ -190,7 +190,7 @@ namespace bad::trees {
       template <class... Args>
       BAD(hd,inline)
       explicit dso(Args&&... args) noexcept
-      : counted<dso<T>>()
+      : intrusive_target<dso<T>>()
       , entry(std::forward<Args>(args)...) {}
   
       BAD(hd,inline,flatten)

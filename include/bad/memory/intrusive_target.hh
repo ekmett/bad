@@ -1,5 +1,5 @@
-#ifndef BAD_MEMORY_COUNTED_HH
-#define BAD_MEMORY_COUNTED_HH
+#ifndef BAD_MEMORY_INTRUSIVE_TARGET_HH
+#define BAD_MEMORY_INTRUSIVE_TARGET_HH
 
 #include "bad/common.hh"
 
@@ -55,7 +55,7 @@ namespace bad::memory {
   };
 
   template <class B, class Policy = thread_unsafe_policy>
-  struct counted {
+  struct intrusive_target {
     using policy = Policy;
 
   private:
@@ -64,13 +64,13 @@ namespace bad::memory {
 
   public:
     BAD(hd,inline)
-    counted() noexcept : ref_count(0) {}
+    intrusive_target() noexcept : ref_count(0) {}
 
     BAD(hd,inline)
-    counted(BAD(maybe_unused) counted const & rhs) noexcept : ref_count(0) {}
+    intrusive_target(BAD(maybe_unused) intrusive_target const & rhs) noexcept : ref_count(0) {}
 
     BAD(hd,inline,const)
-    counted & operator = (BAD(maybe_unused) counted const & rhs) noexcept {
+    intrusive_target & operator = (BAD(maybe_unused) intrusive_target const & rhs) noexcept {
       return *this;
     }
 
@@ -92,18 +92,18 @@ namespace bad::memory {
   };
 
   template <class B>
-  using atomically_counted = counted<B,atomic_policy>;
+  using atomically_intrusive_target = intrusive_target<B,atomic_policy>;
 
   template <class B, class Policy>
   BAD(hd,inline)
-  void acquire(counted<B,Policy> const * rhs) noexcept {
+  void acquire(intrusive_target<B,Policy> const * rhs) noexcept {
     assert(rhs != nullptr);
     rhs->acquire();
   }
 
   template <class B, class Policy>
   BAD(hd,inline)
-  void release(counted<B,Policy> const * rhs) noexcept {
+  void release(intrusive_target<B,Policy> const * rhs) noexcept {
     assert(rhs != nullptr);
     rhs->release();
   }

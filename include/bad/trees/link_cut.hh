@@ -34,8 +34,10 @@ namespace bad::trees {
     /// \ingroup link_cut_groups
     /// \meta
     /// requires `U = measure(T)`, `U()`, `U = U + U` for some type U
+   
+    // TODO: parameterize on policy?
     template <class T = unit>
-    struct lco : counted<lco<T>> {
+    struct lco : intrusive_target<lco<T>> {
     private:
       lco * path;
       lco * parent;
@@ -304,7 +306,7 @@ namespace bad::trees {
   struct link_cut {
   private:
     using lco = detail::lco<T>;
-    rc<lco> p;
+    intrusive_ptr<lco> p;
 
     BAD(hd,inline)
     link_cut(lco * p) noexcept
