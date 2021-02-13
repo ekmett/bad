@@ -2,6 +2,7 @@
 #include "bad/links.hh"
 #include <iostream>
 #include <string>
+#include <cstring>
 
 using namespace bad;
 using namespace std;
@@ -40,4 +41,19 @@ TEST_CASE( "lca works", "[links]" ) {
   REQUIRE(y == y.lca(x));
   REQUIRE(y == z.lca(y));
   REQUIRE(w == w.lca(y));
+}
+
+// users can specialize how we compute measures
+template <> struct measure<const char *> {
+  BAD(hd,inline)
+  size_t operator ()(const char * s) {
+    return strlen(s);
+  }
+};
+
+TEST_CASE( "measures work", "[links]" ) {
+  auto x = link_cut("bob"), y = link_cut("nancy");
+  y.link(x);
+  cout << y.cost() << endl;
+  REQUIRE(y.cost() == 8);
 }

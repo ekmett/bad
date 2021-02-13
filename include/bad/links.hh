@@ -21,25 +21,47 @@ namespace bad::links {
     }
   };
 
+  // specializations should have an operator() that takes a T and returns some other type
+  // use this like std::hash<T>{}(x)
+  template <class T>
+  struct measure {
+    BAD(hd,inline)
+    T operator()(T x) { return x; }
+  };
+
   namespace detail {
     /// \ingroup links_groups
     /// \meta
+    /// requires `U = measure(T)`, `U()`, `U = U + U` for some type U
     template <class T = unit>
     struct lco : counted<lco<T>> {
+    private:
       lco * path;
       lco * parent;
       lco * left;
       lco * right;
       T value;
-      T summary;
+
+    public:
+      using measure_type = decltype(::bad::links::measure<T>{}(std::declval<T>()));
+
+    private:
+      measure_type summary;
 
       BAD(hd,inline)
+      static measure_type measure(T x) {
+        return ::bad::links::measure<T>{}(x);
+      }
+
+
+    public:
+      BAD(hd,inline)
       lco() noexcept
-      : path(), parent(), left(), right(), value(), summary() {}
+      : path(), parent(), left(), right(), value(), summary(measure(value)) {}
 
       BAD(hd,inline)
       lco(T v) noexcept
-      : path(), parent(), left(), right(), value(v), summary(v) {}
+      : path(), parent(), left(), right(), value(v), summary(measure(value)) {}
 
       BAD(hd,inline)
       void cut() noexcept {
@@ -48,7 +70,7 @@ namespace bad::links {
           auto l = left;
           left = nullptr;
           l->parent = nullptr;
-          summary = value;
+          summary = measure(value);
           release(l); // reduce the reference count of the thing formerly above by one
         }
       }
@@ -74,7 +96,7 @@ namespace bad::links {
 
       // SFINAE
       BAD(hd,inline)
-      T cost() noexcept {
+      measure_type cost() noexcept {
         access();
         // access placed us at the top, summary tallies everything below us by definition
         return summary;
@@ -116,7 +138,7 @@ namespace bad::links {
           right = nullptr;
           r->parent = nullptr;
           r->path = this;
-          summary = left ? left->summary + value : value;
+          summary = left ? left->summary + measure(value) : measure(value);
         }
         lco * v = this; // not null
         lco * last_w = v;
@@ -130,7 +152,7 @@ namespace bad::links {
             b->parent = nullptr;
           }
           auto a = w->left;
-          w->summary = a ? a->summary + w->value + v->summary : w->value + v->summary;
+          w->summary = a ? a->summary + measure(w->value) + v->summary : measure(w->value) + v->summary;
           v->parent = w;
           w->right = v;
           v = w;
@@ -150,8 +172,8 @@ namespace bad::links {
       }
 
       BAD(hd,inline)
-      static T summarize(lco * p) {
-        return p ? p->summary : T();
+      static measure_type summarize(lco * p) {
+        return p ? p->summary : measure_type();
       }
 
       BAD(hd)
@@ -173,7 +195,7 @@ namespace bad::links {
                if (c) c->parent = p;
                right = p;
                p->left = c;
-               p->summary = summarize(c) + p->value + summarize(p->right);
+               p->summary = summarize(c) + measure(p->value) + summarize(p->right);
             } else {
                //   p            x
                // a   x   ==>  p   c
@@ -182,7 +204,7 @@ namespace bad::links {
                if (b) b->parent = p;
                left = p;
                p->right = b;
-               p->summary = summarize(p->left) + p->value + summarize(b);
+               p->summary = summarize(p->left) + measure(p->value) + summarize(b);
             }
             return; // can't go higher
           } else { // g is not nullptr, zig-zig or zig-zag
@@ -208,9 +230,9 @@ namespace bad::links {
                 p->right = g;
                 p->left = b;
                 g->left = c;
-                auto sg = summarize(c) + g->value + summarize(g->right);
+                auto sg = summarize(c) + measure(g->value) + summarize(g->right);
                 g->summary = sg;
-                p->summary = summarize(b) + p->value + sg;
+                p->summary = summarize(b) + measure(p->value) + sg;
               } else { // zig-zag
                 // --       g           x
                 // --   p    d  ==>   p   g
@@ -226,8 +248,8 @@ namespace bad::links {
                 right = g;
                 p->right = b;
                 g->left = c;
-                p->summary = summarize(p->left) + p->value + summarize(b);
-                g->summary = summarize(c) + g->value + summarize(g->right);
+                p->summary = summarize(p->left) + measure(p->value) + summarize(b);
+                g->summary = summarize(c) + measure(g->value) + summarize(g->right);
               }
             } else if (p->left == this) { // gl != p, zag-zig
               // --   g               x
@@ -244,8 +266,8 @@ namespace bad::links {
               right = p;
               g->right = b;
               p->left = c;
-              g->summary = summarize(g->left) + g->value + summarize(b);
-              p->summary = summarize(c) + p->value + summarize(p->right);
+              g->summary = summarize(g->left) + measure(g->value) + summarize(b);
+              p->summary = summarize(c) + measure(p->value) + summarize(p->right);
             } else { // gl != p, pl != x, zag-zag
               // --  g               x
               // -- a  p           p  d
@@ -261,9 +283,9 @@ namespace bad::links {
               p->left = g;
               g->right = b;
               p->right = c;
-              auto sg = summarize(g->left) + g->value + summarize(b);
+              auto sg = summarize(g->left) + measure(g->value) + summarize(b);
               g->summary = sg;
-              p->summary = sg + p->value + summarize(c);
+              p->summary = sg + measure(p->value) + summarize(c);
             }
             if (!gg) return;
 
@@ -288,6 +310,9 @@ namespace bad::links {
     : p(p) {}
 
   public:
+
+    using measure_type = typename detail::lco<T>::measure_type;
+
     BAD(hd,inline)
     link_cut() noexcept
     : p(new lco()) {}
@@ -340,8 +365,8 @@ namespace bad::links {
     }
 
     BAD(hd,inline)
-    T cost() noexcept {
-      return p ? p->cost() : T();
+    measure_type cost() noexcept {
+      return p ? p->cost() : measure_type();
     }
 
     BAD(hd,inline)
@@ -395,21 +420,21 @@ namespace bad::links {
   /// \ingroup links_group
   template <class T>
   BAD(hd,inline)
-  auto link(link_cut<T> & p, link_cut<T> & q) noexcept {
+  link_cut<T> link(link_cut<T> & p, link_cut<T> & q) noexcept {
     return p.link(q);
   }
 
   /// \ingroup links_group
   template <class T>
   BAD(hd,inline)
-  auto root(link_cut<T> & p) noexcept {
+  link_cut<T> root(link_cut<T> & p) noexcept {
     return p.root();
   }
 
   /// \ingroup links_group
   template <class T>
   BAD(hd,inline)
-  auto cost(link_cut<T> & p) noexcept {
+  auto cost(link_cut<T> & p) noexcept -> typename link_cut<T>::measure_type {
     return p.cost();
   }
 }
