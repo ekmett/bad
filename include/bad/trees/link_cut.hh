@@ -12,7 +12,7 @@
 
 namespace bad::trees {
   /// \ingroup link_cut_groups
-  struct BAD(empty_bases) unit {
+  struct BAD(empty_bases) unit final {
     BAD(hd,inline)
     friend unit operator + (
       BAD(maybe_unused) unit,
@@ -37,7 +37,7 @@ namespace bad::trees {
    
     // TODO: parameterize on policy?
     template <class T = unit>
-    struct lco : intrusive_target<lco<T>> {
+    struct lco final : intrusive_target<lco<T>> {
     private:
       lco * path;
       lco * parent;
@@ -303,7 +303,7 @@ namespace bad::trees {
   /// \ingroup link_cut_group
   /// link-cut trees
   template <class T>
-  struct link_cut {
+  struct link_cut final {
   private:
     using lco = detail::lco<T>;
     intrusive_ptr<lco> p;

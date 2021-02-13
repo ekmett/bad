@@ -218,7 +218,7 @@ namespace bad::storage {
 
     /// \ingroup storage_group
     template <class B, size_t d, size_t...ds>
-    struct BAD(empty_bases,nodiscard) store_rep_expr
+    struct BAD(empty_bases,nodiscard) store_rep_expr final
     : store_expr<store_rep_expr<B,d,ds...>,d,ds...> {
       using base_type = std::decay_t<B>;
       using element = typename base_type::element;
@@ -278,7 +278,7 @@ namespace bad::storage {
 
     /// \ingroup storage_group
     template <class L, class R, size_t d, size_t... ds>
-    struct BAD(empty_bases,nodiscard) store_add_expr
+    struct BAD(empty_bases,nodiscard) store_add_expr final
     : store_expr<store_add_expr<L,R,d,ds...>,d,ds...> {
       using dim = seq<d,ds...>;
       using left_type = std::decay_t<L>;

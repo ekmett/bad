@@ -9,7 +9,7 @@
 
 namespace bad::storage::detail {
   template <size_t d, size_t s, class T, class plane>
-  struct const_store_iterator {
+  struct const_store_iterator final {
     using value_type = plane const;
     using difference_type = ptrdiff_t;
     using pointer = value_type *;
@@ -196,7 +196,7 @@ namespace bad::storage::detail {
 
   /// \ingroup storage_group
   template <size_t d, size_t s, class T, class plane>
-  struct store_iterator {
+  struct store_iterator final {
     using value_type = plane;
     using difference_type = ptrdiff_t;
     using pointer = value_type *;

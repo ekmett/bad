@@ -46,7 +46,7 @@ namespace bad::tapes {
     /// holds several \ref abstract_record entries in a slab of aligned memory
     /// \ingroup tapes_group
     template <class T, class Act = T*, class Allocator = default_allocator>
-    struct segment {
+    struct segment final {
 
       using abstract_record_type = abstract_record<T,Act,Allocator>;
 
@@ -120,7 +120,7 @@ namespace bad::tapes {
   /// \ingroup tapes_group
 #ifdef DOXYGEN
     template <class T, class Act, class Allocator>
-    struct link : abstract_record<T, Act, Allocator> {};
+    struct link final : abstract_record<T, Act, Allocator> {};
 #else
     template <class T, class Act = T*, class Allocator = default_allocator>
     struct link;
@@ -263,7 +263,7 @@ namespace bad::tapes {
 #else
     template <class T, class Act = T*, class Allocator = default_allocator>
 #endif
-    struct terminator : abstract_record<T, Act, Allocator> {
+    struct terminator final : abstract_record<T, Act, Allocator> {
       using abstract_record_type = abstract_record<T, Act, Allocator>;
   
       BAD(hd,inline,const)
@@ -303,7 +303,7 @@ namespace bad::tapes {
     /// link to the next \ref segment
     /// \ingroup tapes_group
     template <class T, class Act, class Allocator>
-    struct link : abstract_record<T, Act, Allocator> {
+    struct link final : abstract_record<T, Act, Allocator> {
       using abstract_record_type = abstract_record<T, Act, Allocator>;
   
       BAD(hd)
@@ -379,23 +379,23 @@ namespace bad::tapes {
     record() noexcept : abstract_record<T,Act,Allocator>() {}
 
     BAD(hd,inline,flatten,const,assume_aligned(record_alignment))
-    abstract_record_type const * next() const noexcept override {
+    abstract_record_type const * next() const noexcept override final {
       return reinterpret_cast<abstract_record_type const *>(reinterpret_cast<std::byte const*>(this) + detail::pad_to_alignment(sizeof(B)));
       // if it wasn't for alignment we could just static_cast<abstract_record_type>(this+1) and be constexpr?
     }
 
     BAD(hd,inline,flatten,const,assume_aligned(record_alignment))
-    abstract_record_type * next() noexcept override {
+    abstract_record_type * next() noexcept override final {
       return reinterpret_cast<abstract_record_type *>(reinterpret_cast<std::byte*>(this) + detail::pad_to_alignment(sizeof(B)));
     }
 
     BAD(hd,flatten)
-    void what(BAD(noescape) std::ostream & os) const noexcept override {
+    void what(BAD(noescape) std::ostream & os) const noexcept override final {
       os << type(*static_cast<B const *>(this));
     }
 
     BAD(hd,inline,flatten,assume_aligned(record_alignment))
-    const abstract_record_type * propagate(Act act, BAD(noescape) size_t & i) const noexcept override {
+    const abstract_record_type * propagate(Act act, BAD(noescape) size_t & i) const noexcept override final {
       reinterpret_cast<B const *>(this)->prop(act, i);
       return next(); // this shares the virtual function call dispatch, because here it isn't virtual.
     }
@@ -416,7 +416,7 @@ namespace bad::tapes {
     static constexpr size_t acts = Acts;
 
     BAD(hd,inline,const) constexpr
-    size_t activations() const noexcept override {
+    size_t activations() const noexcept override final {
       return acts;
     }
   };
@@ -425,7 +425,7 @@ namespace bad::tapes {
 
     /// \ingroup tapes_group
     template <class T, class Act, class Allocator = default_allocator>
-    struct const_tape_iterator {
+    struct const_tape_iterator final {
       using iterator_category = std::forward_iterator_tag;
       using value_type = abstract_record<T,Act,Allocator> const;
       using pointer = value_type *;
@@ -492,7 +492,7 @@ namespace bad::tapes {
   
     /// \ingroup tapes_group
     template <class T, class Act, class Allocator = default_allocator>
-    struct tape_iterator {
+    struct tape_iterator final {
       using iterator_category = std::forward_iterator_tag;
       using value_type = abstract_record<T,Act,Allocator>;
       using pointer = value_type *;
@@ -594,7 +594,7 @@ namespace bad::tapes {
   }
 
   template <class T, class Act, class Allocator>
-  struct tape {
+  struct tape final {
   protected:
     using abstract_record_type = abstract_record<T,Act,Allocator>;
   public:

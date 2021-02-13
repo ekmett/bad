@@ -3,6 +3,8 @@
 
 #include <type_traits>
 
+#include "bad/attributes.hh"
+
 /// \file
 /// better errors for users
 ///
@@ -18,7 +20,7 @@ namespace bad::errors {
     /// \ingroup errors_group
     /// \meta
     template <class T>
-    struct no_ : std::false_type {};
+    struct BAD(empty_bases) no_ final : std::false_type {};
   }
 
   /// \brief an undetectable `false` as a variable template.

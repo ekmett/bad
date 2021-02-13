@@ -11,7 +11,7 @@
 namespace bad::storage::detail {
   /// \ingroup storage_group
   template <class B, size_t d>
-  struct const_store_expr_iterator {
+  struct const_store_expr_iterator final {
     B const * p;
     ptrdiff_t i;
 
@@ -154,7 +154,7 @@ namespace bad::storage::detail {
 
   /// \ingroup storage_group
   template <class B, size_t d>
-  struct store_expr_iterator {
+  struct store_expr_iterator final {
     B * p;
     ptrdiff_t i;
 

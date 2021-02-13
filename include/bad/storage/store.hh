@@ -13,7 +13,7 @@ namespace bad::storage {
 
   /// \ingroup storage_group
   template <class T, class Dim, class Stride = row_major<Dim>>
-  struct store {
+  struct store final {
     // offer slightly more helpful diagnostics first
     static_assert(std::is_same_v<typename Dim::value_type,size_t>, "expected dim to have type seq<...>");
     static_assert(std::is_same_v<typename Stride::value_type,ptrdiff_t>, "expected stride to have type sseq<...>");
@@ -28,7 +28,7 @@ namespace bad::storage {
   /// scalars
   /// \ingroup storage_group
   template <class T>
-  struct BAD(empty_bases,nodiscard) store<T, seq<>, sseq<>> {
+  struct BAD(empty_bases,nodiscard) store<T, seq<>, sseq<>> final {
     using element = T;
     using dim = seq<>;
     using stride = sseq<>;
@@ -150,7 +150,7 @@ namespace bad::storage {
   /// and static_assert if their are multiple indices that point to the same index.
   /// \ingroup storage_group
   template <class T, size_t d, size_t... ds, ptrdiff_t s, ptrdiff_t... ss>
-  struct BAD(empty_bases,nodiscard) store<T, seq<d,ds...>, sseq<s,ss...>>
+  struct BAD(empty_bases,nodiscard) store<T, seq<d,ds...>, sseq<s,ss...>> final
   : store_expr<store<T, seq<d,ds...>, sseq<s,ss...>>,d,ds...> {
 
     using element = T;

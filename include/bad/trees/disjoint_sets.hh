@@ -28,12 +28,12 @@ namespace bad::trees {
     /// \ingroup disjoint_sets_group
     /// T should support T += T
     template <class T>
-    struct root {
+    struct root final {
       T data;
       mutable size_t rank;
   
       template <typename... Args>
-      BAD(hd,inline)
+      BAD(hd,inline) constexpr
       explicit root(T const & rhs) noexcept
       : data(rhs)
       , rank(0) {}
@@ -46,7 +46,7 @@ namespace bad::trees {
   /// The current implementation uses Tarjan-style path-halving and union-by-rank
   /// carried values are merged with `T += T`
   template <class T>
-  struct disjoint {
+  struct disjoint final {
   private:
     using dso = detail::dso<T>;
     using root = detail::root<T>;
@@ -54,19 +54,19 @@ namespace bad::trees {
 
   public:
     /// constructs a fresh disjoint set initialized with T's default constructor
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     disjoint() noexcept;
 
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     disjoint(disjoint const & rhs) noexcept
     : p(rhs.p) {}
 
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     disjoint(disjoint && rhs) noexcept
     : p(std::move(rhs.p)) {}
 
   private:
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     disjoint(dso * rhs) noexcept
     : p(rhs) {
       assert(rhs != nullptr);
@@ -75,7 +75,7 @@ namespace bad::trees {
     friend dso;
 
   public:
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     disjoint(T const &) noexcept;
 
     BAD(hd,inline)
@@ -91,7 +91,7 @@ namespace bad::trees {
     }
 
   private:
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     root & find() const noexcept;
 
   public:
@@ -100,19 +100,19 @@ namespace bad::trees {
     disjoint & operator | (disjoint &) noexcept;
 
     /// the returned reference remains valid at least until a `merge` involves this disjoint set.
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     T & value() noexcept {
       return find().data;
     }
 
     /// the returned reference remains valid at least until a `merge` involves this disjoint set.
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     T const & value() const noexcept {
       return find().data;
     }
 
     /// do these two disjoint sets share the same root?
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     friend bool operator == (
       BAD(noescape) disjoint const & lhs,
       BAD(noescape) disjoint const & rhs
@@ -121,7 +121,7 @@ namespace bad::trees {
     }
 
     /// do these two disjoint sets not share the same root?
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     friend bool operator != (
       BAD(noescape) disjoint const & lhs,
       BAD(noescape) disjoint const & rhs
@@ -130,27 +130,26 @@ namespace bad::trees {
     }
 
   private:
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     dso * operator ->() const noexcept {
       auto result = p.get();
       assert(result != nullptr);
       return result;
     }
 
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     dso & operator *() const noexcept {
       auto result = p.get();
       assert(result != nullptr);
       return *result;
     }
 
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     disjoint<T> parent() const noexcept;
 
-    BAD(hd,inline)
+    BAD(hd,inline) constexpr
     void set_parent(disjoint<T> const &) const noexcept;
   };
-
 
   template <class T>
   disjoint(disjoint<T> const &) -> disjoint<T>;
@@ -166,12 +165,12 @@ namespace bad::trees {
     /// \private
     /// \ingroup disjoint_sets_group
     template <class T>
-    struct link {
+    struct child final {
       mutable disjoint<T> parent; // may be mutably forwarded by find, not user visible as such
   
       template <typename... Args>
       BAD(hd,inline)
-      explicit link(Args...args) noexcept
+      explicit child(Args...args) noexcept
       : parent(std::forward<Args>(args)...) {}
     };
   
@@ -180,11 +179,11 @@ namespace bad::trees {
     ///
     /// The selected policy for intrusive_target<dso<T>> means that these are _not_ thread safe.
     template <class T>
-    struct dso : intrusive_target<dso<T>> {
+    struct dso final : intrusive_target<dso<T>> {
       friend disjoint<T>;
       /// TODO: eventually carry a shared mutex to control access to entry
   
-      using entry_type = std::variant<root<T>,link<T>>;
+      using entry_type = std::variant<root<T>,child<T>>;
       entry_type entry;
   
       template <class... Args>
@@ -198,7 +197,7 @@ namespace bad::trees {
         dso * self = this;
         assert(self != nullptr);
         return std::visit([self](auto v) {
-          if constexpr (std::is_same_v<decltype(v),link<T>>) {
+          if constexpr (std::is_same_v<decltype(v),child<T>>) {
             return v.parent;
           } else {
             return disjoint<T>(self);
@@ -209,29 +208,29 @@ namespace bad::trees {
       template <class ... Args>
       BAD(hd,inline,flatten)
       void set_parent(Args&& ... args) noexcept {
-        entry.template emplace<link<T>>(std::forward<Args>(args)...);
+        entry.template emplace<child<T>>(std::forward<Args>(args)...);
       }
     };
   }
 
-  template <class T>
+  template <class T> constexpr
   disjoint<T> disjoint<T>::parent() const noexcept {
     return disjoint(p->parent());
   }
 
-  template <class T>
+  template <class T> constexpr
   void disjoint<T>::set_parent(disjoint<T> const & rhs) const noexcept {
     p->set_parent(rhs);
   }
 
-  template <class T>
+  template <class T> constexpr
   disjoint<T>::disjoint() noexcept : p(new detail::dso<T>()) {}
 
-  template <class T>
+  template <class T> constexpr
   disjoint<T>::disjoint(T const & t) noexcept
   : p (new detail::dso<T>(std::in_place_index_t<0>(),t)) {}
 
-  template <class T>
+  template <class T> constexpr
   detail::root<T> & disjoint<T>::find() const noexcept {
     while (p != parent().p) {
        set_parent(parent()->parent());

@@ -85,7 +85,7 @@ namespace bad::mixed_mode {
   class mixed;
 
   template <class T, class... Ds>
-  class BAD(empty_bases,nodiscard) mixed<T,std::tuple<Ds...>>
+  class BAD(empty_bases,nodiscard) mixed<T,std::tuple<Ds...>> final
   :                     mixed_expr<mixed<T,std::tuple<Ds...>>> {
     static constexpr size_t size = sizeof...(Ds);
     static constexpr size_t args = 1;
@@ -273,7 +273,7 @@ namespace bad::mixed_mode {
   /// simple lifted scalar
   /// \ingroup mixed_mode_group
   template <class T, typename Tangents>
-  struct BAD(empty_bases,nodiscard) mixed_lift
+  struct BAD(empty_bases,nodiscard) mixed_lift final
   : mixed_expr<mixed_lift<T,Tangents>> {
     static constexpr size_t size = std::tuple_size_v<Tangents>;
     static constexpr size_t args = 0;
@@ -408,7 +408,7 @@ namespace bad::mixed_mode {
   /// useful when building functions like `diff`
   /// \ingroup mixed_mode_group
   template <class T, class Tangents = std::tuple<T>>
-  struct BAD(empty_bases,nodiscard) mixed_arg
+  struct BAD(empty_bases,nodiscard) mixed_arg final
   : mixed_expr<mixed_arg<T,Tangents>> {
     static constexpr size_t size = std::tuple_size_v<Tangents>;
     static constexpr size_t args = 1;
@@ -447,7 +447,7 @@ namespace bad::mixed_mode {
 
     /// \ingroup mixed_mode_group
     template <class L, class R>
-    struct BAD(empty_bases,nodiscard) mixed_add_expr
+    struct BAD(empty_bases,nodiscard) mixed_add_expr final
     : mixed_expr<mixed_add_expr<L,R>> {
 
       static constexpr size_t size = L::size;
@@ -511,7 +511,7 @@ namespace bad::mixed_mode {
   namespace detail {
     /// \ingroup mixed_mode_group
     template <class L, class R>
-    struct BAD(empty_bases,nodiscard) mixed_mul_expr
+    struct BAD(empty_bases,nodiscard) mixed_mul_expr final
     : mixed_expr<mixed_mul_expr<L,R>> {
 
       static_assert(std::is_same_v<L::tangents,R::tangents>,"tangent type mismatch");
@@ -583,13 +583,13 @@ namespace bad::mixed_mode {
   namespace detail {
     /// \meta
     template <class S, class F, class... Args>
-    struct diff_ {
+    struct diff_ final {
       static_assert(no<S>,"diff: not a sequence");
     };
 
     /// \meta
     template <size_t... is, class F, class... Args>
-    struct BAD(empty_bases,nodiscard) diff_<seq<is...>, F, Args...> {
+    struct BAD(empty_bases,nodiscard) diff_<seq<is...>, F, Args...> final {
       BAD(hd,nodiscard,inline,flatten)
       auto operator ()(F f, Args... args) {
         using Tangents = std::tuple<Args...>;
