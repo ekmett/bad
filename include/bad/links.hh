@@ -53,6 +53,7 @@ namespace bad::links {
         rc<lco> const & rhs
       ) noexcept {
         assert(rhs);
+
         access();
         rhs->access();
         path = rhs;
@@ -143,118 +144,117 @@ namespace bad::links {
       void splay() noexcept {
         for (;;) {
           auto p = parent;
-          if (p) {
-            if (!p->parent) { // zig
-              p->parent = this;
-              parent = nullptr;
-              path = p->path;
-              p->path = nullptr;
-              summary = p->summary;
-              if (p->left == this) {
-                 //    p           x
-                 //  x   d  ==>  b   p
-                 // b c             c d
-                 auto c = right;
-                 if (c) c->parent = p;
-                 right = p;
-                 p->left = c;
-                 p->summary = summarize(c) + p->value + summarize(p->right);
-              } else {
-                 //   p            x
-                 // a   x   ==>  p   c
-                 //    b c      a b
-                 auto b = left;
-                 if (b) b->parent = p;
-                 left = p;
-                 p->right = b;
-                 p->summary = summarize(p->left) + p->value + summarize(b);
-              }
-              return; // can't go higher
-            } else { // g is not nullptr, zig-zig or zig-zag
-              auto g = p->parent;
-              auto gg = g->parent;
-              summary = g->summary;
-              parent = gg;
-              path = g->path;
-              g->path = nullptr;
-              if (g->left == p) {
-                if (p->left == this) { // zig-zig
-                  // --      g       x
-                  // --    p  d     a  p
-                  // --  x  c   ==>   b  g
-                  // -- a b             c d
-                  auto b = right;
-                  auto c = p->right;
-                  p->parent = this;
-                  g->parent = p;
-                  if (b) b->parent = p;
-                  if (c) c->parent = g;
-                  right = p;
-                  p->right = g;
-                  p->left = b;
-                  g->left = c;
-                  auto sg = summarize(c) + g->value + summarize(g->right);
-                  g->summary = sg;
-                  p->summary = summarize(b) + p->value + sg;
-                } else { // zig-zag
-                  // --       g           x
-                  // --   p    d  ==>   p   g
-                  // --  a  x          a b c d
-                  // --    b c
-                  auto b = left;
-                  auto c = right;
-                  p->parent = this;
-                  g->parent = this;
-                  if (b) b->parent = p;
-                  if (c) c->parent = g;
-                  left = p;
-                  right = g;
-                  p->right = b;
-                  g->left = c;
-                  p->summary = summarize(p->left) + p->value + summarize(b);
-                  g->summary = summarize(c) + g->value + summarize(g->right);
-                }
-              } else if (p->left == this) { // gl != p, zag-zig
-                // --   g               x
-                // --  a    p         g   p
-                // --     x  d  ==>  a b c d // d = p->right
+          if (!p) return;
+          if (!p->parent) { // zig
+            p->parent = this;
+            parent = nullptr;
+            path = p->path;
+            p->path = nullptr;
+            summary = p->summary;
+            if (p->left == this) {
+               //    p           x
+               //  x   d  ==>  b   p
+               // b c             c d
+               auto c = right;
+               if (c) c->parent = p;
+               right = p;
+               p->left = c;
+               p->summary = summarize(c) + p->value + summarize(p->right);
+            } else {
+               //   p            x
+               // a   x   ==>  p   c
+               //    b c      a b
+               auto b = left;
+               if (b) b->parent = p;
+               left = p;
+               p->right = b;
+               p->summary = summarize(p->left) + p->value + summarize(b);
+            }
+            return; // can't go higher
+          } else { // g is not nullptr, zig-zig or zig-zag
+            auto g = p->parent;
+            auto gg = g->parent;
+            summary = g->summary;
+            parent = gg;
+            path = g->path;
+            g->path = nullptr;
+            if (g->left == p) {
+              if (p->left == this) { // zig-zig
+                // --      g       x
+                // --    p  d     a  p
+                // --  x  c   ==>   b  g
+                // -- a b             c d
+                auto b = right;
+                auto c = p->right;
+                p->parent = this;
+                g->parent = p;
+                if (b) b->parent = p;
+                if (c) c->parent = g;
+                right = p;
+                p->right = g;
+                p->left = b;
+                g->left = c;
+                auto sg = summarize(c) + g->value + summarize(g->right);
+                g->summary = sg;
+                p->summary = summarize(b) + p->value + sg;
+              } else { // zig-zag
+                // --       g           x
+                // --   p    d  ==>   p   g
+                // --  a  x          a b c d
                 // --    b c
                 auto b = left;
                 auto c = right;
+                p->parent = this;
                 g->parent = this;
-                p->parent = this;
-                if (b) b->parent = g;
-                if (c) c->parent = p;
-                left = g;
-                right = p;
-                g->right = b;
-                p->left = c;
-                g->summary = summarize(g->left) + g->value + summarize(b);
-                p->summary = summarize(c) + p->value + summarize(p->right);
-              } else { // gl != p, pl != x, zag-zag
-                // --  g               x
-                // -- a  p           p  d
-                // --   b  x  ==>  g  c
-                // --     c d     a b
-                auto b = p->left;
-                auto c = left;
-                if (b) b->parent = g;
-                if (c) c->parent = p;
-                p->parent = this;
-                g->parent = p;
+                if (b) b->parent = p;
+                if (c) c->parent = g;
                 left = p;
-                p->left = g;
-                g->right = b;
-                p->right = c;
-                auto sg = summarize(g->left) + g->value + summarize(b);
-                g->summary = sg;
-                p->summary = sg + p->value + summarize(c);
+                right = g;
+                p->right = b;
+                g->left = c;
+                p->summary = summarize(p->left) + p->value + summarize(b);
+                g->summary = summarize(c) + g->value + summarize(g->right);
               }
-              if (!gg) return;
-
-              if (gg->left == g) gg->left = this;
-              else gg->right = this;
+            } else if (p->left == this) { // gl != p, zag-zig
+              // --   g               x
+              // --  a    p         g   p
+              // --     x  d  ==>  a b c d // d = p->right
+              // --    b c
+              auto b = left;
+              auto c = right;
+              g->parent = this;
+              p->parent = this;
+              if (b) b->parent = g;
+              if (c) c->parent = p;
+              left = g;
+              right = p;
+              g->right = b;
+              p->left = c;
+              g->summary = summarize(g->left) + g->value + summarize(b);
+              p->summary = summarize(c) + p->value + summarize(p->right);
+            } else { // gl != p, pl != x, zag-zag
+              // --  g               x
+              // -- a  p           p  d
+              // --   b  x  ==>  g  c
+              // --     c d     a b
+              auto b = p->left;
+              auto c = left;
+              if (b) b->parent = g;
+              if (c) c->parent = p;
+              p->parent = this;
+              g->parent = p;
+              left = p;
+              p->left = g;
+              g->right = b;
+              p->right = c;
+              auto sg = summarize(g->left) + g->value + summarize(b);
+              g->summary = sg;
+              p->summary = sg + p->value + summarize(c);
             }
+            if (!gg) return;
+
+            if (gg->left == g) gg->left = this;
+            else gg->right = this;
           }
         } // for(;;)
       } // splay()
@@ -322,8 +322,8 @@ namespace bad::links {
     }
 
     BAD(hd,inline)
-    T summary() noexcept {
-      return lco::summarize(p);
+    T cost() noexcept {
+      return p ? p->cost() : T();
     }
 
     BAD(hd,inline)
