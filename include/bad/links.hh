@@ -13,6 +13,11 @@
 /// we need to keep track of references to the auxillary tree
 /// and free the entire auxillary tree when the last reference is deleted
 
+/// mental model:
+/// path pointers keep the target alive
+/// can only delete 'freely' the left most node in the auxillary tree
+/// and only if there are no children pointed to it and no external references
+
 namespace bad::links {
   /// \ingroup links_groups
   struct BAD(empty_bases) unit {
