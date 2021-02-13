@@ -45,8 +45,7 @@ INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = YES
 STRIP_FROM_PATH        = \
   "@PROJECT_SOURCE_DIR@/include/bad" \
-  "@PROJECT_SOURCE_DIR@/include" \
-  "@PROJECT_SOURCE_DIR@/src"
+  "@PROJECT_SOURCE_DIR@/include"
 
 # The STRIP_FROM_INC_PATH tag can be used to strip a user-defined part of the
 # path mentioned in the documentation of a class, which tells the reader which
@@ -159,7 +158,6 @@ WARN_AS_ERROR          = NO
 WARN_FORMAT            = "$file:$line: $text"
 WARN_LOGFILE           =
 INPUT                  = \
-  "@PROJECT_SOURCE_DIR@/src" \
   "@PROJECT_SOURCE_DIR@/include" \
   "@PROJECT_SOURCE_DIR@/README.md"
 INPUT_ENCODING         = UTF-8

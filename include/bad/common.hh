@@ -1,6 +1,7 @@
 #ifndef BAD_COMMON_HH
 #define BAD_COMMON_HH
 
+#include <iostream>
 #include <algorithm> // std::max
 #include <cstddef>   // std::size_t, std::ptrdiff_t
 #include <utility>   // std::integer_sequence

@@ -3,6 +3,13 @@
 
 #include <string>
 #include <typeinfo>
+
+#ifdef __GNUG__
+#include <cstdlib>
+#include <memory>
+#include <cxxabi.h>
+#endif
+
 #include "bad/common.hh"
 #include "bad/attributes.hh"
 
@@ -18,8 +25,19 @@ namespace bad::types {
   /// demangle a type name with the C++ ABI if available
   /// \ingroup types_group
   /// \private
-  BAD(hd)
-  std::string demangle(char const * name);
+  BAD(hd,inline)
+  static std::string demangle(char const * name) noexcept {
+#ifdef __GNUG__
+    int status = -4;
+    std::unique_ptr<char, void(*)(void*)> res {
+      abi::__cxa_demangle(name, NULL, NULL, &status),
+      std::free
+    };
+    return (status==0) ? res.get() : name ;
+#else
+    return name;
+#endif
+  }
 
   /// return the name of a given type given a reference
   /// \ingroup types_group

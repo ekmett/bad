@@ -62,7 +62,7 @@ endif(ASAN)
 
 # add_compile_options(-O2)
 
-add_subdirectory(src)
+add_subdirectory(include)
 add_subdirectory(t)
 
 find_package(Doxygen)
