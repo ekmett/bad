@@ -1,5 +1,5 @@
-#ifndef BAD_DISJOINT_HH
-#define BAD_DISJOINT_HH
+#ifndef BAD_TREES_DISJOINT_SETS_HH
+#define BAD_TREES_DISJOINT_SETS_HH
 
 #include <variant>
 #include <utility>
@@ -14,9 +14,10 @@
 /// disjoint set forests
 ///
 /// \defgroup disjoint_sets_group disjoint sets
+/// \ingroup trees_group
 /// disjoint set forests
 
-namespace bad::disjoint_sets {
+namespace bad::trees {
   namespace detail {
     /// \private
     /// \ingroup disjoint_sets_group
@@ -267,7 +268,7 @@ namespace bad::disjoint_sets {
 }
 
 namespace bad {
-  using namespace bad::disjoint_sets;
+  using namespace bad::trees;
 }
 
 #endif

@@ -1,16 +1,17 @@
-#ifndef BAD_LINKS_HH
-#define BAD_LINKS_HH
+#ifndef BAD_TREES_LINK_CUT_HH
+#define BAD_TREES_LINK_CUT_HH
 
 #include "bad/memory.hh"
 
 /// \file
 /// link cut trees
 ///
-/// \defgroup links_group link-cut trees
+/// \defgroup link_cut_group link-cut trees
+/// \ingroup trees_group 
 /// link cut trees
 
-namespace bad::links {
-  /// \ingroup links_groups
+namespace bad::trees {
+  /// \ingroup link_cut_groups
   struct BAD(empty_bases) unit {
     BAD(hd,inline)
     friend unit operator + (
@@ -30,7 +31,7 @@ namespace bad::links {
   };
 
   namespace detail {
-    /// \ingroup links_groups
+    /// \ingroup link_cut_groups
     /// \meta
     /// requires `U = measure(T)`, `U()`, `U = U + U` for some type U
     template <class T = unit>
@@ -43,14 +44,14 @@ namespace bad::links {
       T value;
 
     public:
-      using measure_type = decltype(::bad::links::measure<T>{}(std::declval<T>()));
+      using measure_type = decltype(::bad::trees::measure<T>{}(std::declval<T>()));
 
     private:
       measure_type summary;
 
       BAD(hd,inline)
       static measure_type measure(T x) {
-        return ::bad::links::measure<T>{}(x);
+        return ::bad::trees::measure<T>{}(x);
       }
 
 
@@ -297,7 +298,7 @@ namespace bad::links {
     }; // struct lco
   } // namespace detail
 
-  /// \ingroup links_group
+  /// \ingroup link_cut_group
   /// link-cut trees
   template <class T>
   struct link_cut {
@@ -410,28 +411,28 @@ namespace bad::links {
 
   // TODO: printf support
 
-  /// \ingroup links_group
+  /// \ingroup link_cut_group
   template <class T>
   BAD(hd,inline)
   void cut(link_cut<T> & p) noexcept {
     p.cut();
   }
 
-  /// \ingroup links_group
+  /// \ingroup link_cut_group
   template <class T>
   BAD(hd,inline)
   link_cut<T> link(link_cut<T> & p, link_cut<T> & q) noexcept {
     return p.link(q);
   }
 
-  /// \ingroup links_group
+  /// \ingroup link_cut_group
   template <class T>
   BAD(hd,inline)
   link_cut<T> root(link_cut<T> & p) noexcept {
     return p.root();
   }
 
-  /// \ingroup links_group
+  /// \ingroup link_cut_group
   template <class T>
   BAD(hd,inline)
   auto cost(link_cut<T> & p) noexcept -> typename link_cut<T>::measure_type {
@@ -440,7 +441,7 @@ namespace bad::links {
 }
 
 namespace bad {
-  using namespace bad::links;
+  using namespace bad::trees;
 }
 
 #endif

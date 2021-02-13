@@ -1,5 +1,5 @@
 #include "catch.hh"
-#include "bad/links.hh"
+#include "bad/trees/link_cut.hh"
 #include <iostream>
 #include <string>
 #include <cstring>

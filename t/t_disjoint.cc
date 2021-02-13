@@ -1,5 +1,5 @@
 #include "catch.hh"
-#include "bad/disjoint.hh"
+#include "bad/trees/disjoint_sets.hh"
 #include <iostream>
 
 using namespace bad;
