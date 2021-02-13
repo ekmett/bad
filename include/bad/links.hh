@@ -9,15 +9,6 @@
 /// \defgroup links_group link-cut trees
 /// link cut trees
 
-/// TODO: this notion of counted is wrong.
-/// we need to keep track of references to the auxillary tree
-/// and free the entire auxillary tree when the last reference is deleted
-
-/// mental model:
-/// path pointers keep the target alive
-/// can only delete 'freely' the left most node in the auxillary tree
-/// and only if there are no children pointed to it and no external references
-
 namespace bad::links {
   /// \ingroup links_groups
   struct BAD(empty_bases) unit {
@@ -35,13 +26,16 @@ namespace bad::links {
     /// \meta
     template <class T = unit>
     struct lco : counted<lco<T>> {
-      rc<lco> path, parent, left, right;
+      lco * path;
+      lco * parent;
+      lco * left;
+      lco * right;
       T value;
       T summary;
 
       BAD(hd,inline)
       lco() noexcept
-      : path(), parent(), left(), right(), summary() {}
+      : path(), parent(), left(), right(), value(), summary() {}
 
       BAD(hd,inline)
       lco(T v) noexcept
@@ -49,103 +43,73 @@ namespace bad::links {
 
       BAD(hd,inline)
       void cut() noexcept {
+        access();
         if (left) {
           auto l = left;
           left = nullptr;
           l->parent = nullptr;
           summary = value;
+          release(l); // reduce the reference count of the thing formerly above by one
         }
       }
 
       BAD(hd,inline)
       void link(
-        rc<lco> const & rhs
+        lco * rhs
       ) noexcept {
         assert(rhs);
 
         access();
         rhs->access();
         path = rhs;
+        acquire(rhs); // increase the reference count of our new parent by one
       }
 
       BAD(hd,inline)
       bool connected(
-        rc<lco> const & rhs
+        lco * rhs
       ) noexcept {
         return rhs && root() == rhs->root();
       }
 
-      // SFINAE 
+      // SFINAE
       BAD(hd,inline)
       T cost() noexcept {
         access();
+        // access placed us at the top, summary tallies everything below us by definition
         return summary;
       }
 
       BAD(hd,inline)
-      rc<lco> root() noexcept {
+      lco * root() noexcept {
         access();
         lco * v = this; // using existing rcs
-        {
-          lco * l = v->left.get();
-          while (l) {
-            v = l;
-            l = v->left.get();
-          }
-        } // v is now leftmost
+        lco * l = v->left;
+        while (l) {
+          v = l;
+          l = v->left;
+        }
         v->splay();
         return v; // bumps rc
       }
 
       BAD(hd,inline)
-      rc<lco> up() noexcept {
+      lco * up() noexcept {
         access();
         if (!left) return nullptr;
         lco * v = this; // not null
-        {
-          lco * r = v->right.get();
-          while (r) {
-            v = r;
-            r = v->right.get();
-          }
-        } // v is now rightmost
+        lco * r = v->right;
+        while (r) {
+          v = r;
+          r = v->right;
+        }
+        // v is now rightmost
         v->splay();
         return v; // bumps rc
       }
 
       BAD(hd) // not inline! holy cow
-      void access() noexcept {
-        splay();
-        if (right) {
-          auto r = right;
-          right = nullptr;
-          r->parent = nullptr;
-          r->path = this;
-          summary = left ? left->summary + value : value;
-        }
-        lco * v = this; // not null
-        {
-          auto w = v->path;
-          while (w) {
-            w->splay();
-            auto b = w->right;
-            if (b) {
-              b->path = w;
-              b->parent = nullptr;
-            }
-            auto a = w->left;
-            w->summary = a ? a->summary + w->value + v->summary : w->value + v->summary;
-            v->parent = w;
-            w->right = v;
-            v = w.get();
-            w = v->path;
-          }
-        }
-        splay();
-      }
-
-      BAD(hd) // not inline! holy cow
-      rc<lco> access_last() noexcept {
+      lco * access() noexcept {
         splay();
         if (right) {
           auto r = right;
@@ -158,7 +122,7 @@ namespace bad::links {
         lco * last_w = v;
         auto w = v->path;
         while (w) {
-          last_w = w.get();
+          last_w = w;
           w->splay();
           auto b = w->right;
           if (b) {
@@ -169,7 +133,7 @@ namespace bad::links {
           w->summary = a ? a->summary + w->value + v->summary : w->value + v->summary;
           v->parent = w;
           w->right = v;
-          v = w.get();
+          v = w;
           w = v->path;
         }
         splay();
@@ -177,16 +141,16 @@ namespace bad::links {
       }
 
       BAD(hd,inline)
-      rc<lco> lca(rc<lco> & rhs) noexcept {
+      lco * lca(lco * rhs) noexcept {
         assert(rhs);
         // assert(connected(rhs));
 
         access();
-        return rhs->access_last();
+        return rhs->access();
       }
 
       BAD(hd,inline)
-      static T summarize(rc<lco> const & p) {
+      static T summarize(lco * p) {
         return p ? p->summary : T();
       }
 
@@ -320,7 +284,7 @@ namespace bad::links {
     rc<lco> p;
 
     BAD(hd,inline)
-    link_cut(rc<lco> p) noexcept
+    link_cut(lco * p) noexcept
     : p(p) {}
 
   public:
@@ -367,12 +331,12 @@ namespace bad::links {
     BAD(hd,inline)
     void link(link_cut rhs) noexcept {
       assert(p && rhs.p);
-      p->link(rhs.p);
+      p->link(rhs.p.get());
     }
 
     BAD(hd,inline)
     bool connected(link_cut rhs) noexcept {
-      return p && rhs.p && p->connected(rhs.p);
+      return p && rhs.p && p->connected(rhs.p.get());
     }
 
     BAD(hd,inline)
@@ -382,7 +346,7 @@ namespace bad::links {
 
     BAD(hd,inline)
     link_cut lca(link_cut rhs) noexcept {
-      return { p->lca(rhs.p) };
+      return { p->lca(rhs.p.get()) };
     }
 
     BAD(hd,inline)
@@ -391,7 +355,7 @@ namespace bad::links {
       return p->value();
     }
     // TODO: lca
-    
+
     BAD(hd,inline)
     friend bool operator == (
       BAD(noescape) link_cut const & lhs,
@@ -409,7 +373,7 @@ namespace bad::links {
     }
   };
 
-  template <class T> 
+  template <class T>
   BAD(hd,inline,flatten)
   void swap(
     BAD(noescape) link_cut<T> & lhs,
@@ -420,24 +384,24 @@ namespace bad::links {
   }
 
   // TODO: printf support
-  
+
   /// \ingroup links_group
   template <class T>
-  BAD(hd,inline)  
+  BAD(hd,inline)
   void cut(link_cut<T> & p) noexcept {
     p.cut();
   }
 
   /// \ingroup links_group
   template <class T>
-  BAD(hd,inline)  
+  BAD(hd,inline)
   auto link(link_cut<T> & p, link_cut<T> & q) noexcept {
     return p.link(q);
   }
 
   /// \ingroup links_group
   template <class T>
-  BAD(hd,inline)  
+  BAD(hd,inline)
   auto root(link_cut<T> & p) noexcept {
     return p.root();
   }
