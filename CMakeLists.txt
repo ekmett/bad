@@ -62,7 +62,12 @@ endif(ASAN)
 
 # add_compile_options(-O2)
 
-add_subdirectory(include)
+add_library(bad INTERFACE)
+target_include_directories(bad INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
 add_subdirectory(t)
 
 find_package(Doxygen)
