@@ -1,10 +1,10 @@
-#ifndef BAD_MEMORY_WEAK_INTRUSIVE_PTR_HH
-#define BAD_MEMORY_WEAK_INTRUSIVE_PTR_HH
+#ifndef BAD_POINTERS_WEAK_INTRUSIVE_PTR_HH
+#define BAD_POINTERS_WEAK_INTRUSIVE_PTR_HH
 
 #include "bad/common.hh"
-#include "bad/memory/intrusive_ptr.hh"
+#include "bad/pointers/intrusive_ptr.hh"
 
-namespace bad::memory {
+namespace bad::pointers {
 
   /// \ingroup intrusive_group
   template <class T>
@@ -169,7 +169,7 @@ namespace std {
 }
 
 namespace bad {
-  using namespace memory;
+  using namespace pointers;
 }
 
 #endif

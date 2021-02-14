@@ -1,12 +1,12 @@
-#ifndef BAD_MEMORY_INTRUSIVE_PTR_HH
-#define BAD_MEMORY_INTRUSIVE_PTR_HH
+#ifndef BAD_POINTERS_INTRUSIVE_PTR_HH
+#define BAD_POINTERS_INTRUSIVE_PTR_HH
 
 #include <iosfwd>
 
 #include "bad/attributes.hh"
 #include "bad/operators.hh"
 
-namespace bad::memory {
+namespace bad::pointers {
 
   /// reference counted intrusive pointers
   /// \ingroup intrusive_group
@@ -269,7 +269,7 @@ namespace std {
 }
 
 namespace bad {
-  using namespace bad::memory;
+  using namespace bad::pointers;
 }
 
 #endif

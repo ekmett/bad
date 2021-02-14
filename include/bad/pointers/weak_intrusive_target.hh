@@ -1,14 +1,12 @@
-#ifndef BAD_MEMORY_WEAK_INTRUSIVE_TARGET_HH
-#define BAD_MEMORY_WEAK_INTRUSIVE_TARGET_HH
-
-#include <mutex>
+#ifndef BAD_POINTERS_WEAK_INTRUSIVE_TARGET_HH
+#define BAD_POINTERS_WEAK_INTRUSIVE_TARGET_HH
 
 #include "bad/common.hh"
-#include "bad/memory/intrusive_ptr.hh"
-#include "bad/memory/intrusive_target.hh"
-#include "bad/memory/weak_intrusive_ptr.hh"
+#include "bad/pointers/intrusive_ptr.hh"
+#include "bad/pointers/intrusive_target.hh"
+#include "bad/pointers/weak_intrusive_ptr.hh"
 
-namespace bad::memory {
+namespace bad::pointers {
 
   template <class T, class Policy = atomic_policy>
   struct weak_intrusive_target;
@@ -136,7 +134,7 @@ namespace bad::memory {
 }
 
 namespace bad {
-  using namespace bad::memory;
+  using namespace bad::pointers;
 }
 
 #endif
