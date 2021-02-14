@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['link_2dcut_20trees_754',['link-cut trees',['../group__links__group.html',1,'']]]
+  ['link_2dcut_20trees_815',['link-cut trees',['../group__link__cut__group.html',1,'']]]
 ];

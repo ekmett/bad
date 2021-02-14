@@ -78,38 +78,56 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;typeinfo&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="common_8hh.html">bad/common.hh</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="attributes_8hh.html">bad/attributes.hh</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#ifdef __GNUG__</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;cxxabi.h&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespacebad_1_1types.html">   17</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad_1_1types.html">bad::types</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  std::string demangle(<span class="keywordtype">char</span> <span class="keyword">const</span> * name);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="common_8hh.html">bad/common.hh</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="attributes_8hh.html">bad/attributes.hh</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">   28</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">type</a>(T const &amp; t) noexcept {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> demangle(<span class="keyword">typeid</span>(t).name());</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">   36</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">type_name</a>() noexcept {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> demangle(<span class="keyword">typeid</span>(T).name());</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad.html">bad</a> {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacebad_1_1types.html">bad::types</a>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespacebad_1_1types.html">   24</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad_1_1types.html">bad::types</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">static</span> std::string demangle(<span class="keywordtype">char</span> <span class="keyword">const</span> * name) noexcept {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifdef __GNUG__</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> status = -4;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    std::unique_ptr&lt;char, void(*)(<span class="keywordtype">void</span>*)&gt; res {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      abi::__cxa_demangle(name, NULL, NULL, &amp;status),</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      std::free</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    };</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> (status==0) ? res.get() : name ;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> name;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">   46</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">type</a>(T const &amp; t) noexcept {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> demangle(<span class="keyword">typeid</span>(t).name());</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd)</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">   54</a></span>&#160;  std::<span class="keywordtype">string</span> <a class="code" href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">type_name</a>() noexcept {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> demangle(<span class="keyword">typeid</span>(T).name());</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad.html">bad</a> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacebad_1_1types.html">bad::types</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup__types__group_html_gac8074582938bf6e8f13624178d3f2a63"><div class="ttname"><a href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">bad::types::type_name</a></div><div class="ttdeci">std::string type_name() noexcept</div><div class="ttdoc">return the name of a given type without passing a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00036">types.hh:36</a></div></div>
+<div class="ttc" id="agroup__types__group_html_gac8074582938bf6e8f13624178d3f2a63"><div class="ttname"><a href="group__types__group.html#gac8074582938bf6e8f13624178d3f2a63">bad::types::type_name</a></div><div class="ttdeci">std::string type_name() noexcept</div><div class="ttdoc">return the name of a given type without passing a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00054">types.hh:54</a></div></div>
 <div class="ttc" id="acommon_8hh_html"><div class="ttname"><a href="common_8hh.html">common.hh</a></div><div class="ttdoc">common definitions, shared across all modules</div></div>
-<div class="ttc" id="agroup__types__group_html_ga5d8154bb23491f85830116b0f79417d6"><div class="ttname"><a href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">bad::types::type</a></div><div class="ttdeci">std::string type(T const &amp;t) noexcept</div><div class="ttdoc">return the name of a given type given a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00028">types.hh:28</a></div></div>
-<div class="ttc" id="anamespacebad_1_1types_html"><div class="ttname"><a href="namespacebad_1_1types.html">bad::types</a></div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00017">types.hh:17</a></div></div>
+<div class="ttc" id="agroup__types__group_html_ga5d8154bb23491f85830116b0f79417d6"><div class="ttname"><a href="group__types__group.html#ga5d8154bb23491f85830116b0f79417d6">bad::types::type</a></div><div class="ttdeci">std::string type(T const &amp;t) noexcept</div><div class="ttdoc">return the name of a given type given a reference</div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00046">types.hh:46</a></div></div>
+<div class="ttc" id="anamespacebad_1_1types_html"><div class="ttname"><a href="namespacebad_1_1types.html">bad::types</a></div><div class="ttdef"><b>Definition:</b> <a href="types_8hh_source.html#l00024">types.hh:24</a></div></div>
 <div class="ttc" id="anamespacebad_html"><div class="ttname"><a href="namespacebad.html">bad</a></div><div class="ttdoc">top level namespace</div></div>
 <div class="ttc" id="agroup__attributes_html_ga921c6d857ac4cc70d02e85d0f3de0432"><div class="ttname"><a href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a></div><div class="ttdeci">#define BAD(...)</div><div class="ttdoc">convenient macro for applying several attributes</div><div class="ttdef"><b>Definition:</b> <a href="attributes_8hh_source.html#l00024">attributes.hh:24</a></div></div>
 <div class="ttc" id="aattributes_8hh_html"><div class="ttname"><a href="attributes_8hh.html">attributes.hh</a></div><div class="ttdoc">macros for applying attributes.</div></div>

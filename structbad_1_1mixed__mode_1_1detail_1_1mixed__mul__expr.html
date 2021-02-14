@@ -80,7 +80,7 @@ $(function() {
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">mixed_mul_expr&lt; L, R &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__modes.html">modes</a> &raquo; <a class="el" href="group__mixed__mode__group.html">mixed</a></div></div>  </div>
+<div class="title">mixed_mul_expr&lt; L, R &gt; Struct Template Reference<span class="mlabels"><span class="mlabel">final</span></span><div class="ingroups"><a class="el" href="group__modes.html">modes</a> &raquo; <a class="el" href="group__mixed__mode__group.html">mixed</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -97,6 +97,10 @@ Inheritance diagram for mixed_mul_expr&lt; L, R &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a29286905eb6757005a51a0a75a790818"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a29286905eb6757005a51a0a75a790818">left_type</a> = std::decay_t&lt; L &gt;</td></tr>
+<tr class="separator:a29286905eb6757005a51a0a75a790818"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5ceef12ba1298fd207640bfc40a5f60"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#aa5ceef12ba1298fd207640bfc40a5f60">right_type</a> = std::decay_t&lt; R &gt;</td></tr>
+<tr class="separator:aa5ceef12ba1298fd207640bfc40a5f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7bb485f0d2dfc2f7d0e32fb80bb998c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#ad7bb485f0d2dfc2f7d0e32fb80bb998c">tangents</a> = typename L::tangents</td></tr>
 <tr class="separator:ad7bb485f0d2dfc2f7d0e32fb80bb998c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57a1c755a4900c25e038e7b1fca01b71"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a57a1c755a4900c25e038e7b1fca01b71">element_type</a> = decltype(std::declval&lt; L &gt;().<a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#aec091e98e682ee0e19358c603c255d7f">primal</a>() *std::declval&lt; R &gt;().<a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#aec091e98e682ee0e19358c603c255d7f">primal</a>())</td></tr>
@@ -106,8 +110,6 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab017f890251ff77b172d731e41c14299"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#ab017f890251ff77b172d731e41c14299">mixed_mul_expr</a> (L const &amp;l, R const &amp;r) noexcept</td></tr>
-<tr class="separator:ab017f890251ff77b172d731e41c14299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec091e98e682ee0e19358c603c255d7f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a57a1c755a4900c25e038e7b1fca01b71">element_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#aec091e98e682ee0e19358c603c255d7f">primal</a> () const noexcept</td></tr>
 <tr class="separator:aec091e98e682ee0e19358c603c255d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8d5f6fc54edf9d7e1001cc3c4fd1df3"><td class="memTemplParams" colspan="2">template&lt;size_t i&gt; </td></tr>
@@ -135,10 +137,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:acbe233b239eeb8968ce7733d8dd81468"><td class="memItemLeft" align="right" valign="top">L const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#acbe233b239eeb8968ce7733d8dd81468">lhs</a></td></tr>
-<tr class="separator:acbe233b239eeb8968ce7733d8dd81468"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aab835945b5bbbb120aa85f663b7f70"><td class="memItemLeft" align="right" valign="top">R const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a6aab835945b5bbbb120aa85f663b7f70">rhs</a></td></tr>
-<tr class="separator:a6aab835945b5bbbb120aa85f663b7f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30da47fc3f2ee0a2a012fba2f9f1a66a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a>&lt; L &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a30da47fc3f2ee0a2a012fba2f9f1a66a">lhs</a></td></tr>
+<tr class="separator:a30da47fc3f2ee0a2a012fba2f9f1a66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af458e6de71cfd7c33615ab94b26a70da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a>&lt; R &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#af458e6de71cfd7c33615ab94b26a70da">rhs</a></td></tr>
+<tr class="separator:af458e6de71cfd7c33615ab94b26a70da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a01ef7b2587947a1c8f05cd0ca638d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a57a1c755a4900c25e038e7b1fca01b71">element_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a1a01ef7b2587947a1c8f05cd0ca638d1">p</a></td></tr>
 <tr class="memdesc:a1a01ef7b2587947a1c8f05cd0ca638d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">cached primal  <a href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a1a01ef7b2587947a1c8f05cd0ca638d1">More...</a><br /></td></tr>
 <tr class="separator:a1a01ef7b2587947a1c8f05cd0ca638d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,7 +157,7 @@ Static Public Attributes</h2></td></tr>
 struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00514">514</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00540">540</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a57a1c755a4900c25e038e7b1fca01b71"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a57a1c755a4900c25e038e7b1fca01b71">&#9670;&nbsp;</a></span>element_type</h2>
@@ -169,7 +171,23 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00525">525</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00554">554</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+
+</div>
+</div>
+<a id="a29286905eb6757005a51a0a75a790818"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29286905eb6757005a51a0a75a790818">&#9670;&nbsp;</a></span>left_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a29286905eb6757005a51a0a75a790818">left_type</a> =  std::decay_t&lt;L&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00543">543</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -185,7 +203,23 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00526">526</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00555">555</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+
+</div>
+</div>
+<a id="aa5ceef12ba1298fd207640bfc40a5f60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5ceef12ba1298fd207640bfc40a5f60">&#9670;&nbsp;</a></span>right_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#aa5ceef12ba1298fd207640bfc40a5f60">right_type</a> =  std::decay_t&lt;R&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00544">544</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -201,46 +235,7 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00524">524</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab017f890251ff77b172d731e41c14299"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab017f890251ff77b172d731e41c14299">&#9670;&nbsp;</a></span>mixed_mul_expr()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html">mixed_mul_expr</a> </td>
-          <td>(</td>
-          <td class="paramtype">L const &amp;&#160;</td>
-          <td class="paramname"><em>l</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">R const &amp;&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00534">534</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00553">553</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -268,7 +263,7 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00550">550</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00570">570</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -296,7 +291,7 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00556">556</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00576">576</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -323,7 +318,7 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00544">544</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00564">564</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -351,7 +346,7 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00565">565</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00585">585</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -376,23 +371,23 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00522">522</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00551">551</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
-<a id="acbe233b239eeb8968ce7733d8dd81468"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbe233b239eeb8968ce7733d8dd81468">&#9670;&nbsp;</a></span>lhs</h2>
+<a id="a30da47fc3f2ee0a2a012fba2f9f1a66a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30da47fc3f2ee0a2a012fba2f9f1a66a">&#9670;&nbsp;</a></span>lhs</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">L const&amp; lhs</td>
+          <td class="memname"><a class="el" href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a>&lt;L&gt; lhs</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00528">528</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00557">557</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -410,23 +405,23 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 
 <p>cached primal </p>
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00531">531</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00560">560</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
-<a id="a6aab835945b5bbbb120aa85f663b7f70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6aab835945b5bbbb120aa85f663b7f70">&#9670;&nbsp;</a></span>rhs</h2>
+<a id="af458e6de71cfd7c33615ab94b26a70da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af458e6de71cfd7c33615ab94b26a70da">&#9670;&nbsp;</a></span>rhs</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">R const&amp; rhs</td>
+          <td class="memname"><a class="el" href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a>&lt;R&gt; rhs</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00529">529</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00558">558</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>
@@ -450,7 +445,7 @@ struct bad::mixed_mode::detail::mixed_mul_expr&lt; L, R &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00521">521</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mixed__mode_8hh_source.html#l00550">550</a> of file <a class="el" href="mixed__mode_8hh_source.html">mixed_mode.hh</a>.</p>
 
 </div>
 </div>

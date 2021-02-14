@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['valid_583',['valid',['../structbad_1_1storage_1_1detail_1_1const__store__expr__iterator.html#ab6ead0c02b8c399272d1ceda4fb70cdf',1,'bad::storage::detail::const_store_expr_iterator::valid()'],['../structbad_1_1storage_1_1detail_1_1store__expr__iterator.html#ab6ead0c02b8c399272d1ceda4fb70cdf',1,'bad::storage::detail::store_expr_iterator::valid()'],['../structbad_1_1storage_1_1detail_1_1const__store__iterator.html#a99f77f09f364b20c3a30ab6bffa4c24b',1,'bad::storage::detail::const_store_iterator::valid()'],['../structbad_1_1storage_1_1detail_1_1store__iterator.html#a99f77f09f364b20c3a30ab6bffa4c24b',1,'bad::storage::detail::store_iterator::valid()']]],
-  ['value_584',['value',['../structbad_1_1disjoint__sets_1_1disjoint.html#acf249eed149b0892cbad6441912745a6',1,'bad::disjoint_sets::disjoint::value() noexcept'],['../structbad_1_1disjoint__sets_1_1disjoint.html#a5f4993bc9e8ebae9fc66347266741187',1,'bad::disjoint_sets::disjoint::value() const noexcept'],['../structbad_1_1links_1_1link__cut.html#a3c2b55da7ac03f278bc11016a8439208',1,'bad::links::link_cut::value()']]]
+  ['unlock_631',['unlock',['../structbad_1_1memory_1_1detail_1_1null__mutex.html#a9278be8203e1c42e2619179882ae4403',1,'bad::memory::detail::null_mutex']]],
+  ['unlock_5fshared_632',['unlock_shared',['../structbad_1_1memory_1_1detail_1_1null__mutex.html#a3df71da9feb63fdb45f0b86b409e17f0',1,'bad::memory::detail::null_mutex']]]
 ];

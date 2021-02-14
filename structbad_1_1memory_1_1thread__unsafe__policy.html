@@ -82,45 +82,63 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="counted_8hh_source.html">counted.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:adf6e6a34858cb4b1db15eab4860d5550"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a> = size_t</td></tr>
-<tr class="separator:adf6e6a34858cb4b1db15eab4860d5550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b6c18828424ee36e583d26856a2e99c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a0b6c18828424ee36e583d26856a2e99c">mutex</a> = <a class="el" href="structbad_1_1memory_1_1detail_1_1null__mutex.html">detail::null_mutex</a></td></tr>
+<tr class="separator:a0b6c18828424ee36e583d26856a2e99c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7af78e8ac86d6f3f7d6d74aad381f8d1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a> = size_t</td></tr>
+<tr class="separator:a7af78e8ac86d6f3f7d6d74aad381f8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a4cdd37d16188944481fee6d264226c70"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a4cdd37d16188944481fee6d264226c70">load</a> (<a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a> s)</td></tr>
-<tr class="separator:a4cdd37d16188944481fee6d264226c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a762958e7ae8a3199313be855a0533fa2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a762958e7ae8a3199313be855a0533fa2">inc</a> (<a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a> &amp;s) noexcept</td></tr>
-<tr class="separator:a762958e7ae8a3199313be855a0533fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f548ed5a598a9435b3c641e45a44f2d"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a9f548ed5a598a9435b3c641e45a44f2d">dec</a> (<a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a> &amp;s) noexcept</td></tr>
-<tr class="separator:a9f548ed5a598a9435b3c641e45a44f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb9eb3524850a0be19fb71b14b2f5964"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#aeb9eb3524850a0be19fb71b14b2f5964">load</a> (<a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a> s)</td></tr>
+<tr class="separator:aeb9eb3524850a0be19fb71b14b2f5964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fc0abe269964ba19e8e3306183f3c27"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a8fc0abe269964ba19e8e3306183f3c27">inc</a> (<a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a> &amp;s) noexcept</td></tr>
+<tr class="separator:a8fc0abe269964ba19e8e3306183f3c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88fac71ee00f4992b836568f10d030bc"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a88fac71ee00f4992b836568f10d030bc">dec</a> (<a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a> &amp;s) noexcept</td></tr>
+<tr class="separator:a88fac71ee00f4992b836568f10d030bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00010">10</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00022">22</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="adf6e6a34858cb4b1db15eab4860d5550"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf6e6a34858cb4b1db15eab4860d5550">&#9670;&nbsp;</a></span>type</h2>
+<a id="a7af78e8ac86d6f3f7d6d74aad381f8d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7af78e8ac86d6f3f7d6d74aad381f8d1">&#9670;&nbsp;</a></span>counter</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a> =  size_t</td>
+          <td class="memname">using <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a> =  size_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00011">11</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00024">24</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
+
+</div>
+</div>
+<a id="a0b6c18828424ee36e583d26856a2e99c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b6c18828424ee36e583d26856a2e99c">&#9670;&nbsp;</a></span>mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a0b6c18828424ee36e583d26856a2e99c">mutex</a> =  <a class="el" href="structbad_1_1memory_1_1detail_1_1null__mutex.html">detail::null_mutex</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00023">23</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9f548ed5a598a9435b3c641e45a44f2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f548ed5a598a9435b3c641e45a44f2d">&#9670;&nbsp;</a></span>dec()</h2>
+<a id="a88fac71ee00f4992b836568f10d030bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88fac71ee00f4992b836568f10d030bc">&#9670;&nbsp;</a></span>dec()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +149,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static size_t dec </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a> &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -143,12 +161,12 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00026">26</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00039">39</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
-<a id="a762958e7ae8a3199313be855a0533fa2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a762958e7ae8a3199313be855a0533fa2">&#9670;&nbsp;</a></span>inc()</h2>
+<a id="a8fc0abe269964ba19e8e3306183f3c27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc0abe269964ba19e8e3306183f3c27">&#9670;&nbsp;</a></span>inc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,7 +177,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void inc </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a> &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -171,12 +189,12 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00019">19</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00032">32</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
-<a id="a4cdd37d16188944481fee6d264226c70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cdd37d16188944481fee6d264226c70">&#9670;&nbsp;</a></span>load()</h2>
+<a id="aeb9eb3524850a0be19fb71b14b2f5964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb9eb3524850a0be19fb71b14b2f5964">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +205,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static size_t load </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">counter</a>&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -199,12 +217,12 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00014">14</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00027">27</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>memory/<a class="el" href="counted_8hh_source.html">counted.hh</a></li>
+<li>memory/<a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

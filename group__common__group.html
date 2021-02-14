@@ -106,6 +106,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; char, cs... &gt;</td></tr>
 <tr class="memdesc:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time string as a type of <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>.  <a href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">More...</a><br /></td></tr>
 <tr class="separator:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a> = std::conditional_t&lt; std::is_rvalue_reference_v&lt; T &gt;, std::decay_t&lt; T &gt;, std::decay_t&lt; T &gt; const &amp; &gt;</td></tr>
+<tr class="memdesc:gab4141f551bdd29d9134b448aac359899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates.  <a href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">More...</a><br /></td></tr>
+<tr class="separator:gab4141f551bdd29d9134b448aac359899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga547b940e4bf10dedf229b3405db74f93"><td class="memTemplParams" colspan="2">template&lt;bool B, class T , class E &gt; </td></tr>
 <tr class="memitem:ga547b940e4bf10dedf229b3405db74f93"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">ite</a> = std::conditional_t&lt; B, T, E &gt;</td></tr>
 <tr class="memdesc:ga547b940e4bf10dedf229b3405db74f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">if-then-else  <a href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">More...</a><br /></td></tr>
@@ -136,7 +140,7 @@ Functions</h2></td></tr>
 
 <p><a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a> with type inference, so long as there is at least one argument </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00041">41</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00049">49</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -154,7 +158,7 @@ Functions</h2></td></tr>
 
 <p>inferrable <code>std::integral_constant</code>, used to encode lists as heterogenous lists </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00031">31</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00039">39</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -172,7 +176,7 @@ Functions</h2></td></tr>
 
 <p>shorthand for <code>std::integer_sequence</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00036">36</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00044">44</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -190,7 +194,7 @@ Functions</h2></td></tr>
 
 <p>if-then-else </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00088">88</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00113">113</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -209,7 +213,7 @@ Functions</h2></td></tr>
 <p>A <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>size_t</code> "sizes". </p>
 <p>used to store dimensions. a.k.a. <code>std::index_sequence</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00047">47</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00055">55</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -228,7 +232,7 @@ Functions</h2></td></tr>
 <p>A <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a> of <code>ptrdiff_t</code> "signed distances". </p>
 <p>Used to store strides. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00052">52</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00060">60</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -247,7 +251,28 @@ Functions</h2></td></tr>
 <p>A compile-time string as a type of <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>. </p>
 <p><code>char</code> is an integral type in C++. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00057">57</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00065">65</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+
+</div>
+</div>
+<a id="gab4141f551bdd29d9134b448aac359899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab4141f551bdd29d9134b448aac359899">&#9670;&nbsp;</a></span>sub_expr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a> =  std::conditional_t&lt; std::is_rvalue_reference_v&lt;T&gt;, std::decay_t&lt;T&gt;, std::decay_t&lt;T&gt; const &amp; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates. </p>
+<p>This acts as a solution to the temporary capture problem whenever we need to build a combinator that builds temporaries safely. (It arises when working with einsum, or in the recursive cases for applying pull to a sum for instance.</p>
+<p>This looks at the type passed and if it is T&amp;&amp;, we store a value, otherwise we store a reference.</p>
+<p>In this way such combinators can pass in temporaries to the expression template and we should be able to capture them automatically, correctly and safely. </p>
+
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00104">104</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>
@@ -277,7 +302,7 @@ Functions</h2></td></tr>
 
 <p>allows <code>decltype("foo"_str)</code> to return the type &lsquo;str&lt;'f&rsquo;,'o','o'&gt;` </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00073">73</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hh_source.html#l00081">81</a> of file <a class="el" href="common_8hh_source.html">common.hh</a>.</p>
 
 </div>
 </div>

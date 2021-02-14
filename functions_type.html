@@ -126,6 +126,10 @@ $(function() {
 <li>const_void_pointer
 : <a class="el" href="structbad_1_1memory_1_1aligned__allocator.html#a4ede8848f686a4a4679675d01bcf17f7">aligned_allocator&lt; T, Alignment &gt;</a>
 </li>
+<li>counter
+: <a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">atomic_policy</a>
+, <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a7af78e8ac86d6f3f7d6d74aad381f8d1">thread_unsafe_policy</a>
+</li>
 </ul>
 
 
@@ -155,7 +159,7 @@ $(function() {
 , <a class="el" href="structbad_1_1storage_1_1store_3_01_t_00_01seq_3_4_00_01sseq_3_4_01_4.html#a33a9b231ddfb4646f005bfefc76d17ee">store&lt; T, seq&lt;&gt;, sseq&lt;&gt; &gt;</a>
 </li>
 <li>element_type
-: <a class="el" href="classbad_1_1memory_1_1rc.html#ab09edc4b568d547d04da66f947f5595a">rc&lt; T &gt;</a>
+: <a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html#ab09edc4b568d547d04da66f947f5595a">intrusive_ptr&lt; T &gt;</a>
 , <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__add__expr.html#afd44a4dbfaf2b6de802d69209b8dfb99">mixed_add_expr&lt; L, R &gt;</a>
 , <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a57a1c755a4900c25e038e7b1fca01b71">mixed_mul_expr&lt; L, R &gt;</a>
 , <a class="el" href="structbad_1_1mixed__mode_1_1mixed__arg.html#ab09edc4b568d547d04da66f947f5595a">mixed_arg&lt; T, Tangents &gt;</a>
@@ -191,7 +195,19 @@ $(function() {
 
 <h3><a id="index_l"></a>- l -</h3><ul>
 <li>left_type
-: <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html#a29286905eb6757005a51a0a75a790818">store_add_expr&lt; L, R, d, ds &gt;</a>
+: <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__add__expr.html#a29286905eb6757005a51a0a75a790818">mixed_add_expr&lt; L, R &gt;</a>
+, <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#a29286905eb6757005a51a0a75a790818">mixed_mul_expr&lt; L, R &gt;</a>
+, <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html#a29286905eb6757005a51a0a75a790818">store_add_expr&lt; L, R, d, ds &gt;</a>
+</li>
+</ul>
+
+
+<h3><a id="index_m"></a>- m -</h3><ul>
+<li>measure_type
+: <a class="el" href="structbad_1_1trees_1_1link__cut.html#a48f731ee81f6cbeeb183db28e68a6f98">link_cut&lt; T &gt;</a>
+</li>
+<li>mutex
+: <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#a0b6c18828424ee36e583d26856a2e99c">thread_unsafe_policy</a>
 </li>
 </ul>
 
@@ -224,7 +240,9 @@ $(function() {
 : <a class="el" href="structbad_1_1storage_1_1detail_1_1const__store__expr__iterator.html#a35a23a0e8e13debc858c585abd0278e3">const_store_expr_iterator&lt; B, d &gt;</a>
 </li>
 <li>policy
-: <a class="el" href="structbad_1_1memory_1_1counted.html#a9b6a088184e445da3a2775e555d8f19b">counted&lt; B, Policy &gt;</a>
+: <a class="el" href="structbad_1_1memory_1_1detail_1_1weak.html#a9b6a088184e445da3a2775e555d8f19b">weak&lt; T, Policy &gt;</a>
+, <a class="el" href="structbad_1_1memory_1_1intrusive__target.html#a9b6a088184e445da3a2775e555d8f19b">intrusive_target&lt; B, Policy &gt;</a>
+, <a class="el" href="structbad_1_1memory_1_1weak__intrusive__target.html#a9b6a088184e445da3a2775e555d8f19b">weak_intrusive_target&lt; B, Policy &gt;</a>
 </li>
 </ul>
 
@@ -248,7 +266,9 @@ $(function() {
 , <a class="el" href="structbad_1_1storage_1_1store__expr.html#adb9a673a4271b497ef05158e05170942">store_expr&lt; B, d, ds &gt;</a>
 </li>
 <li>right_type
-: <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html#aa5ceef12ba1298fd207640bfc40a5f60">store_add_expr&lt; L, R, d, ds &gt;</a>
+: <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__add__expr.html#aa5ceef12ba1298fd207640bfc40a5f60">mixed_add_expr&lt; L, R &gt;</a>
+, <a class="el" href="structbad_1_1mixed__mode_1_1detail_1_1mixed__mul__expr.html#aa5ceef12ba1298fd207640bfc40a5f60">mixed_mul_expr&lt; L, R &gt;</a>
+, <a class="el" href="structbad_1_1storage_1_1detail_1_1store__add__expr.html#aa5ceef12ba1298fd207640bfc40a5f60">store_add_expr&lt; L, R, d, ds &gt;</a>
 </li>
 </ul>
 
@@ -256,6 +276,9 @@ $(function() {
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>scalar_einsum_type
 : <a class="el" href="structbad_1_1storage_1_1detail_1_1store__einsum__expr_3_01iseq_3_01_i_01_4_00_01iseq_3_01_i_00_042245e6c91ddd1ef848f5ba8b97f8b36.html#aaa960ea6be14c97f25d18e37c502aa45">store_einsum_expr&lt; iseq&lt; I &gt;, iseq&lt; I, bis... &gt;, iseq&lt; I, cis... &gt;, B, C, seq&lt;&gt; &gt;</a>
+</li>
+<li>shared_mutex
+: <a class="el" href="structbad_1_1memory_1_1atomic__policy.html#af9e100a03ae34fbc2e6f037c87d5a753">atomic_policy</a>
 </li>
 <li>size_type
 : <a class="el" href="structbad_1_1memory_1_1aligned__allocator.html#a8560ac5527cd0ed38d71e0e58acc8021">aligned_allocator&lt; T, Alignment &gt;</a>
@@ -282,10 +305,6 @@ $(function() {
 </li>
 <li>tape_t
 : <a class="el" href="structbad_1_1tapes_1_1abstract__record.html#af5cea3ef5f103ff383fe357d4086f159">abstract_record&lt; T, Act, Allocator &gt;</a>
-</li>
-<li>type
-: <a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">atomic_policy</a>
-, <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html#adf6e6a34858cb4b1db15eab4860d5550">thread_unsafe_policy</a>
 </li>
 </ul>
 

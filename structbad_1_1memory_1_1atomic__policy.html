@@ -82,45 +82,63 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="counted_8hh_source.html">counted.hh</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a28a7ce63662fc3e0e99cefb4f553abdf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> = std::atomic_size_t</td></tr>
-<tr class="separator:a28a7ce63662fc3e0e99cefb4f553abdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e100a03ae34fbc2e6f037c87d5a753"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#af9e100a03ae34fbc2e6f037c87d5a753">shared_mutex</a> = std::shared_mutex</td></tr>
+<tr class="separator:af9e100a03ae34fbc2e6f037c87d5a753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a632edfae2b778141e9269bae3f664e08"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> = std::atomic_size_t</td></tr>
+<tr class="separator:a632edfae2b778141e9269bae3f664e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a17b5434b49703db71fcabd7c558be147"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a17b5434b49703db71fcabd7c558be147">load</a> (<a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> const &amp;s)</td></tr>
-<tr class="separator:a17b5434b49703db71fcabd7c558be147"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a762958e7ae8a3199313be855a0533fa2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a762958e7ae8a3199313be855a0533fa2">inc</a> (<a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> &amp;s) noexcept</td></tr>
-<tr class="separator:a762958e7ae8a3199313be855a0533fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f548ed5a598a9435b3c641e45a44f2d"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a9f548ed5a598a9435b3c641e45a44f2d">dec</a> (<a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> &amp;s) noexcept</td></tr>
-<tr class="separator:a9f548ed5a598a9435b3c641e45a44f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67502073335c1294463a21130345dead"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a67502073335c1294463a21130345dead">load</a> (<a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> const &amp;s)</td></tr>
+<tr class="separator:a67502073335c1294463a21130345dead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fc0abe269964ba19e8e3306183f3c27"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a8fc0abe269964ba19e8e3306183f3c27">inc</a> (<a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> &amp;s) noexcept</td></tr>
+<tr class="separator:a8fc0abe269964ba19e8e3306183f3c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88fac71ee00f4992b836568f10d030bc"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a88fac71ee00f4992b836568f10d030bc">dec</a> (<a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> &amp;s) noexcept</td></tr>
+<tr class="separator:a88fac71ee00f4992b836568f10d030bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00034">34</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00047">47</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a28a7ce63662fc3e0e99cefb4f553abdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28a7ce63662fc3e0e99cefb4f553abdf">&#9670;&nbsp;</a></span>type</h2>
+<a id="a632edfae2b778141e9269bae3f664e08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a632edfae2b778141e9269bae3f664e08">&#9670;&nbsp;</a></span>counter</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> =  std::atomic_size_t</td>
+          <td class="memname">using <a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> =  std::atomic_size_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00035">35</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00049">49</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
+
+</div>
+</div>
+<a id="af9e100a03ae34fbc2e6f037c87d5a753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9e100a03ae34fbc2e6f037c87d5a753">&#9670;&nbsp;</a></span>shared_mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structbad_1_1memory_1_1atomic__policy.html#af9e100a03ae34fbc2e6f037c87d5a753">shared_mutex</a> =  std::shared_mutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00048">48</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9f548ed5a598a9435b3c641e45a44f2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f548ed5a598a9435b3c641e45a44f2d">&#9670;&nbsp;</a></span>dec()</h2>
+<a id="a88fac71ee00f4992b836568f10d030bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88fac71ee00f4992b836568f10d030bc">&#9670;&nbsp;</a></span>dec()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +149,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static size_t dec </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -143,12 +161,12 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00050">50</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00064">64</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
-<a id="a762958e7ae8a3199313be855a0533fa2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a762958e7ae8a3199313be855a0533fa2">&#9670;&nbsp;</a></span>inc()</h2>
+<a id="a8fc0abe269964ba19e8e3306183f3c27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc0abe269964ba19e8e3306183f3c27">&#9670;&nbsp;</a></span>inc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,7 +177,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static void inc </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -171,12 +189,12 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00043">43</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00057">57</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
-<a id="a17b5434b49703db71fcabd7c558be147"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17b5434b49703db71fcabd7c558be147">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a67502073335c1294463a21130345dead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67502073335c1294463a21130345dead">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +205,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">static size_t load </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a28a7ce63662fc3e0e99cefb4f553abdf">type</a> const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html#a632edfae2b778141e9269bae3f664e08">counter</a> const &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -199,12 +217,12 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="counted_8hh_source.html#l00038">38</a> of file <a class="el" href="counted_8hh_source.html">counted.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__target_8hh_source.html#l00052">52</a> of file <a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>memory/<a class="el" href="counted_8hh_source.html">counted.hh</a></li>
+<li>memory/<a class="el" href="intrusive__target_8hh_source.html">intrusive_target.hh</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -83,11 +83,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespacebad_1_1disjoint__sets"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1disjoint__sets.html">disjoint_sets</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacebad_1_1errors"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1errors.html">errors</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacebad_1_1links"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1links.html">links</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacebad_1_1memory"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html">memory</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -98,6 +94,8 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacebad_1_1storage"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1storage.html">storage</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacebad_1_1tapes"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1tapes.html">tapes</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacebad_1_1trees"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1trees.html">trees</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacebad_1_1types"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebad_1_1types.html">types</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +126,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">str</a> = <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">iseq</a>&lt; char, cs... &gt;</td></tr>
 <tr class="memdesc:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time string as a type of <a class="el" href="group__common__group.html#ga9c6b3935020833c4cdfe376e9f3c32cc">sequence</a>.  <a href="group__common__group.html#ga738b1f0fafc5155e30c800ec5587c5ff">More...</a><br /></td></tr>
 <tr class="separator:ga738b1f0fafc5155e30c800ec5587c5ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:gab4141f551bdd29d9134b448aac359899"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">sub_expr</a> = std::conditional_t&lt; std::is_rvalue_reference_v&lt; T &gt;, std::decay_t&lt; T &gt;, std::decay_t&lt; T &gt; const &amp; &gt;</td></tr>
+<tr class="memdesc:gab4141f551bdd29d9134b448aac359899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sometimes we want expression templates to store values, sometimes we want to store references inside of our expression templates.  <a href="group__common__group.html#gab4141f551bdd29d9134b448aac359899">More...</a><br /></td></tr>
+<tr class="separator:gab4141f551bdd29d9134b448aac359899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga547b940e4bf10dedf229b3405db74f93"><td class="memTemplParams" colspan="2">template&lt;bool B, class T , class E &gt; </td></tr>
 <tr class="memitem:ga547b940e4bf10dedf229b3405db74f93"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">ite</a> = std::conditional_t&lt; B, T, E &gt;</td></tr>
 <tr class="memdesc:ga547b940e4bf10dedf229b3405db74f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">if-then-else  <a href="group__common__group.html#ga547b940e4bf10dedf229b3405db74f93">More...</a><br /></td></tr>
