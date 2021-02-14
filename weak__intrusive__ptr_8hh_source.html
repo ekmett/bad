@@ -85,143 +85,183 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad_1_1memory.html">bad::memory</a> {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">   10</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> final {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">using</span> ptr = decltype(<a class="code" href="namespacebad_1_1memory.html#a7d70c3dc568c065d75c9427e0283aee6">intrusive_ptr</a>(std::declval&lt;T&gt;().make_weak()));</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ptr p;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a2d63d610763153df7dd22a66507292f0">   17</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a2d63d610763153df7dd22a66507292f0">weak_intrusive_ptr</a>() noexcept : p() {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a85e235eaceaffafe61c9ed59b6c6acd8">   20</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>(<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp;&amp; rhs) noexcept : p(std::move(rhs.p)) {}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#add9e7cb1f1c68a9763269f842c57ee78">   23</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>(<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs) noexcept : p(rhs.p) {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aef0ffc181b005b2827b6a2015e4977f2">   26</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>(T * v) noexcept : p(v ? v-&gt;make_weak() : <span class="keywordtype">nullptr</span>) {}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#acece30621dd4ecfb11fdcbd3b50ba5cb">   29</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp; operator = (<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp;&amp; rhs) noexcept {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      <span class="keyword">using</span> <a class="code" href="namespacebad_1_1memory.html#aab1612ae962eb7607dbf3cb1d0f5a336">std::swap</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <a class="code" href="namespacebad_1_1memory.html#aab1612ae962eb7607dbf3cb1d0f5a336">swap</a>(ptr(rhs.p),p);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#ad1f3da366c10857d64ef5552fde1256b">   36</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp; operator = (<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs) noexcept {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">using</span> <a class="code" href="namespacebad_1_1memory.html#aab1612ae962eb7607dbf3cb1d0f5a336">std::swap</a>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <a class="code" href="namespacebad_1_1memory.html#aab1612ae962eb7607dbf3cb1d0f5a336">swap</a>(ptr(rhs.p),p);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aa1505c1700edab2e8272ffb2fc7c43b5">   43</a></span>&#160;    <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aa1505c1700edab2e8272ffb2fc7c43b5">reclaim</a>() const noexcept {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">return</span> p ? p-&gt;reclaim() : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">   11</a></span>&#160;  <span class="keyword">struct </span>BAD(empty_bases) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> final </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  : <a class="code" href="structbad_1_1operators_1_1totally__ordered.html">totally_ordered</a>&lt;weak_intrusive_ptr&lt;T&gt;&gt;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  , <a class="code" href="structbad_1_1operators_1_1totally__ordered.html">totally_ordered</a>&lt;weak_intrusive_ptr&lt;T&gt;, intrusive_ptr&lt;T&gt;&gt;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  , <a class="code" href="structbad_1_1operators_1_1totally__ordered.html">totally_ordered</a>&lt;weak_intrusive_ptr&lt;T&gt;, T*&gt; {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">using</span> ptr = decltype(<a class="code" href="group__intrusive__group.html#ga7d70c3dc568c065d75c9427e0283aee6">intrusive_ptr</a>(std::declval&lt;T&gt;().make_weak()));</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">friend</span> std::hash&lt;weak_intrusive_ptr&lt;T&gt;&gt;;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    ptr p;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a2d63d610763153df7dd22a66507292f0">   22</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a2d63d610763153df7dd22a66507292f0">weak_intrusive_ptr</a>() noexcept : p() {}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a85e235eaceaffafe61c9ed59b6c6acd8">   25</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>(<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp;&amp; rhs) noexcept : p(std::move(rhs.p)) {}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#add9e7cb1f1c68a9763269f842c57ee78">   28</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>(<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs) noexcept : p(rhs.p) {}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aef0ffc181b005b2827b6a2015e4977f2">   31</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>(T * v) noexcept : p(v ? v-&gt;make_weak() : <span class="keywordtype">nullptr</span>) {}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#acece30621dd4ecfb11fdcbd3b50ba5cb">   34</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp; operator = (<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp;&amp; rhs) noexcept {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keyword">using</span> <a class="code" href="group__intrusive__group.html#ga69774ac6335b313eacdc4542738f337a">std::swap</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <a class="code" href="group__intrusive__group.html#gaab1612ae962eb7607dbf3cb1d0f5a336">swap</a>(ptr(rhs.p),p);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#ad1f3da366c10857d64ef5552fde1256b">   41</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp; operator = (<a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs) noexcept {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keyword">using</span> <a class="code" href="group__intrusive__group.html#ga69774ac6335b313eacdc4542738f337a">std::swap</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <a class="code" href="group__intrusive__group.html#gaab1612ae962eb7607dbf3cb1d0f5a336">swap</a>(ptr(rhs.p),p);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a82f5e7ffb7a1090ce2e7ceb40819a94c">   48</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keywordflow">return</span> lhs.p == rhs.p;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    } </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#af480802903e3562ffbd0e48d21d4e4b3">   56</a></span>&#160;    friend <span class="keywordtype">bool</span> operator != (</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">return</span> lhs.p != rhs.p;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    } </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a6407cb6f1ff59f30013c0c9c2f480101">   48</a></span>&#160;    <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp; operator = (T * rhs) noexcept {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      p = rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aa1505c1700edab2e8272ffb2fc7c43b5">   54</a></span>&#160;    <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; reclaim() const noexcept {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">return</span> p ? p-&gt;reclaim() : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,reinitializes,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a20194325f0380eb3bbc6bc6c8b2697d9">   59</a></span>&#160;    void reset() noexcept {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      p = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aab897a84d816acd5fe3818db99d778b0">   64</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) T * rhs</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <span class="keywordflow">return</span> lhs.p == (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    } </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a61305e376b6d9d8607f2ea347368d0b4">   72</a></span>&#160;    friend <span class="keywordtype">bool</span> operator != (</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) T * rhs</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      <span class="keywordflow">return</span> lhs.p != (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    } </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#af89aed8e77131945bc6adbfd84a18631">   80</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) T * lhs,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordflow">return</span> (lhs ? lhs-&gt;make_weak() : <span class="keyword">nullptr</span>) == rhs;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    } </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a35f101382907b68299a41bf4eade738e">   88</a></span>&#160;    friend <span class="keywordtype">bool</span> operator != (</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) T * lhs,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordflow">return</span> (lhs ? lhs-&gt;make_weak() : <span class="keyword">nullptr</span>) == rhs;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    } </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a89b4e085dcb9587f08aef88b4a74a276">   96</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; const &amp; rhs</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      <span class="keywordflow">return</span> lhs.p == (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    } </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a364dac3b2ece5cac3fe11e11b81681cb">  104</a></span>&#160;    friend <span class="keywordtype">bool</span> operator != (</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; const &amp; rhs</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">return</span> lhs.p != (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    } </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a365391b558f8be26d12c03a361fa33c0">  112</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; const &amp; lhs,</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordflow">return</span> (lhs ? lhs-&gt;make_weak() : <span class="keyword">nullptr</span>) == rhs;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    } </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a7a1f27f8a039a13598d8df556ea5e2c6">  120</a></span>&#160;    friend <span class="keywordtype">bool</span> operator != (</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; const &amp; lhs,</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    ) noexcept {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <span class="keywordflow">return</span> (lhs ? lhs-&gt;make_weak() : <span class="keyword">nullptr</span>) == rhs;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    } </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  };</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad.html">bad</a> {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keyword">using namespace </span>memory;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,reinitializes,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a4b521b15b22748e24849ca052b8486c1">   64</a></span>&#160;    void reset(T * rhs) noexcept {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      p = rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a82f5e7ffb7a1090ce2e7ceb40819a94c">   69</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">return</span> lhs.p == rhs.p;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    } </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aab897a84d816acd5fe3818db99d778b0">   77</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) T * rhs</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordflow">return</span> lhs.p == (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    } </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a89b4e085dcb9587f08aef88b4a74a276">   85</a></span>&#160;    friend <span class="keywordtype">bool</span> operator == (</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; const &amp; rhs</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">return</span> lhs.p == (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    } </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a71a040096007342456b826781ec1679e">   93</a></span>&#160;    friend <span class="keywordtype">bool</span> operator &lt; (</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="keywordflow">return</span> lhs.p &lt; rhs.p;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    } </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a8e0446e271fc47b75b69fc8f814bbdda">  101</a></span>&#160;    friend <span class="keywordtype">bool</span> operator &lt; (</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) T * rhs</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <span class="keywordflow">return</span> lhs.p &lt; (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    } </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a7a45f10ff260a00e3628c3343f3991d0">  109</a></span>&#160;    friend <span class="keywordtype">bool</span> operator &lt; (</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; const &amp; rhs</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordflow">return</span> lhs.p &lt; (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    } </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a227e97f1711d86b1a2e0c5cffb04cc36">  117</a></span>&#160;    friend <span class="keywordtype">bool</span> operator &gt; (</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; rhs</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <span class="keywordflow">return</span> lhs.p &gt; rhs.p;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    } </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aed85dd97f7c4be4229793abcb8ab1b5b">  125</a></span>&#160;    friend <span class="keywordtype">bool</span> operator &gt; (</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) T * rhs</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;      <span class="keywordflow">return</span> lhs.p &gt; (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    } </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>) constexpr</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#ad8c2c04a2ff5f621d562b464a54ed7c4">  133</a></span>&#160;    friend <span class="keywordtype">bool</span> operator &gt; (</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> const &amp; lhs,</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt;T&gt; const &amp; rhs</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    ) noexcept {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <span class="keywordflow">return</span> lhs.p &gt; (rhs ? rhs-&gt;make_weak() : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    } </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a56315e693788b702d59e6a113d275480">  141</a></span>&#160;    void <a class="code" href="group__intrusive__group.html#gaab1612ae962eb7607dbf3cb1d0f5a336">swap</a>(<a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a> &amp; rhs) noexcept {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <span class="keyword">using</span> <a class="code" href="group__intrusive__group.html#ga69774ac6335b313eacdc4542738f337a">std::swap</a>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      <a class="code" href="group__intrusive__group.html#gaab1612ae962eb7607dbf3cb1d0f5a336">swap</a>(p,rhs.p);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  };</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="group__intrusive__group.html#ga69774ac6335b313eacdc4542738f337a">  150</a></span>&#160;  void <a class="code" href="group__intrusive__group.html#gaab1612ae962eb7607dbf3cb1d0f5a336">swap</a>(</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>&lt;T&gt; &amp; lhs,</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="structbad_1_1memory_1_1weak__intrusive__ptr.html">weak_intrusive_ptr</a>&lt;T&gt; &amp; rhs</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  ) noexcept {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    lhs.swap(rhs);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="keyword">namespace </span>std {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01bad_1_1weak__intrusive__ptr_3_01_t_01_4_01_4.html">  161</a></span>&#160;  <span class="keyword">struct </span>BAD(empty_bases) hash&lt;<a class="code" href="namespacebad.html">bad</a>::weak_intrusive_ptr&lt;T&gt;&gt; {</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(hd,nodiscard,<span class="keyword">inline</span>)</div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01bad_1_1weak__intrusive__ptr_3_01_t_01_4_01_4.html#a8d07197b71b3eb5352cece9170fd3439">  163</a></span>&#160;    std::<span class="keywordtype">size_t</span> operator()(</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      <a class="code" href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a>(noescape) <a class="code" href="namespacebad.html">bad</a>::weak_intrusive_ptr&lt;T&gt; const &amp; p</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    ) const noexcept {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keywordflow">return</span> std::hash&lt;typename bad::weak_intrusive_ptr&lt;T&gt;::ptr&gt;{}(p.p);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  };</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebad.html">bad</a> {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <span class="keyword">using namespace </span>memory;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructbad_1_1memory_1_1weak__intrusive__ptr_html"><div class="ttname"><a href="structbad_1_1memory_1_1weak__intrusive__ptr.html">bad::memory::weak_intrusive_ptr</a></div><div class="ttdef"><b>Definition:</b> <a href="weak__intrusive__ptr_8hh_source.html#l00010">weak_intrusive_ptr.hh:10</a></div></div>
+<div class="ttc" id="astructbad_1_1memory_1_1weak__intrusive__ptr_html"><div class="ttname"><a href="structbad_1_1memory_1_1weak__intrusive__ptr.html">bad::memory::weak_intrusive_ptr</a></div><div class="ttdef"><b>Definition:</b> <a href="weak__intrusive__ptr_8hh_source.html#l00011">weak_intrusive_ptr.hh:14</a></div></div>
 <div class="ttc" id="acommon_8hh_html"><div class="ttname"><a href="common_8hh.html">common.hh</a></div><div class="ttdoc">common definitions, shared across all modules</div></div>
-<div class="ttc" id="astructbad_1_1memory_1_1weak__intrusive__ptr_html_aa1505c1700edab2e8272ffb2fc7c43b5"><div class="ttname"><a href="structbad_1_1memory_1_1weak__intrusive__ptr.html#aa1505c1700edab2e8272ffb2fc7c43b5">bad::memory::weak_intrusive_ptr::reclaim</a></div><div class="ttdeci">intrusive_ptr&lt; T &gt; reclaim() const noexcept</div><div class="ttdef"><b>Definition:</b> <a href="weak__intrusive__ptr_8hh_source.html#l00043">weak_intrusive_ptr.hh:43</a></div></div>
+<div class="ttc" id="agroup__intrusive__group_html_ga69774ac6335b313eacdc4542738f337a"><div class="ttname"><a href="group__intrusive__group.html#ga69774ac6335b313eacdc4542738f337a">bad::memory::swap</a></div><div class="ttdeci">void swap(weak_intrusive_ptr&lt; T &gt; &amp;lhs, weak_intrusive_ptr&lt; T &gt; &amp;rhs) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="weak__intrusive__ptr_8hh_source.html#l00150">weak_intrusive_ptr.hh:150</a></div></div>
+<div class="ttc" id="agroup__intrusive__group_html_ga7d70c3dc568c065d75c9427e0283aee6"><div class="ttname"><a href="group__intrusive__group.html#ga7d70c3dc568c065d75c9427e0283aee6">bad::memory::intrusive_ptr</a></div><div class="ttdeci">intrusive_ptr(T *p) -&gt; intrusive_ptr&lt; T &gt;</div></div>
 <div class="ttc" id="aintrusive__ptr_8hh_html"><div class="ttname"><a href="intrusive__ptr_8hh.html">intrusive_ptr.hh</a></div></div>
 <div class="ttc" id="anamespacebad_1_1memory_html"><div class="ttname"><a href="namespacebad_1_1memory.html">bad::memory</a></div><div class="ttdef"><b>Definition:</b> <a href="aligned__allocator_8hh_source.html#l00015">aligned_allocator.hh:15</a></div></div>
-<div class="ttc" id="astructbad_1_1memory_1_1weak__intrusive__ptr_html_a2d63d610763153df7dd22a66507292f0"><div class="ttname"><a href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a2d63d610763153df7dd22a66507292f0">bad::memory::weak_intrusive_ptr::weak_intrusive_ptr</a></div><div class="ttdeci">constexpr weak_intrusive_ptr() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="weak__intrusive__ptr_8hh_source.html#l00017">weak_intrusive_ptr.hh:17</a></div></div>
-<div class="ttc" id="anamespacebad_1_1memory_html_a7d70c3dc568c065d75c9427e0283aee6"><div class="ttname"><a href="namespacebad_1_1memory.html#a7d70c3dc568c065d75c9427e0283aee6">bad::memory::intrusive_ptr</a></div><div class="ttdeci">intrusive_ptr(T *p) -&gt; intrusive_ptr&lt; T &gt;</div></div>
+<div class="ttc" id="astructbad_1_1memory_1_1weak__intrusive__ptr_html_a2d63d610763153df7dd22a66507292f0"><div class="ttname"><a href="structbad_1_1memory_1_1weak__intrusive__ptr.html#a2d63d610763153df7dd22a66507292f0">bad::memory::weak_intrusive_ptr::weak_intrusive_ptr</a></div><div class="ttdeci">constexpr weak_intrusive_ptr() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="weak__intrusive__ptr_8hh_source.html#l00022">weak_intrusive_ptr.hh:22</a></div></div>
 <div class="ttc" id="anamespacebad_html"><div class="ttname"><a href="namespacebad.html">bad</a></div><div class="ttdoc">top level namespace</div></div>
+<div class="ttc" id="astructbad_1_1operators_1_1totally__ordered_html"><div class="ttname"><a href="structbad_1_1operators_1_1totally__ordered.html">bad::operators::totally_ordered</a></div><div class="ttdef"><b>Definition:</b> <a href="operators_8hh_source.html#l00260">operators.hh:262</a></div></div>
 <div class="ttc" id="agroup__attributes_html_ga921c6d857ac4cc70d02e85d0f3de0432"><div class="ttname"><a href="group__attributes.html#ga921c6d857ac4cc70d02e85d0f3de0432">BAD</a></div><div class="ttdeci">#define BAD(...)</div><div class="ttdoc">convenient macro for applying several attributes</div><div class="ttdef"><b>Definition:</b> <a href="attributes_8hh_source.html#l00024">attributes.hh:24</a></div></div>
-<div class="ttc" id="aclassbad_1_1memory_1_1intrusive__ptr_html"><div class="ttname"><a href="classbad_1_1memory_1_1intrusive__ptr.html">bad::memory::intrusive_ptr</a></div><div class="ttdef"><b>Definition:</b> <a href="intrusive__ptr_8hh_source.html#l00012">intrusive_ptr.hh:12</a></div></div>
-<div class="ttc" id="anamespacebad_1_1memory_html_aab1612ae962eb7607dbf3cb1d0f5a336"><div class="ttname"><a href="namespacebad_1_1memory.html#aab1612ae962eb7607dbf3cb1d0f5a336">bad::memory::swap</a></div><div class="ttdeci">void swap(intrusive_ptr&lt; T &gt; &amp;a, intrusive_ptr&lt; T &gt; &amp;b) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="intrusive__ptr_8hh_source.html#l00237">intrusive_ptr.hh:237</a></div></div>
+<div class="ttc" id="aclassbad_1_1memory_1_1intrusive__ptr_html"><div class="ttname"><a href="classbad_1_1memory_1_1intrusive__ptr.html">bad::memory::intrusive_ptr</a></div><div class="ttdoc">reference counted intrusive pointers</div><div class="ttdef"><b>Definition:</b> <a href="intrusive__ptr_8hh_source.html#l00014">intrusive_ptr.hh:16</a></div></div>
+<div class="ttc" id="agroup__intrusive__group_html_gaab1612ae962eb7607dbf3cb1d0f5a336"><div class="ttname"><a href="group__intrusive__group.html#gaab1612ae962eb7607dbf3cb1d0f5a336">bad::memory::swap</a></div><div class="ttdeci">void swap(intrusive_ptr&lt; T &gt; &amp;a, intrusive_ptr&lt; T &gt; &amp;b) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="intrusive__ptr_8hh_source.html#l00206">intrusive_ptr.hh:206</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

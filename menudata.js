@@ -153,7 +153,7 @@ var menudata={children:[
 {text:"v",url:"functions_type.html#index_v"}]},
 {text:"Related Functions",url:"functions_rela.html",children:[
 {text:"i",url:"functions_rela.html#index_i"},
-{text:"o",url:"functions_rela.html#index_o"}]}]}]},
+{text:"o",url:"functions_rela_o.html#index_o"}]}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[

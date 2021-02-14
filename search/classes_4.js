@@ -1,11 +1,19 @@
 var searchData=
 [
-  ['intrusive_5fptr_420',['intrusive_ptr',['../classbad_1_1memory_1_1intrusive__ptr.html',1,'bad::memory']]],
-  ['intrusive_5fptr_3c_20bad_3a_3amemory_3a_3adetail_3a_3aweak_3c_20b_2c_20atomic_5fpolicy_20_3e_20_3e_421',['intrusive_ptr&lt; bad::memory::detail::weak&lt; B, atomic_policy &gt; &gt;',['../classbad_1_1memory_1_1intrusive__ptr.html',1,'bad::memory']]],
-  ['intrusive_5fptr_3c_20dso_20_3e_422',['intrusive_ptr&lt; dso &gt;',['../classbad_1_1memory_1_1intrusive__ptr.html',1,'bad::memory']]],
-  ['intrusive_5fptr_3c_20lco_20_3e_423',['intrusive_ptr&lt; lco &gt;',['../classbad_1_1memory_1_1intrusive__ptr.html',1,'bad::memory']]],
-  ['intrusive_5ftarget_424',['intrusive_target',['../structbad_1_1memory_1_1intrusive__target.html',1,'bad::memory']]],
-  ['intrusive_5ftarget_3c_20lco_3c_20unit_20_3e_20_3e_425',['intrusive_target&lt; lco&lt; unit &gt; &gt;',['../structbad_1_1memory_1_1intrusive__target.html',1,'bad::memory']]],
-  ['intrusive_5ftarget_3c_20weak_3c_20b_2c_20atomic_5fpolicy_20_3e_2c_20atomic_5fpolicy_20_3e_426',['intrusive_target&lt; weak&lt; B, atomic_policy &gt;, atomic_policy &gt;',['../structbad_1_1memory_1_1intrusive__target.html',1,'bad::memory']]],
-  ['intrusive_5ftarget_3c_20weak_3c_20t_2c_20policy_20_3e_2c_20policy_20_3e_427',['intrusive_target&lt; weak&lt; T, Policy &gt;, Policy &gt;',['../structbad_1_1memory_1_1intrusive__target.html',1,'bad::memory']]]
+  ['equality_5fcomparable_548',['equality_comparable',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20detail_3a_3aweak_3c_20t_2c_20policy_20_3e_20_3e_2c_20detail_3a_3aweak_3c_20t_2c_20policy_20_3e_20_2a_20_3e_549',['equality_comparable&lt; intrusive_ptr&lt; detail::weak&lt; T, Policy &gt; &gt;, detail::weak&lt; T, Policy &gt; * &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20detail_3a_3aweak_3c_20t_2c_20policy_20_3e_20_3e_2c_20intrusive_5fptr_3c_20detail_3a_3aweak_3c_20t_2c_20policy_20_3e_20_3e_20_3e_550',['equality_comparable&lt; intrusive_ptr&lt; detail::weak&lt; T, Policy &gt; &gt;, intrusive_ptr&lt; detail::weak&lt; T, Policy &gt; &gt; &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20dso_20_3e_2c_20dso_20_2a_20_3e_551',['equality_comparable&lt; intrusive_ptr&lt; dso &gt;, dso * &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20dso_20_3e_2c_20intrusive_5fptr_3c_20dso_20_3e_20_3e_552',['equality_comparable&lt; intrusive_ptr&lt; dso &gt;, intrusive_ptr&lt; dso &gt; &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20lco_20_3e_2c_20intrusive_5fptr_3c_20lco_20_3e_20_3e_553',['equality_comparable&lt; intrusive_ptr&lt; lco &gt;, intrusive_ptr&lt; lco &gt; &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20lco_20_3e_2c_20lco_20_2a_20_3e_554',['equality_comparable&lt; intrusive_ptr&lt; lco &gt;, lco * &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20t_20_3e_2c_20intrusive_5fptr_3c_20t_20_3e_20_3e_555',['equality_comparable&lt; intrusive_ptr&lt; T &gt;, intrusive_ptr&lt; T &gt; &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20intrusive_5fptr_3c_20t_20_3e_2c_20t_20_2a_20_3e_556',['equality_comparable&lt; intrusive_ptr&lt; T &gt;, T * &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20t_20_3e_557',['equality_comparable&lt; T &gt;',['../structbad_1_1operators_1_1equality__comparable_3_01_t_01_4.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20t_2c_20t_20_3e_558',['equality_comparable&lt; T, T &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20weak_5fintrusive_5fptr_3c_20t_20_3e_2c_20intrusive_5fptr_3c_20t_20_3e_20_3e_559',['equality_comparable&lt; weak_intrusive_ptr&lt; T &gt;, intrusive_ptr&lt; T &gt; &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20weak_5fintrusive_5fptr_3c_20t_20_3e_2c_20t_20_2a_20_3e_560',['equality_comparable&lt; weak_intrusive_ptr&lt; T &gt;, T * &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equality_5fcomparable_3c_20weak_5fintrusive_5fptr_3c_20t_20_3e_2c_20weak_5fintrusive_5fptr_3c_20t_20_3e_20_3e_561',['equality_comparable&lt; weak_intrusive_ptr&lt; T &gt;, weak_intrusive_ptr&lt; T &gt; &gt;',['../structbad_1_1operators_1_1equality__comparable.html',1,'bad::operators']]],
+  ['equivalent_562',['equivalent',['../structbad_1_1operators_1_1equivalent.html',1,'bad::operators']]],
+  ['equivalent_3c_20t_20_3e_563',['equivalent&lt; T &gt;',['../structbad_1_1operators_1_1equivalent_3_01_t_01_4.html',1,'bad::operators']]]
 ];

@@ -79,11 +79,24 @@ $(function() {
 <a href="#friends">Friends</a> &#124;
 <a href="classbad_1_1memory_1_1intrusive__ptr-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">intrusive_ptr&lt; T &gt; Class Template Reference</div>  </div>
+<div class="title">intrusive_ptr&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__memory__group.html">memory</a> &raquo; <a class="el" href="group__intrusive__group.html">intrusive</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>reference counted intrusive pointers  
+ <a href="classbad_1_1memory_1_1intrusive__ptr.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for intrusive_ptr&lt; T &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classbad_1_1memory_1_1intrusive__ptr.png" usemap="#intrusive_5Fptr_3C_20T_20_3E_map" alt=""/>
+  <map id="intrusive_5Fptr_3C_20T_20_3E_map" name="intrusive_5Fptr_3C_20T_20_3E_map">
+<area href="structbad_1_1operators_1_1totally__ordered.html" alt="totally_ordered&lt; intrusive_ptr&lt; T &gt; &gt;" shape="rect" coords="0,0,250,24"/>
+<area href="structbad_1_1operators_1_1totally__ordered.html" alt="totally_ordered&lt; intrusive_ptr&lt; T &gt;, T * &gt;" shape="rect" coords="260,0,510,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -140,13 +153,26 @@ Friends</h2></td></tr>
 <tr class="memitem:ae0004efc13971afea5b6a3e1b4b58874"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
 <tr class="memitem:ae0004efc13971afea5b6a3e1b4b58874"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html#ae0004efc13971afea5b6a3e1b4b58874">intrusive_ptr</a></td></tr>
 <tr class="separator:ae0004efc13971afea5b6a3e1b4b58874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52a99154e24ee91e68d54eec3b2d8daf"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html#a52a99154e24ee91e68d54eec3b2d8daf">operator==</a> (<a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;a, <a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;b) noexcept</td></tr>
+<tr class="separator:a52a99154e24ee91e68d54eec3b2d8daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2e3a20a70b9a986e61bbe67f46107d"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html#a0a2e3a20a70b9a986e61bbe67f46107d">operator&lt;</a> (<a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;a, <a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;b) noexcept</td></tr>
+<tr class="separator:a0a2e3a20a70b9a986e61bbe67f46107d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87557e97e30c7e08cfa007517ff39763"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html#a87557e97e30c7e08cfa007517ff39763">operator&gt;</a> (<a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;a, <a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;b) noexcept</td></tr>
+<tr class="separator:a87557e97e30c7e08cfa007517ff39763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga958361ab3b9998023ddc77536086b048"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__intrusive__group.html#ga958361ab3b9998023ddc77536086b048">operator==</a> (<a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;a, T *b) noexcept</td></tr>
+<tr class="separator:ga958361ab3b9998023ddc77536086b048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga837d79b4917c8efa4abe455ec7424e0d"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__intrusive__group.html#ga837d79b4917c8efa4abe455ec7424e0d">operator&lt;</a> (<a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;a, T *b) noexcept</td></tr>
+<tr class="separator:ga837d79b4917c8efa4abe455ec7424e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87a8be4da19121e249af0eed05bb307e"><td class="memItemLeft" align="right" valign="top">constexpr friend bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__intrusive__group.html#ga87a8be4da19121e249af0eed05bb307e">operator&gt;</a> (<a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a> const &amp;a, T *b) noexcept</td></tr>
+<tr class="separator:ga87a8be4da19121e249af0eed05bb307e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class T&gt;<br />
 class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 
+<p>reference counted intrusive pointers </p>
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00012">12</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00014">14</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ab09edc4b568d547d04da66f947f5595a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab09edc4b568d547d04da66f947f5595a">&#9670;&nbsp;</a></span>element_type</h2>
@@ -160,7 +186,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00017">17</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00021">21</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -188,7 +214,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00023">23</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00027">27</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -216,7 +242,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00027">27</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00031">31</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -254,7 +280,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00033">33</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00037">37</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -282,7 +308,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00039">39</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00043">43</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -310,7 +336,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00046">46</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00050">50</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -337,7 +363,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00052">52</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00056">56</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -365,7 +391,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00114">114</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00118">118</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -392,7 +418,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00109">109</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00113">113</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -419,7 +445,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00121">121</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00125">125</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -446,7 +472,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00126">126</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00130">130</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -473,7 +499,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00097">97</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00101">101</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -500,7 +526,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00103">103</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00107">107</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -528,7 +554,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00057">57</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00061">61</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -556,7 +582,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00063">63</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00067">67</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -584,7 +610,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00070">70</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00074">74</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -612,7 +638,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00076">76</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00080">80</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -639,7 +665,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00082">82</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00086">86</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -667,7 +693,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00087">87</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00091">91</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -705,7 +731,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00092">92</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00096">96</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -733,7 +759,7 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00131">131</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00135">135</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>
@@ -758,7 +784,121 @@ class bad::memory::intrusive_ptr&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00020">20</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00024">24</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+
+</div>
+</div>
+<a id="a0a2e3a20a70b9a986e61bbe67f46107d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2e3a20a70b9a986e61bbe67f46107d">&#9670;&nbsp;</a></span>operator&lt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr friend bool operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00152">152</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+
+</div>
+</div>
+<a id="a52a99154e24ee91e68d54eec3b2d8daf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52a99154e24ee91e68d54eec3b2d8daf">&#9670;&nbsp;</a></span>operator==</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr friend bool operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00144">144</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
+
+</div>
+</div>
+<a id="a87557e97e30c7e08cfa007517ff39763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87557e97e30c7e08cfa007517ff39763">&#9670;&nbsp;</a></span>operator&gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr friend bool operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html">intrusive_ptr</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="intrusive__ptr_8hh_source.html#l00160">160</a> of file <a class="el" href="intrusive__ptr_8hh_source.html">intrusive_ptr.hh</a>.</p>
 
 </div>
 </div>

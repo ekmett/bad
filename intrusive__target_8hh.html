@@ -90,12 +90,16 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1detail_1_1null__mutex.html">null_mutex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a trivial mutex  <a href="structbad_1_1memory_1_1detail_1_1null__mutex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html">thread_unsafe_policy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">use when you aren't worried about multi-threaded access  <a href="structbad_1_1memory_1_1thread__unsafe__policy.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1atomic__policy.html">atomic_policy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">use when you are worried about multi-threaded access and need atomic reference count updates  <a href="structbad_1_1memory_1_1atomic__policy.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target&lt; B, Policy &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target&lt; T, Policy &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a valid default target for <a class="el" href="classbad_1_1memory_1_1intrusive__ptr.html" title="reference counted intrusive pointers">intrusive_ptr</a>, parameterized by the reference count maintenance policy  <a href="structbad_1_1memory_1_1intrusive__target.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -110,18 +114,18 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a4c7e5abf6b53fc82305b0d2c892d68b8"><td class="memTemplParams" colspan="2">template&lt;class B &gt; </td></tr>
-<tr class="memitem:a4c7e5abf6b53fc82305b0d2c892d68b8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html#a4c7e5abf6b53fc82305b0d2c892d68b8">thread_unsafe_intrusive_target</a> = <a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target</a>&lt; B, <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html">thread_unsafe_policy</a> &gt;</td></tr>
-<tr class="separator:a4c7e5abf6b53fc82305b0d2c892d68b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e776394cc153224b4e697c42d475e2d"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:ga0e776394cc153224b4e697c42d475e2d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__intrusive__group.html#ga0e776394cc153224b4e697c42d475e2d">thread_unsafe_intrusive_target</a> = <a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target</a>&lt; T, <a class="el" href="structbad_1_1memory_1_1thread__unsafe__policy.html">thread_unsafe_policy</a> &gt;</td></tr>
+<tr class="separator:ga0e776394cc153224b4e697c42d475e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aef99579e426dbfc1c55fb72e9c2bbeca"><td class="memTemplParams" colspan="2">template&lt;class B , class Policy &gt; </td></tr>
-<tr class="memitem:aef99579e426dbfc1c55fb72e9c2bbeca"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html#aef99579e426dbfc1c55fb72e9c2bbeca">acquire</a> (<a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target</a>&lt; B, Policy &gt; const *x) noexcept</td></tr>
-<tr class="separator:aef99579e426dbfc1c55fb72e9c2bbeca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c56c8db9aa958b6d09a2baa6549f7d3"><td class="memTemplParams" colspan="2">template&lt;class B , class Policy &gt; </td></tr>
-<tr class="memitem:a7c56c8db9aa958b6d09a2baa6549f7d3"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacebad_1_1memory.html#a7c56c8db9aa958b6d09a2baa6549f7d3">release</a> (<a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target</a>&lt; B, Policy &gt; const *x) noexcept</td></tr>
-<tr class="separator:a7c56c8db9aa958b6d09a2baa6549f7d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ebcdb33567af2b033dae1b14425dec4"><td class="memTemplParams" colspan="2">template&lt;class T , class Policy &gt; </td></tr>
+<tr class="memitem:ga6ebcdb33567af2b033dae1b14425dec4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__intrusive__group.html#ga6ebcdb33567af2b033dae1b14425dec4">acquire</a> (<a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target</a>&lt; T, Policy &gt; const *x) noexcept</td></tr>
+<tr class="separator:ga6ebcdb33567af2b033dae1b14425dec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a73e07bcfc506be1c2eb1f59c867abe"><td class="memTemplParams" colspan="2">template&lt;class T , class Policy &gt; </td></tr>
+<tr class="memitem:ga8a73e07bcfc506be1c2eb1f59c867abe"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__intrusive__group.html#ga8a73e07bcfc506be1c2eb1f59c867abe">release</a> (<a class="el" href="structbad_1_1memory_1_1intrusive__target.html">intrusive_target</a>&lt; T, Policy &gt; const *x) noexcept</td></tr>
+<tr class="separator:ga8a73e07bcfc506be1c2eb1f59c867abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

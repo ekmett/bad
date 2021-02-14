@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['errors_813',['errors',['../group__errors__group.html',1,'']]]
+  ['disjoint_20sets_1018',['disjoint sets',['../group__disjoint__sets__group.html',1,'']]]
 ];
