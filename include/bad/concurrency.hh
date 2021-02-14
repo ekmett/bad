@@ -9,7 +9,7 @@
 /// \brief concurrency primitives
 
 namespace bad::concurrency {
-  /// \ingroup concurreny_group
+  /// \ingroup concurrency_group
   /// a trivial mutex
   struct BAD(empty_bases) null_mutex {
     BAD(hd,inline,const) constexpr
