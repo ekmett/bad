@@ -6,6 +6,7 @@
 #include "bad/errors.hh"
 #include "bad/macros.hh"
 #include "bad/memory.hh"
+#include "bad/operators.hh"
 #include "bad/mixed_mode.hh"
 #include "bad/sequences.hh"
 #include "bad/storage.hh"

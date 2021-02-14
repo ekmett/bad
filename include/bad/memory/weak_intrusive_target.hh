@@ -9,20 +9,35 @@
 #include "bad/memory/weak_intrusive_ptr.hh"
 
 namespace bad::memory {
+
+  template <class T, class Policy = atomic_policy>
+  struct weak_intrusive_target;
   namespace detail {
-    // requires T extends weak_intrusive_target<T,Policy,Mutex>
+    /// \ingroup intrusive_group
+    /// \meta
     template <class T, class Policy>
     struct weak final : intrusive_target<weak<T,Policy>, Policy> {
       using policy = Policy;
+    private:
+      using policy_mutex = typename policy::mutex_type;
   
-      typename policy::mutex_type mutex;
-      T * actual; 
+      mutable policy_mutex mutex;
+      mutable T * actual; 
+
+      BAD(hd,inline)
+      weak(T * p) noexcept : mutex(), actual(p) {}
   
-      intrusive_ptr<T> reclaim() noexcept {
+    public:
+      BAD(hd,inline)
+      intrusive_ptr<T> reclaim() const noexcept {
         std::shared_lock lock(mutex);
         return actual; // bumps ref count and revives if not null
       }
   
+    private:
+      friend weak_intrusive_target<T,Policy>;
+
+      BAD(hd,inline)
       bool renounce(typename policy::type & s) noexcept {
         std::unique_lock lock(mutex);
         if (!policy::load(s)) { // nobody raced in and resurrected us
@@ -33,17 +48,18 @@ namespace bad::memory {
     };
   }
 
-  template <class B, class Policy = atomic_policy>
+  /// \ingroup intrusive_group
+  template <class T, class Policy>
   struct weak_intrusive_target {
     using policy = Policy;
 
   private:
-    intrusive_ptr<detail::weak<B,Policy>> this_;
+    intrusive_ptr<detail::weak<T,Policy>> this_;
 
-    friend weak_intrusive_ptr<B>;
+    friend weak_intrusive_ptr<T>;
 
     BAD(hd,inline)
-    detail::weak<B,Policy> * make_weak() const noexcept {
+    detail::weak<T,Policy> * make_weak() const noexcept {
       return this_.get();
     }
 
@@ -53,12 +69,12 @@ namespace bad::memory {
     BAD(hd,inline)
     weak_intrusive_target() noexcept 
     : ref_count(0)
-    , this_(new detail::weak<B,Policy>(this)) {}
+    , this_(new detail::weak<T,Policy>(this)) {}
 
     BAD(hd,inline)
     weak_intrusive_target(weak_intrusive_target const & rhs) noexcept
     : ref_count(0)
-    , this_(new detail::weak<B,Policy>(this)) {}
+    , this_(new detail::weak<T,Policy>(this)) {}
 
     BAD(hd,inline)
     weak_intrusive_target & operator = (weak_intrusive_target const & rhs) noexcept {
@@ -75,7 +91,7 @@ namespace bad::memory {
       if (0 == policy::dec(ref_count)) {
         // make sure we don't get resurrected while we clear weak refs.
         if (this_->renounce(ref_count))
-          delete static_cast<B const *>(this);
+          delete static_cast<T const *>(this);
       }
     }
 
@@ -94,9 +110,11 @@ namespace bad::memory {
     ~weak_intrusive_target() {}
   };
 
-  template <class B>
-  using thread_unsafe_weak_intrusive_target = weak_intrusive_target<B, thread_unsafe_policy>;
+  /// \ingroup intrusive_group
+  template <class T>
+  using thread_unsafe_weak_intrusive_target = weak_intrusive_target<T, thread_unsafe_policy>;
 
+  /// \ingroup intrusive_group
   template <class T, class Policy>
   BAD(hd,inline)
   void acquire(
@@ -106,6 +124,7 @@ namespace bad::memory {
     x->acquire();
   }
 
+  /// \ingroup intrusive_group
   template <class T, class Policy>
   BAD(hd,inline)
   void release(

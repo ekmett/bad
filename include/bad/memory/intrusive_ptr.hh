@@ -4,12 +4,16 @@
 #include <iosfwd>
 
 #include "bad/attributes.hh"
+#include "bad/operators.hh"
 
 namespace bad::memory {
 
-  // reference counted intrusive pointers
+  /// reference counted intrusive pointers
+  /// \ingroup intrusive_group
   template <class T>
-  class intrusive_ptr {
+  class BAD(empty_bases) intrusive_ptr
+  : totally_ordered<intrusive_ptr<T>>
+  , totally_ordered<intrusive_ptr<T>, T*> {
     T * p;
 
   public:
@@ -135,103 +139,68 @@ namespace bad::memory {
       p = rhs.p;
       rhs.p = t;
     }
+
+    BAD(hd,nodiscard,inline) constexpr
+    friend bool operator == (
+      BAD(noescape) intrusive_ptr const & a,
+      BAD(noescape) intrusive_ptr const & b
+    ) noexcept {
+      return a.get() == b.get();
+    }
+
+    BAD(hd,nodiscard,inline) constexpr
+    friend bool operator < (
+      BAD(noescape) intrusive_ptr const & a,
+      BAD(noescape) intrusive_ptr const & b
+    ) noexcept {
+      return a.get() < b.get();
+    }
+
+    BAD(hd,nodiscard,inline) constexpr
+    friend bool operator > (
+      BAD(noescape) intrusive_ptr const & a,
+      BAD(noescape) intrusive_ptr const & b
+    ) noexcept {
+      return a.get() > b.get();
+    }
+
+    /// \ingroup intrusive_group
+    BAD(hd,nodiscard,inline) constexpr
+    friend bool operator == (
+      BAD(noescape) intrusive_ptr const & a,
+      BAD(noescape) T * b
+    ) noexcept {
+      return a.get() == b;
+    }
+
+    /// \ingroup intrusive_group
+    BAD(hd,nodiscard,inline) constexpr
+    friend bool operator<(
+      BAD(noescape) intrusive_ptr const & a,
+      BAD(noescape) T * b
+    ) noexcept {
+      return a.get() < b;
+    }
+
+    /// \ingroup intrusive_group
+    BAD(hd,nodiscard,inline) constexpr
+    friend bool operator>(
+      BAD(noescape) intrusive_ptr const & a,
+      BAD(noescape) T * b
+    ) noexcept {
+      return a.get() > b;
+    }
   };
 
   // CTAD guides
+  /// \ingroup intrusive_group
   template <class T> intrusive_ptr(T * p) -> intrusive_ptr<T>;
+  /// \ingroup intrusive_group
   template <class T> intrusive_ptr(intrusive_ptr<T> const & p) -> intrusive_ptr<T>;
+  /// \ingroup intrusive_group
   template <class T> intrusive_ptr(intrusive_ptr<T> && p) -> intrusive_ptr<T>;
 
-  template <class T, class U>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator==(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) intrusive_ptr<U> const & b
-  ) noexcept {
-    return a.get() == b.get();
-  }
-
-  template <class T, class U>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator!=(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) intrusive_ptr<U> const & b
-  ) noexcept {
-    return a.get() != b.get();
-  }
-
-  template <class T>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator==(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) T * b
-  ) noexcept {
-    return a.get() == b;
-  }
-
-  template <class T>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator!=(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) T * b
-  ) noexcept {
-    return a.get() != b;
-  }
-
-  template <class T>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator==(
-    BAD(noescape) T * a,
-    BAD(noescape) intrusive_ptr<T> const & b
-  ) noexcept {
-    return a == b.get();
-  }
-
-  template <class T>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator!=(
-    BAD(noescape) T * a,
-    BAD(noescape) intrusive_ptr<T> const & b
-  ) noexcept {
-    return a != b.get();
-  }
-
-  template <class T, class U>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator<(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) intrusive_ptr<U> const & b
-  ) noexcept {
-    return a.get() < b.get();
-  }
-
-  template <class T, class U>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator>(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) intrusive_ptr<U> const & b
-  ) noexcept {
-    return a.get() > b.get();
-  }
-
-  template <class T, class U>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator<=(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) intrusive_ptr<U> const & b
-  ) noexcept {
-    return a.get() <= b.get();
-  }
-
-  template <class T, class U>
-  BAD(hd,nodiscard,inline) constexpr
-  bool operator>=(
-    BAD(noescape) intrusive_ptr<T> const & a,
-    BAD(noescape) intrusive_ptr<U> const & b
-  ) noexcept {
-    return a.get() >= b.get();
-  }
-
+  /// \ingroup intrusive_group
   template <class T>
   BAD(hd,inline)
   void swap(
@@ -241,12 +210,14 @@ namespace bad::memory {
     a.swap(b);
   }
 
+  /// \ingroup intrusive_group
   template <class T>
   BAD(hd,nodiscard,inline) constexpr
   T * get_pointer(intrusive_ptr<T> const & p) noexcept {
     return p.get();
   }
 
+  /// \ingroup intrusive_group
   template <class T, class U>
   BAD(hd,nodiscard,inline) constexpr
   intrusive_ptr<T> static_pointer_cast(
@@ -255,6 +226,7 @@ namespace bad::memory {
     return static_cast<T *>(p.get());
   }
 
+  /// \ingroup intrusive_group
   template <class T, class U>
   BAD(hd,nodiscard,inline) constexpr
   intrusive_ptr<T> const_pointer_cast(
@@ -263,6 +235,7 @@ namespace bad::memory {
     return const_cast<T *>(p.get());
   }
 
+  /// \ingroup intrusive_group
   template <class T, class U>
   BAD(hd,nodiscard,inline)
   intrusive_ptr<T> dynamic_pointer_cast(
@@ -271,6 +244,7 @@ namespace bad::memory {
     return dynamic_cast<T *>(p.get());
   }
 
+  /// \ingroup intrusive_group
   template <class E, class T, class Y>
   std::basic_ostream<E, T> & operator<<(
     std::basic_ostream<E, T> & os,
@@ -282,6 +256,7 @@ namespace bad::memory {
 }
 
 namespace std {
+  /// \ingroup intrusive_group
   template <class T>
   struct BAD(empty_bases) hash<bad::intrusive_ptr<T>> {
     BAD(hd,nodiscard,inline)

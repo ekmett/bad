@@ -14,4 +14,12 @@
 /// \defgroup memory_group memory
 /// \brief memory allocation
 
+/// \defgroup intrusive_group intrusive
+/// \ingroup memory_group
+/// \brief intrusive pointers 
+
+/// \defgroup allocation_group allocation
+/// \ingroup memory_group
+/// \brief memory allocation
+
 #endif

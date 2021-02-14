@@ -7,6 +7,8 @@
 namespace bad::memory {
 
   namespace detail {
+    /// \ingroup intrusive_group
+    /// a trivial mutex
     struct BAD(empty_bases) null_mutex {
       void lock() {}
       void unlock() {}
@@ -19,6 +21,8 @@ namespace bad::memory {
 
   // TODO: incorporate an allocator into the policy so we can free on the gpu, etc.
 
+  /// \ingroup intrusive_group
+  /// use when you aren't worried about multi-threaded access
   struct BAD(empty_bases) thread_unsafe_policy {
     using mutex = detail::null_mutex;
     using counter = size_t;
@@ -43,7 +47,8 @@ namespace bad::memory {
     }
   };
 
-  // this will probably have to be hacked up to work with cuda as std::atomic and cuda::atomic are separate beasts
+  /// \ingroup intrusive_group
+  /// use when you are worried about multi-threaded access and need atomic reference count updates
   struct BAD(empty_bases) atomic_policy {
     using shared_mutex = std::shared_mutex; // used by weak_intrusive_target;
     using counter = std::atomic_size_t;
@@ -68,7 +73,9 @@ namespace bad::memory {
     }
   };
 
-  template <class B, class Policy = atomic_policy>
+  /// \ingroup intrusive_group
+  /// a valid default target for intrusive_ptr, parameterized by the reference count maintenance policy
+  template <class T, class Policy = atomic_policy>
   struct intrusive_target {
     using policy = Policy;
 
@@ -107,23 +114,26 @@ namespace bad::memory {
     BAD(hd,inline)
     void release() const noexcept {
       if (policy::dec(ref_count) == 0)
-        delete static_cast<B const *>(this);
+        delete static_cast<T const *>(this);
     }
   };
 
-  template <class B>
-  using thread_unsafe_intrusive_target = intrusive_target<B,thread_unsafe_policy>;
+  /// \ingroup intrusive_group
+  template <class T>
+  using thread_unsafe_intrusive_target = intrusive_target<T,thread_unsafe_policy>;
 
-  template <class B, class Policy>
+  /// \ingroup intrusive_group
+  template <class T, class Policy>
   BAD(hd,inline)
-  void acquire(intrusive_target<B,Policy> const * x) noexcept {
+  void acquire(intrusive_target<T,Policy> const * x) noexcept {
     assert(x);
     x->acquire();
   }
 
-  template <class B, class Policy>
+  /// \ingroup intrusive_group
+  template <class T, class Policy>
   BAD(hd,inline)
-  void release(intrusive_target<B,Policy> const * x) noexcept {
+  void release(intrusive_target<T,Policy> const * x) noexcept {
     assert(x);
     x->release();
   }
@@ -131,7 +141,6 @@ namespace bad::memory {
 
 namespace bad {
   using namespace bad::memory;
-
 }
 
 #endif
