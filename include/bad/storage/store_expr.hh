@@ -272,7 +272,7 @@ namespace bad::storage {
       sub_expr<R> r;
 
       BAD(hd,nodiscard,inline,pure)
-      auto operator[](BAD(maybe_unused) size_t i) const noexcept {
+      auto operator[](size_t i) const noexcept {
         return l[i] + r[i];
       }
 

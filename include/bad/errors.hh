@@ -32,6 +32,7 @@ namespace bad::errors {
   /// \ingroup errors_group
   template <class T>
   constexpr bool no = detail::no_<T>::value;
+
 }
 
 namespace bad {

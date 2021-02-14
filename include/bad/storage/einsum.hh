@@ -81,7 +81,7 @@ namespace bad::storage::detail {
         std::add_rvalue_reference_t<decltype(bi)>,
         std::add_rvalue_reference_t<decltype(ci)>,
         seq<ads...>
-      >(bi,ci);
+      >(std::move(bi),std::move(ci));
     }
     // TODO: implement the rest of the store_expr api
   };

@@ -691,8 +691,8 @@ namespace bad::sequences {
   static constexpr bool seq_compat = detail::seq_compat_<L,R,make_seq<std::min(seq_length<L>,seq_length<R>)>>::value;
 
   namespace detail {
-  /// \meta
-  template <class S>
+    /// \meta
+    template <class S>
     struct seq_for {
      static_assert(no<S>,"seq_for: not a sequence");
     };

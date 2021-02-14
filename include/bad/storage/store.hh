@@ -596,7 +596,7 @@ namespace bad::storage {
   store(const T &) -> store<T,seq<>,sseq<>>;
 
   // CTAD
-
+ 
   /// copy stride if copying from another store
   /// \ingroup storage_group
   template <class T, class dim, class stride>

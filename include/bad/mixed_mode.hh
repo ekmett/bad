@@ -467,13 +467,6 @@ namespace bad::mixed_mode {
 
       element_type p; ///< cached primal
 
-      BAD(hd,inline) constexpr
-      mixed_add_expr(
-        BAD(lifetimebound) L const & l,
-        BAD(lifetimebound) R const & r
-      ) noexcept
-      : lhs(l),rhs(r), p(lhs.primal() + rhs.primal()) {}
-
       // cached primals
       BAD(hd,nodiscard,inline) constexpr
       element_type primal() const noexcept {
@@ -535,8 +528,8 @@ namespace bad::mixed_mode {
   template <class L, class R>
   BAD(hd,nodiscard,inline,flatten) constexpr
   auto operator + (
-    BAD(noescape) mixed_expr<L> const & l,
-    BAD(noescape) mixed_expr<R> const & r
+    BAD(noescape) mixed_expr<L> && l,
+    BAD(noescape) mixed_expr<R> && r
   ) -> detail::mixed_add_expr<L&&,R&&> {
     return { {}, l.me(), r.me(), l.primal() + r.primal() };
   }
