@@ -1,7 +1,9 @@
 #ifndef BAD_STORAGE_EINSUM_HH
 #define BAD_STORAGE_EINSUM_HH
 
-#include "store_expr.hh"
+#include "bad/common.hh"
+#include "bad/sequences.hh"
+#include "bad/storage/store_expr.hh"
 
 /// \file
 /// \brief storage einsum impl

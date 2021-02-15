@@ -2,12 +2,13 @@
 #define BAD_TREES_LINK_CUT_HH
 
 #include "bad/memory.hh"
+#include "bad/operators.hh"
 
 /// \file
 /// link cut trees
 ///
 /// \defgroup link_cut_group link-cut trees
-/// \ingroup trees_group 
+/// \ingroup trees_group
 /// link cut trees
 
 namespace bad::trees {
@@ -34,7 +35,7 @@ namespace bad::trees {
     /// \ingroup link_cut_groups
     /// \meta
     /// requires `U = measure(T)`, `U()`, `U = U + U` for some type U
-   
+
     // TODO: parameterize on policy?
     template <class T = unit>
     struct lco final : intrusive_target<lco<T>> {
@@ -303,7 +304,8 @@ namespace bad::trees {
   /// \ingroup link_cut_group
   /// link-cut trees
   template <class T>
-  struct link_cut final {
+  struct BAD(empty_bases) link_cut final
+  : equality_comparable<link_cut<T>> {
   private:
     using lco = detail::lco<T>;
     intrusive_ptr<lco> p;
@@ -390,14 +392,6 @@ namespace bad::trees {
       BAD(noescape) link_cut const & rhs
     ) noexcept {
       return lhs.p == rhs.p;
-    }
-
-    BAD(hd,inline)
-    friend bool operator != (
-      BAD(noescape) link_cut const & lhs,
-      BAD(noescape) link_cut const & rhs
-    ) noexcept {
-      return lhs.p != rhs.p;
     }
   };
 

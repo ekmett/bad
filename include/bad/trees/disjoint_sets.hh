@@ -5,6 +5,7 @@
 #include <utility>
 
 #include "bad/common.hh"
+#include "bad/operators.hh"
 #include "bad/attributes.hh"
 #include "bad/memory.hh"
 
@@ -46,7 +47,8 @@ namespace bad::trees {
   /// The current implementation uses Tarjan-style path-halving and union-by-rank
   /// carried values are merged with `T += T`
   template <class T>
-  struct disjoint final {
+  struct BAD(empty_bases) disjoint final
+  : equality_comparable<disjoint<T>> {
   private:
     using dso = detail::dso<T>;
     using root = detail::root<T>;
@@ -118,15 +120,6 @@ namespace bad::trees {
       BAD(noescape) disjoint const & rhs
     ) noexcept {
       return &lhs.find() == &rhs.find();
-    }
-
-    /// do these two disjoint sets not share the same root?
-    BAD(hd,inline) constexpr
-    friend bool operator != (
-      BAD(noescape) disjoint const & lhs,
-      BAD(noescape) disjoint const & rhs
-    ) noexcept {
-      return &lhs.find() != &rhs.find();
     }
 
   private:
