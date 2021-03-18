@@ -1,6 +1,7 @@
 #ifndef BAD_POINTERS_INTRUSIVE_POLICY_HH
 #define BAD_POINTERS_INTRUSIVE_POLICY_HH
 
+#include <atomic>
 #include <shared_mutex>
 #include "bad/common.hh"
 #include "bad/concurrency.hh"

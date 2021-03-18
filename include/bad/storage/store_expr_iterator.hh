@@ -117,13 +117,13 @@ namespace bad::storage::detail {
     }
 
     BAD(hd,inline,noalias)
-    const_store_expr_iterator & operator +=(ptrdiff_t rhs) const noexcept {
+    const_store_expr_iterator & operator +=(ptrdiff_t rhs) noexcept {
       i += rhs;
       return *this;
     }
 
     BAD(hd,inline,noalias)
-    const_store_expr_iterator & operator -=(ptrdiff_t rhs) const noexcept {
+    const_store_expr_iterator & operator -=(ptrdiff_t rhs) noexcept {
       i -= rhs;
       return *this;
     }
@@ -268,13 +268,13 @@ namespace bad::storage::detail {
     }
 
     BAD(hd,inline,noalias)
-    store_expr_iterator & operator +=(ptrdiff_t rhs) const noexcept {
+    store_expr_iterator & operator +=(ptrdiff_t rhs) noexcept {
       i += rhs;
       return *this;
     }
 
     BAD(hd,inline,noalias)
-    store_expr_iterator & operator -=(ptrdiff_t rhs) const noexcept {
+    store_expr_iterator & operator -=(ptrdiff_t rhs) noexcept {
       i -= rhs;
       return *this;
     }

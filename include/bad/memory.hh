@@ -1,6 +1,7 @@
 #ifndef BAD_MEMORY_HH
 #define BAD_MEMORY_HH
 
+#include <cassert>
 #include <cstdint>
 #include <limits>
 #include <type_traits>
